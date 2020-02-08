@@ -11,7 +11,8 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
+*.
+!libs/gson*.jar
 *.war
 *.nar
 *.ear
