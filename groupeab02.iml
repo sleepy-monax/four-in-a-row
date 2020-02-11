@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="gson-2.8.6" level="project" />
+    <orderEntry type="library" name="pnet-1.5.10" level="project" />
   </component>
 </module>
