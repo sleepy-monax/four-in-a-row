@@ -10,9 +10,9 @@ import java.nio.charset.StandardCharsets;
 public class Serialization {
     static <T> void writeToJsonFile(String path, T object) {
         try (
-                Writer out = new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8);
+                Writer out = new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8)
         ) {
-             new GsonBuilder()
+            new GsonBuilder()
                     .disableHtmlEscaping()
                     .create()
                     .toJson(object, out);
@@ -26,7 +26,7 @@ public class Serialization {
 
         try (
                 Reader in = new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8);
-                JsonReader reader = new JsonReader(in);
+                JsonReader reader = new JsonReader(in)
         ) {
             Gson gson = new Gson();
             object = gson.fromJson(reader, class_name);
