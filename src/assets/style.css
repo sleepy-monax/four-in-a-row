@@ -1,0 +1,5 @@
+#background {
+    -fx-background-image: url("background.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
