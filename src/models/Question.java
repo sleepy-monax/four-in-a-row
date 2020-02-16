@@ -26,7 +26,7 @@ public class Question {
         this.author = author;
     }
 
-    public void ajouterClues(String a) {
+    public void addClues(String a) {
         if (clues.size() <= 3) {
             if (!clues.contains(a)) {
                 clues.add(a);
@@ -34,18 +34,10 @@ public class Question {
         }
     }
 
-    public void supprimerClues(String a) {
+    public void removeClues(String a) {
         if (clues.contains(a)) {
             clues.remove(a);
         }
-    }
-
-    public boolean updateQuestions(Question q1, Question q2) throws CloneNotSupportedException {
-            /*if (clues.contains(q1) && !clues.contains(q2)) {
-                clues.set(clues.indexOf(q1),q2);
-                return true;
-            }*/
-        return false;
     }
 
     public String getTheme() {
@@ -68,11 +60,11 @@ public class Question {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Question questions = (Question) o;
-        return Objects.equals(author, questions.author) &&
-                Objects.equals(clues, questions.clues) &&
-                Objects.equals(theme, questions.theme) &&
-                Objects.equals(answer, questions.answer);
+        Question question = (Question) o;
+        return Objects.equals(author, question.author) &&
+                Objects.equals(clues, question.clues) &&
+                Objects.equals(theme, question.theme) &&
+                Objects.equals(answer, question.answer);
     }
 
     @Override
@@ -93,7 +85,7 @@ public class Question {
     public Question clone() {
         Question q = new Question(author, theme, answer);
         for (int i = 0; i < clues.size(); i++) {
-            q.ajouterClues(clues.get(i));
+            q.addClues(clues.get(i));
         }
         return q;
     }

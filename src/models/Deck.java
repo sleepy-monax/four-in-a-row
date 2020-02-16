@@ -1,4 +1,4 @@
-package modele;
+package models;
 
 import models.Question;
 
@@ -14,7 +14,7 @@ public class Deck {
         lesquestions = new ArrayList<>();
     }
 
-    public void ajouterQuestion(Question q) throws CloneNotSupportedException {
+    public void addQuestion(Question q) throws CloneNotSupportedException {
         if (!lesquestions.contains(q)){
             System.out.println("ajout commencé");
             lesquestions.add((Question) q.clone());
@@ -22,10 +22,19 @@ public class Deck {
         }
     }
 
-    public void supprimerQuestion(Question questions){
+    public void removeQuestion(Question questions){
         if (lesquestions.contains(questions)){
             lesquestions.remove(questions);
         }
+    }
+
+    public boolean updateQuestions(Question q1, Question q2) throws CloneNotSupportedException {
+        if (lesquestions.contains(q1) && !lesquestions.contains(q2)) {
+            lesquestions.remove(q1);
+            lesquestions.add(q2.clone());
+            return true;
+        }
+        return false;
     }
 
     @Override
