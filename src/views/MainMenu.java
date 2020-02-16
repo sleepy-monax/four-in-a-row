@@ -22,8 +22,8 @@ public class MainMenu extends HBox {
 
 
         root.getChildren().add(logo);
-        root.getChildren().add(Widgets.makeButton("Singleplayer"));
-        root.getChildren().add(Widgets.makeButton("Multiplayer"));
+        root.getChildren().add(Widgets.makeBigButton("Singleplayer"));
+        root.getChildren().add(Widgets.makeBigButton("Multiplayer"));
 
         setFillHeight(true);
         getChildren().add(root);

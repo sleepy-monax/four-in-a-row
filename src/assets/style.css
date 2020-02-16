@@ -3,6 +3,11 @@
     src: url('roboto.ttf');
 }
 
+@font-face {
+    font-family: candice;
+    src: url('candice.ttf');
+}
+
 #background {
     -fx-background-image: url("background.png");
     -fx-background-repeat: no-repeat;
@@ -32,5 +37,37 @@
     -fx-border-radius: 16;
     -fx-border-width: 2;
 
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0.25, 0.0, 4.0);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
 }
+
+.big-button{
+    -fx-pref-height: 48;
+
+    -fx-text-fill: white;
+    -fx-font-family: 'roboto';
+    -fx-font-size: 18;
+
+    -fx-background-radius: 32;
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%,  #64A4FF, #0149AF);
+
+    -fx-border-color: linear-gradient(from 50% 0% to 50% 100%,  #FFF612, #FFB100);
+    -fx-border-radius: 32;
+    -fx-border-width: 2;
+
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
+}
+
+.big-button-orb{
+    -fx-pref-height: 72;
+    -fx-pref-width: 72;
+
+    -fx-background-radius: 36;
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%,  #000000, #434343);
+
+    -fx-border-color: linear-gradient(from 50% 0% to 50% 100%,  #ffffff, #757575);
+    -fx-border-radius: 36;
+    -fx-border-width: 8;
+
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
+}
+
