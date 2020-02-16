@@ -1,5 +1,36 @@
+@font-face {
+    font-family: roboto;
+    src: url('roboto.ttf');
+}
+
 #background {
     -fx-background-image: url("background.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
+}
+
+#logo {
+    -fx-background-image: url("logo.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-pref-width: 436;
+    -fx-pref-height: 235;
+}
+
+.button {
+    -fx-pref-height: 32;
+    -fx-padding: 0 16;
+
+    -fx-text-fill: white;
+    -fx-font-family: 'roboto';
+    -fx-font-size: 14;
+
+    -fx-background-radius: 16;
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%,  #64A4FF, #0149AF);
+
+    -fx-border-color: linear-gradient(from 50% 0% to 50% 100%,  #FFF612, #FFB100);
+    -fx-border-radius: 16;
+    -fx-border-width: 2;
+
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0.25, 0.0, 4.0);
 }

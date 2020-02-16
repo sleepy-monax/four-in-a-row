@@ -1,9 +1,10 @@
 package views;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class MainMenu extends HBox {
@@ -12,10 +13,17 @@ public class MainMenu extends HBox {
         this.setAlignment(Pos.CENTER);
         this.setId("background");
 
-        VBox root = new VBox();
-        root.setPrefWidth(840);
+        VBox root = new VBox(16);
+        root.setAlignment(Pos.CENTER);
+        root.setPadding(new Insets( 64));
 
-        root.getChildren().add(new ImageView(new Image("assets/logo.png")));
+        Pane logo = new Pane();
+        logo.setId("logo");
+
+
+        root.getChildren().add(logo);
+        root.getChildren().add(Widgets.makeButton("Singleplayer"));
+        root.getChildren().add(Widgets.makeButton("Multiplayer"));
 
         setFillHeight(true);
         getChildren().add(root);
