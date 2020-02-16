@@ -71,3 +71,17 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
 }
 
+.orb-button {
+    -fx-pref-height: 48;
+    -fx-pref-width: 48;
+
+    -fx-background-radius: 24;
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%,  #64A4FF, #0149AF);
+
+    -fx-border-color: linear-gradient(from 50% 0% to 50% 100%,  #FFF612, #FFB100);
+    -fx-border-radius: 24;
+    -fx-border-width: 2;
+
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
+}
+

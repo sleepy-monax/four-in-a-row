@@ -16,8 +16,11 @@ public class Main extends Application {
         scene.getStylesheets().addAll("assets/style.css");
 
         primaryStage.setTitle("Four in a Row");
+
         primaryStage.setWidth(800);
         primaryStage.setHeight(600);
+        primaryStage.setMinWidth(800);
+        primaryStage.setMinHeight(600);
 
         primaryStage.setScene(scene);
         primaryStage.show();

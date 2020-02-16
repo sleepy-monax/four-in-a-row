@@ -23,17 +23,16 @@ public final class Widgets {
         return button;
     }
 
-    public static Parent makeBigButton(String text)
+    public static Pane makeBigButton(String text)
     {
         AnchorPane button = new AnchorPane();
-        button.setPadding(new Insets(0, 72, 0, 72));
 
         Label label = new Label(text);
         label.setAlignment(Pos.CENTER);
         label.getStyleClass().add("big-button");
         AnchorPane.setBottomAnchor(label, 12.0);
         AnchorPane.setTopAnchor(label, 12.0);
-        AnchorPane.setLeftAnchor(label, 12.0);
+        AnchorPane.setLeftAnchor(label, 36.0);
         AnchorPane.setRightAnchor(label, 12.0);
 
 
@@ -44,6 +43,15 @@ public final class Widgets {
         AnchorPane.setLeftAnchor(orb, 0.0);
 
         button.getChildren().addAll(label, orb);
+
+        return button;
+    }
+
+    public static Pane makeOrbButton()
+    {
+        Pane button = new Pane();
+
+        button.getStyleClass().add("orb-button");
 
         return button;
     }
