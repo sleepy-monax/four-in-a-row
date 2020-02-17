@@ -1,9 +1,15 @@
 package utils;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import views.SplashScreen;
 
 public class Main extends Application {
@@ -14,13 +20,25 @@ public class Main extends Application {
     }
 
     public static void switchScene(Parent root) {
-        Scene scene = new Scene(root);
-        scene.getStylesheets().addAll("assets/style.css");
-        stage.setScene(scene);
+        Parent oldroot = stage.getScene().getRoot();
+
+        stage.getScene().setRoot(new StackPane(oldroot, root));
+
+        FadeTransition fading = new FadeTransition();
+
+        fading.setFromValue(0);
+        fading.setToValue(1);
+        fading.setNode(root);
+        fading.setDuration(Duration.seconds(0.25));
+
+        fading.setOnFinished(actionEvent -> {
+            stage.getScene().setRoot(new StackPane(root));
+        });
+
+        fading.play();
     }
 
-    public static void quit()
-    {
+    public static void quit() {
         stage.close();
     }
 
@@ -34,6 +52,10 @@ public class Main extends Application {
         primaryStage.setHeight(600);
         primaryStage.setMinWidth(800);
         primaryStage.setMinHeight(600);
+
+        Scene scene = new Scene(new Pane());
+        scene.getStylesheets().addAll("assets/style.css");
+        primaryStage.setScene(scene);
 
         switchScene(new SplashScreen());
         primaryStage.show();
