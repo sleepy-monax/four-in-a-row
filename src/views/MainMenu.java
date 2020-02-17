@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import utils.Main;
 
 public class MainMenu extends HBox {
     public MainMenu()
@@ -23,7 +24,9 @@ public class MainMenu extends HBox {
 
         Pane orbScores = Widgets.makeOrbButton("assets/score.png");
         Pane orbSettings= Widgets.makeOrbButton("assets/settings.png");
+
         Pane orbQuit= Widgets.makeOrbButton("assets/close.png");
+        orbQuit.setOnMouseClicked(mouseEvent -> Main.quit());
 
         HBox orbContainer = new HBox(16, orbScores, orbSettings, orbQuit);
         orbContainer.setAlignment(Pos.CENTER);

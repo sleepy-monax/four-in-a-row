@@ -18,8 +18,10 @@
     -fx-background-image: url("logo.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
-    -fx-pref-width: 436;
-    -fx-pref-height: 235;
+    -fx-min-width: 436;
+    -fx-min-height: 235;
+    -fx-max-width: 436;
+    -fx-max-height: 235;
 }
 
 .button {
