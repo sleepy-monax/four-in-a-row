@@ -21,7 +21,7 @@ public class SplashScreen extends StackPane {
 
         this.setOnKeyTyped(keyEvent -> Main.switchScene(new MainMenu()));
         button.setOnAction(actionEvent -> Main.switchScene(new MainMenu()));
-        
+
         this.getChildren().addAll(logo, button);
     }
 }
