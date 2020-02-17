@@ -4,15 +4,13 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import utils.Main;
 
-public class MainMenu extends HBox {
+public class MainMenu extends StackPane {
     public MainMenu()
     {
-        this.setAlignment(Pos.CENTER);
-        this.setId("background");
-
         Pane logo = new Pane();
         logo.setId("logo");
 
@@ -24,20 +22,25 @@ public class MainMenu extends HBox {
 
         Pane orbScores = Widgets.makeOrbButton("assets/score.png");
         Pane orbSettings= Widgets.makeOrbButton("assets/settings.png");
-
         Pane orbQuit= Widgets.makeOrbButton("assets/close.png");
-        orbQuit.setOnMouseClicked(mouseEvent -> Main.quit());
+
+        VBox menuContainer = new VBox(16);
+        menuContainer.setAlignment(Pos.CENTER);
+        menuContainer.getChildren().addAll(logo, singleplayerButton, multiplayerButton);
+        menuContainer.setMaxWidth(436);
 
         HBox orbContainer = new HBox(16, orbScores, orbSettings, orbQuit);
         orbContainer.setAlignment(Pos.CENTER);
         orbContainer.setPrefHeight(48);
+        orbContainer.setMaxHeight(48);
+        StackPane.setAlignment(orbContainer, Pos.BOTTOM_CENTER);
 
-        VBox root = new VBox(16);
-        root.setAlignment(Pos.CENTER);
+        this.setAlignment(Pos.CENTER);
+        this.setId("background");
+        this.setPadding(new Insets(32));
+        this.getChildren().addAll(menuContainer ,orbContainer);
 
-        root.getChildren().addAll(logo, singleplayerButton, multiplayerButton, orbContainer);
-
-        setFillHeight(true);
-        getChildren().add(root);
+        multiplayerButton.setOnMouseClicked(mouseEvent -> Main.switchScene(new MultiplayerSelect()));
+        orbQuit.setOnMouseClicked(mouseEvent -> Main.quit());
     }
 }
