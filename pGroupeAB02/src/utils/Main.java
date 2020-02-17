@@ -1,9 +1,11 @@
 package utils;
 
 import javafx.application.Application;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import views.MainMenu;
 import views.SplashScreen;
 
 public class Main extends Application {
@@ -35,7 +37,7 @@ public class Main extends Application {
         primaryStage.setMinWidth(800);
         primaryStage.setMinHeight(600);
 
-        switchScene(new SplashScreen());
+        switchScene(new MainMenu());
         primaryStage.show();
     }
 }

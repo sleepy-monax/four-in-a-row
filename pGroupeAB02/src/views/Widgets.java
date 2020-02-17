@@ -3,6 +3,7 @@ package views;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -60,5 +61,14 @@ public final class Widgets {
         StackPane.setAlignment(image, Pos.CENTER);
 
         return button;
+    }
+
+    public  static TextField makeTextField(String text){
+        TextField field = new TextField(text);
+
+        field.setAlignment(Pos.CENTER);
+        field.getStyleClass().add("textfield");
+
+        return field;
     }
 }

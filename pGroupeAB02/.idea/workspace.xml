@@ -7,13 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/master/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/master/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/slave/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/slave/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/SplashScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/SplashScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Widgets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Widgets.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -274,18 +271,18 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="667" y="266" width="612" height="381" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1581878739388" />
-    <state x="750" y="108" width="550" height="552" key="#com.intellij.ide.util.MemberChooser" timestamp="1581609002147">
+    <state x="748" y="90" width="550" height="552" key="#com.intellij.ide.util.MemberChooser" timestamp="1581934178250">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="750" y="108" width="550" height="552" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1581609002147" />
+    <state x="748" y="90" width="550" height="552" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1581934178250" />
     <state x="657" y="39" width="529" height="419" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1581925975614">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="657" y="39" width="529" height="419" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1581925975614" />
-    <state x="706" y="347" width="487" height="231" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1581588851025">
+    <state x="704" y="329" width="487" height="231" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1581934524897">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="706" y="347" width="487" height="231" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1080@0.0.1920.1080" timestamp="1581588851025" />
+    <state x="704" y="329" width="487" height="231" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1080@0.0.1920.1080" timestamp="1581934524897" />
     <state x="633" y="-18" width="633" height="1070" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1581322796594">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -302,22 +299,22 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="718" y="101" width="729" height="474" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1581860827467" />
-    <state width="1870" height="282" key="GridCell.Tab.0.bottom" timestamp="1581931794515">
+    <state width="1870" height="282" key="GridCell.Tab.0.bottom" timestamp="1581934903586">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1870" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1581931794515" />
-    <state width="1870" height="282" key="GridCell.Tab.0.center" timestamp="1581931794515">
+    <state width="1870" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1581934903586" />
+    <state width="1870" height="282" key="GridCell.Tab.0.center" timestamp="1581934903584">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1870" height="282" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1581931794515" />
-    <state width="1870" height="282" key="GridCell.Tab.0.left" timestamp="1581931794514">
+    <state width="1870" height="282" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1581934903584" />
+    <state width="1870" height="282" key="GridCell.Tab.0.left" timestamp="1581934903583">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1870" height="282" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1581931794514" />
-    <state width="1870" height="282" key="GridCell.Tab.0.right" timestamp="1581931794515">
+    <state width="1870" height="282" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1581934903583" />
+    <state width="1870" height="282" key="GridCell.Tab.0.right" timestamp="1581934903585">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1870" height="282" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1581931794515" />
+    <state width="1870" height="282" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1581934903585" />
     <state x="369" y="55" width="1028" height="835" key="SettingsEditor" timestamp="1581931387724">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
