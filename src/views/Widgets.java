@@ -1,15 +1,12 @@
 package views;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.layout.StackPane;
 
 public final class Widgets {
     private Widgets(){}
@@ -23,35 +20,44 @@ public final class Widgets {
         return button;
     }
 
-    public static Pane makeBigButton(String text)
+    public static Pane makeBigButton(String icon, String text)
     {
         AnchorPane button = new AnchorPane();
 
         Label label = new Label(text);
         label.setAlignment(Pos.CENTER);
         label.getStyleClass().add("big-button");
+
         AnchorPane.setBottomAnchor(label, 12.0);
         AnchorPane.setTopAnchor(label, 12.0);
         AnchorPane.setLeftAnchor(label, 36.0);
         AnchorPane.setRightAnchor(label, 12.0);
 
-
-        Pane orb = new Pane();
+        StackPane orb = new StackPane();
         orb.getStyleClass().add("big-button-orb");
+
         AnchorPane.setBottomAnchor(orb, 0.0);
         AnchorPane.setTopAnchor(orb, 0.0);
         AnchorPane.setLeftAnchor(orb, 0.0);
+
+        ImageView image = new ImageView(icon);
+        orb.getChildren().add(image);
+        StackPane.setAlignment(image, Pos.CENTER);
 
         button.getChildren().addAll(label, orb);
 
         return button;
     }
 
-    public static Pane makeOrbButton()
+    public static Pane makeOrbButton(String icon)
     {
-        Pane button = new Pane();
+        StackPane button = new StackPane();
 
         button.getStyleClass().add("orb-button");
+
+        ImageView image = new ImageView(icon);
+        button.getChildren().add(image);
+        StackPane.setAlignment(image, Pos.CENTER);
 
         return button;
     }

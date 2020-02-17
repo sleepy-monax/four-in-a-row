@@ -40,6 +40,11 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
 }
 
+.button:hover {
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #0149AF,  #64A4FF);
+    -fx-effect: none;
+}
+
 .big-button{
     -fx-pref-height: 48;
 
@@ -55,6 +60,12 @@
     -fx-border-width: 2;
 
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
+}
+
+.big-button:hover{
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #0149AF,  #64A4FF);
+    -fx-effect: none;
+
 }
 
 .big-button-orb{
@@ -85,3 +96,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
 }
 
+.orb-button:hover {
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #0149AF,  #64A4FF);
+    -fx-effect: none;
+}
