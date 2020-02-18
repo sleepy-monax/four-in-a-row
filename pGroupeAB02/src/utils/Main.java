@@ -4,6 +4,7 @@ import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -53,6 +54,7 @@ public class Main extends Application {
         primaryStage.setMinHeight(600);
         primaryStage.setFullScreen(true);
 
+        primaryStage.getIcons().add(new Image("assets/buzzer.png"));
 
         Scene scene = new Scene(new Pane());
         scene.getStylesheets().addAll("assets/style.css");

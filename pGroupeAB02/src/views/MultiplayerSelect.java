@@ -33,8 +33,14 @@ public class MultiplayerSelect extends StackPane {
         joinOnlineMultiplayer.setOnMouseClicked(mouseEvent -> Main.switchScene(new JoinMultiplayer()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        menuContainer.getChildren().addAll(localMultiplayerButton, joinOnlineMultiplayer, createOnlineMultiplayer);
+        menuContainer.getChildren().addAll(
+                Widgets.makeTitle("Multiplayer"),
+                localMultiplayerButton,
+                joinOnlineMultiplayer,
+                createOnlineMultiplayer);
 
-        getChildren().addAll(menuContainer, backButton);
+        getChildren().addAll(
+                menuContainer,
+                backButton);
     }
 }

@@ -4,7 +4,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -22,6 +21,7 @@ public class JoinMultiplayer extends StackPane {
 
         Pane joinButton = Widgets.makeBigButton("assets/multiplayer.png", "Connect");
         joinButton.setPadding(new Insets(0, 72, 0, 72));
+        VBox.setMargin(joinButton, new Insets(16, 0, 0, 0));
 
         VBox menuContainer = new VBox(16);
         menuContainer.setAlignment(Pos.CENTER);
@@ -32,22 +32,13 @@ public class JoinMultiplayer extends StackPane {
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         menuContainer.getChildren().addAll(
+                Widgets.makeTitle("Join Multiplayer"),
                 Widgets.makeLabel("Username"),
                 userNameTextfield,
                 Widgets.makeLabel("Host Address"),
                 addressTextfield,
                 joinButton);
 
-        HBox title_container = new HBox(32,
-                Widgets.makeBuzzer(),
-                Widgets.makeTitle("Join Multiplayer"));
-
-        title_container.setAlignment(Pos.CENTER);
-        title_container.setMaxWidth(800);
-        title_container.setFillHeight(false);
-        title_container.setMaxHeight(96);
-        StackPane.setAlignment(title_container, Pos.TOP_CENTER);
-        
-        this.getChildren().addAll( menuContainer, backButton, title_container);
+        this.getChildren().addAll( menuContainer, backButton);
     }
 }

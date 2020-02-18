@@ -30,6 +30,8 @@ public class SplashScreen extends StackPane {
         labelRight.setTextFill(new Color(1, 1, 1, 0.5));
         StackPane.setAlignment(labelRight, Pos.BOTTOM_CENTER);
 
+
+
         this.setOnKeyTyped(keyEvent -> Main.switchScene(new MainMenu()));
         button.setOnAction(actionEvent -> Main.switchScene(new MainMenu()));
 
