@@ -1,6 +1,7 @@
 package views;
 
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -8,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public final class Widgets {
     private Widgets(){}
@@ -81,13 +83,19 @@ public final class Widgets {
         return label;
     }
 
-    public static Label makeTitle(String text)
+    public static Parent makeTitle(String text)
     {
         Label label = new Label(text);
 
         label.getStyleClass().add("FIR_title");
 
-        return label;
+        VBox title_container = new VBox(
+                Widgets.makeBuzzer(),
+                label);
+
+        title_container.setAlignment(Pos.CENTER);
+
+        return title_container;
     }
 
     public static Pane makeBuzzer()
