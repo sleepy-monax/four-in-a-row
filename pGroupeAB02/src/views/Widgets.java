@@ -14,6 +14,21 @@ import javafx.scene.layout.VBox;
 public final class Widgets {
     private Widgets(){}
 
+    public  static Parent makeLogo()
+    {
+        AnchorPane logo = new AnchorPane();
+        logo.setId("logo");
+
+        Pane buzzer = Widgets.makeBigBuzzer();
+
+        AnchorPane.setTopAnchor(buzzer, 0.0);
+        AnchorPane.setRightAnchor(buzzer,32.0);
+
+        logo.getChildren().add(buzzer);
+
+        return logo;
+    }
+
     public static Button makeButton(String text)
     {
         Button button = new Button(text);
@@ -105,6 +120,17 @@ public final class Widgets {
         buzzer.setMaxSize(96, 96);
 
         buzzer.getStyleClass().add("FIR_buzzer");
+
+        return buzzer;
+    }
+
+    public static Pane makeBigBuzzer()
+    {
+        Pane buzzer = new Pane();
+        buzzer.setMinSize(128, 128);
+        buzzer.setMaxSize(128, 128);
+
+        buzzer.getStyleClass().add("FIR_big-buzzer");
 
         return buzzer;
     }

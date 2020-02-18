@@ -2,18 +2,12 @@ package views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import utils.Main;
 
 public class MainMenu extends StackPane {
     public MainMenu()
     {
-        Pane logo = new Pane();
-        logo.setId("logo");
-
         Pane singleplayerButton = Widgets.makeBigButton("assets/singleplayer.png", "Singleplayer" );
         singleplayerButton.setPadding(new Insets(0, 72, 0, 72));
 
@@ -26,7 +20,10 @@ public class MainMenu extends StackPane {
 
         VBox menuContainer = new VBox(16);
         menuContainer.setAlignment(Pos.CENTER);
-        menuContainer.getChildren().addAll(logo, singleplayerButton, multiplayerButton);
+        menuContainer.getChildren().addAll(
+                Widgets.makeLogo(),
+                singleplayerButton,
+                multiplayerButton);
         menuContainer.setMaxWidth(436);
 
         HBox orbContainer = new HBox(16, orbScores, orbSettings, orbQuit);

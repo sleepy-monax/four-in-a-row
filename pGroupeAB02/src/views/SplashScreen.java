@@ -18,9 +18,6 @@ public class SplashScreen extends StackPane {
         this.setId("background");
         this.setPadding(new Insets(32));
 
-        Pane logo = new Pane();
-        logo.setId("logo");
-
         Button button = Widgets.makeButton("Press any key to start...");
         StackPane.setAlignment(button, Pos.BOTTOM_CENTER);
         StackPane.setMargin(button, new Insets(96));
@@ -35,6 +32,6 @@ public class SplashScreen extends StackPane {
         this.setOnKeyTyped(keyEvent -> Main.switchScene(new MainMenu()));
         button.setOnAction(actionEvent -> Main.switchScene(new MainMenu()));
 
-        this.getChildren().addAll(logo, button, labelRight);
+        this.getChildren().addAll(Widgets.makeLogo(), button, labelRight);
     }
 }

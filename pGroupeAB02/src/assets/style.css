@@ -18,10 +18,10 @@
     -fx-background-image: url("logo.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
-    -fx-min-width: 436;
-    -fx-min-height: 235;
-    -fx-max-width: 436;
-    -fx-max-height: 235;
+    -fx-min-width: 512;
+    -fx-min-height: 256;
+    -fx-max-width: 512;
+    -fx-max-height: 256;
 }
 
 .FIR_button {
@@ -147,6 +147,16 @@
 
 .FIR_buzzer:pressed{
     -fx-background-image: url("buzzer-pressed.png");
+}
+
+.FIR_big-buzzer{
+    -fx-background-image: url("big-buzzer.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+.FIR_big-buzzer:pressed{
+    -fx-background-image: url("big-buzzer-pressed.png");
 }
 
 .FIR_title{
