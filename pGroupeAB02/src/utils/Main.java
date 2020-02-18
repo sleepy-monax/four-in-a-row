@@ -52,7 +52,6 @@ public class Main extends Application {
         primaryStage.setHeight(600);
         primaryStage.setMinWidth(800);
         primaryStage.setMinHeight(600);
-        primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint("");
 
         primaryStage.getIcons().add(new Image("assets/big-buzzer.png"));

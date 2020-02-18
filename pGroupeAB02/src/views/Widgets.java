@@ -9,28 +9,26 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 
 public final class Widgets {
-    private Widgets(){}
+    private Widgets() {
+    }
 
-    public  static Parent makeLogo()
-    {
+    public static Parent makeLogo() {
         AnchorPane logo = new AnchorPane();
         logo.setId("logo");
 
         Pane buzzer = Widgets.makeBigBuzzer();
 
         AnchorPane.setTopAnchor(buzzer, 0.0);
-        AnchorPane.setRightAnchor(buzzer,32.0);
+        AnchorPane.setRightAnchor(buzzer, 32.0);
 
         logo.getChildren().add(buzzer);
 
         return logo;
     }
 
-    public static Button makeButton(String text)
-    {
+    public static Button makeButton(String text) {
         Button button = new Button(text);
 
         button.getStyleClass().add("FIR_button");
@@ -38,8 +36,7 @@ public final class Widgets {
         return button;
     }
 
-    public static Pane makeBigButton(String icon, String text)
-    {
+    public static Pane makeBigButton(String icon, String text) {
         AnchorPane button = new AnchorPane();
 
         Label label = new Label(text);
@@ -63,12 +60,12 @@ public final class Widgets {
         StackPane.setAlignment(image, Pos.CENTER);
 
         button.getChildren().addAll(label, orb);
+        button.setMaxHeight(72);
 
         return button;
     }
 
-    public static Pane makeOrbButton(String icon)
-    {
+    public static Pane makeOrbButton(String icon) {
         StackPane button = new StackPane();
 
         button.getStyleClass().add("FIR_orb-button");
@@ -80,7 +77,7 @@ public final class Widgets {
         return button;
     }
 
-    public  static TextField makeTextField(String text){
+    public static TextField makeTextField(String text) {
         TextField field = new TextField(text);
 
         field.setAlignment(Pos.CENTER);
@@ -89,8 +86,7 @@ public final class Widgets {
         return field;
     }
 
-    public  static  Label makeLabel(String text)
-    {
+    public static Label makeLabel(String text) {
         Label label = new Label(text);
 
         label.getStyleClass().add("FIR_label");
@@ -98,23 +94,15 @@ public final class Widgets {
         return label;
     }
 
-    public static Parent makeTitle(String text)
-    {
+    public static Parent makeTitle(String text) {
         Label label = new Label(text);
 
         label.getStyleClass().add("FIR_title");
 
-        VBox title_container = new VBox(
-                Widgets.makeBuzzer(),
-                label);
-
-        title_container.setAlignment(Pos.CENTER);
-
-        return title_container;
+        return label;
     }
 
-    public static Pane makeBuzzer()
-    {
+    public static Pane makeBuzzer() {
         Pane buzzer = new Pane();
         buzzer.setMinSize(96, 96);
         buzzer.setMaxSize(96, 96);
@@ -124,8 +112,7 @@ public final class Widgets {
         return buzzer;
     }
 
-    public static Pane makeBigBuzzer()
-    {
+    public static Pane makeBigBuzzer() {
         Pane buzzer = new Pane();
         buzzer.setMinSize(128, 128);
         buzzer.setMaxSize(128, 128);

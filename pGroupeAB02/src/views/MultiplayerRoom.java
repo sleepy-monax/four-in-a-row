@@ -15,7 +15,7 @@ public class MultiplayerRoom extends StackPane {
     public MultiplayerRoom()
     {
         this.setId("background");
-        this.setPadding(new Insets(32));
+        this.setPadding(new Insets(0, 32, 32, 32));
 
         PlayerRoomControl p0 = new PlayerRoomControl().updateState("Nicolas", PlayerRoomControlState.CONNECTED);
         PlayerRoomControl p1 = new PlayerRoomControl().updateState("Cédrique", PlayerRoomControlState.CONNECTING);
@@ -31,9 +31,8 @@ public class MultiplayerRoom extends StackPane {
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         Pane joinButton = Widgets.makeBigButton("assets/multiplayer.png", "Start Game");
-        joinButton.setPadding(new Insets(0, 72, 0, 72));
-
-        VBox.setMargin(joinButton, new Insets(16, 0, 0, 0));
+        StackPane.setAlignment(joinButton, Pos.BOTTOM_RIGHT);
+        joinButton.setMaxWidth(256);
 
         menuContainer.getChildren().addAll(
                 Widgets.makeTitle("Multiplayer Room"),

@@ -15,9 +15,9 @@ public class JoinMultiplayer extends StackPane {
         this.setId("background");
         this.setPadding(new Insets(32));
 
-        TextField userNameTextfield = Widgets.makeTextField("");
+        TextField userNameTextfield = Widgets.makeTextField("User");
 
-        TextField addressTextfield = Widgets.makeTextField("");
+        TextField addressTextfield = Widgets.makeTextField("localhost");
 
         Pane joinButton = Widgets.makeBigButton("assets/multiplayer.png", "Connect");
         joinButton.setPadding(new Insets(0, 72, 0, 72));
