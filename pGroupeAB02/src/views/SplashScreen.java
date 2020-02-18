@@ -25,7 +25,7 @@ public class SplashScreen extends StackPane {
         StackPane.setAlignment(button, Pos.BOTTOM_CENTER);
         StackPane.setMargin(button, new Insets(96));
 
-        Label labelRight = new Label("© 2020 De Laet L. Lepine C. Van Bossuyt N.\nAll right reserved.\n\nRelease 1");
+        Label labelRight = new Label("Groupe AB02\nL. De Laet, C. Lepine, N. Van Bossuyt\n\nRelease 1");
         labelRight.setTextAlignment(TextAlignment.CENTER);
         labelRight.setTextFill(new Color(1, 1, 1, 0.5));
         StackPane.setAlignment(labelRight, Pos.BOTTOM_CENTER);

@@ -24,7 +24,7 @@
     -fx-max-height: 235;
 }
 
-.button {
+.FIR_button {
     -fx-pref-height: 32;
     -fx-padding: 0 16;
 
@@ -42,12 +42,17 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
 }
 
-.button:hover {
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #0149AF,  #64A4FF);
-    -fx-effect: none;
+.FIR_button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 16, 0, 0.0, 4.0);
+    -fx-border-color: #FFFFFF;
 }
 
-.big-button{
+.FIR_button:pressed{
+    -fx-effect: none;
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #0149AF,  #64A4FF);
+}
+
+.FIR_big-button{
     -fx-pref-height: 48;
 
     -fx-text-fill: white;
@@ -64,13 +69,17 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
 }
 
-.big-button:hover{
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #0149AF,  #64A4FF);
-    -fx-effect: none;
-
+.FIR_big-button:hover{
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 16, 0, 0.0, 4.0);
+    -fx-border-color: #FFFFFF;
 }
 
-.big-button-orb{
+.FIR_big-button:pressed{
+    -fx-effect: none;
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #0149AF,  #64A4FF);
+}
+
+.FIR_big-button-orb{
     -fx-pref-height: 72;
     -fx-pref-width: 72;
 
@@ -84,7 +93,7 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
 }
 
-.orb-button {
+.FIR_orb-button {
     -fx-pref-height: 48;
     -fx-pref-width: 48;
 
@@ -98,12 +107,17 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
 }
 
-.orb-button:hover {
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #0149AF,  #64A4FF);
-    -fx-effect: none;
+.FIR_orb-button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 16, 0, 0.0, 4.0);
+    -fx-border-color: #FFFFFF;
 }
 
-.textfield{
+.FIR_orb-button:pressed{
+    -fx-effect: none;
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #0149AF,  #64A4FF);
+}
+
+.FIR_textfield{
     -fx-text-fill: black;
     -fx-font-family: 'roboto';
     -fx-font-size: 24;
@@ -116,4 +130,27 @@
     -fx-border-width: 4;
 
     -fx-pref-height: 64;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
+}
+
+.FIR_label{
+    -fx-text-fill: white;
+    -fx-font-family: 'roboto';
+    -fx-font-size: 24;
+}
+
+.FIR_buzzer{
+    -fx-background-image: url("buzzer.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+.FIR_buzzer:pressed{
+    -fx-background-image: url("buzzer-pressed.png");
+}
+
+.FIR_title{
+    -fx-text-fill: white;
+    -fx-font-family: 'candice';
+    -fx-font-size: 24pt;
 }

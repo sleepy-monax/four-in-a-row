@@ -16,7 +16,7 @@ public final class Widgets {
     {
         Button button = new Button(text);
 
-        button.getStyleClass().add("button");
+        button.getStyleClass().add("FIR_button");
 
         return button;
     }
@@ -27,7 +27,7 @@ public final class Widgets {
 
         Label label = new Label(text);
         label.setAlignment(Pos.CENTER);
-        label.getStyleClass().add("big-button");
+        label.getStyleClass().add("FIR_big-button");
 
         AnchorPane.setBottomAnchor(label, 12.0);
         AnchorPane.setTopAnchor(label, 12.0);
@@ -35,7 +35,7 @@ public final class Widgets {
         AnchorPane.setRightAnchor(label, 12.0);
 
         StackPane orb = new StackPane();
-        orb.getStyleClass().add("big-button-orb");
+        orb.getStyleClass().add("FIR_big-button-orb");
 
         AnchorPane.setBottomAnchor(orb, 0.0);
         AnchorPane.setTopAnchor(orb, 0.0);
@@ -54,7 +54,7 @@ public final class Widgets {
     {
         StackPane button = new StackPane();
 
-        button.getStyleClass().add("orb-button");
+        button.getStyleClass().add("FIR_orb-button");
 
         ImageView image = new ImageView(icon);
         button.getChildren().add(image);
@@ -67,8 +67,37 @@ public final class Widgets {
         TextField field = new TextField(text);
 
         field.setAlignment(Pos.CENTER);
-        field.getStyleClass().add("textfield");
+        field.getStyleClass().add("FIR_textfield");
 
         return field;
+    }
+
+    public  static  Label makeLabel(String text)
+    {
+        Label label = new Label(text);
+
+        label.getStyleClass().add("FIR_label");
+
+        return label;
+    }
+
+    public static Label makeTitle(String text)
+    {
+        Label label = new Label(text);
+
+        label.getStyleClass().add("FIR_title");
+
+        return label;
+    }
+
+    public static Pane makeBuzzer()
+    {
+        Pane buzzer = new Pane();
+        buzzer.setMinSize(96, 96);
+        buzzer.setMaxSize(96, 96);
+
+        buzzer.getStyleClass().add("FIR_buzzer");
+
+        return buzzer;
     }
 }
