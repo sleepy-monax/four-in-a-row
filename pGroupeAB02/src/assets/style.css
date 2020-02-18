@@ -139,13 +139,13 @@
     -fx-font-size: 24;
 }
 
-.FIR_buzzer{
+.FIR_buzzer {
     -fx-background-image: url("buzzer.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
 }
 
-.FIR_buzzer:pressed{
+.FIR_buzzer:pressed {
     -fx-background-image: url("buzzer-pressed.png");
 }
 
@@ -155,13 +155,68 @@
     -fx-background-size: cover;
 }
 
-.FIR_big-buzzer:pressed{
+.FIR_big-buzzer:pressed {
     -fx-background-image: url("big-buzzer-pressed.png");
 }
 
-.FIR_title{
+.FIR_title {
     -fx-text-fill: white;
     -fx-font-family: 'candice';
     -fx-font-size: 32pt;
     -fx-effect: dropshadow(gaussian, rgba(128, 128, 128, 1), 1, 0, 0.0, 4.0);
+}
+
+.FIR_player-state {
+    -fx-pref-height: 64;
+    -fx-background-radius: 32;
+    -fx-font-family: 'roboto';
+    -fx-font-size: 24;
+    -fx-border-radius: 32;
+    -fx-border-width: 2;
+
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
+}
+
+.FIR_player-state-connected{
+    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%,  #64A4FF, #0149AF);
+    -fx-border-color: linear-gradient(from 50% 0% to 50% 100%,  #FFF612, #FFB100);
+}
+
+.FIR_player-state-inactive {
+    -fx-text-fill: black;
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #C6C6C6, #FFFFFF);
+    -fx-border-color: linear-gradient(from 50% 0% to 50% 100%, #FFFFFF, #C6C6C6);
+}
+
+.FIR_player-state-connected .status {
+    -fx-text-fill: rgba(255, 255, 255, 0.75);
+    -fx-min-height: 64;
+    -fx-font-size: 16;
+}
+
+.FIR_player-state-connected:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 16, 0, 0.0, 4.0);
+    -fx-border-color: #FFFFFF;
+}
+
+.FIR_player-state-connected:pressed{
+    -fx-effect: none;
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #0149AF,  #64A4FF);
+}
+
+.FIR_player-state-inactive .status{
+    -fx-text-fill: rgba(0, 0, 0, 0.5);
+    -fx-min-height: 64;
+    -fx-font-size: 16;
+}
+
+.FIR_player-state-connected .username {
+    -fx-text-fill: white;
+    -fx-min-height: 64;
+}
+
+.FIR_player-state-inactive .username{
+    -fx-text-fill: black;
+    -fx-min-height: 64;
 }

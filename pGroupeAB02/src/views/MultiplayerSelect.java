@@ -15,9 +15,6 @@ public class MultiplayerSelect extends StackPane {
         this.setId("background");
         this.setPadding(new Insets(32));
 
-        Pane localMultiplayerButton = Widgets.makeBigButton("assets/singleplayer.png", "Local Multiplayer" );
-        localMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));
-
         Pane joinOnlineMultiplayer = Widgets.makeBigButton( "assets/multiplayer.png","Join Multiplayer");
         joinOnlineMultiplayer.setPadding(new Insets(0, 72, 0, 72));
 
@@ -31,11 +28,11 @@ public class MultiplayerSelect extends StackPane {
         Button backButton = Widgets.makeButton("Go back");
         backButton.setOnAction(actionEvent -> Main.switchScene(new MainMenu()));
         joinOnlineMultiplayer.setOnMouseClicked(mouseEvent -> Main.switchScene(new JoinMultiplayer()));
+        createOnlineMultiplayer.setOnMouseClicked(mouseEvent -> Main.switchScene(new MultiplayerRoom()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         menuContainer.getChildren().addAll(
                 Widgets.makeTitle("Multiplayer"),
-                localMultiplayerButton,
                 joinOnlineMultiplayer,
                 createOnlineMultiplayer);
 
