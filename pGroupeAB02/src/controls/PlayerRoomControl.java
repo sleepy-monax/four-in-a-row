@@ -19,11 +19,15 @@ public class PlayerRoomControl extends AnchorPane {
         labelName.setAlignment(Pos.CENTER_LEFT);
         labelName.getStyleClass().add("username");
         AnchorPane.setLeftAnchor(labelName, 32.0);
+        AnchorPane.setTopAnchor(labelName, 0.0);
+        AnchorPane.setBottomAnchor(labelName, 0.0);
 
         labelStatus = new Label("ERROR");
         labelStatus.setAlignment(Pos.CENTER_RIGHT);
         labelStatus.getStyleClass().add("status");
         AnchorPane.setRightAnchor(labelStatus, 32.0);
+        AnchorPane.setTopAnchor(labelStatus, 0.0);
+        AnchorPane.setBottomAnchor(labelStatus, 0.0);
 
         this.getChildren().addAll(labelName, labelStatus);
     }

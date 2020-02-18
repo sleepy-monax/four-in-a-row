@@ -24,6 +24,23 @@
     -fx-max-height: 256;
 }
 
+.button {
+    -fx-border-width: 2;
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%,  #64A4FF, #0149AF);
+    -fx-border-color: linear-gradient(from 50% 0% to 50% 100%,  #FFF612, #FFB100);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
+}
+
+.button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 16, 0, 0.0, 4.0);
+    -fx-border-color: #FFFFFF;
+}
+
+.button:pressed{
+    -fx-effect: none;
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #0149AF,  #64A4FF);
+}
+
 .FIR_button {
     -fx-pref-height: 32;
     -fx-padding: 0 16;
@@ -33,23 +50,7 @@
     -fx-font-size: 14;
 
     -fx-background-radius: 16;
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%,  #64A4FF, #0149AF);
-
-    -fx-border-color: linear-gradient(from 50% 0% to 50% 100%,  #FFF612, #FFB100);
     -fx-border-radius: 16;
-    -fx-border-width: 2;
-
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
-}
-
-.FIR_button:hover {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 16, 0, 0.0, 4.0);
-    -fx-border-color: #FFFFFF;
-}
-
-.FIR_button:pressed{
-    -fx-effect: none;
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #0149AF,  #64A4FF);
 }
 
 .FIR_big-button{
@@ -60,23 +61,7 @@
     -fx-font-size: 18;
 
     -fx-background-radius: 32;
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%,  #64A4FF, #0149AF);
-
-    -fx-border-color: linear-gradient(from 50% 0% to 50% 100%,  #FFF612, #FFB100);
     -fx-border-radius: 32;
-    -fx-border-width: 2;
-
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
-}
-
-.FIR_big-button:hover{
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 16, 0, 0.0, 4.0);
-    -fx-border-color: #FFFFFF;
-}
-
-.FIR_big-button:pressed{
-    -fx-effect: none;
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #0149AF,  #64A4FF);
 }
 
 .FIR_big-button-orb{
@@ -94,27 +79,14 @@
 }
 
 .FIR_orb-button {
-    -fx-pref-height: 48;
-    -fx-pref-width: 48;
+    -fx-max-height: 48;
+    -fx-max-width: 48;
+
+    -fx-min-height: 48;
+    -fx-min-width: 48;
 
     -fx-background-radius: 24;
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%,  #64A4FF, #0149AF);
-
-    -fx-border-color: linear-gradient(from 50% 0% to 50% 100%,  #FFF612, #FFB100);
     -fx-border-radius: 24;
-    -fx-border-width: 2;
-
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
-}
-
-.FIR_orb-button:hover {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 16, 0, 0.0, 4.0);
-    -fx-border-color: #FFFFFF;
-}
-
-.FIR_orb-button:pressed{
-    -fx-effect: none;
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #0149AF,  #64A4FF);
 }
 
 .FIR_textfield{
@@ -175,48 +147,16 @@
     -fx-border-width: 2;
 
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
-}
-
-.FIR_player-state-connected{
-    -fx-text-fill: white;
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%,  #64A4FF, #0149AF);
-    -fx-border-color: linear-gradient(from 50% 0% to 50% 100%,  #FFF612, #FFB100);
-}
-
-.FIR_player-state-inactive {
     -fx-text-fill: black;
     -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #C6C6C6, #FFFFFF);
     -fx-border-color: linear-gradient(from 50% 0% to 50% 100%, #FFFFFF, #C6C6C6);
 }
 
-.FIR_player-state-connected .status {
-    -fx-text-fill: rgba(255, 255, 255, 0.75);
-    -fx-min-height: 64;
-    -fx-font-size: 16;
-}
-
-.FIR_player-state-connected:hover {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 16, 0, 0.0, 4.0);
-    -fx-border-color: #FFFFFF;
-}
-
-.FIR_player-state-connected:pressed{
-    -fx-effect: none;
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #0149AF,  #64A4FF);
-}
-
-.FIR_player-state-inactive .status{
+.FIR_player-state .status{
     -fx-text-fill: rgba(0, 0, 0, 0.5);
-    -fx-min-height: 64;
     -fx-font-size: 16;
 }
 
-.FIR_player-state-connected .username {
-    -fx-text-fill: white;
-    -fx-min-height: 64;
-}
-
-.FIR_player-state-inactive .username{
+.FIR_player-state .username{
     -fx-text-fill: black;
-    -fx-min-height: 64;
 }
