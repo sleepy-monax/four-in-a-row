@@ -9,7 +9,8 @@ public class Game {
     private List<Player> players;
 
     public Game (Deck deck, List<Player> players){
-    
+        setDeck(deck);
+        setPlayers(players);
     }
 
     public boolean addPlayer(Player p1){
@@ -28,5 +29,20 @@ public class Game {
         return false;
     }
 
+    public Deck getDeck() {
+        return deck;
+    }
 
+    public void setDeck(Deck deck) {
+        if (deck != null)
+            this.deck = deck;
+    }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
 }
