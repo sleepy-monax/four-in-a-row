@@ -1,11 +1,10 @@
 package utils;
 
 import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -31,9 +30,9 @@ public class Main extends Application {
         fading.setNode(root);
         fading.setDuration(Duration.seconds(0.25));
 
-        fading.setOnFinished(actionEvent -> {
-            stage.getScene().setRoot(new StackPane(root));
-        });
+        fading.setOnFinished(actionEvent ->
+                stage.getScene().setRoot(new StackPane(root))
+        );
 
         fading.play();
     }
@@ -43,7 +42,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         stage = primaryStage;
 
         primaryStage.setTitle("Four in a Row");
@@ -54,9 +53,15 @@ public class Main extends Application {
         primaryStage.setMinHeight(600);
         primaryStage.setFullScreen(true);
 
+
         Scene scene = new Scene(new Pane());
         scene.getStylesheets().addAll("assets/style.css");
         primaryStage.setScene(scene);
+        scene.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER) && event.isAltDown()) {
+                primaryStage.setFullScreen(!primaryStage.isFullScreen());
+            }
+        });
 
         switchScene(new SplashScreen());
         primaryStage.show();
