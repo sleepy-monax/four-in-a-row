@@ -55,7 +55,7 @@ public class Main extends Application {
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint("");
 
-        primaryStage.getIcons().add(new Image("assets/buzzer.png"));
+        primaryStage.getIcons().add(new Image("assets/big-buzzer.png"));
 
         Scene scene = new Scene(new Pane());
         scene.getStylesheets().addAll("assets/style.css");
