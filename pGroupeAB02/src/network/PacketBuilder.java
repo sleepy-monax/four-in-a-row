@@ -10,11 +10,11 @@ public class PacketBuilder {
     private final ByteArrayOutputStream byteArrayOutputStream;
     private final DataOutputStream dataOutputStream;
 
-    private final Packet.PacketType packetType;
+    private final PacketType packetType;
     private short packetID;
     private boolean isBuilt;
 
-    public PacketBuilder(final Packet.PacketType packetType) {
+    public PacketBuilder(final PacketType packetType) {
         byteArrayOutputStream = new ByteArrayOutputStream();
         dataOutputStream = new DataOutputStream(byteArrayOutputStream);
         isBuilt = false;

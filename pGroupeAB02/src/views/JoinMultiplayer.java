@@ -26,6 +26,7 @@ public class JoinMultiplayer extends StackPane {
 
         joinButton.setOnMouseClicked(mouseEvent -> {
             new SlaveGame(
+                    userNameTextfield.getText(),
                     addressTextfield.getText(),
                     1234
             );

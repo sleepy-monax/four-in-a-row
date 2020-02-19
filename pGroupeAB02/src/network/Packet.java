@@ -34,13 +34,6 @@ public class Packet {
     private final int dataLength;
     private final byte[] data;
 
-    /**
-     * Creates a new immutable Packet
-     *
-     * @param packetType Packet Type
-     * @param packetID   Packet ID
-     * @param data       Packet Data
-     */
     public Packet(final PacketType packetType, final short packetID, final byte[] data) {
         this.packetType = packetType;
         this.packetID = packetID;
@@ -48,16 +41,9 @@ public class Packet {
         this.data = data;
     }
 
-    /**
-     * Reads a Packet from raw input data
-     *
-     * @param in DataInputStream to fromStream from
-     * @return Packet created from input
-     * @throws IOException when unable to read from stream
-     */
     public static Packet fromStream(final DataInputStream in) throws IOException {
         // Packet Type
-        final Packet.PacketType packetType = Packet.PacketType.fastValues[in.readByte()];
+        final PacketType packetType = PacketType.fastValues[in.readByte()];
 
         // Packet ID
         final short packetID = in.readShort();
@@ -76,66 +62,22 @@ public class Packet {
         );
     }
 
-    /**
-     * Returns Packet Type
-     *
-     * @return Packet Type
-     */
     public PacketType getPacketType() {
         return packetType;
     }
 
-    /**
-     * Returns whether Packet is of type Request
-     *
-     * @return PacketType is Request
-     */
-    public boolean isRequest() {
-        return packetType == PacketType.Request;
-    }
-
-    /**
-     * Returns whether Packet is of type Reply
-     *
-     * @return PacketType is Reply
-     */
-    public boolean isReply() {
-        return packetType == PacketType.Reply;
-    }
-
-    /**
-     * Returns Packet ID
-     *
-     * @return Packet ID
-     */
     public short getPacketID() {
         return packetID;
     }
 
-    /**
-     * Returns Data length
-     *
-     * @return Data length
-     */
     public int getDataLength() {
         return dataLength;
     }
 
-    /**
-     * Returns Packet data
-     *
-     * @return Data
-     */
     public byte[] getData() {
         return data;
     }
 
-    /**
-     * Writes Packet into DataOutputStream
-     *
-     * @param out DataOutputStream to write into
-     * @throws IOException when unable to write to stream
-     */
     public void write(final DataOutputStream out) throws IOException {
         // Packet Type
         out.writeByte(packetType.ordinal());
@@ -153,12 +95,5 @@ public class Packet {
     @Override
     public String toString() {
         return "Type: [" + packetType + "] ID: [" + packetID + "] Data: [" + dataLength + " bytes]";
-    }
-
-    public enum PacketType {
-        Request,
-        Reply;
-
-        public static final PacketType[] fastValues = values();
     }
 }

@@ -3,7 +3,6 @@ package network;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,17 +28,12 @@ public class Server {
             return false;
         }
 
-        launchThread(new Runnable() {
-            @Override
-            public void run() {
-                acceptorThreadImpl();
-            }
-        });
+        launchThread(this::connectionAcceptorService);
 
         return true;
     }
 
-    private void acceptorThreadImpl() {
+    private void connectionAcceptorService() {
         while (true) {
             // Wait for a connection
             try {
@@ -72,7 +66,6 @@ public class Server {
 
                 client.setSocket(socket);
             } catch (final IOException e) {
-                System.err.println(e);
                 stop();
                 break;
             }

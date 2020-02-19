@@ -4,10 +4,7 @@ import javafx.application.Platform;
 import models.Deck;
 import models.Game;
 import models.Player;
-import network.Connection;
-import network.ConnectionListener;
-import network.Packet;
-import network.Server;
+import network.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -33,28 +30,48 @@ public class MasterGame extends Game implements ConnectionListener {
 
     @Override
     public void onConnect(Connection connection) {
-        System.out.println("Je suis le master et slave " + connection.toString() + "vient de ce connecter :)");
-
+        // We need to run this later because we are not on the javafx thread
         Platform.runLater(() -> {
-            Player player = new Player(connection.getSocket().getInetAddress().toString());
-            this.slaves.put(connection, new Slave(player));
-            this.addPlayer(player);
-        });
+            System.out.println("Connecting player "+ connection.toString()+ "...");
 
-        System.out.println("ok");
+            this.slaves.put(connection, new Slave());
+        });
     }
 
     @Override
     public void onDisconnect(Connection connection) {
-        System.out.println("Je suis le master et le slave " + connection.toString() + "vien de ce deconecter :/");
+        // We need to run this later because we are not on the javafx thread
+        Platform.runLater(() -> {
+            System.out.println("Disconecting player "+ connection.toString()+ "...");
 
-        Slave slave = this.slaves.get(connection);
-        this.removePlayer(slave.getPlayer());
-        this.slaves.remove(connection);
+            Slave slave = this.slaves.get(connection);
+            this.removePlayer(slave.getPlayer());
+            this.slaves.remove(connection);
+        });
     }
 
     @Override
-    public void onReceive(Packet packet, Connection connection) throws IOException {
+    public void onReceive(Packet packet, Connection connection)
+    {
+        switch (packet.getPacketType())
+        {
+            case LOGIN:
+                System.out.println("Player login"+ connection.toString()+ "...");
 
+                // We need to run this later because we are not on the javafx thread
+                Platform.runLater(() -> {
+                    Slave slave = this.slaves.get(connection);
+                    try {
+                        Player player = new Player(new PacketReader(packet).readString());
+                        this.addPlayer(player);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        connection.close();
+                    }
+                });
+                break;
+            default:
+                System.out.println("Unexpected packet " + packet.toString());
+        }
     }
 }

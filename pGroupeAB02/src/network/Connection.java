@@ -42,7 +42,6 @@ public class Connection {
      * Creates a new Client
      */
     public Connection() {
-
     }
 
     public synchronized void setClientListener(final ConnectionListener clientListener) {
@@ -68,15 +67,8 @@ public class Connection {
 
             try {
                 packet = Packet.fromStream(dataInputStream);
-            } catch (final SocketException e) {
-                // Ignore : socket is closed
-                close();
-                break;
-            } catch (final EOFException e) {
-                // Ignore : socket is closed
-                close();
-                break;
             } catch (final IOException e) {
+                // Ignore : socket is closed
                 close();
                 break;
             }
@@ -85,8 +77,7 @@ public class Connection {
             if (clientListener != null) {
                 try {
                     clientListener.onReceive(packet, this);
-                } catch (final IOException e) {
-                } catch (final Exception e) {
+                } catch (final Exception ignored) {
                 }
             }
         }
@@ -111,7 +102,7 @@ public class Connection {
 
         try {
             socket.close();
-        } catch (final IOException e) {
+        } catch (final IOException ignored) {
         }
 
         if (clientListener != null) clientListener.onDisconnect(this);
@@ -137,12 +128,7 @@ public class Connection {
         dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 
-        launchThread(new Runnable() {
-            @Override
-            public void run() {
-                listenerThreadImpl();
-            }
-        });
+        launchThread(() -> listenerThreadImpl());
 
         if (clientListener != null) clientListener.onConnect(this);
     }
