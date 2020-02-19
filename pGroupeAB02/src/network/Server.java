@@ -71,10 +71,8 @@ public class Server {
                 });
 
                 client.setSocket(socket);
-            } catch (final SocketException e) {
-                stop();
-                break;
             } catch (final IOException e) {
+                System.err.println(e);
                 stop();
                 break;
             }

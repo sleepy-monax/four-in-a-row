@@ -1,15 +1,18 @@
 package slave;
 
+import models.Game;
 import network.Connection;
 import network.ConnectionListener;
 import network.Packet;
 
 import java.io.IOException;
 
-public class SlaveGame implements ConnectionListener {
+public class SlaveGame extends Game implements ConnectionListener {
     private Connection connection;
 
     public SlaveGame(String address, int port) {
+        super(null); // lol
+
         connection = new Connection();
         connection.setClientListener(this);
         connection.connect(address, port);

@@ -9,6 +9,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import utils.Main;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public final class Widgets {
     private Widgets() {
@@ -109,6 +112,16 @@ public final class Widgets {
 
         buzzer.getStyleClass().add("FIR_buzzer");
 
+        AtomicInteger click_count = new AtomicInteger();
+        buzzer.setOnMouseClicked(mouseEvent -> {
+            click_count.getAndIncrement();
+
+            if (click_count.get() == 10)
+            {
+                Main.setTitle("Ah oui oui oui oui oui");
+            }
+        });
+
         return buzzer;
     }
 
@@ -118,6 +131,16 @@ public final class Widgets {
         buzzer.setMaxSize(128, 128);
 
         buzzer.getStyleClass().add("FIR_big-buzzer");
+
+        AtomicInteger click_count = new AtomicInteger();
+        buzzer.setOnMouseClicked(mouseEvent -> {
+            click_count.getAndIncrement();
+
+            if (click_count.get() == 10)
+            {
+                Main.setTitle("Ah oui oui oui oui oui");
+            }
+        });
 
         return buzzer;
     }

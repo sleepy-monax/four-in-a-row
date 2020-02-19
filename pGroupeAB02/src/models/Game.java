@@ -1,31 +1,55 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
 
     private Deck deck;
     private Player p1;
-    private List<Player> players;
+    private Player players[];
 
-    public Game (Deck deck, List<Player> players){
+    private GamePlayerListener playerListener;
+
+    public Game(Deck deck){
         setDeck(deck);
-        setPlayers(players);
+
+        players = new Player[4];
     }
 
-    public boolean addPlayer(Player p1){
-        if(!players.contains(p1)) {
-            players.add(p1);
-            return true;
+    public boolean addPlayer(Player player) {
+        for (int i = 0; i < players.length; i++) {
+            if (players[i] == null)
+            {
+                players[i] = player;
+
+                if (playerListener != null)
+                {
+                    playerListener.onPlayerJoin(i, player.getName());
+                }
+
+                return true;
+            }
         }
+
         return false;
     }
 
-    public boolean removePlayer(Player p1){
-        if (players.contains(p1)){
-            players.remove(p1);
-            return true;
+    public boolean removePlayer(Player player){
+        for (int i = 0; i < players.length; i++) {
+            if (players[i] == player)
+            {
+                players = null;
+
+                if (playerListener != null)
+                {
+                    playerListener.onPlayerLeave(i, player.getName());
+                }
+
+                return true;
+            }
         }
+
         return false;
     }
 
@@ -39,10 +63,18 @@ public class Game {
     }
 
     public List<Player> getPlayers() {
-        return players;
+        ArrayList<Player> playerList = new ArrayList<>(players.length);
+
+        for (Player player : players) {
+            if (player != null) {
+                playerList.add(player);
+            }
+        }
+
+        return playerList;
     }
 
-    public void setPlayers(List<Player> players) {
-        this.players = players;
+    public void setPlayerListener(GamePlayerListener playerListener) {
+        this.playerListener = playerListener;
     }
 }

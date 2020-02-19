@@ -38,6 +38,11 @@ public class Main extends Application {
         fading.play();
     }
 
+    public static void setTitle(String title)
+    {
+        stage.setTitle(title);
+    }
+
     public static void quit() {
         stage.close();
     }

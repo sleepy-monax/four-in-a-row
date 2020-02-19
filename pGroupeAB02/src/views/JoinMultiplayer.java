@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import slave.SlaveGame;
 import utils.Main;
 
 public class JoinMultiplayer extends StackPane {
@@ -22,6 +23,13 @@ public class JoinMultiplayer extends StackPane {
         Pane joinButton = Widgets.makeBigButton("assets/multiplayer.png", "Connect");
         joinButton.setPadding(new Insets(0, 72, 0, 72));
         VBox.setMargin(joinButton, new Insets(16, 0, 0, 0));
+
+        joinButton.setOnMouseClicked(mouseEvent -> {
+            new SlaveGame(
+                    addressTextfield.getText(),
+                    1234
+            );
+        });
 
         VBox menuContainer = new VBox(16);
         menuContainer.setAlignment(Pos.CENTER);

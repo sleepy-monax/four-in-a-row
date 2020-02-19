@@ -1,6 +1,6 @@
 package models;
 
-public abstract interface GamePlayerListener {
-    public abstract void onPlayerJoin(int index, String name);
-    public abstract void onPlayerLeave(int index, String name);
+public interface GamePlayerListener {
+    void onPlayerJoin(int index, String name);
+    void onPlayerLeave(int index, String name);
 }
