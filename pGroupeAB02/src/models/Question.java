@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class Question {
-
     private String author;
     private List<String> clues;
     private String theme;
@@ -56,27 +55,25 @@ public class Question {
         this.answer = answer;
     }
 
-    public boolean isValid(){
-        if (author == null
-            || author.trim().isEmpty()
-            || clues == null)
-        return false;
+    public boolean isValid() {
+        if (author == null || author.trim().isEmpty() || clues == null)
+            return false;
 
-        if (clues.size()<1 || clues.size()> 3)
-        return false;
+        if (clues.size() < 1 || clues.size() > 3)
+            return false;
 
         return true;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Question question = (Question) o;
-        return Objects.equals(author, question.author) &&
-                Objects.equals(clues, question.clues) &&
-                Objects.equals(theme, question.theme) &&
-                Objects.equals(answer, question.answer);
+        return Objects.equals(author, question.author) && Objects.equals(clues, question.clues)
+                && Objects.equals(theme, question.theme) && Objects.equals(answer, question.answer);
     }
 
     @Override
@@ -86,12 +83,8 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Questions{" +
-                "author='" + author + '\'' +
-                ", clues=" + clues +
-                ", theme='" + theme + '\'' +
-                ", answer='" + answer + '\'' +
-                '}';
+        return "Questions{" + "author='" + author + '\'' + ", clues=" + clues + ", theme='" + theme + '\''
+                + ", answer='" + answer + '\'' + '}';
     }
 
     public Question clone() {
