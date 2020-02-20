@@ -1,30 +1,26 @@
 package models;
 
 public class Player {
-
+    private int id;
     private String name;
     private int score, level, levelMax;
 
-    public Player(String name){
-        setName(name);
-        this.level = 0;
-        this.levelMax = 0;
-        this.score = 0;
+    public Player(int id, String name){
+        this(id, name, 0, 0, 0);
     }
 
-    public Player(String name, int score, int level, int levelMax){
-        setName(name);
+    public Player(int id, String name, int score, int level, int levelMax){
+        this.id = id;
+        this.name = name;
         setScore(score);
         setLevel(level);
         setLevelMax(levelMax);
     }
 
+    public int getId() {return id;}
+
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getScore() {

@@ -13,18 +13,21 @@ public class Server {
     private ServerSocket server;
     private ConnectionListener serverListener;
 
-    public Server() {
-        connections = new ArrayList<Connection>();
+    public Server()
+    {
+        connections = new ArrayList<>();
     }
 
     public synchronized void setListener(final ConnectionListener serverListener) {
         this.serverListener = serverListener;
     }
 
-    public synchronized boolean start(final int port) {
+    public synchronized boolean start(final int port)
+    {
         try {
             server = new ServerSocket(port);
         } catch (final Exception e) {
+            System.out.println("Failled to start server " + e);
             return false;
         }
 

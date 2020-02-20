@@ -2,6 +2,7 @@ package utils;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -13,6 +14,9 @@ import javafx.util.Duration;
 import views.SplashScreen;
 
 public class Main extends Application {
+    public static final int DEFAULT_SCREEN_WIDTH = 960;
+    public static final int DEFAULT_SCREEN_HEIGHT = 720;
+
     private static Stage stage = null;
 
     public static void main(String[] args) {
@@ -31,46 +35,50 @@ public class Main extends Application {
         fading.setNode(root);
         fading.setDuration(Duration.seconds(0.25));
 
-        fading.setOnFinished(actionEvent ->
-                stage.getScene().setRoot(new StackPane(root))
-        );
+        fading.setOnFinished(actionEvent -> stage.getScene().setRoot(new StackPane(root)));
 
         fading.play();
     }
 
-    public static void setTitle(String title)
-    {
+    public static void setTitle(String title) {
         stage.setTitle(title);
     }
 
     public static void quit() {
+        ThreadManager.shutdown();
         stage.close();
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        stage = primaryStage;
+    public void start(Stage stage) {
+        this.stage = stage;
 
-        primaryStage.setTitle("Four in a Row");
+        stage.setTitle("Four in a Row");
 
-        primaryStage.setWidth(800);
-        primaryStage.setHeight(600);
-        primaryStage.setMinWidth(800);
-        primaryStage.setMinHeight(600);
-        primaryStage.setFullScreenExitHint("");
+        stage.setWidth(DEFAULT_SCREEN_WIDTH);
+        stage.setHeight(DEFAULT_SCREEN_HEIGHT);
+        stage.setMinWidth(DEFAULT_SCREEN_WIDTH);
+        stage.setMinHeight(DEFAULT_SCREEN_HEIGHT);
 
-        primaryStage.getIcons().add(new Image("assets/big-buzzer.png"));
+        stage.setFullScreenExitHint(null);
+
+        stage.getIcons().add(new Image("assets/big-buzzer.png"));
+        stage.setOnCloseRequest(windowEvent -> {
+            ThreadManager.shutdown();
+        });
 
         Scene scene = new Scene(new Pane());
         scene.getStylesheets().addAll("assets/style.css");
-        primaryStage.setScene(scene);
+        stage.setScene(scene);
+
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER) && event.isAltDown()) {
-                primaryStage.setFullScreen(!primaryStage.isFullScreen());
+                stage.setFullScreen(!stage.isFullScreen());
+                event.consume();
             }
         });
 
         switchScene(new SplashScreen());
-        primaryStage.show();
+        stage.show();
     }
 }

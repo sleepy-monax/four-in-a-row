@@ -3,13 +3,13 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game {
+public class Game  {
 
     private Deck deck;
     private Player p1;
     private Player players[];
 
-    private GamePlayerListener playerListener;
+    private PendingGameListener playerListener;
 
     public Game(Deck deck){
         setDeck(deck);
@@ -17,22 +17,23 @@ public class Game {
         players = new Player[4];
     }
 
-    public boolean addPlayer(Player player) {
+    public Player joinPlayer(String name) {
         for (int i = 0; i < players.length; i++) {
             if (players[i] == null)
             {
-                players[i] = player;
+                Player newPlayer = new Player(i, name);
+                players[i] = newPlayer;
 
                 if (playerListener != null)
                 {
-                    playerListener.onPlayerJoin(i, player.getName());
+                    playerListener.onPlayerJoin(i, name);
                 }
 
-                return true;
+                return newPlayer;
             }
         }
 
-        return false;
+        return null;
     }
 
     public boolean removePlayer(Player player){
@@ -74,7 +75,7 @@ public class Game {
         return playerList;
     }
 
-    public void setPlayerListener(GamePlayerListener playerListener) {
+    public void setPlayerListener(PendingGameListener playerListener) {
         this.playerListener = playerListener;
     }
 }

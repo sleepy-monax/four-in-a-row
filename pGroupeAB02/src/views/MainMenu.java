@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import master.MasterGame;
 import utils.Main;
 
 public class MainMenu extends StackPane {
@@ -13,8 +14,11 @@ public class MainMenu extends StackPane {
         Pane singleplayerButton = Widgets.makeBigButton("assets/singleplayer.png", "Singleplayer");
         singleplayerButton.setPadding(new Insets(0, 72, 0, 72));
 
-        Pane multiplayerButton = Widgets.makeBigButton("assets/multiplayer.png", "Multiplayer");
-        multiplayerButton.setPadding(new Insets(0, 72, 0, 72));
+        Pane joinMultiplayerButton = Widgets.makeBigButton("assets/multiplayer.png", "Join Multiplayer");
+        joinMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));
+
+        Pane hostMultiplayerButton = Widgets.makeBigButton("assets/multiplayer.png", "Host Multiplayer");
+        hostMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));
 
         Pane orbScores = Widgets.makeOrbButton("assets/score.png");
         Pane orbSettings = Widgets.makeOrbButton("assets/settings.png");
@@ -30,7 +34,8 @@ public class MainMenu extends StackPane {
                 16,
                 Widgets.makeLogo(),
                 singleplayerButton,
-                multiplayerButton,
+                joinMultiplayerButton,
+                hostMultiplayerButton,
                 orbContainer
         ) {{
             setAlignment(Pos.CENTER);
@@ -41,7 +46,9 @@ public class MainMenu extends StackPane {
         this.setId("background");
         this.getChildren().add(menuContainer);
 
-        multiplayerButton.setOnMouseClicked(mouseEvent -> Main.switchScene(new MultiplayerSelect()));
+        joinMultiplayerButton.setOnMouseClicked(mouseEvent -> Main.switchScene(new JoinMultiplayer()));
+        hostMultiplayerButton.setOnMouseClicked(mouseEvent -> Main.switchScene(new PendingGameView(new MasterGame(null, 1234))));
+
         orbQuit.setOnMouseClicked(mouseEvent -> Main.quit());
     }
 }

@@ -2,10 +2,10 @@ package master;
 
 import models.Player;
 
-public class Slave {
+public class ConnectedSlave {
     private Player player = null;
 
-    public Slave() {
+    public ConnectedSlave() {
     }
 
     public Player getPlayer() {

@@ -3,18 +3,20 @@ package controls;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
+import models.PendingGame;
 
 
 public class PlayerRoomControl extends AnchorPane {
+    private int playerIndex;
+    private PendingGame game;
+
     private PlayerRoomControlState state;
     private String username;
 
     private Label labelName;
     private Label labelStatus;
 
-    public PlayerRoomControl() {
+    public PlayerRoomControl(PendingGame game, int playerIndex) {
         labelName = new Label("ERROR");
         labelName.setAlignment(Pos.CENTER_LEFT);
         labelName.getStyleClass().add("username");

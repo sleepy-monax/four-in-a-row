@@ -37,7 +37,7 @@ public class JoinMultiplayer extends StackPane {
         menuContainer.setMaxWidth(512);
 
         Button backButton = Widgets.makeButton("Go back");
-        backButton.setOnAction(actionEvent -> Main.switchScene(new MultiplayerSelect()));
+        backButton.setOnAction(actionEvent -> Main.switchScene(new MainMenu()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         menuContainer.getChildren().addAll(

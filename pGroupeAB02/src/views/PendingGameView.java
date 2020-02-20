@@ -2,29 +2,28 @@ package views;
 
 import controls.PlayerRoomControl;
 import controls.PlayerRoomControlState;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import master.MasterGame;
-import models.GamePlayerListener;
+import models.PendingGame;
+import models.PendingGameListener;
 import utils.Main;
 
-import java.io.IOException;
+public class PendingGameView extends StackPane implements PendingGameListener {
+    private PlayerRoomControl[] players;
 
-public class MultiplayerRoom extends StackPane implements GamePlayerListener {
-    PlayerRoomControl players[];
-
-    public MultiplayerRoom() {
+    public PendingGameView(PendingGame pendingGame) {
         this.setId("background");
         this.setPadding(new Insets(0, 32, 32, 32));
 
         players = new PlayerRoomControl[4];
 
         for (int i = 0; i < 4; i++) {
-            players[i] = new PlayerRoomControl().updateState("", PlayerRoomControlState.WAITING_FOR_CONNECTION);
+            players[i] = new PlayerRoomControl(pendingGame, i).updateState("", PlayerRoomControlState.WAITING_FOR_CONNECTION);
         }
 
         VBox menuContainer = new VBox(16);
@@ -50,26 +49,25 @@ public class MultiplayerRoom extends StackPane implements GamePlayerListener {
 
         this.getChildren().addAll(menuContainer, backButton);
 
-        try {
-            MasterGame game = new MasterGame(null, 1234);
-            game.setPlayerListener(this);
+        pendingGame.attachListener(this);
 
-            backButton.setOnAction(actionEvent -> {
-                Main.switchScene(new MultiplayerSelect());
-                game.shutdown();
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        backButton.setOnAction(actionEvent -> {
+            pendingGame.shutdown();
+            Main.switchScene(new MainMenu());
+        });
     }
 
     @Override
     public void onPlayerJoin(int index, String name) {
-        players[index].updateState(name, PlayerRoomControlState.CONNECTED);
+        Platform.runLater(() -> {
+            players[index].updateState(name, PlayerRoomControlState.CONNECTED);
+        });
     }
 
     @Override
     public void onPlayerLeave(int index, String name) {
-        players[index].updateState(name, PlayerRoomControlState.WAITING_FOR_CONNECTION);
+        Platform.runLater(() -> {
+            players[index].updateState(name, PlayerRoomControlState.WAITING_FOR_CONNECTION);
+        });
     }
 }

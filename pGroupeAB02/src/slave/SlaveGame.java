@@ -21,14 +21,13 @@ public class SlaveGame extends Game implements ConnectionListener {
 
     @Override
     public void onConnect(Connection connection) {
-        System.out.println("Hello je suis le slave et mon master est " + connection.toString());
-
-         connection.send(new PacketBuilder(PacketType.LOGIN).withString(username).build());
+        System.out.println("Logging in...");
+        connection.send(new PacketBuilder(PacketType.LOGIN).withString(username).build());
     }
 
     @Override
     public void onDisconnect(Connection connection) {
-        System.out.println("Je suis le slave et le master n'est plus mon ami :/");
+        System.out.println("Disconnected!");
     }
 
     @Override

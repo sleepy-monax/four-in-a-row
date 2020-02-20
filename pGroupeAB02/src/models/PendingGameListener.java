@@ -1,6 +1,6 @@
 package models;
 
-public interface GamePlayerListener {
+public interface PendingGameListener {
     void onPlayerJoin(int index, String name);
     void onPlayerLeave(int index, String name);
 }
