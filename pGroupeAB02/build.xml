@@ -1,0 +1,33 @@
+<project>
+    <path id="build.classpath">
+        <fileset dir="lib">
+            <include name="**/*.jar"/>
+            <include name="**/*.zip"/>
+        </fileset>
+    </path>
+    <target name="clean">
+        <delete dir="out/"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="out/classes"/>
+        <javac srcdir="src" destdir="out/classes">
+            <classpath refid="build.classpath"/>
+        </javac>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="out/jar"/>
+        <jar destfile="out/jar/application.jar" basedir="out/classes">
+            <fileset dir="src/"/>
+            <manifest>
+                <attribute name="Main-Class" value="utils.Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="out/jar/HelloWorld.jar" fork="true"/>
+    </target>
+
+</project>

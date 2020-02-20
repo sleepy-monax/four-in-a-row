@@ -1,20 +1,16 @@
 package views;
 
-import javafx.animation.FadeTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
-import javafx.util.Duration;
 import utils.Main;
 
 public class SplashScreen extends StackPane {
-    public SplashScreen()
-    {
+    public SplashScreen() {
         this.setId("background");
         this.setPadding(new Insets(32));
 

@@ -34,7 +34,7 @@ public final class Widgets {
     public static Button makeButton(String text) {
         Button button = new Button(text);
 
-        button.getStyleClass().addAll("button","FIR_button");
+        button.getStyleClass().addAll("button", "FIR_button");
 
         return button;
     }
@@ -71,7 +71,7 @@ public final class Widgets {
     public static Pane makeOrbButton(String icon) {
         StackPane button = new StackPane();
 
-        button.getStyleClass().addAll("button","FIR_orb-button");
+        button.getStyleClass().addAll("button", "FIR_orb-button");
 
         ImageView image = new ImageView(icon);
         button.getChildren().add(image);
@@ -116,8 +116,7 @@ public final class Widgets {
         buzzer.setOnMouseClicked(mouseEvent -> {
             click_count.getAndIncrement();
 
-            if (click_count.get() == 10)
-            {
+            if (click_count.get() == 10) {
                 Main.setTitle("Ah oui oui oui oui oui");
             }
         });
@@ -136,8 +135,7 @@ public final class Widgets {
         buzzer.setOnMouseClicked(mouseEvent -> {
             click_count.getAndIncrement();
 
-            if (click_count.get() == 10)
-            {
+            if (click_count.get() == 10) {
                 Main.setTitle("Ah oui oui oui oui oui");
             }
         });
