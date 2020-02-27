@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-
     private Deck deck;
     private Player players[];
 
@@ -33,14 +32,33 @@ public class Game {
         return null;
     }
 
+    public Player joinPlayer(int id, String name) {
+        if (players[id] == null) {
+            System.out.println("Player " + id + " named " + name + " join the game");
+
+            Player newPlayer = new Player(id, name);
+            players[id] = newPlayer;
+
+            if (playerListener != null) {
+                playerListener.onPlayerJoin(id, name);
+            }
+
+            return newPlayer;
+        }
+
+        return null;
+    }
+
     public boolean removePlayer(Player player) {
         for (int i = 0; i < players.length; i++) {
             if (players[i] == player) {
-                players = null;
+                System.out.println("Player " + player.getId() + " named " + player.getName() + " leave the game");
 
                 if (playerListener != null) {
                     playerListener.onPlayerLeave(i, player.getName());
                 }
+
+                players[i] = null;
 
                 return true;
             }

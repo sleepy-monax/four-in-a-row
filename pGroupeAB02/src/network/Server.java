@@ -13,8 +13,7 @@ public class Server {
     private ServerSocket server;
     private ConnectionListener serverListener;
 
-    public Server()
-    {
+    public Server() {
         connections = new ArrayList<>();
     }
 
@@ -22,8 +21,7 @@ public class Server {
         this.serverListener = serverListener;
     }
 
-    public synchronized boolean start(final int port)
-    {
+    public synchronized boolean start(final int port) {
         try {
             server = new ServerSocket(port);
         } catch (final Exception e) {
@@ -50,7 +48,8 @@ public class Server {
                         synchronized (connections) {
                             connections.add(connection);
                         }
-                        if (serverListener != null) serverListener.onConnect(connection);
+                        if (serverListener != null)
+                            serverListener.onConnect(connection);
                     }
 
                     @Override
@@ -58,12 +57,14 @@ public class Server {
                         synchronized (connections) {
                             connections.remove(c);
                         }
-                        if (serverListener != null) serverListener.onDisconnect(c);
+                        if (serverListener != null)
+                            serverListener.onDisconnect(c);
                     }
 
                     @Override
                     public void onReceive(final Packet p, final Connection connection) throws IOException {
-                        if (serverListener != null) serverListener.onReceive(p, connection);
+                        if (serverListener != null)
+                            serverListener.onReceive(p, connection);
                     }
                 });
 
@@ -74,6 +75,14 @@ public class Server {
             }
         }
 
+    }
+
+    public synchronized void broadcast(Packet packet) {
+        synchronized (connections) {
+            for (final Connection connection : connections) {
+                connection.send(packet);
+            }
+        }
     }
 
     public synchronized void stop() {
@@ -87,7 +96,8 @@ public class Server {
             connections.clear();
         }
 
-        if (server == null) return;
+        if (server == null)
+            return;
 
         try {
             server.close();

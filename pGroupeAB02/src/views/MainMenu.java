@@ -6,7 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import master.MasterGame;
+import models.MasterGame;
 import utils.Main;
 
 public class MainMenu extends StackPane {
@@ -30,24 +30,21 @@ public class MainMenu extends StackPane {
         orbContainer.setMaxHeight(48);
         StackPane.setAlignment(orbContainer, Pos.BOTTOM_CENTER);
 
-        VBox menuContainer = new VBox(
-                16,
-                Widgets.makeLogo(),
-                singleplayerButton,
-                joinMultiplayerButton,
-                hostMultiplayerButton,
-                orbContainer
-        ) {{
-            setAlignment(Pos.CENTER);
-            setMaxWidth(512);
-        }};
+        VBox menuContainer = new VBox(16, Widgets.makeLogo(), singleplayerButton, joinMultiplayerButton,
+                hostMultiplayerButton, orbContainer) {
+            {
+                setAlignment(Pos.CENTER);
+                setMaxWidth(512);
+            }
+        };
 
         this.setAlignment(Pos.CENTER);
         this.setId("background");
         this.getChildren().add(menuContainer);
 
         joinMultiplayerButton.setOnMouseClicked(mouseEvent -> Main.switchScene(new JoinMultiplayer()));
-        hostMultiplayerButton.setOnMouseClicked(mouseEvent -> Main.switchScene(new PendingGameView(new MasterGame(null, 1234))));
+        hostMultiplayerButton
+                .setOnMouseClicked(mouseEvent -> Main.switchScene(new PendingGameView(new MasterGame(null, 1234))));
 
         orbQuit.setOnMouseClicked(mouseEvent -> Main.quit());
     }

@@ -1,6 +1,4 @@
-package master;
-
-import models.Player;
+package models;
 
 public class ConnectedSlave {
     private Player player = null;

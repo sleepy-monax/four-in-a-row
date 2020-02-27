@@ -1,4 +1,4 @@
-package master;
+package models;
 
 import models.*;
 import network.*;
@@ -56,16 +56,27 @@ public class MasterGame extends Game implements ConnectionListener, PendingGame 
 
     @Override
     public void onReceive(Packet packet, Connection connection) {
+        PacketReader reader = new PacketReader(packet);
+
         switch (packet.getPacketType()) {
             case LOGIN:
                 System.out.println("Player login" + connection.toString() + "...");
 
                 ConnectedSlave slave = this.slaves.get(connection);
+
                 try {
-                    Player newPlayer = this.joinPlayer(new PacketReader(packet).readString());
+                    Player newPlayer = this.joinPlayer(reader.readString());
 
                     if (newPlayer != null) {
                         slave.setPlayer(newPlayer);
+
+                        server.broadcast(new PacketBuilder(PacketType.PLAYER_JOIN).withInt(newPlayer.getId())
+                                .withString(newPlayer.getName()).build());
+
+                        connection.send(new PacketBuilder(PacketType.ACCEPTED).withInt(newPlayer.getId()).build());
+                    } else {
+                        connection.close();
+                        this.slaves.remove(connection);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

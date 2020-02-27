@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import slave.SlaveGame;
+import models.SlaveGame;
 import utils.Main;
 
 public class JoinMultiplayer extends StackPane {
@@ -25,11 +25,8 @@ public class JoinMultiplayer extends StackPane {
         VBox.setMargin(joinButton, new Insets(16, 0, 0, 0));
 
         joinButton.setOnMouseClicked(mouseEvent -> {
-            new SlaveGame(
-                    userNameTextfield.getText(),
-                    addressTextfield.getText(),
-                    1234
-            );
+            Main.switchScene(
+                    new PendingGameView(new SlaveGame(userNameTextfield.getText(), addressTextfield.getText(), 1234)));
         });
 
         VBox menuContainer = new VBox(16);
@@ -40,14 +37,9 @@ public class JoinMultiplayer extends StackPane {
         backButton.setOnAction(actionEvent -> Main.switchScene(new MainMenu()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        menuContainer.getChildren().addAll(
-                Widgets.makeTitle("Join Multiplayer"),
-                Widgets.makeLabel("Username"),
-                userNameTextfield,
-                Widgets.makeLabel("Host Address"),
-                addressTextfield,
-                joinButton);
+        menuContainer.getChildren().addAll(Widgets.makeTitle("Join Multiplayer"), Widgets.makeLabel("Username"),
+                userNameTextfield, Widgets.makeLabel("Host Address"), addressTextfield, joinButton);
 
-        this.getChildren().addAll( menuContainer, backButton);
+        this.getChildren().addAll(menuContainer, backButton);
     }
 }

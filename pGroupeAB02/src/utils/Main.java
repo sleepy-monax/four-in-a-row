@@ -2,7 +2,6 @@ package utils;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -45,7 +44,6 @@ public class Main extends Application {
     }
 
     public static void quit() {
-        ThreadManager.shutdown();
         stage.close();
     }
 
@@ -64,7 +62,15 @@ public class Main extends Application {
 
         stage.getIcons().add(new Image("assets/big-buzzer.png"));
         stage.setOnCloseRequest(windowEvent -> {
-            ThreadManager.shutdown();
+            Runtime.getRuntime().exit(0);
+        });
+
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                System.out.println("Shutting down...");
+                ThreadManager.shutdown();
+            }
         });
 
         Scene scene = new Scene(new Pane());
