@@ -41,6 +41,8 @@ public class Game {
 
             if (playerListener != null) {
                 playerListener.onPlayerJoin(id, name);
+            } else {
+                System.out.println("Event lost!");
             }
 
             return newPlayer;
@@ -92,7 +94,17 @@ public class Game {
         return playerList;
     }
 
-    public void setPlayerListener(PendingGameListener playerListener) {
+    public Player getPlayer(int id) {
+        return players[id];
+    }
+
+    public void attachListener(PendingGameListener playerListener) {
         this.playerListener = playerListener;
+    }
+
+    public void tick() {
+        if (playerListener != null) {
+            playerListener.onGameTick();
+        }
     }
 }

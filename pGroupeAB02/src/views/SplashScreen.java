@@ -8,6 +8,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import utils.Main;
+import utils.StageManager;
 
 public class SplashScreen extends StackPane {
     public SplashScreen() {
@@ -23,8 +24,8 @@ public class SplashScreen extends StackPane {
         labelRight.setTextFill(new Color(1, 1, 1, 0.5));
         StackPane.setAlignment(labelRight, Pos.BOTTOM_CENTER);
 
-        this.setOnKeyTyped(keyEvent -> Main.switchScene(new MainMenu()));
-        button.setOnAction(actionEvent -> Main.switchScene(new MainMenu()));
+        this.setOnKeyTyped(keyEvent -> StageManager.switchScene(new MainMenu()));
+        button.setOnAction(actionEvent -> StageManager.switchScene(new MainMenu()));
 
         this.getChildren().addAll(Widgets.makeLogo(), button, labelRight);
     }

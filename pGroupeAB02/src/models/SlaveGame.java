@@ -4,6 +4,8 @@ import network.*;
 
 import java.io.IOException;
 
+import controls.PlayerRoomControlState;
+
 public class SlaveGame extends Game implements ConnectionListener, PendingGame {
     private int localPlayer;
     private Connection connection;
@@ -41,11 +43,21 @@ public class SlaveGame extends Game implements ConnectionListener, PendingGame {
                 break;
 
             case PLAYER_JOIN:
-                this.joinPlayer(reader.readInt(), reader.readString());
+                int player_count = reader.readInt();
+
+                for (int i = 0; i < player_count; i++) {
+                    this.joinPlayer(reader.readInt(), reader.readString());
+                }
+
                 break;
 
             case PLAYER_LEAVE:
                 this.removePlayer(reader.readInt());
+                break;
+            case TICK:
+                System.out.println("server tick");
+                this.tick();
+                break;
 
             default:
                 break;
@@ -59,15 +71,24 @@ public class SlaveGame extends Game implements ConnectionListener, PendingGame {
     }
 
     @Override
-    public void attachListener(PendingGameListener listener) {
-        // TODO Auto-generated method stub
-        setPlayerListener(listener);
-
-    }
-
-    @Override
     public void shutdown() {
         // TODO Auto-generated method stub
         connection.close();
+    }
+
+    @Override
+    public String getPlayerName(int id) {
+        if (this.getPlayer(id) == null)
+            return "";
+
+        return this.getPlayer(id).getName();
+    }
+
+    @Override
+    public PlayerRoomControlState getPlayerState(int id) {
+        if (this.getPlayer(id) == null)
+            return PlayerRoomControlState.WAITING_FOR_CONNECTION;
+
+        return PlayerRoomControlState.CONNECTED;
     }
 }

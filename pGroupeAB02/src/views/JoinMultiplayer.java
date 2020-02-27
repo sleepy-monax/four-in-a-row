@@ -9,6 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.SlaveGame;
 import utils.Main;
+import utils.StageManager;
 
 public class JoinMultiplayer extends StackPane {
     public JoinMultiplayer() {
@@ -25,7 +26,7 @@ public class JoinMultiplayer extends StackPane {
         VBox.setMargin(joinButton, new Insets(16, 0, 0, 0));
 
         joinButton.setOnMouseClicked(mouseEvent -> {
-            Main.switchScene(
+            StageManager.switchScene(
                     new PendingGameView(new SlaveGame(userNameTextfield.getText(), addressTextfield.getText(), 1234)));
         });
 
@@ -34,7 +35,7 @@ public class JoinMultiplayer extends StackPane {
         menuContainer.setMaxWidth(512);
 
         Button backButton = Widgets.makeButton("Go back");
-        backButton.setOnAction(actionEvent -> Main.switchScene(new MainMenu()));
+        backButton.setOnAction(actionEvent -> StageManager.switchScene(new MainMenu()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         menuContainer.getChildren().addAll(Widgets.makeTitle("Join Multiplayer"), Widgets.makeLabel("Username"),

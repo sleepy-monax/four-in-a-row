@@ -11,19 +11,22 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.PendingGame;
 import models.PendingGameListener;
-import utils.Main;
+import utils.StageManager;
 
 public class PendingGameView extends StackPane implements PendingGameListener {
     private PlayerRoomControl[] players;
+    private PendingGame pendingGame;
 
     public PendingGameView(PendingGame pendingGame) {
+        this.pendingGame = pendingGame;
         this.setId("background");
         this.setPadding(new Insets(0, 32, 32, 32));
 
         players = new PlayerRoomControl[4];
 
         for (int i = 0; i < 4; i++) {
-            players[i] = new PlayerRoomControl(pendingGame, i).updateState("", PlayerRoomControlState.WAITING_FOR_CONNECTION);
+            players[i] = new PlayerRoomControl(pendingGame, i).updateState("",
+                    PlayerRoomControlState.WAITING_FOR_CONNECTION);
         }
 
         VBox menuContainer = new VBox(16);
@@ -37,9 +40,7 @@ public class PendingGameView extends StackPane implements PendingGameListener {
         StackPane.setAlignment(joinButton, Pos.BOTTOM_RIGHT);
         joinButton.setMaxWidth(256);
 
-        menuContainer.getChildren().addAll(
-                Widgets.makeTitle("Multiplayer Room"),
-                Widgets.makeLabel("Players"));
+        menuContainer.getChildren().addAll(Widgets.makeTitle("Multiplayer Room"), Widgets.makeLabel("Players"));
 
         for (int i = 0; i < 4; i++) {
             menuContainer.getChildren().add(players[i]);
@@ -53,7 +54,7 @@ public class PendingGameView extends StackPane implements PendingGameListener {
 
         backButton.setOnAction(actionEvent -> {
             pendingGame.shutdown();
-            Main.switchScene(new MainMenu());
+            StageManager.switchScene(new MainMenu());
         });
     }
 
@@ -69,5 +70,12 @@ public class PendingGameView extends StackPane implements PendingGameListener {
         Platform.runLater(() -> {
             players[index].updateState(name, PlayerRoomControlState.WAITING_FOR_CONNECTION);
         });
+    }
+
+    @Override
+    public void onGameTick() {
+        for (int i = 0; i < 4; i++) {
+            players[i].updateState(this.pendingGame.getPlayerName(i), this.pendingGame.getPlayerState(i));
+        }
     }
 }

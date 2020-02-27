@@ -1,14 +1,18 @@
 package models;
 
-import models.*;
 import network.*;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import controls.PlayerRoomControlState;
 
 public class MasterGame extends Game implements ConnectionListener, PendingGame {
     private Server server;
     private HashMap<Connection, ConnectedSlave> slaves;
+    private Timer tickTimer;
 
     public MasterGame(Deck deck, int port) {
         super(deck);
@@ -18,6 +22,17 @@ public class MasterGame extends Game implements ConnectionListener, PendingGame 
         server = new Server();
         server.setListener(this);
         server.start(port);
+
+        tickTimer = new Timer();
+
+        Game game = this;
+        tickTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                server.broadcast(new PacketBuilder(PacketType.TICK).build());
+                game.tick();
+            }
+        }, 0, 1000);
     }
 
     @Override
@@ -27,11 +42,6 @@ public class MasterGame extends Game implements ConnectionListener, PendingGame 
                 removePlayer(slave.getPlayer());
             }
         }
-    }
-
-    @Override
-    public void attachListener(PendingGameListener listener) {
-        setPlayerListener(listener);
     }
 
     public void shutdown() {
@@ -95,5 +105,25 @@ public class MasterGame extends Game implements ConnectionListener, PendingGame 
             default:
                 System.out.println("Unexpected packet " + packet.toString());
         }
+    }
+
+    @Override
+    public String getPlayerName(int id) {
+        if (getPlayer(id) == null) {
+            return "";
+        }
+
+        return getPlayer(id).getName();
+    }
+
+    @Override
+    public PlayerRoomControlState getPlayerState(int id) {
+        for (ConnectedSlave slave : slaves.values()) {
+            if (slave.getPlayer() != null && slave.getPlayer().getId() == id) {
+                return PlayerRoomControlState.CONNECTED;
+            }
+        }
+
+        return PlayerRoomControlState.WAITING_FOR_CONNECTION;
     }
 }

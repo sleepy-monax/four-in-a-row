@@ -8,6 +8,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.MasterGame;
 import utils.Main;
+import utils.StageManager;
 
 public class MainMenu extends StackPane {
     public MainMenu() {
@@ -42,10 +43,10 @@ public class MainMenu extends StackPane {
         this.setId("background");
         this.getChildren().add(menuContainer);
 
-        joinMultiplayerButton.setOnMouseClicked(mouseEvent -> Main.switchScene(new JoinMultiplayer()));
-        hostMultiplayerButton
-                .setOnMouseClicked(mouseEvent -> Main.switchScene(new PendingGameView(new MasterGame(null, 1234))));
+        joinMultiplayerButton.setOnMouseClicked(mouseEvent -> StageManager.switchScene(new JoinMultiplayer()));
+        hostMultiplayerButton.setOnMouseClicked(
+                mouseEvent -> StageManager.switchScene(new PendingGameView(new MasterGame(null, 1234))));
 
-        orbQuit.setOnMouseClicked(mouseEvent -> Main.quit());
+        orbQuit.setOnMouseClicked(mouseEvent -> StageManager.quit());
     }
 }

@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import utils.Main;
+import utils.StageManager;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -117,7 +118,7 @@ public final class Widgets {
             click_count.getAndIncrement();
 
             if (click_count.get() == 10) {
-                Main.setTitle("Ah oui oui oui oui oui");
+                StageManager.setTitle("Ah oui oui oui oui oui");
             }
         });
 
@@ -136,7 +137,7 @@ public final class Widgets {
             click_count.getAndIncrement();
 
             if (click_count.get() == 10) {
-                Main.setTitle("Ah oui oui oui oui oui");
+                StageManager.setTitle("Ah oui oui oui oui oui");
             }
         });
 
