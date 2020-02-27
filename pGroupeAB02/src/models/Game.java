@@ -67,6 +67,10 @@ public class Game {
         return false;
     }
 
+    public boolean removePlayer(int id) {
+        return removePlayer(players[id]);
+    }
+
     public Deck getDeck() {
         return deck;
     }

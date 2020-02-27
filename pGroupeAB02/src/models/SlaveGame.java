@@ -44,6 +44,9 @@ public class SlaveGame extends Game implements ConnectionListener, PendingGame {
                 this.joinPlayer(reader.readInt(), reader.readString());
                 break;
 
+            case PLAYER_LEAVE:
+                this.removePlayer(reader.readInt());
+
             default:
                 break;
         }
@@ -52,7 +55,7 @@ public class SlaveGame extends Game implements ConnectionListener, PendingGame {
     @Override
     public void kickPlayer(int i) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override

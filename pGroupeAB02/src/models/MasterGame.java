@@ -50,8 +50,16 @@ public class MasterGame extends Game implements ConnectionListener, PendingGame 
         System.out.println("Disconnecting player " + connection.toString() + "...");
 
         ConnectedSlave slave = this.slaves.get(connection);
-        this.removePlayer(slave.getPlayer());
+
+        Player player = slave.getPlayer();
+
+        if (player != null) {
+            server.broadcast(new PacketBuilder(PacketType.PLAYER_LEAVE).withInt(player.getId()).build());
+            this.removePlayer(slave.getPlayer());
+        }
+
         this.slaves.remove(connection);
+
     }
 
     @Override
