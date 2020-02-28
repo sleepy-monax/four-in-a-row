@@ -88,8 +88,16 @@ public class MasterGame extends Game implements ConnectionListener, PendingGame 
                     if (newPlayer != null) {
                         slave.setPlayer(newPlayer);
 
-                        server.broadcast(new PacketBuilder(PacketType.PLAYER_JOIN).withInt(newPlayer.getId())
-                                .withString(newPlayer.getName()).build());
+                        PacketBuilder builder = new PacketBuilder(PacketType.PLAYER_JOIN);
+
+                        builder.withInt(getPlayers().size());
+
+                        for (Player player : getPlayers()) {
+                            builder.withInt(player.getId());
+                            builder.withString(player.getName());
+                        }
+
+                        server.broadcast(builder.build());
 
                         connection.send(new PacketBuilder(PacketType.ACCEPTED).withInt(newPlayer.getId()).build());
                     } else {

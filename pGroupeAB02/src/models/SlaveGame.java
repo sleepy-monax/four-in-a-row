@@ -66,13 +66,12 @@ public class SlaveGame extends Game implements ConnectionListener, PendingGame {
 
     @Override
     public void kickPlayer(int i) {
-        // TODO Auto-generated method stub
-
+        System.out.println("Slave game try to kick a player!");
+        assert (false);
     }
 
     @Override
     public void shutdown() {
-        // TODO Auto-generated method stub
         connection.close();
     }
 

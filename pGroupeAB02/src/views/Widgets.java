@@ -1,5 +1,7 @@
 package views;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -9,10 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import utils.Main;
 import utils.StageManager;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 public final class Widgets {
     private Widgets() {
@@ -134,9 +133,7 @@ public final class Widgets {
 
         AtomicInteger click_count = new AtomicInteger();
         buzzer.setOnMouseClicked(mouseEvent -> {
-            click_count.getAndIncrement();
-
-            if (click_count.get() == 10) {
+            if (click_count.incrementAndGet() == 10) {
                 StageManager.setTitle("Ah oui oui oui oui oui");
             }
         });

@@ -27,7 +27,6 @@ package network;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.SocketException;
 
 import static utils.ThreadManager.launchThread;
 
@@ -49,9 +48,10 @@ public class Connection {
     }
 
     public synchronized boolean connect(final String host, final int port) {
-        if (socket != null && !socket.isClosed()) throw new IllegalStateException("Client not closed");
-        if (host.isEmpty() || port == -1) throw new IllegalStateException("Host and port are not set");
-
+        if (socket != null && !socket.isClosed())
+            throw new IllegalStateException("Client not closed");
+        if (host.isEmpty() || port == -1)
+            throw new IllegalStateException("Host and port are not set");
 
         try {
             setSocket(new Socket(host, port));
@@ -61,7 +61,7 @@ public class Connection {
         }
     }
 
-    private void listenerThreadImpl() {
+    private void listenerService() {
         while (true) {
             final Packet packet;
 
@@ -84,7 +84,8 @@ public class Connection {
     }
 
     public synchronized boolean send(final Packet packet) {
-        if (!isConnected()) return false;
+        if (!isConnected())
+            return false;
 
         try {
             packet.write(dataOutputStream);
@@ -96,16 +97,18 @@ public class Connection {
     }
 
     public synchronized void close() {
-        if (socket == null) return;
-        if (socket.isClosed()) return;
-
+        if (socket == null)
+            return;
+        if (socket.isClosed())
+            return;
 
         try {
             socket.close();
         } catch (final IOException ignored) {
         }
 
-        if (clientListener != null) clientListener.onDisconnect(this);
+        if (clientListener != null)
+            clientListener.onDisconnect(this);
     }
 
     public synchronized boolean isConnected() {
@@ -121,16 +124,18 @@ public class Connection {
     }
 
     public synchronized void setSocket(final Socket socket) throws IOException {
-        if (this.socket != null && !this.socket.isClosed()) throw new IllegalStateException("Connection not closed");
+        if (this.socket != null && !this.socket.isClosed())
+            throw new IllegalStateException("Connection not closed");
 
         this.socket = socket;
         socket.setKeepAlive(false);
         dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 
-        launchThread(() -> listenerThreadImpl());
+        launchThread(() -> listenerService());
 
-        if (clientListener != null) clientListener.onConnect(this);
+        if (clientListener != null)
+            clientListener.onConnect(this);
     }
 
     @Override
