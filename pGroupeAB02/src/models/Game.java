@@ -2,17 +2,37 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Game {
     private Deck deck;
     private Player players[];
+    private int level, levelmax;
+    private Difficulty difficulty;
+    private Question actualQuestion;
+    private List<Question> easyQuesitons, mediumQuestions, hardQuestions;
+
+
 
     private PendingGameListener playerListener;
 
     public Game(Deck deck) {
         setDeck(deck);
-
+        level = 0;
         players = new Player[4];
+        setDifficulty(Difficulty.EASY);
+    }
+
+    public boolean reply(String reply){
+        if (actualQuestion.toString() == reply){
+            level++;
+            if (levelmax < level)
+                level =levelmax;
+            return true;
+        }
+
+        level = 0;
+        return false;
     }
 
     public Player joinPlayer(String name) {
@@ -80,6 +100,27 @@ public class Game {
     public void setDeck(Deck deck) {
         if (deck != null)
             this.deck = deck;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        if (level == 0 && level <4)
+            this.level = level;
+    }
+
+    public int getLevelmax() {
+        return levelmax;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
     }
 
     public List<Player> getPlayers() {

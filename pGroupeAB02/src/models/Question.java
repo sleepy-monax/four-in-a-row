@@ -5,16 +5,16 @@ import java.util.List;
 import java.util.Objects;
 
 public class Question {
-    private String author;
     private List<String> clues;
-    private String theme;
-    private String answer;
+    private String author, theme, answer;
+    private Difficulty difficuly;
 
-    public Question(String author, String theme, String answer) {
+    public Question(String author, String theme, String answer, Difficulty difficulty) {
         setAuthor(author);
         clues = new ArrayList<String>();
         setAnswer(answer);
         setTheme(theme);
+        setDifficuly(difficuly);
     }
 
     public String getAuthor() {
@@ -39,6 +39,10 @@ public class Question {
         }
     }
 
+    public List<String> getClues() {
+        return clues;
+    }
+
     public String getTheme() {
         return theme;
     }
@@ -53,6 +57,14 @@ public class Question {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public void setDifficuly(Difficulty difficuly) {
+        this.difficuly = difficuly;
+    }
+
+    public Difficulty getDifficuly() {
+        return difficuly;
     }
 
     public boolean isValid() {
@@ -88,7 +100,7 @@ public class Question {
     }
 
     public Question clone() {
-        Question q = new Question(author, theme, answer);
+        Question q = new Question(author, theme, answer, difficuly);
         for (int i = 0; i < clues.size(); i++) {
             q.addClues(clues.get(i));
         }

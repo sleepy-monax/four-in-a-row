@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Deck {
-    private final List<Question> questions;
+    private List<Question> questions = null;
 
     public Deck() {
         questions = new ArrayList<>();
@@ -22,14 +22,6 @@ public class Deck {
         } else {
             return false;
         }
-    }
-
-    public void add(List<Question> questions) {
-        questions.forEach(this::add);
-    }
-
-    public List<Question> questions() {
-        return questions.stream().map(question -> question.clone()).collect(Collectors.toList());
     }
 
     public boolean replace(Question oldQuestion, Question newQuestion) {
@@ -56,6 +48,16 @@ public class Deck {
          * lieu, sinon false;
          */
         return questions.remove(question);
+    }
+
+    public List<Question> getQuestion(Difficulty diff){
+        List<Question> filteredQuestions = new ArrayList<>();
+        questions.forEach(question -> {
+            if (question.getDifficuly() == diff)
+                filteredQuestions.add(question);
+        });
+
+        return filteredQuestions;
     }
 
     public void clear() {
