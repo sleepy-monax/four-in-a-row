@@ -22,7 +22,6 @@ public final class StageManager {
     public static final String DEFAULT_STAGE_ICON = "assets/big-buzzer.png";
 
     public static void initialize(Stage s) {
-        assert (s == null);
         stage = s;
 
         stage.setTitle(DEFAULT_STAGE_TITLE);
@@ -31,9 +30,6 @@ public final class StageManager {
         stage.setHeight(DEFAULT_SCREEN_HEIGHT);
 
         stage.setMinWidth(DEFAULT_SCREEN_WIDTH);
-
-        ; // Le point virgule de Shasha
-
         stage.setMinHeight(DEFAULT_SCREEN_HEIGHT);
 
         stage.setFullScreenExitHint(null);
@@ -46,7 +42,6 @@ public final class StageManager {
         Pane root = new Pane();
         root.setId("background");
         Scene scene = new Scene(root);
-        scene.getStylesheets().addAll("assets/style.css");
         stage.setScene(scene);
 
         scene.setOnKeyPressed(event -> {

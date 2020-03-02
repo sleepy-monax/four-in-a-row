@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class ThreadManager {
-    private static final ExecutorService service = Executors.newCachedThreadPool();
+    private static ExecutorService service;
 
     public static Future launchThread(final Runnable runnable) {
         return service.submit(runnable);
@@ -14,6 +14,10 @@ public class ThreadManager {
 
     public static void waitForCompletion(final Future future) throws ExecutionException, InterruptedException {
         future.get();
+    }
+
+    public static void Initialize() {
+        service = Executors.newCachedThreadPool();
     }
 
     public static void shutdown() {
