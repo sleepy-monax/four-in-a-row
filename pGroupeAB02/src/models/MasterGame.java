@@ -13,6 +13,7 @@ public class MasterGame extends Game implements ConnectionListener, PendingGame 
     private Server server;
     private HashMap<Connection, ConnectedSlave> slaves;
     private Timer tickTimer;
+    private TimerTask tickService;
 
     public MasterGame(Deck deck, int port) {
         super(deck);
@@ -26,13 +27,16 @@ public class MasterGame extends Game implements ConnectionListener, PendingGame 
         tickTimer = new Timer();
 
         Game game = this;
-        tickTimer.schedule(new TimerTask() {
+
+        tickService = new TimerTask() {
             @Override
             public void run() {
                 server.broadcast(new PacketBuilder(PacketType.TICK).build());
                 game.tick();
             }
-        }, 0, 1000);
+        };
+
+        tickTimer.schedule(tickService, 0, 1000);
     }
 
     @Override
@@ -46,6 +50,7 @@ public class MasterGame extends Game implements ConnectionListener, PendingGame 
 
     public void shutdown() {
         System.out.println("Shutting down server...");
+        tickService.cancel();
         server.stop();
     }
 
