@@ -7,9 +7,7 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import controls.PlayerRoomControlState;
-
-public class MasterGame extends Game implements ConnectionListener, PendingGame {
+public class MasterGame extends Game implements ConnectionListener {
     private Server server;
     private HashMap<Connection, ConnectedSlave> slaves;
     private Timer tickTimer;
@@ -39,7 +37,6 @@ public class MasterGame extends Game implements ConnectionListener, PendingGame 
         tickTimer.schedule(tickService, 0, 1000);
     }
 
-    @Override
     public void kickPlayer(int i) {
         for (ConnectedSlave slave : slaves.values()) {
             if (slave.getPlayer() != null && slave.getPlayer().getId() == i) {
@@ -89,6 +86,7 @@ public class MasterGame extends Game implements ConnectionListener, PendingGame 
 
                 try {
                     Player newPlayer = this.joinPlayer(reader.readString());
+                    connection.send(new PacketBuilder(PacketType.ACCEPTED).withInt(newPlayer.getId()).build());
 
                     if (newPlayer != null) {
                         slave.setPlayer(newPlayer);
@@ -104,7 +102,6 @@ public class MasterGame extends Game implements ConnectionListener, PendingGame 
 
                         server.broadcast(builder.build());
 
-                        connection.send(new PacketBuilder(PacketType.ACCEPTED).withInt(newPlayer.getId()).build());
                     } else {
                         connection.close();
                         this.slaves.remove(connection);
@@ -118,25 +115,5 @@ public class MasterGame extends Game implements ConnectionListener, PendingGame 
             default:
                 System.out.println("Unexpected packet " + packet.toString());
         }
-    }
-
-    @Override
-    public String getPlayerName(int id) {
-        if (getPlayer(id) == null) {
-            return "";
-        }
-
-        return getPlayer(id).getName();
-    }
-
-    @Override
-    public PlayerRoomControlState getPlayerState(int id) {
-        for (ConnectedSlave slave : slaves.values()) {
-            if (slave.getPlayer() != null && slave.getPlayer().getId() == id) {
-                return PlayerRoomControlState.CONNECTED;
-            }
-        }
-
-        return PlayerRoomControlState.WAITING_FOR_CONNECTION;
     }
 }

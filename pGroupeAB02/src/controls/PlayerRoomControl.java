@@ -3,20 +3,12 @@ package controls;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import models.PendingGame;
-
 
 public class PlayerRoomControl extends AnchorPane {
-    private int playerIndex;
-    private PendingGame game;
-
-    private PlayerRoomControlState state;
-    private String username;
-
     private Label labelName;
     private Label labelStatus;
 
-    public PlayerRoomControl(PendingGame game, int playerIndex) {
+    public PlayerRoomControl() {
         labelName = new Label("ERROR");
         labelName.setAlignment(Pos.CENTER_LEFT);
         labelName.getStyleClass().add("username");
@@ -32,10 +24,12 @@ public class PlayerRoomControl extends AnchorPane {
         AnchorPane.setBottomAnchor(labelStatus, 0.0);
 
         this.getChildren().addAll(labelName, labelStatus);
+
+        updateState("", PlayerRoomControlState.WAITING_FOR_CONNECTION);
     }
 
     public PlayerRoomControl updateState(String username, PlayerRoomControlState state) {
-        switch (state){
+        switch (state) {
             case CONNECTED:
                 labelStatus.setText("Connected");
                 this.getStyleClass().setAll("FIR_player-state", "FIR_player-state-connected");
@@ -51,23 +45,11 @@ public class PlayerRoomControl extends AnchorPane {
         }
 
         if (state == PlayerRoomControlState.WAITING_FOR_CONNECTION) {
-            this.username = "";
             labelName.setText("");
         } else {
-            this.username = username;
             labelName.setText(username);
         }
 
-        this.state = state;
-
         return this;
-    }
-
-    public PlayerRoomControlState getState() {
-        return state;
-    }
-
-    public String getUsername() {
-        return username;
     }
 }

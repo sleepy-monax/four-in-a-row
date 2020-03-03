@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 public class MessageLoop {
-    private LinkedList<Message> pending = new LinkedList();
+    private LinkedList<Message> pendingRepost = new LinkedList();
     private HashSet<Notifiable> notifiers = new HashSet();
 
     public MessageLoop() {
@@ -23,30 +23,30 @@ public class MessageLoop {
         return is_dispatched;
     }
 
-    private void redispatch() {
-        LinkedList<Message> redispatched = new LinkedList<>();
+    private void repost() {
+        LinkedList<Message> reposted = new LinkedList<>();
 
-        for (Message message : pending) {
+        for (Message message : pendingRepost) {
             if (dispatch(message)) {
-                redispatched.add(message);
+                reposted.add(message);
             }
         }
 
-        pending.removeAll(redispatched);
+        pendingRepost.removeAll(reposted);
     }
 
-    void registerNotifier(Notifiable notifier) {
+    public void registerNotifier(Notifiable notifier) {
         notifiers.add(notifier);
-        redispatch();
+        repost();
     }
 
-    void unregisterNotifier(Notifiable notifier) {
+    public void unregisterNotifier(Notifiable notifier) {
         notifiers.remove(notifiers);
     }
 
-    void post(Message message) {
-        if (!dispatch(message)) {
-            pending.add(message);
+    public void post(Message message) {
+        if (!dispatch(message) && message.repostable()) {
+            pendingRepost.add(message);
         }
     }
 }

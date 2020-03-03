@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import controls.PlayerRoomControlState;
 
-public class SlaveGame extends Game implements ConnectionListener, PendingGame {
+public class SlaveGame extends Game implements ConnectionListener {
     private int localPlayer;
     private Connection connection;
     private String username;
@@ -44,7 +44,6 @@ public class SlaveGame extends Game implements ConnectionListener, PendingGame {
 
             case PLAYER_JOIN:
                 int player_count = reader.readInt();
-
                 for (int i = 0; i < player_count; i++) {
                     this.joinPlayer(reader.readInt(), reader.readString());
                 }
@@ -65,29 +64,7 @@ public class SlaveGame extends Game implements ConnectionListener, PendingGame {
     }
 
     @Override
-    public void kickPlayer(int i) {
-        System.out.println("Slave game try to kick a player!");
-        assert (false);
-    }
-
-    @Override
     public void shutdown() {
         connection.close();
-    }
-
-    @Override
-    public String getPlayerName(int id) {
-        if (this.getPlayer(id) == null)
-            return "";
-
-        return this.getPlayer(id).getName();
-    }
-
-    @Override
-    public PlayerRoomControlState getPlayerState(int id) {
-        if (this.getPlayer(id) == null)
-            return PlayerRoomControlState.WAITING_FOR_CONNECTION;
-
-        return PlayerRoomControlState.CONNECTED;
     }
 }

@@ -27,7 +27,8 @@ public class PacketReader {
         final byte[] data = new byte[dataLength];
 
         final int dataRead = dataInputStream.read(data, 0, dataLength);
-        if (dataRead != dataLength) throw new IOException("Not enough data available");
+        if (dataRead != dataLength)
+            throw new IOException("Not enough data available");
 
         return data;
     }

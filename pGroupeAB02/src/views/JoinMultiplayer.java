@@ -8,7 +8,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.SlaveGame;
-import utils.Main;
 import utils.StageManager;
 
 public class JoinMultiplayer extends StackPane {

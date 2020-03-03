@@ -2,32 +2,35 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-public class Game {
+import message.GameTick;
+import message.PlayerJoin;
+import message.PlayerLeave;
+import messageloop.MessageLoop;
+
+public abstract class Game {
     private Deck deck;
     private Player players[];
     private int level, levelmax;
     private Difficulty difficulty;
     private Question actualQuestion;
-    private List<Question> easyQuesitons, mediumQuestions, hardQuestions;
 
-
-
-    private PendingGameListener playerListener;
+    private MessageLoop messageLoop;
 
     public Game(Deck deck) {
         setDeck(deck);
+        setDifficulty(Difficulty.EASY);
+        messageLoop = new MessageLoop();
+
         level = 0;
         players = new Player[4];
-        setDifficulty(Difficulty.EASY);
     }
 
-    public boolean reply(String reply){
-        if (actualQuestion.toString() == reply){
+    public boolean reply(String reply) {
+        if (actualQuestion.toString() == reply) {
             level++;
             if (levelmax < level)
-                level =levelmax;
+                level = levelmax;
             return true;
         }
 
@@ -38,14 +41,7 @@ public class Game {
     public Player joinPlayer(String name) {
         for (int i = 0; i < players.length; i++) {
             if (players[i] == null) {
-                Player newPlayer = new Player(i, name);
-                players[i] = newPlayer;
-
-                if (playerListener != null) {
-                    playerListener.onPlayerJoin(i, name);
-                }
-
-                return newPlayer;
+                return joinPlayer(i, name);
             }
         }
 
@@ -54,16 +50,12 @@ public class Game {
 
     public Player joinPlayer(int id, String name) {
         if (players[id] == null) {
-            System.out.println("Player " + id + " named " + name + " join the game");
-
             Player newPlayer = new Player(id, name);
+            System.out.println(newPlayer + " join the game");
+
             players[id] = newPlayer;
 
-            if (playerListener != null) {
-                playerListener.onPlayerJoin(id, name);
-            } else {
-                System.out.println("Event lost!");
-            }
+            messageLoop.post(new PlayerJoin(newPlayer));
 
             return newPlayer;
         }
@@ -71,14 +63,16 @@ public class Game {
         return null;
     }
 
+    public void tick() {
+        messageLoop.post(new GameTick());
+    }
+
     public boolean removePlayer(Player player) {
         for (int i = 0; i < players.length; i++) {
             if (players[i] == player) {
-                System.out.println("Player " + player.getId() + " named " + player.getName() + " leave the game");
+                System.out.println(player + " leave the game");
 
-                if (playerListener != null) {
-                    playerListener.onPlayerLeave(i, player.getName());
-                }
+                messageLoop.post(new PlayerLeave(player));
 
                 players[i] = null;
 
@@ -107,7 +101,7 @@ public class Game {
     }
 
     public void setLevel(int level) {
-        if (level == 0 && level <4)
+        if (level == 0 && level < 4)
             this.level = level;
     }
 
@@ -139,13 +133,9 @@ public class Game {
         return players[id];
     }
 
-    public void attachListener(PendingGameListener playerListener) {
-        this.playerListener = playerListener;
+    public MessageLoop getMessageLoop() {
+        return messageLoop;
     }
 
-    public void tick() {
-        if (playerListener != null) {
-            playerListener.onGameTick();
-        }
-    }
+    public abstract void shutdown();
 }

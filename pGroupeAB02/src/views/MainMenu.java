@@ -7,7 +7,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.MasterGame;
-import utils.Main;
 import utils.StageManager;
 
 public class MainMenu extends StackPane {

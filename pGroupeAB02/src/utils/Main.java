@@ -24,13 +24,10 @@ public class Main extends Application {
         ThreadManager.Initialize();
         StageManager.initialize(stage);
 
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                System.out.println("Shutting down...");
-                ThreadManager.shutdown();
-            }
-        });
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("Shutting down...");
+            ThreadManager.shutdown();
+        }));
 
         StageManager.switchScene(new SplashScreen());
 

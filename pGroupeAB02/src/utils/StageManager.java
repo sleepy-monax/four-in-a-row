@@ -32,7 +32,7 @@ public final class StageManager {
         stage.setMinWidth(DEFAULT_SCREEN_WIDTH);
         stage.setMinHeight(DEFAULT_SCREEN_HEIGHT);
 
-        stage.setFullScreenExitHint(null);
+        stage.setFullScreenExitHint("");
 
         stage.getIcons().add(new Image(DEFAULT_STAGE_ICON));
         stage.setOnCloseRequest(windowEvent -> {
