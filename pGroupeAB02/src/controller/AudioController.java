@@ -20,4 +20,10 @@ public class AudioController {
 		}
 	}
 
+	public static void shutdown() {
+		if (mediaPlayer != null) {
+			mediaPlayer.stop();
+			mediaPlayer = null;
+		}
+	}
 }

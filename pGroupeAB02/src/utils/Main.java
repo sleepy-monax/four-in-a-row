@@ -9,7 +9,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-
     }
 
     @Override
@@ -20,11 +19,13 @@ public class Main extends Application {
         AudioController.initialize();
         StageManager.initialize(stage);
 
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("Shutting down...");
-            ThreadManager.shutdown();
-        }));
-
         StageManager.switchScene(new SplashScreen());
+    }
+
+    @Override
+    public void stop() throws Exception {
+        System.out.println("Shutting down...");
+        ThreadManager.shutdown();
+        AudioController.shutdown();
     }
 }

@@ -21,7 +21,6 @@ public class ThreadManager {
     }
 
     public static void shutdown() {
-        System.out.println("Shutting down thread manager...");
         service.shutdownNow();
     }
 }

@@ -39,11 +39,11 @@ public class SlaveGame extends Game implements ConnectionListener {
         switch (packet.getPacketType()) {
             case ACCEPTED:
                 localPlayer = reader.readInt();
-                System.out.println("Server accepted connection!");
                 break;
 
             case PLAYER_JOIN:
                 int player_count = reader.readInt();
+
                 for (int i = 0; i < player_count; i++) {
                     this.joinPlayer(reader.readInt(), reader.readString());
                 }
@@ -54,7 +54,6 @@ public class SlaveGame extends Game implements ConnectionListener {
                 this.removePlayer(reader.readInt());
                 break;
             case TICK:
-                System.out.println("server tick");
                 this.tick();
                 break;
 
