@@ -1,5 +1,6 @@
 package utils;
 
+import controller.AudioController;
 import javafx.animation.FadeTransition;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,6 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import views.MainMenu;
 import views.View;
 
 public final class StageManager {
@@ -83,6 +85,13 @@ public final class StageManager {
 
     public static void setTitle(String title) {
         stage.setTitle(title);
+    }
+
+    public static void goToMainMenu() {
+        StageManager.switchView(new MainMenu());
+        AudioController.playNow("src/assets/transition.wav", () -> {
+            AudioController.playLoopNow("src/assets/loop2.wav", null);
+        });
     }
 
     public static void quit() {

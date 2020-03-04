@@ -93,9 +93,10 @@ public class Master extends Game implements ConnectionListener {
 
                 try {
                     Player newPlayer = this.joinPlayer(reader.readString());
-                    connection.send(new PacketBuilder(PacketType.ACCEPTED).withInt(newPlayer.getId()).build());
 
                     if (newPlayer != null) {
+                        connection.send(new PacketBuilder(PacketType.ACCEPTED).withInt(newPlayer.getId()).build());
+
                         slave.setPlayer(newPlayer);
 
                         PacketBuilder builder = new PacketBuilder(PacketType.PLAYER_JOIN);

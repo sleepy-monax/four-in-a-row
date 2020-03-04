@@ -14,6 +14,11 @@
     -fx-background-size: cover;
 }
 
+#wheel{
+    -fx-background-image: url("wheel.png");
+    -fx-background-size: cover;
+}
+
 #logo {
     -fx-background-image: url("logo.png");
     -fx-background-repeat: no-repeat;

@@ -1,5 +1,6 @@
 package views;
 
+import controller.AudioController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
@@ -44,6 +45,11 @@ public class MainMenu extends View {
         this.setId("background");
         this.getChildren().add(menuContainer);
 
-        orbQuit.setOnMouseClicked(mouseEvent -> StageManager.quit());
+        orbQuit.setOnMouseClicked(mouseEvent -> {
+            StageManager.switchView(new EndScreen());
+            AudioController.playNow("src/assets/end.wav", () -> {
+                StageManager.quit();
+            });
+        });
     }
 }
