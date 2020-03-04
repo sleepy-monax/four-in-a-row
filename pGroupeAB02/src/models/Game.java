@@ -14,12 +14,16 @@ public abstract class Game {
     private int level, levelmax;
     private Difficulty difficulty;
     private Question actualQuestion;
+    private String actualTheme;
+    private List<String> listTheme, theRand;
 
     private MessageLoop messageLoop;
 
     public Game(Deck deck) {
         setDeck(deck);
         setDifficulty(Difficulty.EASY);
+        listTheme = deck.getListThemes();
+
         messageLoop = new MessageLoop();
 
         level = 0;

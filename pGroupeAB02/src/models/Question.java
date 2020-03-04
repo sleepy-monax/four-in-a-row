@@ -7,14 +7,12 @@ import java.util.Objects;
 public class Question {
     private List<String> clues;
     private String author, theme, answer;
-    private Difficulty difficuly;
 
-    public Question(String author, String theme, String answer, Difficulty difficulty) {
+    public Question(String author, String theme, String answer) {
         setAuthor(author);
         clues = new ArrayList<String>();
         setAnswer(answer);
         setTheme(theme);
-        setDifficuly(difficuly);
     }
 
     public String getAuthor() {
@@ -59,14 +57,6 @@ public class Question {
         this.answer = answer;
     }
 
-    public void setDifficuly(Difficulty difficuly) {
-        this.difficuly = difficuly;
-    }
-
-    public Difficulty getDifficuly() {
-        return difficuly;
-    }
-
     public boolean isValid() {
         if (author == null || author.trim().isEmpty() || clues == null)
             return false;
@@ -100,7 +90,7 @@ public class Question {
     }
 
     public Question clone() {
-        Question q = new Question(author, theme, answer, difficuly);
+        Question q = new Question(author, theme, answer);
         for (int i = 0; i < clues.size(); i++) {
             q.addClues(clues.get(i));
         }
