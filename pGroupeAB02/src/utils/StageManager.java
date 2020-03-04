@@ -5,7 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -16,6 +15,7 @@ public final class StageManager {
     }
 
     private static Stage stage;
+    private static View currentView;
 
     public static final int DEFAULT_SCREEN_WIDTH = 960;
     public static final int DEFAULT_SCREEN_HEIGHT = 720;
@@ -57,6 +57,14 @@ public final class StageManager {
     }
 
     public static void switchView(View root) {
+        if (currentView != null) {
+            currentView.onSwitchOut();
+        }
+
+        currentView = root;
+
+        currentView.onSwitchIn();
+
         Parent oldroot = stage.getScene().getRoot();
 
         stage.getScene().setRoot(new StackPane(oldroot, root));
