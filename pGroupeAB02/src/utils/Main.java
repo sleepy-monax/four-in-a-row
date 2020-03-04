@@ -27,5 +27,8 @@ public class Main extends Application {
         System.out.println("Shutting down...");
         ThreadManager.shutdown();
         AudioController.shutdown();
+
+        // make that there is no object left preventing the process to exit
+        Runtime.getRuntime().runFinalization();
     }
 }
