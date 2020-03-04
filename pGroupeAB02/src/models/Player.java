@@ -53,4 +53,9 @@ public class Player {
             this.levelMax = levelMax;
     }
 
+    @Override
+    public String toString() {
+        return "Player{" + " id='" + id + "'" + ", name='" + name + "'" + ", score='" + score + "'" + ", level='"
+                + level + "'" + ", levelMax='" + levelMax + "'" + "}";
+    }
 }
