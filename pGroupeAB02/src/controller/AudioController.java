@@ -11,23 +11,11 @@ import utils.Main;
 public class AudioController {
 	private static final int MAX_SOUND_EFFECTS = 8;
 
-	private static MediaPlayer mediaPlayer;
-	private static HashMap<String, Media> mediaCache = new HashMap<>();
-	private static LinkedList<MediaPlayer> effects = new LinkedList<>();
+	private static HashMap<String, Media> soundCache = new HashMap<>();
+	private static MediaPlayer musicPlayer;
+	private static LinkedList<MediaPlayer> effectPlayers = new LinkedList<>();
 
 	public AudioController() {
-	}
-
-	public static Media getMedia(String name) {
-		if (!mediaCache.containsKey(name)) {
-			try {
-				mediaCache.put(name, new Media(Main.class.getResource("/" + name).toURI().toString()));
-			} catch (URISyntaxException e) {
-				return null;
-			}
-		}
-
-		return mediaCache.get(name);
 	}
 
 	public static void initialize() {
@@ -36,53 +24,68 @@ public class AudioController {
 		});
 	}
 
-	public static void playNow(String name, Runnable then) {
-		if (mediaPlayer != null) {
-			mediaPlayer.stop();
+	public static Media getMedia(String name) {
+		if (!soundCache.containsKey(name)) {
+			try {
+				soundCache.put(name, new Media(Main.class.getResource("/" + name).toURI().toString()));
+			} catch (URISyntaxException e) {
+				return null;
+			}
 		}
-		mediaPlayer = new MediaPlayer(getMedia(name));
-		mediaPlayer.setVolume(0.5);
+
+		return soundCache.get(name);
+	}
+
+	public static void playNow(String name, Runnable then) {
+		if (musicPlayer != null) {
+			musicPlayer.stop();
+		}
+
+		musicPlayer = new MediaPlayer(getMedia(name));
+		musicPlayer.setVolume(0.5);
 
 		if (then != null) {
-			mediaPlayer.setOnEndOfMedia(then);
+			musicPlayer.setOnEndOfMedia(then);
 		}
-		mediaPlayer.play();
+		musicPlayer.play();
 	}
 
 	public static void playLoopNow(String name, Runnable then) {
-		if (mediaPlayer != null) {
-			mediaPlayer.stop();
+		if (musicPlayer != null) {
+			musicPlayer.stop();
 		}
-		mediaPlayer = new MediaPlayer(getMedia(name));
-		mediaPlayer.setVolume(0.5);
-		mediaPlayer.setCycleCount(Integer.MAX_VALUE);
+
+		musicPlayer = new MediaPlayer(getMedia(name));
+		musicPlayer.setVolume(0.5);
+		musicPlayer.setCycleCount(Integer.MAX_VALUE);
+
 		if (then != null) {
-			mediaPlayer.setOnEndOfMedia(then);
+			musicPlayer.setOnEndOfMedia(then);
 		}
-		mediaPlayer.play();
+		musicPlayer.play();
 	}
 
 	public static void playEffect(String name) {
-		if (effects.size() > MAX_SOUND_EFFECTS) {
+		if (effectPlayers.size() > MAX_SOUND_EFFECTS) {
 			return;
 		}
 
-		MediaPlayer mediaPlayer = new MediaPlayer(getMedia(name));
+		MediaPlayer effectPlayer = new MediaPlayer(getMedia(name));
 
-		effects.add(mediaPlayer);
+		effectPlayers.add(effectPlayer);
 
-		mediaPlayer.setOnEndOfMedia(() -> {
-			effects.remove(mediaPlayer);
-			mediaPlayer.dispose();
+		effectPlayer.setOnEndOfMedia(() -> {
+			effectPlayers.remove(effectPlayer);
+			effectPlayer.dispose();
 		});
 
-		mediaPlayer.play();
+		effectPlayer.play();
 	}
 
 	public static void shutdown() {
-		if (mediaPlayer != null) {
-			mediaPlayer.stop();
-			mediaPlayer = null;
+		if (musicPlayer != null) {
+			musicPlayer.stop();
+			musicPlayer = null;
 		}
 	}
 }
