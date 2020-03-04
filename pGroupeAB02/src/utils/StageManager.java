@@ -44,7 +44,6 @@ public final class StageManager {
         stage.setMinHeight(DEFAULT_SCREEN_HEIGHT);
 
         stage.setFullScreenExitHint("");
-        stage.setFullScreen(true);
 
         stage.getIcons().add(new Image(DEFAULT_STAGE_ICON));
         stage.setOnCloseRequest(windowEvent -> {
@@ -166,7 +165,7 @@ public final class StageManager {
     public static void goToMainMenu() {
         StageManager.switchView(new MainMenu());
         AudioController.playNow("assets/transition.wav", () -> {
-            AudioController.playLoopNow("assets/loop2.wav", null);
+            AudioController.playLoopNow("assets/loop2.wav");
         });
     }
 
