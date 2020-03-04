@@ -14,7 +14,7 @@ public class MainMenu extends View {
     public MainMenu() {
         Pane singleplayerButton = Widgets.makeBigButton("assets/singleplayer.png", "Singleplayer");
         singleplayerButton.setPadding(new Insets(0, 72, 0, 72));
-        singleplayerButton.setOnMouseClicked(event -> StageManager.switchView(new SelectTheme(null, 1)));
+        singleplayerButton.setOnMouseClicked(event -> StageManager.switchView(new SelectTheme(null, 3)));
 
         Pane joinMultiplayerButton = Widgets.makeBigButton("assets/multiplayer.png", "Join Multiplayer");
         joinMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));
