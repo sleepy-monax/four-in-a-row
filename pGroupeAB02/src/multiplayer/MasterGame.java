@@ -1,4 +1,4 @@
-package models;
+package multiplayer;
 
 import network.*;
 
@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import models.*;
 
 public class MasterGame extends Game implements ConnectionListener {
     private Server server;
@@ -76,7 +78,7 @@ public class MasterGame extends Game implements ConnectionListener {
 
     @Override
     public void onDisconnectByRemote(Connection connection) {
-        
+
     }
 
     @Override
@@ -121,6 +123,5 @@ public class MasterGame extends Game implements ConnectionListener {
                 System.out.println("Unexpected packet " + packet.toString());
         }
     }
-
 
 }

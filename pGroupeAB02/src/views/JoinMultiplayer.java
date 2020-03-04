@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import models.SlaveGame;
+import multiplayer.Multiplayer;
 import utils.StageManager;
 
 public class JoinMultiplayer extends StackPane {
@@ -22,12 +22,10 @@ public class JoinMultiplayer extends StackPane {
 
         Pane joinButton = Widgets.makeBigButton("assets/multiplayer.png", "Connect");
         joinButton.setPadding(new Insets(0, 72, 0, 72));
-        VBox.setMargin(joinButton, new Insets(16, 0, 0, 0));
-
         joinButton.setOnMouseClicked(mouseEvent -> {
-            StageManager.switchScene(
-                    new PendingGameView(new SlaveGame(userNameTextfield.getText(), addressTextfield.getText(), 1234)));
+            Multiplayer.join(userNameTextfield.getText(), addressTextfield.getText(), Multiplayer.DEFAULT_PORT);
         });
+        VBox.setMargin(joinButton, new Insets(16, 0, 0, 0));
 
         VBox menuContainer = new VBox(16);
         menuContainer.setAlignment(Pos.CENTER);

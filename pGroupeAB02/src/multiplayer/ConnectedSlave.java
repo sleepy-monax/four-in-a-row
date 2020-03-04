@@ -1,4 +1,6 @@
-package models;
+package multiplayer;
+
+import models.Player;
 
 public class ConnectedSlave {
     private Player player = null;

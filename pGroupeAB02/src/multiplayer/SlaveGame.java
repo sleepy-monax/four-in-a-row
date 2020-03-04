@@ -1,10 +1,11 @@
-package models;
+package multiplayer;
 
 import network.*;
 
 import java.io.IOException;
 
 import message.GameDisconnected;
+import models.*;
 
 public class SlaveGame extends Game implements ConnectionListener {
     private int localPlayer;

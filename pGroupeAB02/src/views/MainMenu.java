@@ -6,7 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import models.MasterGame;
+import multiplayer.Multiplayer;
 import utils.StageManager;
 
 public class MainMenu extends StackPane {
@@ -16,9 +16,11 @@ public class MainMenu extends StackPane {
 
         Pane joinMultiplayerButton = Widgets.makeBigButton("assets/multiplayer.png", "Join Multiplayer");
         joinMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));
+        joinMultiplayerButton.setOnMouseClicked(mouseEvent -> StageManager.switchScene(new JoinMultiplayer()));
 
         Pane hostMultiplayerButton = Widgets.makeBigButton("assets/multiplayer.png", "Host Multiplayer");
         hostMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));
+        hostMultiplayerButton.setOnMouseClicked(mouseEvent -> Multiplayer.host(Multiplayer.DEFAULT_PORT));
 
         Pane orbScores = Widgets.makeOrbButton("assets/score.png");
         Pane orbSettings = Widgets.makeOrbButton("assets/settings.png");
@@ -41,10 +43,6 @@ public class MainMenu extends StackPane {
         this.setAlignment(Pos.CENTER);
         this.setId("background");
         this.getChildren().add(menuContainer);
-
-        joinMultiplayerButton.setOnMouseClicked(mouseEvent -> StageManager.switchScene(new JoinMultiplayer()));
-        hostMultiplayerButton.setOnMouseClicked(
-                mouseEvent -> StageManager.switchScene(new PendingGameView(new MasterGame(null, 1234))));
 
         orbQuit.setOnMouseClicked(mouseEvent -> StageManager.quit());
     }
