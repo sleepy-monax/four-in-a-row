@@ -16,7 +16,7 @@ public class ThreadManager {
         future.get();
     }
 
-    public static void Initialize() {
+    public static void initialize() {
         service = Executors.newCachedThreadPool();
     }
 
