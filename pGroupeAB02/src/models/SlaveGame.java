@@ -4,7 +4,7 @@ import network.*;
 
 import java.io.IOException;
 
-import controls.PlayerRoomControlState;
+import message.GameDisconnected;
 
 public class SlaveGame extends Game implements ConnectionListener {
     private int localPlayer;
@@ -29,7 +29,12 @@ public class SlaveGame extends Game implements ConnectionListener {
 
     @Override
     public void onDisconnect(Connection connection) {
-        System.out.println("Disconnected!");
+        shutdown();
+    }
+
+    @Override
+    public void onDisconnectByRemote(Connection connection) {
+        getMessageLoop().post(new GameDisconnected());
     }
 
     @Override
@@ -43,16 +48,15 @@ public class SlaveGame extends Game implements ConnectionListener {
 
             case PLAYER_JOIN:
                 int player_count = reader.readInt();
-
                 for (int i = 0; i < player_count; i++) {
                     this.joinPlayer(reader.readInt(), reader.readString());
                 }
-
                 break;
 
             case PLAYER_LEAVE:
                 this.removePlayer(reader.readInt());
                 break;
+
             case TICK:
                 this.tick();
                 break;

@@ -66,6 +66,12 @@ public class Server {
                         if (serverListener != null)
                             serverListener.onReceive(p, connection);
                     }
+
+                    @Override
+                    public void onDisconnectByRemote(Connection connection) {
+                        // TODO Auto-generated method stub
+
+                    }
                 });
 
                 client.setSocket(socket);

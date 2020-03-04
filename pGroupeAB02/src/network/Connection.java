@@ -31,6 +31,7 @@ import java.net.Socket;
 import static utils.ThreadManager.launchThread;
 
 public class Connection {
+    private boolean closeByClient = false;
     private Socket socket;
     private DataInputStream dataInputStream;
     private DataOutputStream dataOutputStream;
@@ -68,7 +69,9 @@ public class Connection {
             try {
                 packet = Packet.fromStream(dataInputStream);
             } catch (final IOException e) {
-                // Ignore : socket is closed
+                if (clientListener != null && !closeByClient)
+                    clientListener.onDisconnectByRemote(this);
+
                 close();
                 break;
             }
@@ -97,6 +100,8 @@ public class Connection {
     }
 
     public synchronized void close() {
+        closeByClient = true;
+
         if (socket == null)
             return;
         if (socket.isClosed())

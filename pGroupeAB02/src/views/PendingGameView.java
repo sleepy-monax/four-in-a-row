@@ -52,10 +52,23 @@ public class PendingGameView extends StackPane {
                 }
             };
 
+            Notifiable stoppedNotifier = new Notifier<GameDisconnected>(GameDisconnected.class) {
+                @Override
+                public boolean canAccept(GameDisconnected message) {
+                    return true;
+                }
+
+                @Override
+                public void handle(GameDisconnected message) {
+                    StageManager.switchScene(new Information("Game Stopped", "The Server is disconnected!"));
+                }
+            };
+
             players[i] = control;
 
             game.getMessageLoop().registerNotifier(joinNotifier);
             game.getMessageLoop().registerNotifier(leaveNotifier);
+            game.getMessageLoop().registerNotifier(stoppedNotifier);
         }
 
         VBox menuContainer = new VBox(16);

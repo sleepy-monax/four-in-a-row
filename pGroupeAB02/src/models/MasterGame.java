@@ -75,6 +75,11 @@ public class MasterGame extends Game implements ConnectionListener {
     }
 
     @Override
+    public void onDisconnectByRemote(Connection connection) {
+        
+    }
+
+    @Override
     public void onReceive(Packet packet, Connection connection) {
         PacketReader reader = new PacketReader(packet);
 
@@ -116,4 +121,6 @@ public class MasterGame extends Game implements ConnectionListener {
                 System.out.println("Unexpected packet " + packet.toString());
         }
     }
+
+
 }
