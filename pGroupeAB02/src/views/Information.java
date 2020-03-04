@@ -14,7 +14,7 @@ public class Information extends View {
         Button backButton = Widgets.makeButton("Go back to menu");
         backButton.setOnAction(actionEvent -> StageManager.switchView(new MainMenu()));
 
-        VBox menuContainer = new VBox(16, Widgets.makeTitle(title), Widgets.makeLabel(message), backButton) {
+        VBox menuContainer = new VBox(128, Widgets.makeTitle(title), Widgets.makeLabel(message), backButton) {
             {
                 setAlignment(Pos.CENTER);
                 setMaxWidth(512);

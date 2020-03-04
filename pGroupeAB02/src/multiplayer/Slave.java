@@ -7,12 +7,12 @@ import java.io.IOException;
 import message.GameDisconnected;
 import models.*;
 
-public class SlaveGame extends Game implements ConnectionListener {
+public class Slave extends Game implements ConnectionListener {
     private int localPlayer;
     private Connection connection;
     private String username;
 
-    public SlaveGame(String username, String address, int port) {
+    public Slave(String username, String address, int port) {
         super(null); // lol
 
         this.username = username;

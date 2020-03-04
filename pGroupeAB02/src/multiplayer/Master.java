@@ -9,13 +9,13 @@ import java.util.TimerTask;
 
 import models.*;
 
-public class MasterGame extends Game implements ConnectionListener {
+public class Master extends Game implements ConnectionListener {
     private Server server;
     private HashMap<Connection, ConnectedSlave> slaves;
     private Timer tickTimer;
     private TimerTask tickService;
 
-    public MasterGame(Deck deck, int port) {
+    public Master(Deck deck, int port) {
         super(deck);
 
         slaves = new HashMap<>();
