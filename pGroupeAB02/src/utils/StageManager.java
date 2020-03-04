@@ -137,10 +137,11 @@ public final class StageManager {
 
         ScaleTransition scaleNext = new ScaleTransition();
 
-        scaleNext.setFromX(0);
+        scaleNext.setFromX(4);
         scaleNext.setToX(1);
-        scaleNext.setFromY(0);
+        scaleNext.setFromY(4);
         scaleNext.setToY(1);
+        scaleNext.setInterpolator(Interpolator.EASE_IN);
 
         scaleNext.setNode(nextView);
         scaleNext.setDuration(Duration.seconds(0.25));
