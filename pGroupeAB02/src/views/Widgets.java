@@ -2,6 +2,7 @@ package views;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import controller.AudioController;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -118,6 +119,8 @@ public final class Widgets {
 
             if (click_count.get() == 10) {
                 StageManager.setTitle("Ah oui oui oui oui oui");
+            } else {
+                AudioController.playEffect("assets/bruh.wav");
             }
         });
 
@@ -135,6 +138,8 @@ public final class Widgets {
         buzzer.setOnMouseClicked(mouseEvent -> {
             if (click_count.incrementAndGet() == 10) {
                 StageManager.setTitle("Ah oui oui oui oui oui");
+            } else {
+                AudioController.playEffect("assets/bruh.wav");
             }
         });
 

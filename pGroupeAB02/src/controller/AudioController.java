@@ -2,6 +2,7 @@ package controller;
 
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -10,6 +11,7 @@ import utils.Main;
 public class AudioController {
 	private static MediaPlayer mediaPlayer;
 	private static HashMap<String, Media> mediaCache = new HashMap<>();
+	private static LinkedList<MediaPlayer> effects = new LinkedList<>();
 
 	public AudioController() {
 	}
@@ -37,6 +39,8 @@ public class AudioController {
 			mediaPlayer.stop();
 		}
 		mediaPlayer = new MediaPlayer(getMedia(name));
+		mediaPlayer.setVolume(0.5);
+
 		if (then != null) {
 			mediaPlayer.setOnEndOfMedia(then);
 		}
@@ -48,10 +52,23 @@ public class AudioController {
 			mediaPlayer.stop();
 		}
 		mediaPlayer = new MediaPlayer(getMedia(name));
+		mediaPlayer.setVolume(0.5);
 		mediaPlayer.setCycleCount(Integer.MAX_VALUE);
 		if (then != null) {
 			mediaPlayer.setOnEndOfMedia(then);
 		}
+		mediaPlayer.play();
+	}
+
+	public static void playEffect(String name) {
+		MediaPlayer mediaPlayer = new MediaPlayer(getMedia(name));
+
+		effects.add(mediaPlayer);
+
+		mediaPlayer.setOnEndOfMedia(() -> {
+			effects.remove(mediaPlayer);
+		});
+
 		mediaPlayer.play();
 	}
 
