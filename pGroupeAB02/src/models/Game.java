@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import message.GameTick;
 import message.PlayerJoin;
@@ -15,19 +16,30 @@ public abstract class Game {
     private Difficulty difficulty;
     private Question actualQuestion;
     private String actualTheme;
-    private List<String> listTheme, theRand;
+    private List<String> themeRand;
 
     private MessageLoop messageLoop;
 
     public Game(Deck deck) {
         setDeck(deck);
-        setDifficulty(Difficulty.EASY);
-        listTheme = deck.getListThemes();
-
         messageLoop = new MessageLoop();
-
         level = 0;
         players = new Player[4];
+    }
+
+    public void letsPlay(Difficulty difficulty, int nbtheme){
+        randomTheme(nbtheme);
+        setDifficulty(difficulty);
+    }
+
+    private void randomTheme(int nb) {
+        if (themeRand != null)
+            themeRand = null;
+        for (int i = 0; i < nb; i++) {
+            int rand = new Random().nextInt(deck.getListThemes().size());
+            themeRand.add(deck.getListThemes().get(rand));
+            themeRand.remove(deck.getListThemes().get(rand));
+        }
     }
 
     public boolean reply(String reply) {
