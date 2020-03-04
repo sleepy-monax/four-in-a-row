@@ -50,5 +50,7 @@ public class MainMenu extends View {
                 StageManager.quit();
             });
         });
+
+        orbSettings.setOnMouseClicked(mouseEvent-> StageManager.switchView((new Settings())));
     }
 }
