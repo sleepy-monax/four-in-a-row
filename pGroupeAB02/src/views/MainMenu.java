@@ -42,7 +42,6 @@ public class MainMenu extends View {
         };
 
         this.setAlignment(Pos.CENTER);
-        this.setId("background");
         this.getChildren().add(menuContainer);
 
         orbQuit.setOnMouseClicked(mouseEvent -> {

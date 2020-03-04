@@ -2,10 +2,14 @@ package utils;
 
 import controller.AudioController;
 import javafx.animation.FadeTransition;
-import javafx.scene.Parent;
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
+import javafx.animation.Transition;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -17,7 +21,11 @@ public final class StageManager {
     }
 
     private static Stage stage;
+    private static StackPane viewContainer;
     private static View currentView;
+    private static Pane spinner;
+    private static Pane backgroud;
+    private static Pane glitter;
 
     public static final int DEFAULT_SCREEN_WIDTH = 960;
     public static final int DEFAULT_SCREEN_HEIGHT = 720;
@@ -42,11 +50,61 @@ public final class StageManager {
             Runtime.getRuntime().exit(0);
         });
 
-        View root = new View() {
+        spinner = new Pane();
+        spinner.setId("wheel");
+        spinner.setMinHeight(350);
+        spinner.setMinWidth(350);
+        spinner.setMaxHeight(350);
+        spinner.setMaxWidth(350);
+        spinner.setScaleX(10);
+        spinner.setScaleY(10);
+        spinner.setScaleZ(10);
+        spinner.setOpacity(0.25);
+
+        backgroud = new Pane();
+        backgroud.setId("background");
+        backgroud.setScaleX(1.25);
+        backgroud.setScaleY(1.25);
+
+        glitter = new Pane();
+        glitter.setId("glitter");
+        glitter.setScaleX(1.25);
+        glitter.setScaleY(1.25);
+        glitter.setOpacity(0.5);
+
+        RotateTransition animation = new RotateTransition(Duration.millis(16000), spinner);
+        animation.setByAngle(360);
+        animation.setCycleCount(Transition.INDEFINITE);
+        animation.setInterpolator(Interpolator.LINEAR);
+        animation.play();
+
+        View dummy = new View() {
         };
-        root.setId("background");
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+
+        viewContainer = new StackPane();
+        viewContainer.getChildren().add(backgroud);
+        viewContainer.getChildren().add(spinner);
+        viewContainer.getChildren().add(glitter);
+        viewContainer.getChildren().add(dummy);
+        currentView = dummy;
+
+        Scene scene = new Scene(viewContainer);
+        scene.setOnMouseMoved(event -> {
+            double x = (event.getSceneX() - scene.getWidth() / 2) / scene.getWidth();
+            double y = (event.getSceneY() - scene.getHeight() / 2) / scene.getHeight();
+
+            double offsetx = scene.getWidth() * 0.25 * x;
+            double offsety = scene.getHeight() * 0.25 * y;
+
+            backgroud.setTranslateX(-offsetx);
+            backgroud.setTranslateY(-offsety);
+
+            spinner.setTranslateX(-offsetx * 0.25);
+            spinner.setTranslateY(-offsety * 0.25);
+
+            glitter.setTranslateX(-offsetx * 0.5);
+            glitter.setTranslateY(-offsety * 0.5);
+        });
 
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER) && event.isAltDown()) {
@@ -55,32 +113,48 @@ public final class StageManager {
             }
         });
 
+        stage.setScene(scene);
         stage.show();
     }
 
-    public static void switchView(View root) {
-        if (currentView != null) {
-            currentView.onSwitchOut();
-        }
+    public static void switchView(View nextView) {
+        currentView.onSwitchOut();
 
-        currentView = root;
+        viewContainer.getChildren().add(nextView);
 
-        currentView.onSwitchIn();
+        FadeTransition fadingNext = new FadeTransition();
 
-        Parent oldroot = stage.getScene().getRoot();
+        fadingNext.setFromValue(0);
+        fadingNext.setToValue(1);
+        fadingNext.setNode(nextView);
+        fadingNext.setDuration(Duration.seconds(0.25));
 
-        stage.getScene().setRoot(new StackPane(oldroot, root));
+        fadingNext.setOnFinished(actionEvent -> {
+            viewContainer.getChildren().remove(currentView);
+            currentView = nextView;
+            nextView.onSwitchIn();
+        });
 
-        FadeTransition fading = new FadeTransition();
+        ScaleTransition scaleNext = new ScaleTransition();
 
-        fading.setFromValue(0);
-        fading.setToValue(1);
-        fading.setNode(root);
-        fading.setDuration(Duration.seconds(0.25));
+        scaleNext.setFromX(0);
+        scaleNext.setToX(1);
+        scaleNext.setFromY(0);
+        scaleNext.setToY(1);
 
-        fading.setOnFinished(actionEvent -> stage.getScene().setRoot(new StackPane(root)));
+        scaleNext.setNode(nextView);
+        scaleNext.setDuration(Duration.seconds(0.25));
 
-        fading.play();
+        FadeTransition fadingCurrent = new FadeTransition();
+
+        fadingCurrent.setFromValue(1);
+        fadingCurrent.setToValue(0);
+        fadingCurrent.setNode(currentView);
+        fadingCurrent.setDuration(Duration.seconds(0.25));
+
+        fadingCurrent.play();
+        fadingNext.play();
+        scaleNext.play();
     }
 
     public static void setTitle(String title) {

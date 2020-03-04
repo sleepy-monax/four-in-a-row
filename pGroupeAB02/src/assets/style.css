@@ -14,6 +14,14 @@
     -fx-background-size: cover;
 }
 
+#glitter {
+    -fx-background-color: transparent;
+    -fx-background-image: url("glitter.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+
 #wheel{
     -fx-background-image: url("wheel.png");
     -fx-background-size: cover;

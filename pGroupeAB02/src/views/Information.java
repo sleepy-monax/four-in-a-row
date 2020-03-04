@@ -8,7 +8,6 @@ import utils.StageManager;
 public class Information extends View {
     public Information(String title, String message) {
         this.setAlignment(Pos.CENTER);
-        this.setId("background");
         this.setPadding(new Insets(32));
 
         Button backButton = Widgets.makeButton("Go back to menu");

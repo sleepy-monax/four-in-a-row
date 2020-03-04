@@ -24,7 +24,6 @@ public class PendingGame extends View {
 
     public PendingGame(Game game) {
         this.game = game;
-        this.setId("background");
         this.setPadding(new Insets(0, 32, 32, 32));
 
         players = new PlayerRoomControl[4];

@@ -13,7 +13,6 @@ import utils.StageManager;
 public class JoinMultiplayer extends View {
     public JoinMultiplayer() {
         this.setAlignment(Pos.CENTER);
-        this.setId("background");
         this.setPadding(new Insets(32));
 
         TextField userNameTextfield = Widgets.makeTextField("User");
