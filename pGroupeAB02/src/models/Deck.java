@@ -42,6 +42,25 @@ public class Deck {
         return filteredQuestions;
     }
 
+    public List<String> getListThemes(){
+        List<String> var = new ArrayList<>();
+        questions.forEach(question -> var.add(question.getTheme()));
+        return var;
+    }
+
+    public List<Question> getQuestionsByTheme(String theme){
+        List<Question> var = new ArrayList<>();
+        questions.forEach(question -> {
+            if(question.getTheme() == theme)
+                var.add(question);
+        });
+        return var;
+    }
+
+    public List<Question> getAllQuestions(){
+        return questions;
+    }
+
     public void clear() {
         questions.clear();
     }
