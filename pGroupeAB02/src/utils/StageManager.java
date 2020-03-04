@@ -164,8 +164,8 @@ public final class StageManager {
 
     public static void goToMainMenu() {
         StageManager.switchView(new MainMenu());
-        AudioController.playNow("src/assets/transition.wav", () -> {
-            AudioController.playLoopNow("src/assets/loop2.wav", null);
+        AudioController.playNow("assets/transition.wav", () -> {
+            AudioController.playLoopNow("assets/loop2.wav", null);
         });
     }
 

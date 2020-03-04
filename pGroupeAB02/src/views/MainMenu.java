@@ -46,7 +46,7 @@ public class MainMenu extends View {
 
         orbQuit.setOnMouseClicked(mouseEvent -> {
             StageManager.switchView(new EndScreen());
-            AudioController.playNow("src/assets/end.wav", () -> {
+            AudioController.playNow("assets/end.wav", () -> {
                 StageManager.quit();
             });
         });

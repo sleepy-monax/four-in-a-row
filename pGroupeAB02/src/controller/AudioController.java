@@ -1,10 +1,11 @@
 package controller;
 
-import java.io.File;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import utils.Main;
 
 public class AudioController {
 	private static MediaPlayer mediaPlayer;
@@ -15,15 +16,19 @@ public class AudioController {
 
 	public static Media getMedia(String name) {
 		if (!mediaCache.containsKey(name)) {
-			mediaCache.put(name, new Media(new File(name).toURI().toString()));
+			try {
+				mediaCache.put(name, new Media(Main.class.getResource("/" + name).toURI().toString()));
+			} catch (URISyntaxException e) {
+				return null;
+			}
 		}
 
 		return mediaCache.get(name);
 	}
 
 	public static void initialize() {
-		playNow("src/assets/intro.wav", () -> {
-			playLoopNow("src/assets/loop.wav", null);
+		playNow("assets/intro.wav", () -> {
+			playLoopNow("assets/loop.wav", null);
 		});
 	}
 
