@@ -11,7 +11,11 @@ public abstract class Notifier<MessageType> implements Notifiable {
 
     @Override
     public final boolean canAccept(Message message) {
-        return type.isInstance(message);
+        return type.isInstance(message) && canAccept((MessageType) message);
+    }
+
+    public boolean canAccept(MessageType message) {
+        return true;
     }
 
     @Override

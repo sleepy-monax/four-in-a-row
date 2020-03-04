@@ -29,21 +29,26 @@ public class PendingGameView extends StackPane {
 
             final int playerIndex = i;
             Notifiable joinNotifier = new Notifier<PlayerJoin>(PlayerJoin.class) {
+                @Override
+                public boolean canAccept(PlayerJoin message) {
+                    return message.player().getId() == playerIndex;
+                }
 
                 @Override
                 public void handle(PlayerJoin message) {
-                    if (message.player().getId() == playerIndex) {
-                        control.updateState(message.player().getName(), PlayerRoomControlState.CONNECTED);
-                    }
+                    control.updateState(message.player().getName(), PlayerRoomControlState.CONNECTED);
                 }
             };
 
             Notifiable leaveNotifier = new Notifier<PlayerLeave>(PlayerLeave.class) {
                 @Override
+                public boolean canAccept(PlayerLeave message) {
+                    return message.player().getId() == playerIndex;
+                }
+
+                @Override
                 public void handle(PlayerLeave message) {
-                    if (message.player().getId() == playerIndex) {
-                        control.updateState(message.player().getName(), PlayerRoomControlState.WAITING_FOR_CONNECTION);
-                    }
+                    control.updateState(message.player().getName(), PlayerRoomControlState.WAITING_FOR_CONNECTION);
                 }
             };
 
