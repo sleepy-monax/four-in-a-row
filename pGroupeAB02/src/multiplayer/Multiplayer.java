@@ -12,7 +12,7 @@ public class Multiplayer {
 
         PendingGameView view = new PendingGameView(game);
 
-        StageManager.switchScene(view);
+        StageManager.switchView(view);
     }
 
     public static void host(int port) {
@@ -20,6 +20,6 @@ public class Multiplayer {
 
         PendingGameView view = new PendingGameView(game);
 
-        StageManager.switchScene(view);
+        StageManager.switchView(view);
     }
 }

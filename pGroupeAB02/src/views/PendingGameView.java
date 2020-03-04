@@ -13,7 +13,7 @@ import utils.StageManager;
 import messageloop.*;
 import message.*;
 
-public class PendingGameView extends StackPane {
+public class PendingGameView extends View {
     private PlayerRoomControl[] players;
     private Game game;
 
@@ -60,7 +60,7 @@ public class PendingGameView extends StackPane {
 
                 @Override
                 public void handle(GameDisconnected message) {
-                    StageManager.switchScene(new Information("Game Stopped", "The Server is disconnected!"));
+                    StageManager.switchView(new Information("Game Stopped", "The Server is disconnected!"));
                 }
             };
 
@@ -94,7 +94,7 @@ public class PendingGameView extends StackPane {
 
         backButton.setOnAction(actionEvent -> {
             game.shutdown();
-            StageManager.switchScene(new MainMenu());
+            StageManager.switchView(new MainMenu());
         });
     }
 }

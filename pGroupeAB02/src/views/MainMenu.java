@@ -9,14 +9,14 @@ import javafx.scene.layout.VBox;
 import multiplayer.Multiplayer;
 import utils.StageManager;
 
-public class MainMenu extends StackPane {
+public class MainMenu extends View {
     public MainMenu() {
         Pane singleplayerButton = Widgets.makeBigButton("assets/singleplayer.png", "Singleplayer");
         singleplayerButton.setPadding(new Insets(0, 72, 0, 72));
 
         Pane joinMultiplayerButton = Widgets.makeBigButton("assets/multiplayer.png", "Join Multiplayer");
         joinMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));
-        joinMultiplayerButton.setOnMouseClicked(mouseEvent -> StageManager.switchScene(new JoinMultiplayer()));
+        joinMultiplayerButton.setOnMouseClicked(mouseEvent -> StageManager.switchView(new JoinMultiplayer()));
 
         Pane hostMultiplayerButton = Widgets.makeBigButton("assets/multiplayer.png", "Host Multiplayer");
         hostMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));

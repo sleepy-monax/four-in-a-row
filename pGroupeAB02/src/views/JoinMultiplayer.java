@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import multiplayer.Multiplayer;
 import utils.StageManager;
 
-public class JoinMultiplayer extends StackPane {
+public class JoinMultiplayer extends View {
     public JoinMultiplayer() {
         this.setAlignment(Pos.CENTER);
         this.setId("background");
@@ -32,7 +32,7 @@ public class JoinMultiplayer extends StackPane {
         menuContainer.setMaxWidth(512);
 
         Button backButton = Widgets.makeButton("Go back");
-        backButton.setOnAction(actionEvent -> StageManager.switchScene(new MainMenu()));
+        backButton.setOnAction(actionEvent -> StageManager.switchView(new MainMenu()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         menuContainer.getChildren().addAll(Widgets.makeTitle("Join Multiplayer"), Widgets.makeLabel("Username"),

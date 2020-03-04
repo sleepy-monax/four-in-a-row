@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import views.View;
 
 public final class StageManager {
     private StageManager() {
@@ -39,7 +40,8 @@ public final class StageManager {
             Runtime.getRuntime().exit(0);
         });
 
-        Pane root = new Pane();
+        View root = new View() {
+        };
         root.setId("background");
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -54,7 +56,7 @@ public final class StageManager {
         stage.show();
     }
 
-    public static void switchScene(Parent root) {
+    public static void switchView(View root) {
         Parent oldroot = stage.getScene().getRoot();
 
         stage.getScene().setRoot(new StackPane(oldroot, root));

@@ -19,7 +19,7 @@ public class Main extends Application {
         AudioController.initialize();
         StageManager.initialize(stage);
 
-        StageManager.switchScene(new SplashScreen());
+        StageManager.switchView(new SplashScreen());
     }
 
     @Override
