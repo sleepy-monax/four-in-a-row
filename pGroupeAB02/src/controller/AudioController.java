@@ -9,6 +9,8 @@ import javafx.scene.media.MediaPlayer;
 import utils.Main;
 
 public class AudioController {
+	private static final int MAX_SOUND_EFFECTS = 8;
+
 	private static MediaPlayer mediaPlayer;
 	private static HashMap<String, Media> mediaCache = new HashMap<>();
 	private static LinkedList<MediaPlayer> effects = new LinkedList<>();
@@ -61,12 +63,17 @@ public class AudioController {
 	}
 
 	public static void playEffect(String name) {
+		if (effects.size() > MAX_SOUND_EFFECTS) {
+			return;
+		}
+
 		MediaPlayer mediaPlayer = new MediaPlayer(getMedia(name));
 
 		effects.add(mediaPlayer);
 
 		mediaPlayer.setOnEndOfMedia(() -> {
 			effects.remove(mediaPlayer);
+			mediaPlayer.dispose();
 		});
 
 		mediaPlayer.play();

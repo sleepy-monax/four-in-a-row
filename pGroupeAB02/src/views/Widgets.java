@@ -136,10 +136,12 @@ public final class Widgets {
 
         AtomicInteger click_count = new AtomicInteger();
         buzzer.setOnMouseClicked(mouseEvent -> {
-            if (click_count.incrementAndGet() == 10) {
-                StageManager.setTitle("Ah oui oui oui oui oui");
-            } else {
-                AudioController.playEffect("assets/bruh.wav");
+            if (click_count.get() < 10) {
+                if (click_count.incrementAndGet() == 10) {
+                    StageManager.setTitle("Ah oui oui oui oui oui");
+                } else {
+                    AudioController.playEffect("assets/bruh.wav");
+                }
             }
         });
 
