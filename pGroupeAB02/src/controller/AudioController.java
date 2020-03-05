@@ -83,7 +83,15 @@ public class AudioController {
 	public static void shutdown() {
 		if (musicPlayer != null) {
 			musicPlayer.stop();
+			musicPlayer.dispose();
 			musicPlayer = null;
 		}
+
+		for (MediaPlayer mediaPlayer : effectPlayers) {
+			mediaPlayer.stop();
+			mediaPlayer.dispose();
+		}
+
+		effectPlayers.clear();
 	}
 }

@@ -9,18 +9,12 @@ public class Main extends Application {
 
     public static Main app;
 
-    private static Application the() {
-        return app;
-    }
-
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage stage) {
-        app = this;
-
         Application.setUserAgentStylesheet("assets/style.css");
 
         ThreadManager.initialize();

@@ -27,9 +27,13 @@ public class SplashScreen extends View {
         StackPane.setAlignment(labelRight, Pos.BOTTOM_CENTER);
 
         this.setOnKeyTyped(keyEvent -> {
+            StageManager.showSpinner();
+
             StageManager.goToMainMenu();
         });
         button.setOnAction(actionEvent -> {
+            StageManager.showSpinner();
+
             StageManager.goToMainMenu();
         });
 
@@ -39,6 +43,7 @@ public class SplashScreen extends View {
         transitionBtn.setFromY(300);
         transitionBtn.setToY(0);
         transitionBtn.setNode(button);
+
         transitionBtn.play();
 
         TranslateTransition transitionLbl = new TranslateTransition();

@@ -32,6 +32,30 @@ public final class StageManager {
     public static final String DEFAULT_STAGE_TITLE = "Four in a Row";
     public static final String DEFAULT_STAGE_ICON = "assets/big-buzzer.png";
 
+    public static void showSpinner() {
+        ScaleTransition scale = new ScaleTransition();
+        scale.setFromX(0);
+        scale.setToX(10);
+        scale.setFromY(0);
+        scale.setToY(10);
+        scale.setDuration(Duration.seconds(2.5));
+        scale.setNode(spinner);
+        scale.setOnFinished((event) -> {
+            spinner.setScaleX(10);
+            spinner.setScaleY(10);
+        });
+        scale.play();
+
+        FadeTransition fade = new FadeTransition(Duration.seconds(1));
+        fade.setFromValue(0);
+        fade.setToValue(0.25);
+        fade.setNode(glitter);
+        fade.setOnFinished(e -> {
+            glitter.setOpacity(0.25);
+        });
+        fade.play();
+    }
+
     public static void initialize(Stage s) {
         stage = s;
 
@@ -56,9 +80,8 @@ public final class StageManager {
         spinner.setMinWidth(350);
         spinner.setMaxHeight(350);
         spinner.setMaxWidth(350);
-        spinner.setScaleX(10);
-        spinner.setScaleY(10);
-        spinner.setScaleZ(10);
+        spinner.setScaleX(0);
+        spinner.setScaleY(0);
         spinner.setOpacity(0.25);
 
         backgroud = new Pane();
@@ -70,7 +93,7 @@ public final class StageManager {
         glitter.setId("glitter");
         glitter.setScaleX(1.25);
         glitter.setScaleY(1.25);
-        glitter.setOpacity(0.5);
+        glitter.setOpacity(0);
 
         RotateTransition animation = new RotateTransition(Duration.millis(16000), spinner);
         animation.setByAngle(360);
@@ -93,8 +116,8 @@ public final class StageManager {
             double x = (event.getSceneX() - scene.getWidth() / 2) / scene.getWidth();
             double y = (event.getSceneY() - scene.getHeight() / 2) / scene.getHeight();
 
-            double offsetx = scene.getWidth() * 0.25 * x;
-            double offsety = scene.getHeight() * 0.25 * y;
+            double offsetx = scene.getWidth() * 0.25 * x * 0.5;
+            double offsety = scene.getHeight() * 0.25 * y * 0.5;
 
             backgroud.setTranslateX(-offsetx);
             backgroud.setTranslateY(-offsety);
