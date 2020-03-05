@@ -29,12 +29,12 @@ public class SplashScreen extends View {
         this.setOnKeyTyped(keyEvent -> {
             StageManager.showSpinner();
 
-            StageManager.goToMainMenu();
+            StageManager.switchView(new MainMenu());
         });
         button.setOnAction(actionEvent -> {
             StageManager.showSpinner();
 
-            StageManager.goToMainMenu();
+            StageManager.switchView(new MainMenu());
         });
 
         TranslateTransition transitionBtn = new TranslateTransition();

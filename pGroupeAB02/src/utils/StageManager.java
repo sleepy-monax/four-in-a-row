@@ -185,15 +185,7 @@ public final class StageManager {
         stage.setTitle(title);
     }
 
-    public static void goToMainMenu() {
-        StageManager.switchView(new MainMenu());
-        AudioController.playNow("assets/transition.wav", () -> {
-            AudioController.playLoopNow("assets/loop2.wav");
-        });
-    }
-
     public static void quit() {
         stage.close();
     }
-
 }

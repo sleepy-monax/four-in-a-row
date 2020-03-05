@@ -31,7 +31,7 @@ public class JoinMultiplayer extends View {
         menuContainer.setMaxWidth(512);
 
         Button backButton = Widgets.makeButton("Go back");
-        backButton.setOnAction(actionEvent -> StageManager.goToMainMenu());
+        backButton.setOnAction(actionEvent -> StageManager.switchView(new MainMenu()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         menuContainer.getChildren().addAll(Widgets.makeTitle("Join Multiplayer"), Widgets.makeLabel("Username"),
