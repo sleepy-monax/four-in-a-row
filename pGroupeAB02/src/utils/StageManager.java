@@ -1,6 +1,5 @@
 package utils;
 
-import controller.AudioController;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
@@ -13,12 +12,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import views.MainMenu;
 import views.View;
 
 public final class StageManager {
     private StageManager() {
     }
+
+    private static boolean spinnerVisible;
 
     private static Stage stage;
     private static StackPane viewContainer;
@@ -33,27 +33,59 @@ public final class StageManager {
     public static final String DEFAULT_STAGE_ICON = "assets/big-buzzer.png";
 
     public static void showSpinner() {
-        ScaleTransition scale = new ScaleTransition();
-        scale.setFromX(0);
-        scale.setToX(10);
-        scale.setFromY(0);
-        scale.setToY(10);
-        scale.setDuration(Duration.seconds(2.5));
-        scale.setNode(spinner);
-        scale.setOnFinished((event) -> {
-            spinner.setScaleX(10);
-            spinner.setScaleY(10);
-        });
-        scale.play();
+        if (!spinnerVisible) {
+            spinnerVisible = true;
+            ScaleTransition scale = new ScaleTransition();
+            scale.setFromX(0);
+            scale.setToX(10);
+            scale.setFromY(0);
+            scale.setToY(10);
+            scale.setDuration(Duration.seconds(1));
+            scale.setNode(spinner);
+            scale.setOnFinished((event) -> {
+                spinner.setScaleX(10);
+                spinner.setScaleY(10);
+            });
 
-        FadeTransition fade = new FadeTransition(Duration.seconds(1));
-        fade.setFromValue(0);
-        fade.setToValue(0.25);
-        fade.setNode(glitter);
-        fade.setOnFinished(e -> {
-            glitter.setOpacity(0.25);
-        });
-        fade.play();
+            FadeTransition fade = new FadeTransition(Duration.seconds(1));
+            fade.setFromValue(0);
+            fade.setToValue(0.25);
+            fade.setNode(glitter);
+            fade.setOnFinished(e -> {
+                glitter.setOpacity(0.25);
+            });
+
+            scale.play();
+            fade.play();
+        }
+    }
+
+    public static void hideSpinner() {
+        if (spinnerVisible) {
+            spinnerVisible = false;
+
+            ScaleTransition scale = new ScaleTransition(Duration.seconds(0.5));
+            scale.setFromX(10);
+            scale.setToX(0);
+            scale.setFromY(10);
+            scale.setToY(0);
+            scale.setNode(spinner);
+            scale.setOnFinished((event) -> {
+                spinner.setScaleX(0);
+                spinner.setScaleY(0);
+            });
+
+            FadeTransition fade = new FadeTransition(Duration.seconds(0.5));
+            fade.setFromValue(0.25);
+            fade.setToValue(0);
+            fade.setNode(glitter);
+            fade.setOnFinished(e -> {
+                glitter.setOpacity(0);
+            });
+
+            scale.play();
+            fade.play();
+        }
     }
 
     public static void initialize(Stage s) {

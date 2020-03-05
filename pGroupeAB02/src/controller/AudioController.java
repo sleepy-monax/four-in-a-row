@@ -4,10 +4,8 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import javafx.animation.Interpolator;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
 import utils.Main;
 
 public class AudioController {

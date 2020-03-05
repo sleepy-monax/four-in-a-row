@@ -38,17 +38,20 @@ public class SplashScreen extends View {
         });
 
         TranslateTransition transitionBtn = new TranslateTransition();
-        transitionBtn.setDelay(Duration.seconds(1));
-        transitionBtn.setDuration(Duration.seconds(0.5));
+        transitionBtn.setDelay(Duration.seconds(2));
+        transitionBtn.setDuration(Duration.seconds(0.25));
         transitionBtn.setFromY(300);
         transitionBtn.setToY(0);
         transitionBtn.setNode(button);
+        transitionBtn.setOnFinished(event -> {
+            StageManager.showSpinner();
+        });
 
         transitionBtn.play();
 
         TranslateTransition transitionLbl = new TranslateTransition();
-        transitionLbl.setDelay(Duration.seconds(1));
-        transitionLbl.setDuration(Duration.seconds(0.75));
+        transitionLbl.setDelay(Duration.seconds(2.15));
+        transitionLbl.setDuration(Duration.seconds(0.35));
         transitionLbl.setFromY(300);
         transitionLbl.setToY(0);
         transitionLbl.setNode(labelRight);
