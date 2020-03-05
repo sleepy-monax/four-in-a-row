@@ -1,5 +1,6 @@
 package views;
 
+import controller.AudioController;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,6 +13,15 @@ import javafx.util.Duration;
 import utils.StageManager;
 
 public class SplashScreen extends View {
+    private void goToMainMenu() {
+        StageManager.showSpinner();
+        StageManager.switchView(new MainMenu());
+
+        AudioController.playNow("assets/transition.wav", () -> {
+            AudioController.playLoopNow("assets/loop2.wav");
+        });
+    }
+
     public SplashScreen() {
         this.setPadding(new Insets(32));
 
@@ -27,14 +37,10 @@ public class SplashScreen extends View {
         StackPane.setAlignment(labelRight, Pos.BOTTOM_CENTER);
 
         this.setOnKeyTyped(keyEvent -> {
-            StageManager.showSpinner();
-
-            StageManager.switchView(new MainMenu());
+            goToMainMenu();
         });
         button.setOnAction(actionEvent -> {
-            StageManager.showSpinner();
-
-            StageManager.switchView(new MainMenu());
+            goToMainMenu();
         });
 
         TranslateTransition transitionBtn = new TranslateTransition();
