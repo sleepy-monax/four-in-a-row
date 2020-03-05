@@ -19,6 +19,7 @@
         <mkdir dir="out/jar"/>
         <jar destfile="out/jar/application.jar" basedir="out/classes">
             <fileset dir="src/"/>
+            <zipgroupfileset dir="lib" includes="*.jar"/>
             <manifest>
                 <attribute name="Main-Class" value="utils.Main"/>
             </manifest>
