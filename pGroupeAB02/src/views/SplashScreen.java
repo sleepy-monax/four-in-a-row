@@ -1,15 +1,15 @@
 package views;
 
 import controller.AudioController;
-import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
-import javafx.util.Duration;
 import utils.StageManager;
 
 public class SplashScreen extends View {
@@ -23,46 +23,37 @@ public class SplashScreen extends View {
     }
 
     public SplashScreen() {
-        this.setPadding(new Insets(32));
-
         Button button = Widgets.makeButton("Press any key to start...");
         StackPane.setAlignment(button, Pos.BOTTOM_CENTER);
         StackPane.setMargin(button, new Insets(96));
         button.setTranslateY(300);
 
-        Label labelRight = new Label("Groupe AB02\nL. De Laet, C. Lepine, N. Van Bossuyt\n\nRelease 1");
-        labelRight.setTextAlignment(TextAlignment.CENTER);
-        labelRight.setTextFill(new Color(1, 1, 1, 0.5));
-        labelRight.setTranslateY(300);
-        StackPane.setAlignment(labelRight, Pos.BOTTOM_CENTER);
+        Label label = new Label("Groupe AB02\nL. De Laet, C. Lepine, N. Van Bossuyt\n\nRelease 1");
+        label.setTextAlignment(TextAlignment.CENTER);
+        label.setTextFill(new Color(1, 1, 1, 0.5));
+        label.setTranslateY(250);
+        StackPane.setAlignment(label, Pos.BOTTOM_CENTER);
+
+        Pane black = new Pane();
+        black.setStyle("-fx-background-color: black");
+
+        Parent logo = Widgets.makeLogo();
+        logo.setOpacity(0);
+
+        Animation.fade(black, 1, 0, 0.25, 2);
+        Animation.fade(logo, 0, 1, 0.25, 2);
+        Animation.scale(logo, 4, 1, 0.25, 2, () -> StageManager.showSpinner());
+        Animation.offsetY(button, 300, -50, 0.25, 3);
+        Animation.offsetY(label, 300, -50, 0.30, 3);
 
         this.setOnKeyTyped(keyEvent -> {
             goToMainMenu();
         });
+
         button.setOnAction(actionEvent -> {
             goToMainMenu();
         });
 
-        TranslateTransition transitionBtn = new TranslateTransition();
-        transitionBtn.setDelay(Duration.seconds(2));
-        transitionBtn.setDuration(Duration.seconds(0.25));
-        transitionBtn.setFromY(300);
-        transitionBtn.setToY(0);
-        transitionBtn.setNode(button);
-        transitionBtn.setOnFinished(event -> {
-            StageManager.showSpinner();
-        });
-
-        transitionBtn.play();
-
-        TranslateTransition transitionLbl = new TranslateTransition();
-        transitionLbl.setDelay(Duration.seconds(2.15));
-        transitionLbl.setDuration(Duration.seconds(0.35));
-        transitionLbl.setFromY(300);
-        transitionLbl.setToY(0);
-        transitionLbl.setNode(labelRight);
-        transitionLbl.play();
-
-        this.getChildren().addAll(Widgets.makeLogo(), button, labelRight);
+        this.getChildren().addAll(black, logo, button, label);
     }
 }

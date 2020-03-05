@@ -1,9 +1,7 @@
 package utils;
 
-import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
-import javafx.animation.ScaleTransition;
 import javafx.animation.Transition;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -12,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import views.Animation;
 import views.View;
 
 public final class StageManager {
@@ -31,62 +30,6 @@ public final class StageManager {
     public static final int DEFAULT_SCREEN_HEIGHT = 720;
     public static final String DEFAULT_STAGE_TITLE = "Four in a Row";
     public static final String DEFAULT_STAGE_ICON = "assets/big-buzzer.png";
-
-    public static void showSpinner() {
-        if (!spinnerVisible) {
-            spinnerVisible = true;
-            ScaleTransition scale = new ScaleTransition();
-            scale.setFromX(0);
-            scale.setToX(10);
-            scale.setFromY(0);
-            scale.setToY(10);
-            scale.setDuration(Duration.seconds(1));
-            scale.setNode(spinner);
-            scale.setOnFinished((event) -> {
-                spinner.setScaleX(10);
-                spinner.setScaleY(10);
-            });
-
-            FadeTransition fade = new FadeTransition(Duration.seconds(1));
-            fade.setFromValue(0);
-            fade.setToValue(0.25);
-            fade.setNode(glitter);
-            fade.setOnFinished(e -> {
-                glitter.setOpacity(0.25);
-            });
-
-            scale.play();
-            fade.play();
-        }
-    }
-
-    public static void hideSpinner() {
-        if (spinnerVisible) {
-            spinnerVisible = false;
-
-            ScaleTransition scale = new ScaleTransition(Duration.seconds(0.5));
-            scale.setFromX(10);
-            scale.setToX(0);
-            scale.setFromY(10);
-            scale.setToY(0);
-            scale.setNode(spinner);
-            scale.setOnFinished((event) -> {
-                spinner.setScaleX(0);
-                spinner.setScaleY(0);
-            });
-
-            FadeTransition fade = new FadeTransition(Duration.seconds(0.5));
-            fade.setFromValue(0.25);
-            fade.setToValue(0);
-            fade.setNode(glitter);
-            fade.setOnFinished(e -> {
-                glitter.setOpacity(0);
-            });
-
-            scale.play();
-            fade.play();
-        }
-    }
 
     public static void initialize(Stage s) {
         stage = s;
@@ -172,45 +115,37 @@ public final class StageManager {
         stage.show();
     }
 
+    public static void showSpinner() {
+        if (!spinnerVisible) {
+            spinnerVisible = true;
+
+            Animation.scale(spinner, 0, 10, 0.5);
+            Animation.fade(glitter, 0, 0.25, 0.5);
+        }
+    }
+
+    public static void hideSpinner() {
+        if (spinnerVisible) {
+            spinnerVisible = false;
+
+            Animation.scale(spinner, 10, 0, 0.5);
+            Animation.fade(glitter, 0.25, 0, 0.5);
+        }
+    }
+
     public static void switchView(View nextView) {
         currentView.onSwitchOut();
 
         viewContainer.getChildren().add(nextView);
 
-        FadeTransition fadingNext = new FadeTransition();
-
-        fadingNext.setFromValue(0);
-        fadingNext.setToValue(1);
-        fadingNext.setNode(nextView);
-        fadingNext.setDuration(Duration.seconds(0.25));
-
-        fadingNext.setOnFinished(actionEvent -> {
+        Animation.fade(nextView, 0, 1, 0.25, () -> {
             viewContainer.getChildren().remove(currentView);
             currentView = nextView;
             nextView.onSwitchIn();
         });
 
-        ScaleTransition scaleNext = new ScaleTransition();
-
-        scaleNext.setFromX(4);
-        scaleNext.setToX(1);
-        scaleNext.setFromY(4);
-        scaleNext.setToY(1);
-        scaleNext.setInterpolator(Interpolator.EASE_IN);
-
-        scaleNext.setNode(nextView);
-        scaleNext.setDuration(Duration.seconds(0.25));
-
-        FadeTransition fadingCurrent = new FadeTransition();
-
-        fadingCurrent.setFromValue(1);
-        fadingCurrent.setToValue(0);
-        fadingCurrent.setNode(currentView);
-        fadingCurrent.setDuration(Duration.seconds(0.25));
-
-        fadingCurrent.play();
-        fadingNext.play();
-        scaleNext.play();
+        Animation.scale(nextView, 4, 1, 0.25);
+        Animation.fade(currentView, 1, 0, 0.25);
     }
 
     public static void setTitle(String title) {
