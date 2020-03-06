@@ -1,6 +1,5 @@
 package views;
 
-import controller.AudioController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
@@ -49,6 +48,6 @@ public class MainMenu extends View {
             StageManager.switchView(new EndScreen());
         });
 
-        orbSettings.setOnMouseClicked(mouseEvent-> StageManager.switchView((new Settings())));
+        orbSettings.setOnMouseClicked(mouseEvent -> StageManager.switchView((new Settings())));
     }
 }
