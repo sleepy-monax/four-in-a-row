@@ -21,7 +21,7 @@
             <fileset dir="src/"/>
             <zipgroupfileset dir="lib" includes="*.jar"/>
             <manifest>
-                <attribute name="Main-Class" value="utils.Main"/>
+                <attribute name="Main-Class" value="main.Main"/>
             </manifest>
         </jar>
 

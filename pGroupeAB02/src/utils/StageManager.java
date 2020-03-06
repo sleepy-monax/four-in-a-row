@@ -70,7 +70,7 @@ public final class StageManager {
         glitter.setScaleY(1.25);
         glitter.setOpacity(0);
 
-        RotateTransition animation = new RotateTransition(Duration.millis(16000), spinner);
+        RotateTransition animation = new RotateTransition(Duration.seconds(16), spinner);
         animation.setByAngle(360);
         animation.setCycleCount(Transition.INDEFINITE);
         animation.setInterpolator(Interpolator.LINEAR);
@@ -91,17 +91,17 @@ public final class StageManager {
             double x = (event.getSceneX() - scene.getWidth() / 2) / scene.getWidth();
             double y = (event.getSceneY() - scene.getHeight() / 2) / scene.getHeight();
 
-            double offsetx = scene.getWidth() * 0.25 * x * 0.5;
-            double offsety = scene.getHeight() * 0.25 * y * 0.5;
+            double offsetx = scene.getWidth() * 0.25 * x;
+            double offsety = scene.getHeight() * 0.25 * y;
 
             backgroud.setTranslateX(-offsetx);
             backgroud.setTranslateY(-offsety);
 
-            spinner.setTranslateX(-offsetx * 0.25);
-            spinner.setTranslateY(-offsety * 0.25);
+            glitter.setTranslateX(-offsetx * 0.75);
+            glitter.setTranslateY(-offsety * 0.75);
 
-            glitter.setTranslateX(-offsetx * 0.5);
-            glitter.setTranslateY(-offsety * 0.5);
+            spinner.setTranslateX(-offsetx * 0.5);
+            spinner.setTranslateY(-offsety * 0.5);
         });
 
         scene.setOnKeyPressed(event -> {

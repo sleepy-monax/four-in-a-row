@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import utils.Main;
+import main.Main;
 
 public class AudioController {
 	private static final int MAX_SOUND_EFFECTS = 8;
