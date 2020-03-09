@@ -77,6 +77,7 @@ public class MainGame extends View {
     public Button getBtnQuitGame() {
         if (btnQuitGame == null) {
             btnQuitGame = Widgets.makeButton("Exit");
+            btnQuitGame.setAlignment(Pos.CENTER);
             btnQuitGame.setMinWidth(200);
             btnQuitGame.setOnMouseClicked(event -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
