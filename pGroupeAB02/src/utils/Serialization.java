@@ -8,7 +8,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class Serialization {
-    static <T> void writeToJsonFile(String path, T object) {
+    public static <T> void writeToJsonFile(String path, T object) {
         try (
                 Writer out = new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8)
         ) {
@@ -21,7 +21,7 @@ public class Serialization {
         }
     }
 
-    static <T> T readFromJsonFile(String path, Class<T> class_name) {
+    public static <T> T readFromJsonFile(String path, Class<T> class_name) {
         T object = null;
 
         try (
