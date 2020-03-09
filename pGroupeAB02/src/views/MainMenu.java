@@ -45,10 +45,8 @@ public class MainMenu extends View {
         this.setAlignment(Pos.CENTER);
         this.getChildren().add(menuContainer);
 
-        orbQuit.setOnMouseClicked(mouseEvent -> {
-            StageManager.switchView(new EndScreen());
-        });
-
+        orbEditor.setOnMouseClicked(mouseEvent -> StageManager.switchView((new Editor())));
         orbSettings.setOnMouseClicked(mouseEvent -> StageManager.switchView((new Settings())));
+        orbQuit.setOnMouseClicked(mouseEvent -> StageManager.switchView(new EndScreen()));
     }
 }
