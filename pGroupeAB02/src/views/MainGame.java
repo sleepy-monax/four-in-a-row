@@ -9,6 +9,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import utils.StageManager;
+
+import java.util.Optional;
 
 public class MainGame extends View {
     private Button btnQuitGame;
