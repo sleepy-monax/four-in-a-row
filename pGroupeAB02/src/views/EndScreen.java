@@ -24,7 +24,7 @@ public class EndScreen extends View {
             StageManager.quit();
         });
 
-        StageManager.hideSpinner();
+        StageManager.background().hideSpinner();
     }
 
 }

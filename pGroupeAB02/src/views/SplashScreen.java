@@ -14,7 +14,7 @@ import utils.StageManager;
 
 public class SplashScreen extends View {
     private void goToMainMenu() {
-        StageManager.showSpinner();
+        StageManager.background().showSpinner();
         StageManager.switchView(new MainMenu());
 
         AudioController.playNow("assets/transition.wav", () -> {
@@ -42,7 +42,7 @@ public class SplashScreen extends View {
 
         Animation.fade(black, 1, 0, 0.25, 2);
         Animation.fade(logo, 0, 1, 0.25, 2);
-        Animation.scale(logo, 4, 1, 0.25, 2, () -> StageManager.showSpinner());
+        Animation.scale(logo, 4, 1, 0.25, 2, () -> StageManager.background().showSpinner());
         Animation.offsetY(button, 300, -50, 0.25, 3);
         Animation.offsetY(label, 300, -50, 0.30, 3);
 
