@@ -2,6 +2,7 @@ package views;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -14,6 +15,9 @@ public class SelectTheme extends View {
 
     public SelectTheme(List<String> lTheme, int nbTheme) {
         this.setPadding(new Insets(32));
+
+        Parent title = Widgets.makeTitle("Select a theme");
+        StackPane.setAlignment(title, Pos.TOP_CENTER);
 
         Pane theme1Button = Widgets.makeBigButton(Icon.STAR, "Thème 1" /* lTheme.get(0).toString() */);
         theme1Button.setPadding(new Insets(0, 72, 0, 72));
@@ -45,7 +49,7 @@ public class SelectTheme extends View {
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         this.setAlignment(Pos.CENTER);
-        this.getChildren().addAll(vbTheme, backButton);
+        this.getChildren().addAll(title, vbTheme, backButton);
 
         theme1Button.setOnMouseClicked(event -> {
             StageManager.switchView(new MainGame());

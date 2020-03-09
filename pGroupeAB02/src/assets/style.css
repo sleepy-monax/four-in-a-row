@@ -37,6 +37,11 @@
     -fx-max-height: 256;
 }
 
+#sidebar{
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%,  #205BAE, #001D47);
+
+}
+
 .button {
     -fx-border-width: 2;
     -fx-background-color: linear-gradient(from 50% 0% to 50% 100%,  #64A4FF, #0149AF);
@@ -172,4 +177,10 @@
 
 .FIR_player-state .username{
     -fx-text-fill: black;
+}
+
+.clue{
+    -fx-text-fill: white;
+    -fx-font-family: 'roboto';
+    -fx-font-size: 24;
 }
