@@ -19,7 +19,7 @@ public class JoinMultiplayer extends View {
 
         TextField addressTextfield = Widgets.makeTextField("localhost");
 
-        Pane joinButton = Widgets.makeBigButton("assets/multiplayer.png", "Connect");
+        Pane joinButton = Widgets.makeBigButton(Icon.PEOPLE, "Connect");
         joinButton.setPadding(new Insets(0, 72, 0, 72));
         joinButton.setOnMouseClicked(mouseEvent -> {
             Multiplayer.join(userNameTextfield.getText(), addressTextfield.getText(), Multiplayer.DEFAULT_PORT);

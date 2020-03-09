@@ -66,7 +66,7 @@ public class PendingGame extends View {
         Button backButton = Widgets.makeButton("Go back");
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        Pane joinButton = Widgets.makeBigButton("assets/multiplayer.png", "Start Game");
+        Pane joinButton = Widgets.makeBigButton(Icon.GROUP, "Start Game");
         StackPane.setAlignment(joinButton, Pos.BOTTOM_RIGHT);
         joinButton.setMaxWidth(256);
 

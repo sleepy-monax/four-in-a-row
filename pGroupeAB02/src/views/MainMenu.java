@@ -11,23 +11,24 @@ import utils.StageManager;
 
 public class MainMenu extends View {
     public MainMenu() {
-        Pane singleplayerButton = Widgets.makeBigButton("assets/singleplayer.png", "Singleplayer");
+        Pane singleplayerButton = Widgets.makeBigButton(Icon.PERSON, "Singleplayer");
         singleplayerButton.setPadding(new Insets(0, 72, 0, 72));
         singleplayerButton.setOnMouseClicked(event -> StageManager.switchView(new SelectTheme(null, 3)));
 
-        Pane joinMultiplayerButton = Widgets.makeBigButton("assets/multiplayer.png", "Join Multiplayer");
+        Pane joinMultiplayerButton = Widgets.makeBigButton(Icon.GROUP_ADD, "Join Multiplayer");
         joinMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));
         joinMultiplayerButton.setOnMouseClicked(mouseEvent -> StageManager.switchView(new JoinMultiplayer()));
 
-        Pane hostMultiplayerButton = Widgets.makeBigButton("assets/multiplayer.png", "Host Multiplayer");
+        Pane hostMultiplayerButton = Widgets.makeBigButton(Icon.GROUP, "Host Multiplayer");
         hostMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));
         hostMultiplayerButton.setOnMouseClicked(mouseEvent -> Multiplayer.host(Multiplayer.DEFAULT_PORT));
 
-        Pane orbScores = Widgets.makeOrbButton("assets/score.png");
-        Pane orbSettings = Widgets.makeOrbButton("assets/settings.png");
-        Pane orbQuit = Widgets.makeOrbButton("assets/close.png");
+        Pane orbEditor = Widgets.makeOrbButton(Icon.EDIT);
+        Pane orbScores = Widgets.makeOrbButton(Icon.EMOJI_EVENTS);
+        Pane orbSettings = Widgets.makeOrbButton(Icon.SETTINGS);
+        Pane orbQuit = Widgets.makeOrbButton(Icon.CLOSE);
 
-        HBox orbContainer = new HBox(16, orbScores, orbSettings, orbQuit);
+        HBox orbContainer = new HBox(16, orbEditor, orbScores, orbSettings, orbQuit);
         orbContainer.setAlignment(Pos.CENTER);
         orbContainer.setPrefHeight(48);
         orbContainer.setMaxHeight(48);

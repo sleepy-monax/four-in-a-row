@@ -40,7 +40,7 @@ public final class Widgets {
         return button;
     }
 
-    public static Pane makeBigButton(String icon, String text) {
+    public static Pane makeBigButton(Icon icon, String text) {
         AnchorPane button = new AnchorPane();
 
         Label label = new Label(text);
@@ -59,7 +59,7 @@ public final class Widgets {
         AnchorPane.setTopAnchor(orb, 0.0);
         AnchorPane.setLeftAnchor(orb, 0.0);
 
-        ImageView image = new ImageView(icon);
+        ImageView image = new ImageView(icon.path);
         orb.getChildren().add(image);
         StackPane.setAlignment(image, Pos.CENTER);
 
@@ -69,12 +69,12 @@ public final class Widgets {
         return button;
     }
 
-    public static Pane makeOrbButton(String icon) {
+    public static Pane makeOrbButton(Icon icon) {
         StackPane button = new StackPane();
 
         button.getStyleClass().addAll("button", "FIR_orb-button");
 
-        ImageView image = new ImageView(icon);
+        ImageView image = new ImageView(icon.path);
         button.getChildren().add(image);
         StackPane.setAlignment(image, Pos.CENTER);
 

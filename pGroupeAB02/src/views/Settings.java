@@ -13,10 +13,10 @@ import utils.StageManager;
 public class Settings extends View {
 
     public Settings() {
-        Pane orbEffect = Widgets.makeOrbButton("assets/music-on.png");
+        Pane orbEffect = Widgets.makeOrbButton(Icon.MUSIC_OFF);
         orbEffect.setPadding(new Insets(0, 72, 0, 72));
 
-        Pane orbMusic = Widgets.makeOrbButton("assets/effect-on.png");
+        Pane orbMusic = Widgets.makeOrbButton(Icon.VOLUME_OFF);
         orbMusic.setPadding(new Insets(0, 72, 0, 72));
 
         HBox orbContainer = new HBox(16, orbEffect, orbMusic);
