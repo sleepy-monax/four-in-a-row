@@ -1,5 +1,7 @@
 package views;
 
+import dialogs.YesNo;
+import dialogs.YesNoDialog;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
@@ -13,15 +15,12 @@ public class MainMenu extends View {
     public MainMenu() {
         Pane singleplayerButton = Widgets.makeBigButton(Icon.PERSON, "Singleplayer");
         singleplayerButton.setPadding(new Insets(0, 72, 0, 72));
-        singleplayerButton.setOnMouseClicked(event -> StageManager.switchView(new SelectTheme(null, 3)));
 
         Pane joinMultiplayerButton = Widgets.makeBigButton(Icon.GROUP_ADD, "Join Multiplayer");
         joinMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));
-        joinMultiplayerButton.setOnMouseClicked(mouseEvent -> StageManager.switchView(new JoinMultiplayer()));
 
         Pane hostMultiplayerButton = Widgets.makeBigButton(Icon.GROUP, "Host Multiplayer");
         hostMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));
-        hostMultiplayerButton.setOnMouseClicked(mouseEvent -> Multiplayer.host(Multiplayer.DEFAULT_PORT));
 
         Pane orbEditor = Widgets.makeOrbButton(Icon.EDIT);
         Pane orbScores = Widgets.makeOrbButton(Icon.EMOJI_EVENTS);
@@ -45,8 +44,17 @@ public class MainMenu extends View {
         this.setAlignment(Pos.CENTER);
         this.getChildren().add(menuContainer);
 
+        singleplayerButton.setOnMouseClicked(event -> StageManager.switchView(new SelectTheme(null, 3)));
+        joinMultiplayerButton.setOnMouseClicked(mouseEvent -> StageManager.switchView(new JoinMultiplayer()));
+        hostMultiplayerButton.setOnMouseClicked(mouseEvent -> Multiplayer.host(Multiplayer.DEFAULT_PORT));
+
         orbEditor.setOnMouseClicked(mouseEvent -> StageManager.switchView((new Editor())));
         orbSettings.setOnMouseClicked(mouseEvent -> StageManager.switchView((new Settings())));
-        orbQuit.setOnMouseClicked(mouseEvent -> StageManager.switchView(new EndScreen()));
+        orbQuit.setOnMouseClicked(mouseEvent -> {
+            if (new YesNoDialog("Quit", "Do you want to quit?").show() == YesNo.YES) {
+
+                StageManager.switchView(new EndScreen());
+            }
+        });
     }
 }
