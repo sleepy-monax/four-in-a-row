@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 public class MessageLoop {
-    private LinkedList<Message> pendingRepost = new LinkedList();
-    private HashSet<Notifiable> notifiers = new HashSet();
+    private LinkedList<Message> pendings = new LinkedList<>();
+    private HashSet<Notifiable> notifiables = new HashSet<>();
 
     public MessageLoop() {
     }
@@ -13,7 +13,7 @@ public class MessageLoop {
     private boolean dispatch(Message message) {
         boolean is_dispatched = false;
 
-        for (Notifiable notifier : notifiers) {
+        for (Notifiable notifier : notifiables) {
             if (notifier.canAccept(message)) {
                 notifier.handle(message);
                 is_dispatched = true;
@@ -26,27 +26,27 @@ public class MessageLoop {
     private void repost() {
         LinkedList<Message> reposted = new LinkedList<>();
 
-        for (Message message : pendingRepost) {
+        for (Message message : pendings) {
             if (dispatch(message)) {
                 reposted.add(message);
             }
         }
 
-        pendingRepost.removeAll(reposted);
+        pendings.removeAll(reposted);
     }
 
-    public void registerNotifier(Notifiable notifier) {
-        notifiers.add(notifier);
+    public void registerNotifier(Notifiable notifiable) {
+        notifiables.add(notifiable);
         repost();
     }
 
-    public void unregisterNotifier(Notifiable notifier) {
-        notifiers.remove(notifiers);
+    public void unregisterNotifier(Notifiable notifiable) {
+        notifiables.remove(notifiable);
     }
 
     public void post(Message message) {
         if (!dispatch(message) && message.repostable()) {
-            pendingRepost.add(message);
+            pendings.add(message);
         }
     }
 }
