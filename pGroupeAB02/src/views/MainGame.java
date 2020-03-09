@@ -3,16 +3,20 @@ package views;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import utils.StageManager;
+
+import java.util.Optional;
 
 public class MainGame extends View {
+    private Button btnQuitGame;
+
     private Parent makeAnswerContainer() {
         TextField answer = Widgets.makeTextField("");
         StackPane.setAlignment(answer, Pos.CENTER);
@@ -31,6 +35,7 @@ public class MainGame extends View {
 
     private Parent makeSideBar() {
         VBox sidebar = new VBox();
+        sidebar.getChildren().addAll(getBtnQuitGame());
 
         sidebar.setId("sidebar");
         sidebar.setMinWidth(220);
@@ -68,5 +73,23 @@ public class MainGame extends View {
         HBox.setHgrow(cluesAndAnswer, Priority.ALWAYS);
 
         this.getChildren().add(new HBox(16, sidebar, cluesAndAnswer));
+    }
+
+    public Button getBtnQuitGame() {
+        if (btnQuitGame == null){
+            btnQuitGame = Widgets.makeButton("Exit");
+            btnQuitGame.setMinWidth(200);
+            btnQuitGame.setOnMouseClicked(event -> {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Quit the game?");
+                alert.setHeaderText("Do you want to quit the game? All progress will not saved");
+                alert.setContentText("Are you ok with this?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    StageManager.switchView(new MainMenu());
+                }
+            });
+        }
+        return btnQuitGame;
     }
 }
