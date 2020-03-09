@@ -1,8 +1,11 @@
 package utils;
 
+import dialogs.Dialog;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -22,9 +25,9 @@ public final class StageManager {
     private static Stage stage;
     private static StackPane viewContainer;
     private static View currentView;
-    private static Pane spinner;
     private static Pane backgroud;
     private static Pane glitter;
+    private static Pane spinner;
 
     public static final int DEFAULT_SCREEN_WIDTH = 960;
     public static final int DEFAULT_SCREEN_HEIGHT = 720;
@@ -116,7 +119,7 @@ public final class StageManager {
     }
 
     public static void showSpinner() {
-        if (!spinnerVisible) {
+        if (!spinnerVisible && spinner != null) {
             spinnerVisible = true;
 
             Animation.scale(spinner, 0, 10, 0.5);
@@ -125,7 +128,7 @@ public final class StageManager {
     }
 
     public static void hideSpinner() {
-        if (spinnerVisible) {
+        if (spinnerVisible && spinner != null) {
             spinnerVisible = false;
 
             Animation.scale(spinner, 10, 0, 0.5);
@@ -146,6 +149,30 @@ public final class StageManager {
 
         Animation.scale(nextView, 4, 1, 0.25);
         Animation.fade(currentView, 1, 0, 0.25);
+    }
+
+    public static void showDialog(Dialog dialog) {
+        com.sun.javafx.tk.Toolkit.getToolkit().checkFxUserThread();
+
+        StackPane dialogContainer = new StackPane();
+        dialogContainer.setStyle("-fx-background-color: rgba(0, 0, 0, 0.25)");
+        dialogContainer.setPadding(new Insets(32));
+        dialogContainer.getChildren().add(dialog);
+
+        StackPane.setAlignment(dialog, Pos.CENTER);
+
+        viewContainer.getChildren().add(dialogContainer);
+
+        Animation.offsetY(dialog, 128, 0, 0.1);
+        Animation.fade(dialogContainer, 0, 1, 0.1);
+
+        com.sun.javafx.tk.Toolkit.getToolkit().enterNestedEventLoop(dialog);
+
+        Animation.offsetY(dialog, 0, 128, 0.1);
+        Animation.fade(dialogContainer, 1, 0, 0.1, () -> {
+            viewContainer.getChildren().remove(dialogContainer);
+        });
+
     }
 
     public static void setTitle(String title) {

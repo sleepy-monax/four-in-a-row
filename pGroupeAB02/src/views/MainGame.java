@@ -11,10 +11,25 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import utils.StageManager;
 
-import java.util.Optional;
+import dialogs.YesNo;
+import dialogs.YesNoDialog;
 
 public class MainGame extends View {
     private Button btnQuitGame;
+
+    public Button getBtnQuitGame() {
+        if (btnQuitGame == null) {
+            btnQuitGame = Widgets.makeButton("Exit");
+            btnQuitGame.setMinWidth(200);
+            btnQuitGame.setOnMouseClicked(event -> {
+                if (new YesNoDialog("Quit the game?", "Do you want to quit the game? All progress will not save!")
+                        .show() == YesNo.YES) {
+                    StageManager.switchView(new MainMenu());
+                }
+            });
+        }
+        return btnQuitGame;
+    }
 
     private Parent makeAnswerContainer() {
         TextField answer = Widgets.makeTextField("");
@@ -34,10 +49,11 @@ public class MainGame extends View {
 
     private Parent makeSideBar() {
         VBox sidebar = new VBox();
-        sidebar.getChildren().addAll(getBtnQuitGame());
 
         sidebar.setId("sidebar");
         sidebar.setMinWidth(220);
+        sidebar.setPadding(new Insets(16));
+        sidebar.getChildren().addAll(getBtnQuitGame());
 
         return sidebar;
     }
@@ -72,24 +88,5 @@ public class MainGame extends View {
         HBox.setHgrow(cluesAndAnswer, Priority.ALWAYS);
 
         this.getChildren().add(new HBox(16, sidebar, cluesAndAnswer));
-    }
-
-    public Button getBtnQuitGame() {
-        if (btnQuitGame == null) {
-            btnQuitGame = Widgets.makeButton("Exit");
-            btnQuitGame.setAlignment(Pos.CENTER);
-            btnQuitGame.setMinWidth(200);
-            btnQuitGame.setOnMouseClicked(event -> {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Quit the game?");
-                alert.setHeaderText("Do you want to quit the game? All progress will not save");
-                alert.setContentText("Are you ok with this?");
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
-                    StageManager.switchView(new MainMenu());
-                }
-            });
-        }
-        return btnQuitGame;
     }
 }

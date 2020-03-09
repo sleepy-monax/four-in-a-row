@@ -36,6 +36,8 @@ public final class Widgets {
         Button button = new Button(text);
 
         button.getStyleClass().addAll("button", "FIR_button");
+        button.setMinWidth(96);
+        button.setAlignment(Pos.CENTER);
 
         return button;
     }
