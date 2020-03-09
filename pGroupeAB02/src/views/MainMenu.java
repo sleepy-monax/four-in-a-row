@@ -30,7 +30,8 @@ public class MainMenu extends View {
         HBox orbContainer = new HBox(16, orbEditor, orbScores, orbSettings, orbQuit);
         orbContainer.setAlignment(Pos.CENTER);
         orbContainer.setPrefHeight(48);
-        orbContainer.setMaxHeight(48);
+        orbContainer.setMaxHeight(48 + 24);
+        orbContainer.setPadding(new Insets(24, 0, 0, 0));
         StackPane.setAlignment(orbContainer, Pos.BOTTOM_CENTER);
 
         VBox menuContainer = new VBox(16, Widgets.makeLogo(), singleplayerButton, joinMultiplayerButton,

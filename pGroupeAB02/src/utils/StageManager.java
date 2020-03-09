@@ -1,10 +1,12 @@
 package utils;
 
+import controller.AudioController;
 import controls.Background;
 import dialogs.Dialog;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
@@ -18,6 +20,8 @@ public final class StageManager {
 
     private static Stage stage;
     private static StackPane viewContainer;
+    private static StackPane dialogContainer;
+
     private static Background background;
     private static View currentView;
 
@@ -48,14 +52,17 @@ public final class StageManager {
         };
 
         viewContainer = new StackPane();
+        dialogContainer = new StackPane();
+        dialogContainer.setDisable(true);
 
-        background = new Background(false);
+        background = new Background(true);
 
         viewContainer.getChildren().add(background);
         viewContainer.getChildren().add(dummy);
+
         currentView = dummy;
 
-        Scene scene = new Scene(viewContainer);
+        Scene scene = new Scene(new StackPane(viewContainer, dialogContainer));
 
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER) && event.isAltDown()) {
@@ -86,25 +93,28 @@ public final class StageManager {
     public static void showDialog(Dialog dialog) {
         com.sun.javafx.tk.Toolkit.getToolkit().checkFxUserThread();
 
-        StackPane dialogContainer = new StackPane();
-        dialogContainer.setStyle("-fx-background-color: rgba(0, 0, 0, 0.25)");
+        dialogContainer.setDisable(false);
+        dialogContainer.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5)");
         dialogContainer.setPadding(new Insets(32));
         dialogContainer.getChildren().add(dialog);
 
-        StackPane.setAlignment(dialog, Pos.CENTER);
+        viewContainer.setEffect(new BoxBlur(16, 16, 4));
 
-        viewContainer.getChildren().add(dialogContainer);
+        StackPane.setAlignment(dialog, Pos.CENTER);
 
         Animation.offsetY(dialog, 128, 0, 0.1);
         Animation.fade(dialogContainer, 0, 1, 0.1);
 
+        AudioController.playEffect("assets/woosh.wav");
         com.sun.javafx.tk.Toolkit.getToolkit().enterNestedEventLoop(dialog);
+        AudioController.playEffect("assets/woosh.wav");
 
         Animation.offsetY(dialog, 0, 128, 0.1);
         Animation.fade(dialogContainer, 1, 0, 0.1, () -> {
-            viewContainer.getChildren().remove(dialogContainer);
+            dialogContainer.getChildren().remove(dialog);
+            viewContainer.setEffect(null);
+            dialogContainer.setDisable(true);
         });
-
     }
 
     public static Background background() {
