@@ -52,7 +52,7 @@ public class MainMenu extends View {
         orbEditor.setOnMouseClicked(mouseEvent -> StageManager.switchView((new Editor())));
         orbSettings.setOnMouseClicked(mouseEvent -> StageManager.switchView((new Settings())));
         orbQuit.setOnMouseClicked(mouseEvent -> {
-            if (new YesNoDialog("Quit", "Do you want to quit?").show() == YesNo.YES) {
+            if (new YesNoDialog("Quit the game", "Are you sure you want to quit?").show() == YesNo.YES) {
 
                 StageManager.switchView(new EndScreen());
             }

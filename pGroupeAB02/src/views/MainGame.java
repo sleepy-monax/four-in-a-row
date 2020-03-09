@@ -22,7 +22,7 @@ public class MainGame extends View {
             btnQuitGame = Widgets.makeButton("Exit");
             btnQuitGame.setMinWidth(200);
             btnQuitGame.setOnMouseClicked(event -> {
-                if (new YesNoDialog("Quit the game?", "Do you want to quit the game? All progress will not save!")
+                if (new YesNoDialog("Quit the game", "Do you want to quit the game?\nAll progress will be lost!")
                         .show() == YesNo.YES) {
                     StageManager.switchView(new MainMenu());
                 }

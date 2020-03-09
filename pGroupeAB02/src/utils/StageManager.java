@@ -98,7 +98,7 @@ public final class StageManager {
         dialogContainer.setPadding(new Insets(32));
         dialogContainer.getChildren().add(dialog);
 
-        viewContainer.setEffect(new BoxBlur(16, 16, 4));
+        viewContainer.setEffect(new BoxBlur(8, 8, 2));
 
         StackPane.setAlignment(dialog, Pos.CENTER);
 

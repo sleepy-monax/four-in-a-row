@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.TextAlignment;
 import views.Widgets;
 
 public class YesNoDialog extends Dialog<YesNo> {
@@ -12,9 +13,13 @@ public class YesNoDialog extends Dialog<YesNo> {
         super();
 
         Label titleLabel = new Label(title);
+        titleLabel.getStyleClass().add("dialog-title");
+
         StackPane.setAlignment(titleLabel, Pos.TOP_LEFT);
 
         Label messageLabel = new Label(message);
+        messageLabel.getStyleClass().add("dialog-body");
+        messageLabel.setTextAlignment(TextAlignment.CENTER);
 
         Button yesButton = Widgets.makeButton("Yes");
         yesButton.setOnAction(e -> resume(YesNo.YES));

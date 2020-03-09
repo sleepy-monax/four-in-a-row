@@ -179,9 +179,20 @@
     -fx-text-fill: black;
 }
 
-.clue{
-    -fx-text-fill: white;
-    -fx-font-family: 'roboto';
+.dialog{
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #fff, #999);
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 16, 0, 0.0, 4.0);
+}
+
+.dialog-title {
+    -fx-text-fill: #111;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+}
+
+.dialog-body {
+    -fx-text-fill: black;
     -fx-font-size: 24;
 }
 
