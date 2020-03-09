@@ -1,5 +1,6 @@
 package views;
 
+import controls.Title;
 import javafx.geometry.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
@@ -13,7 +14,7 @@ public class Information extends View {
         Button backButton = Widgets.makeButton("Go back to menu");
         backButton.setOnAction(actionEvent -> StageManager.switchView(new MainMenu()));
 
-        VBox menuContainer = new VBox(128, Widgets.makeTitle(title), Widgets.makeLabel(message), backButton) {
+        VBox menuContainer = new VBox(128, new Title(title), Widgets.makeLabel(message), backButton) {
             {
                 setAlignment(Pos.CENTER);
                 setMaxWidth(512);

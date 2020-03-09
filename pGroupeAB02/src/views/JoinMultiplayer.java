@@ -1,5 +1,6 @@
 package views;
 
+import controls.Title;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -34,9 +35,9 @@ public class JoinMultiplayer extends View {
         backButton.setOnAction(actionEvent -> StageManager.switchView(new MainMenu()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        menuContainer.getChildren().addAll(Widgets.makeTitle("Join Multiplayer"), Widgets.makeLabel("Username"),
-                userNameTextfield, Widgets.makeLabel("Host Address"), addressTextfield, joinButton);
+        menuContainer.getChildren().addAll(Widgets.makeLabel("Username"), userNameTextfield,
+                Widgets.makeLabel("Host Address"), addressTextfield, joinButton);
 
-        this.getChildren().addAll(menuContainer, backButton);
+        this.getChildren().addAll(new Title("Join Multiplayer"), menuContainer, backButton);
     }
 }

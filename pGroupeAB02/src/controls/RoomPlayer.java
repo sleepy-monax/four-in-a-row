@@ -4,11 +4,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
-public class PlayerRoomControl extends AnchorPane {
+public class RoomPlayer extends AnchorPane {
     private Label labelName;
     private Label labelStatus;
 
-    public PlayerRoomControl() {
+    public RoomPlayer() {
         labelName = new Label("ERROR");
         labelName.setAlignment(Pos.CENTER_LEFT);
         labelName.getStyleClass().add("username");
@@ -25,10 +25,10 @@ public class PlayerRoomControl extends AnchorPane {
 
         this.getChildren().addAll(labelName, labelStatus);
 
-        updateState("", PlayerRoomControlState.WAITING_FOR_CONNECTION);
+        updateState("", PlayerState.WAITING_FOR_CONNECTION);
     }
 
-    public PlayerRoomControl updateState(String username, PlayerRoomControlState state) {
+    public RoomPlayer updateState(String username, PlayerState state) {
         switch (state) {
             case CONNECTED:
                 labelStatus.setText("Connected");
@@ -42,9 +42,12 @@ public class PlayerRoomControl extends AnchorPane {
                 labelStatus.setText("Waiting for player...");
                 this.getStyleClass().setAll("FIR_player-state", "FIR_player-state-inactive");
                 break;
+            case DISCONNECTED:
+                labelStatus.setText("Disconnected");
+                this.getStyleClass().setAll("FIR_player-state", "FIR_player-state-inactive");
         }
 
-        if (state == PlayerRoomControlState.WAITING_FOR_CONNECTION) {
+        if (state == PlayerState.WAITING_FOR_CONNECTION) {
             labelName.setText("");
         } else {
             labelName.setText(username);

@@ -1,7 +1,8 @@
 package views;
 
-import controls.PlayerRoomControl;
-import controls.PlayerRoomControlState;
+import controls.RoomPlayer;
+import controls.Title;
+import controls.PlayerState;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,7 +15,7 @@ import messageloop.*;
 import message.*;
 
 public class PendingGame extends View {
-    private PlayerRoomControl[] players;
+    private RoomPlayer[] players;
 
     private Notifiable joinNotifier;
     private Notifiable leaveNotifier;
@@ -24,19 +25,18 @@ public class PendingGame extends View {
 
     public PendingGame(Game game) {
         this.game = game;
-        this.setPadding(new Insets(0, 32, 32, 32));
+        this.setPadding(new Insets(32, 32, 32, 32));
 
-        players = new PlayerRoomControl[4];
+        players = new RoomPlayer[4];
 
         for (int i = 0; i < 4; i++) {
-            players[i] = new PlayerRoomControl();
+            players[i] = new RoomPlayer();
         }
 
         joinNotifier = new Notifier<PlayerJoin>(PlayerJoin.class) {
             @Override
             public void handle(PlayerJoin message) {
-                players[message.player().getId()].updateState(message.player().getName(),
-                        PlayerRoomControlState.CONNECTED);
+                players[message.player().getId()].updateState(message.player().getName(), PlayerState.CONNECTED);
             }
         };
 
@@ -44,7 +44,7 @@ public class PendingGame extends View {
             @Override
             public void handle(PlayerLeave message) {
                 players[message.player().getId()].updateState(message.player().getName(),
-                        PlayerRoomControlState.WAITING_FOR_CONNECTION);
+                        PlayerState.WAITING_FOR_CONNECTION);
             }
         };
 
@@ -70,7 +70,7 @@ public class PendingGame extends View {
         StackPane.setAlignment(joinButton, Pos.BOTTOM_RIGHT);
         joinButton.setMaxWidth(256);
 
-        menuContainer.getChildren().addAll(Widgets.makeTitle("Multiplayer Room"), Widgets.makeLabel("Players"));
+        menuContainer.getChildren().addAll(Widgets.makeLabel("Players"));
 
         for (int i = 0; i < 4; i++) {
             menuContainer.getChildren().add(players[i]);
@@ -78,7 +78,7 @@ public class PendingGame extends View {
 
         menuContainer.getChildren().add(joinButton);
 
-        this.getChildren().addAll(menuContainer, backButton);
+        this.getChildren().addAll(new Title("Multiplayer Room"), menuContainer, backButton);
 
         backButton.setOnAction(actionEvent -> {
             game.shutdown();

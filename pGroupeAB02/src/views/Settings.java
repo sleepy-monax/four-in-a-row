@@ -1,6 +1,7 @@
 package views;
 
 import controller.AudioController;
+import controls.Title;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,6 +14,8 @@ import utils.StageManager;
 public class Settings extends View {
 
     public Settings() {
+        this.setPadding(new Insets(32));
+
         Pane orbEffect = Widgets.makeOrbButton(Icon.MUSIC_OFF);
         orbEffect.setPadding(new Insets(0, 72, 0, 72));
 
@@ -31,12 +34,13 @@ public class Settings extends View {
         VBox menuContainer = new VBox(16);
         menuContainer.setAlignment(Pos.CENTER);
         menuContainer.setMaxWidth(512);
-        menuContainer.getChildren().addAll(Widgets.makeTitle("Settings"), orbContainer);
+        menuContainer.getChildren().add(orbContainer);
+
         Button backButton = Widgets.makeButton("Go back");
         backButton.setOnAction(actionEvent -> StageManager.switchView(new MainMenu()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        this.getChildren().addAll(menuContainer, backButton);
+        this.getChildren().addAll(new Title("Settings"), menuContainer, backButton);
 
         orbMusic.setOnMouseClicked(MouseEvent -> AudioController.shutdown());
     }

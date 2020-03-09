@@ -98,14 +98,6 @@ public final class Widgets {
         return label;
     }
 
-    public static Parent makeTitle(String text) {
-        Label label = new Label(text);
-
-        label.getStyleClass().add("FIR_title");
-
-        return label;
-    }
-
     public static Pane makeBuzzer() {
         Pane buzzer = new Pane();
         buzzer.setMinSize(96, 96);

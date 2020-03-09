@@ -9,10 +9,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import utils.StageManager;
-
-import java.util.Optional;
 
 public class MainGame extends View {
     private Button btnQuitGame;
@@ -76,7 +72,7 @@ public class MainGame extends View {
     }
 
     public Button getBtnQuitGame() {
-        if (btnQuitGame == null){
+        if (btnQuitGame == null) {
             btnQuitGame = Widgets.makeButton("Exit");
             btnQuitGame.setMinWidth(200);
             btnQuitGame.setOnMouseClicked(event -> {
@@ -85,7 +81,7 @@ public class MainGame extends View {
                 alert.setHeaderText("Do you want to quit the game? All progress will not saved");
                 alert.setContentText("Are you ok with this?");
                 Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK){
+                if (result.get() == ButtonType.OK) {
                     StageManager.switchView(new MainMenu());
                 }
             });
