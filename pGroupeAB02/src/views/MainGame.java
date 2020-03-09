@@ -82,7 +82,7 @@ public class MainGame extends View {
             btnQuitGame.setOnMouseClicked(event -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Quit the game?");
-                alert.setHeaderText("Do you want to quit the game? All progress will not saved");
+                alert.setHeaderText("Do you want to quit the game? All progress will not save");
                 alert.setContentText("Are you ok with this?");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
