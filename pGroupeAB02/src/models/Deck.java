@@ -3,25 +3,26 @@ package models;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
+import java.io.Serializable;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Deck {
+public class Deck implements Serializable {
     private List<Question> questions = null;
 
     public Deck() {
         questions = new ArrayList<>();
     }
 
-    public static Deck fromJSON(String json){
+    public static Deck fromJSON(String json) {
         JsonReader jsonReader = new JsonReader(new StringReader(json));
         jsonReader.setLenient(true);
         Gson gson = new Gson();
         Deck deck = null;
 
         deck = gson.fromJson(json, Deck.class);
-        if (deck != null){
+        if (deck != null) {
             List<Question> questList = deck.getAllQuestions();
             deck.clear();
             deck.addQuestions(questList);
@@ -30,7 +31,7 @@ public class Deck {
         return deck;
     }
 
-    public String toJson(){
+    public String toJson() {
         return new Gson().toJson(this);
     }
 
@@ -42,8 +43,8 @@ public class Deck {
         }
     }
 
-    public void addQuestions(List<Question> questionsList){
-        if ( questionsList != null){
+    public void addQuestions(List<Question> questionsList) {
+        if (questionsList != null) {
             questionsList.forEach(this::add);
         }
     }
@@ -62,22 +63,22 @@ public class Deck {
         return questions.remove(question);
     }
 
-    public List<String> getListThemes(){
+    public List<String> getListThemes() {
         List<String> var = new ArrayList<>();
         questions.forEach(question -> var.add(question.getTheme()));
         return var;
     }
 
-    public List<Question> getQuestionsByTheme(String theme){
+    public List<Question> getQuestionsByTheme(String theme) {
         List<Question> var = new ArrayList<>();
         questions.forEach(question -> {
-            if(question.getTheme() == theme)
+            if (question.getTheme() == theme)
                 var.add(question);
         });
         return var;
     }
 
-    public List<Question> getAllQuestions(){
+    public List<Question> getAllQuestions() {
         return questions;
     }
 

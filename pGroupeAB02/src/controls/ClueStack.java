@@ -7,6 +7,7 @@ import views.Animation;
 
 public class ClueStack extends VBox {
     public ClueStack() {
+        super(16);
         setPrefHeight(128 * 3);
         setPrefWidth(512);
     }

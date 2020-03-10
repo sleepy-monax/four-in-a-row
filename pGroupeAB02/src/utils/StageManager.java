@@ -72,7 +72,7 @@ public final class StageManager {
             }
         });
 
-        scene.addEventHandler(MouseEvent.MOUSE_MOVED, event -> {
+        scene.addEventFilter(MouseEvent.MOUSE_MOVED, event -> {
             background.animate(event.getX(), event.getY());
         });
 

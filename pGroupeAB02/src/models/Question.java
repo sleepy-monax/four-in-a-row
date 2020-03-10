@@ -1,10 +1,11 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Question {
+public class Question implements Serializable {
     private List<String> clues;
     private String author, theme, answer;
 

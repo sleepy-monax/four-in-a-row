@@ -8,7 +8,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import models.Deck;
 import multiplayer.Multiplayer;
+import utils.Serialization;
 import utils.StageManager;
 
 public class MainMenu extends View {
@@ -49,7 +51,8 @@ public class MainMenu extends View {
         joinMultiplayerButton.setOnMouseClicked(mouseEvent -> StageManager.switchView(new JoinMultiplayer()));
         hostMultiplayerButton.setOnMouseClicked(mouseEvent -> Multiplayer.host(Multiplayer.DEFAULT_PORT));
 
-        orbEditor.setOnMouseClicked(mouseEvent -> StageManager.switchView((new Editor())));
+        orbEditor.setOnMouseClicked(mouseEvent -> StageManager
+                .switchView((new Editor(Serialization.readFromJsonFile("data/question.json", Deck.class)))));
         orbSettings.setOnMouseClicked(mouseEvent -> StageManager.switchView((new Settings())));
         orbQuit.setOnMouseClicked(mouseEvent -> {
             if (new YesNoDialog("Quit the game", "Are you sure you want to quit?").show() == YesNo.YES) {
