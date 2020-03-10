@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import views.Animation;
@@ -69,6 +70,10 @@ public final class StageManager {
                 stage.setFullScreen(!stage.isFullScreen());
                 event.consume();
             }
+        });
+
+        scene.addEventHandler(MouseEvent.MOUSE_MOVED, event -> {
+            background.animate(event.getX(), event.getY());
         });
 
         stage.setScene(scene);

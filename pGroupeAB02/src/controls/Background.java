@@ -10,6 +10,7 @@ import views.Animation;
 
 public class Background extends StackPane {
     private boolean spinnerVisible;
+    private double paralax = 1;
 
     private Pane gradiant;
     private Pane glitter;
@@ -24,6 +25,7 @@ public class Background extends StackPane {
         getChildren().add(gradiant);
 
         if (is_fancy) {
+            spinnerVisible = false;
 
             glitter = new Pane();
             glitter.setId("glitter");
@@ -47,26 +49,25 @@ public class Background extends StackPane {
             animation.setInterpolator(Interpolator.LINEAR);
             animation.play();
 
-            setOnMouseMoved(event -> {
-                double x = (event.getX() - getWidth() / 2) / getWidth();
-                double y = (event.getY() - getHeight() / 2) / getHeight();
-
-                double offsetx = getWidth() * 0.25 * x;
-                double offsety = getHeight() * 0.25 * y;
-
-                gradiant.setTranslateX(-offsetx);
-                gradiant.setTranslateY(-offsety);
-
-                glitter.setTranslateX(-offsetx * 0.75);
-                glitter.setTranslateY(-offsety * 0.75);
-
-                spinner.setTranslateX(-offsetx * 0.5);
-                spinner.setTranslateY(-offsety * 0.5);
-            });
-
             getChildren().addAll(glitter, spinner);
         }
+    }
 
+    public void animate(double mouseX, double mouseY) {
+        double x = (mouseX - getWidth() / 2) / getWidth();
+        double y = (mouseY - getHeight() / 2) / getHeight();
+
+        double offsetx = getWidth() * 0.25 * x * paralax;
+        double offsety = getHeight() * 0.25 * y * paralax;
+
+        gradiant.setTranslateX(-offsetx);
+        gradiant.setTranslateY(-offsety);
+
+        glitter.setTranslateX(-offsetx * 0.75);
+        glitter.setTranslateY(-offsety * 0.75);
+
+        spinner.setTranslateX(-offsetx * 0.5);
+        spinner.setTranslateY(-offsety * 0.5);
     }
 
     public void showSpinner() {
@@ -85,5 +86,13 @@ public class Background extends StackPane {
             Animation.scale(spinner, 10, 0, 0.5);
             Animation.fade(glitter, 0.25, 0, 0.5);
         }
+    }
+
+    public double getParalax() {
+        return this.paralax;
+    }
+
+    public void setParalax(double paralax) {
+        this.paralax = paralax;
     }
 }
