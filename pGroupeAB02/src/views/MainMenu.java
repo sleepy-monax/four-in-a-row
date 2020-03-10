@@ -63,6 +63,7 @@ public class MainMenu extends View {
         orbEditor.setOnMouseClicked(mouseEvent -> StageManager
                 .switchView((new Editor(Serialization.readFromJsonFile("data/question.json", Deck.class)))));
         orbSettings.setOnMouseClicked(mouseEvent -> StageManager.switchView((new Settings())));
+        orbScores.setOnMouseClicked(mouseEvent -> StageManager.switchView((new Score())));
         orbQuit.setOnMouseClicked(mouseEvent -> {
             if (new YesNoDialog("Quit the game", "Are you sure you want to quit?").show() == YesNo.YES) {
 
