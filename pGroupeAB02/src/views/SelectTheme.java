@@ -23,7 +23,7 @@ public class SelectTheme extends View {
         themesList.setMaxWidth(512);
 
         for (int i = 0; i < nbTheme; i++) {
-            Pane themeButton = Widgets.makeBigButton(Icon.STAR, "Thème " + (i + 1) /* lTheme.get(i).toString() */);
+            Pane themeButton = Widgets.makeBigButton(Icon.STAR, themes.get(i).toString() );
             themeButton.setPadding(new Insets(0, 72, 0, 72));
 
             themeButton.setOnMouseClicked(event -> {

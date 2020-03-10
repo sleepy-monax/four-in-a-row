@@ -2,7 +2,7 @@
     "questions": [
         {
             "author": "anon",
-            "theme": "stuff",
+            "theme": "Theme1",
             "answer": "answer",
             "clues": [
                 "clue 1",
@@ -12,7 +12,7 @@
         },
         {
             "author": "anon",
-            "theme": "stuff",
+            "theme": "Theme2",
             "answer": "answer but not this one",
             "clues": [
                 "clue 1",
@@ -22,7 +22,7 @@
         },
         {
             "author": "anon",
-            "theme": "stuff",
+            "theme": "Theme3",
             "answer": "no answer",
             "clues": [
                 "clue 1",
@@ -32,7 +32,7 @@
         },
         {
             "author": "anon",
-            "theme": "stuff",
+            "theme": "Theme4",
             "answer": "an answer",
             "clues": [
                 "clue 1",
@@ -42,7 +42,7 @@
         },
         {
             "author": "anon",
-            "theme": "stuff",
+            "theme": "Theme5",
             "answer": "the answer",
             "clues": [
                 "clue 1",
@@ -52,7 +52,7 @@
         },
         {
             "author": "anon",
-            "theme": "stuff",
+            "theme": "Theme6",
             "answer": "that answer",
             "clues": [
                 "clue 1",

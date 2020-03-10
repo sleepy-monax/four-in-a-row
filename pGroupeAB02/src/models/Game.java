@@ -12,7 +12,7 @@ import messageloop.MessageLoop;
 public abstract class Game {
     private Deck deck;
     private Player players[];
-    private int level, levelmax;
+    private int level, levelmax, ticktot, score;
     private Difficulty difficulty;
     private Question actualQuestion;
     private String actualTheme;
@@ -25,6 +25,7 @@ public abstract class Game {
         messageLoop = new MessageLoop();
         level = 0;
         players = new Player[4];
+        ticktot = 0;
     }
 
     public void letsPlay(Difficulty difficulty, int nbtheme){
@@ -32,25 +33,36 @@ public abstract class Game {
         setDifficulty(difficulty);
     }
 
-    private void randomTheme(int nb) {
-        if (themeRand != null)
-            themeRand = null;
+    public List<String> randomTheme(int nb) {
+        List<String> themeDeBase = new ArrayList<>(deck.getListThemes());
+        themeRand = new ArrayList<>();
         for (int i = 0; i < nb; i++) {
-            int rand = new Random().nextInt(deck.getListThemes().size());
-            themeRand.add(deck.getListThemes().get(rand));
-            themeRand.remove(deck.getListThemes().get(rand));
+            int rand = new Random().nextInt(themeDeBase.size()-1);
+            themeRand.add(themeDeBase.get(rand));
+            themeDeBase.remove(rand);
         }
+        return themeRand;
     }
 
     public boolean reply(String reply) {
         if (actualQuestion.toString() == reply) {
-            level++;
+            setLevel(level++);
+            if(level < 1){
+                score +=5;
+            }else if (level == 1){
+                score+=10;
+            }else if (level == 2){
+                score+=20;
+            }else if (level == 3){
+                score+=30;
+            }else if (level == 4){
+                score+=40;
+            }
             if (levelmax < level)
                 level = levelmax;
             return true;
         }
-
-        level = 0;
+        setLevel(0);
         return false;
     }
 
@@ -81,6 +93,10 @@ public abstract class Game {
 
     public void tick() {
         messageLoop.post(new GameTick());
+        ticktot+=1;
+        System.out.println(ticktot);
+        if (ticktot == 60)
+            shutdown();
     }
 
     public boolean removePlayer(Player player) {
@@ -127,6 +143,11 @@ public abstract class Game {
 
     public Difficulty getDifficulty() {
         return difficulty;
+    }
+
+    public void setTicktot(int ticktot) {
+        if (ticktot <60 && ticktot >= 0 )
+            this.ticktot = ticktot;
     }
 
     public void setDifficulty(Difficulty difficulty) {
