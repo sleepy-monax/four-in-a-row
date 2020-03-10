@@ -4,19 +4,20 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import utils.StageManager;
-
+import controls.ClueStack;
 import dialogs.YesNo;
 import dialogs.YesNoDialog;
 
 public class MainGame extends View {
     private Button btnQuitGame;
+    private ClueStack clueStack;
 
     public Button getBtnQuitGame() {
         if (btnQuitGame == null) {
@@ -41,6 +42,7 @@ public class MainGame extends View {
         HBox.setHgrow(answerContainer, Priority.ALWAYS);
 
         Pane buzzer = Widgets.makeBuzzer();
+        buzzer.setOnMouseClicked(event -> clueStack.addClue("Hello, world!"));
 
         HBox answerAndBuzzerContainer = new HBox(answerContainer, buzzer);
         answerAndBuzzerContainer.setMaxHeight(48);
@@ -59,50 +61,21 @@ public class MainGame extends View {
         return sidebar;
     }
 
-    private Parent makeClues() {
-        VBox clues = new VBox();
-
-        StackPane card0 = new StackPane();
-        card0.getStyleClass().add("card");
-        card0.setRotate(1);
-
-        StackPane card1 = new StackPane();
-        card1.getStyleClass().add("card");
-        card1.setRotate(-1.25);
-
-        StackPane card2 = new StackPane();
-        card2.getStyleClass().add("card");
-        card2.setRotate(1.2);
-
-        clues.getChildren().addAll(card0, card1, card2);
-
-        Label text2 = new Label(
-                "He designed the Automatic Computing Engine, which was one of the first designs for a stored-program computer.");
-
-        text2.getStyleClass().add("card-body");
-        text2.setWrapText(true);
-        text2.setAlignment(Pos.CENTER);
-        text2.setTextAlignment(TextAlignment.CENTER);
-
-        card2.getChildren().add(text2);
-
-        return clues;
-    }
-
     public MainGame() {
         this.setPadding(new Insets(0));
+
+        Parent sidebar = makeSideBar();
+
+        clueStack = new ClueStack();
+        clueStack.setPadding(new Insets(32));
 
         Parent answer = makeAnswerContainer();
         HBox.setHgrow(answer, Priority.ALWAYS);
 
-        Parent sidebar = makeSideBar();
+        BorderPane cluesAndAnswer = new BorderPane(clueStack, null, null, answer, null);
 
-        Parent clues = makeClues();
-        VBox.setVgrow(clues, Priority.ALWAYS);
+        HBox.setHgrow(cluesAndAnswer, Priority.ALWAYS);
 
-        VBox cluesAndAnswer = new VBox(16, new StackPane(clues), answer);
-        VBox.setVgrow(cluesAndAnswer, Priority.ALWAYS);
-
-        this.getChildren().add(new HBox(16, sidebar, cluesAndAnswer));
+        this.getChildren().add(new HBox(sidebar, cluesAndAnswer));
     }
 }
