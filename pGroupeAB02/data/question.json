@@ -9,6 +9,56 @@
                 "clue 2",
                 "clue 3"
             ]
+        },
+        {
+            "author": "anon",
+            "theme": "stuff",
+            "answer": "answer but not this one",
+            "clues": [
+                "clue 1",
+                "clue 2",
+                "clue 3"
+            ]
+        },
+        {
+            "author": "anon",
+            "theme": "stuff",
+            "answer": "no answer",
+            "clues": [
+                "clue 1",
+                "clue 2",
+                "clue 3"
+            ]
+        },
+        {
+            "author": "anon",
+            "theme": "stuff",
+            "answer": "an answer",
+            "clues": [
+                "clue 1",
+                "clue 2",
+                "clue 3"
+            ]
+        },
+        {
+            "author": "anon",
+            "theme": "stuff",
+            "answer": "the answer",
+            "clues": [
+                "clue 1",
+                "clue 2",
+                "clue 3"
+            ]
+        },
+        {
+            "author": "anon",
+            "theme": "stuff",
+            "answer": "that answer",
+            "clues": [
+                "clue 1",
+                "clue 2",
+                "clue 3"
+            ]
         }
     ]
 }
