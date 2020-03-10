@@ -2,6 +2,7 @@ package views;
 
 import controls.RoomPlayer;
 import controls.Title;
+import dialogs.InfoDialog;
 import controls.PlayerState;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -51,7 +52,8 @@ public class PendingGame extends View {
         stoppedNotifier = new Notifier<GameDisconnected>(GameDisconnected.class) {
             @Override
             public void handle(GameDisconnected message) {
-                StageManager.switchView(new Information("Game Stopped", "The Server is disconnected!"));
+                new InfoDialog("Game stopped", "The server is disconnected!").show();
+                StageManager.switchView(new MainMenu());
             }
         };
 
