@@ -7,63 +7,39 @@ import java.util.Random;
 import message.GameTick;
 import message.PlayerJoin;
 import message.PlayerLeave;
+import message.StateChanged;
 import messageloop.MessageLoop;
+import states.Finish;
+import states.GameState;
+import states.SelectTheme;
 
 public abstract class Game {
     private Deck deck;
     private Player players[];
-    private int level, levelmax, ticktot, score;
-    private Difficulty difficulty;
-    private Question actualQuestion;
-    private String actualTheme;
-    private List<String> themeRand;
-
     private MessageLoop messageLoop;
+    private GameState state;
+    private Difficulty difficulty;
 
     public Game(Deck deck) {
         setDeck(deck);
         messageLoop = new MessageLoop();
-        level = 0;
         players = new Player[4];
-        ticktot = 0;
     }
 
-    public void letsPlay(Difficulty difficulty, int nbtheme){
+    public void letsPlay(Difficulty difficulty, int nbtheme) {
         randomTheme(nbtheme);
         setDifficulty(difficulty);
     }
 
     public List<String> randomTheme(int nb) {
         List<String> themeDeBase = new ArrayList<>(deck.getListThemes());
-        themeRand = new ArrayList<>();
+        List<String> themeRand = new ArrayList<>();
         for (int i = 0; i < nb; i++) {
-            int rand = new Random().nextInt(themeDeBase.size()-1);
+            int rand = new Random().nextInt(themeDeBase.size() - 1);
             themeRand.add(themeDeBase.get(rand));
             themeDeBase.remove(rand);
         }
         return themeRand;
-    }
-
-    public boolean reply(String reply) {
-        if (actualQuestion.toString() == reply) {
-            setLevel(level++);
-            if(level < 1){
-                score +=5;
-            }else if (level == 1){
-                score+=10;
-            }else if (level == 2){
-                score+=20;
-            }else if (level == 3){
-                score+=30;
-            }else if (level == 4){
-                score+=40;
-            }
-            if (levelmax < level)
-                level = levelmax;
-            return true;
-        }
-        setLevel(0);
-        return false;
     }
 
     public Player joinPlayer(String name) {
@@ -93,10 +69,11 @@ public abstract class Game {
 
     public void tick() {
         messageLoop.post(new GameTick());
-        ticktot+=1;
-        System.out.println(ticktot);
-        if (ticktot == 60)
-            shutdown();
+
+        if (state != null) {
+            // FIXME: use real elapsed time...
+            state.onTick(1.0);
+        }
     }
 
     public boolean removePlayer(Player player) {
@@ -128,26 +105,8 @@ public abstract class Game {
             this.deck = deck;
     }
 
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        if (level == 0 && level < 4)
-            this.level = level;
-    }
-
-    public int getLevelmax() {
-        return levelmax;
-    }
-
     public Difficulty getDifficulty() {
         return difficulty;
-    }
-
-    public void setTicktot(int ticktot) {
-        if (ticktot <60 && ticktot >= 0 )
-            this.ticktot = ticktot;
     }
 
     public void setDifficulty(Difficulty difficulty) {
@@ -175,4 +134,22 @@ public abstract class Game {
     }
 
     public abstract void shutdown();
+
+    public <GameStateType> void changeState(GameStateType state) {
+
+        this.state = (GameState) state;
+
+        messageLoop.post(new StateChanged<GameStateType>(state));
+    }
+
+    public void nextPlayer() {
+        for (Player player : players) {
+            if (!player.hasPlayed()) {
+                changeState(new SelectTheme(this, player));
+                return;
+            }
+        }
+
+        changeState(new Finish());
+    }
 }

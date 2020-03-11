@@ -1,9 +1,14 @@
 package models;
 
 public class Player {
+    public static final int MAX_LEVEl = 4;
+
     private int id;
     private String name;
-    private int score, level, levelMax;
+    private int score;
+    private int level;
+    private int levelMax;
+    private boolean hasPlayed = false;
 
     public Player(int id, String name) {
         this(id, name, 0, 0, 0);
@@ -57,5 +62,33 @@ public class Player {
     public String toString() {
         return "Player{" + " id='" + id + "'" + ", name='" + name + "'" + ", score='" + score + "'" + ", level='"
                 + level + "'" + ", levelMax='" + levelMax + "'" + "}";
+    }
+
+    public void played() {
+        hasPlayed = true;
+    }
+
+    public void answerCorrect() {
+        nextLevel();
+
+        score += level * 10;
+    }
+
+    public void nextLevel() {
+        level++;
+
+        if (level > MAX_LEVEl) {
+            level = MAX_LEVEl;
+        }
+
+        levelMax = Math.max(levelMax, level);
+    }
+
+    public void failled() {
+        level = 0;
+    }
+
+    public boolean hasPlayed() {
+        return this.hasPlayed;
     }
 }
