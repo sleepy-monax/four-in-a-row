@@ -49,6 +49,8 @@ public class Round extends GameState {
             player.played();
             game.nextPlayer();
         }
+
+        game.getMessageLoop().post(new OnCountDown(timer));
     }
 
     public void nextQuestion() {

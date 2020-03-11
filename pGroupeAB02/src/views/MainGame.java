@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import message.OnCountDown;
 import message.OnNewClue;
 import models.Game;
 import controls.ClueStack;
@@ -37,21 +38,23 @@ public class MainGame extends View {
     public MainGame(Game game) {
         this.setPadding(new Insets(0));
 
-        Button btnQuitGame = Widgets.makeButton("Exit");
-        btnQuitGame.setMinWidth(200);
-        btnQuitGame.setOnMouseClicked(event -> {
+        Button quitButton = Widgets.makeButton("Exit");
+        quitButton.setMinWidth(200);
+        quitButton.setOnMouseClicked(event -> {
             if (new YesNoDialog("Quit the game", "Do you want to quit the game?\nAll progress will be lost!")
                     .show() == YesNo.YES) {
                 game.finish();
             }
         });
 
+        Label countdownLabel = new Label();
+
         VBox sidebar = new VBox();
 
         sidebar.setId("sidebar");
         sidebar.setMinWidth(220);
         sidebar.setPadding(new Insets(16));
-        sidebar.getChildren().addAll(btnQuitGame);
+        sidebar.getChildren().addAll(quitButton, countdownLabel);
 
         ClueStack clueStack = new ClueStack();
         clueStack.setPadding(new Insets(32));
@@ -66,8 +69,11 @@ public class MainGame extends View {
         this.getChildren().add(new HBox(sidebar, cluesAndAnswer));
 
         game.getMessageLoop().registerNotifier(OnNewClue.class, message -> {
-            System.out.println("clue: " + message.clue());
             clueStack.addClue(message.clue());
+        });
+
+        game.getMessageLoop().registerNotifier(OnCountDown.class, message -> {
+            countdownLabel.setText(((int) message.time()) + "'");
         });
     }
 }

@@ -8,7 +8,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import controller.GameController;
-import message.OnGameTick;
+import message.OnCountDown;
 import models.*;
 
 public class Master extends GameController implements ConnectionListener {
@@ -24,7 +24,7 @@ public class Master extends GameController implements ConnectionListener {
         server.setListener(this);
         server.start(port);
 
-        game.getMessageLoop().registerNotifier(OnGameTick.class, message -> {
+        game.getMessageLoop().registerNotifier(OnCountDown.class, message -> {
             server.broadcast(new PacketBuilder(PacketType.TICK).build());
         });
     }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import message.OnGameFinished;
-import message.OnGameTick;
+import message.OnCountDown;
 import message.OnThemeSelected;
 import message.OnGameEnterLobby;
 import message.PlayerJoin;
@@ -89,8 +89,6 @@ public class Game {
     }
 
     public void tick() {
-        messageLoop.post(new OnGameTick());
-
         if (state != null) {
             // FIXME: use real elapsed time...
             state.onTick(1.0);
