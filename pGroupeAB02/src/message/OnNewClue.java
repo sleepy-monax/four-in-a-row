@@ -2,10 +2,10 @@ package message;
 
 import messageloop.Message;
 
-public class NewClue implements Message {
+public class OnNewClue extends Message {
     private final String clue;
 
-    public NewClue(String clue) {
+    public OnNewClue(String clue) {
         this.clue = clue;
     }
 

@@ -6,7 +6,7 @@ import java.util.List;
 import message.*;
 import models.*;
 
-public class Round implements GameState {
+public class Round extends GameState {
     public static final double ROUND_TIME = 60.0;
     public static final double CLUE_TIME = 5.0;
 
@@ -30,6 +30,11 @@ public class Round implements GameState {
         this.player = player;
         this.theme = theme;
         this.questions = new LinkedList<>(questions);
+    }
+
+    @Override
+    public void onSwitchIn() {
+        nextQuestion();
     }
 
     public void onTick(double elapsed) {
@@ -63,7 +68,7 @@ public class Round implements GameState {
         if (clueIndex < currentQuestion.getClues().size()) {
             String clue = currentQuestion.getClues().get(clueIndex);
 
-            game.getMessageLoop().post(new NewClue(clue));
+            game.getMessageLoop().post(new OnNewClue(clue));
         }
 
         lastclueTime = currentQuestionTime;

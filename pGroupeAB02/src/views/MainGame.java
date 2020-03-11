@@ -10,28 +10,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import utils.StageManager;
+import message.OnNewClue;
+import models.Game;
 import controls.ClueStack;
 import dialogs.YesNo;
 import dialogs.YesNoDialog;
 
 public class MainGame extends View {
-    private Button btnQuitGame;
-    private ClueStack clueStack;
-
-    public Button getBtnQuitGame() {
-        if (btnQuitGame == null) {
-            btnQuitGame = Widgets.makeButton("Exit");
-            btnQuitGame.setMinWidth(200);
-            btnQuitGame.setOnMouseClicked(event -> {
-                if (new YesNoDialog("Quit the game", "Do you want to quit the game?\nAll progress will be lost!")
-                        .show() == YesNo.YES) {
-                    StageManager.switchView(new MainMenu());
-                }
-            });
-        }
-        return btnQuitGame;
-    }
 
     private Parent makeAnswerContainer() {
         TextField answer = Widgets.makeTextField("");
@@ -42,7 +27,6 @@ public class MainGame extends View {
         HBox.setHgrow(answerContainer, Priority.ALWAYS);
 
         Pane buzzer = Widgets.makeBuzzer();
-        buzzer.setOnMouseClicked(event -> clueStack.addClue("Hello, world!"));
 
         HBox answerAndBuzzerContainer = new HBox(answerContainer, buzzer);
         answerAndBuzzerContainer.setMaxHeight(48);
@@ -50,23 +34,26 @@ public class MainGame extends View {
         return answerAndBuzzerContainer;
     }
 
-    private Parent makeSideBar() {
+    public MainGame(Game game) {
+        this.setPadding(new Insets(0));
+
+        Button btnQuitGame = Widgets.makeButton("Exit");
+        btnQuitGame.setMinWidth(200);
+        btnQuitGame.setOnMouseClicked(event -> {
+            if (new YesNoDialog("Quit the game", "Do you want to quit the game?\nAll progress will be lost!")
+                    .show() == YesNo.YES) {
+                game.finish();
+            }
+        });
+
         VBox sidebar = new VBox();
 
         sidebar.setId("sidebar");
         sidebar.setMinWidth(220);
         sidebar.setPadding(new Insets(16));
-        sidebar.getChildren().addAll(getBtnQuitGame());
+        sidebar.getChildren().addAll(btnQuitGame);
 
-        return sidebar;
-    }
-
-    public MainGame() {
-        this.setPadding(new Insets(0));
-
-        Parent sidebar = makeSideBar();
-
-        clueStack = new ClueStack();
+        ClueStack clueStack = new ClueStack();
         clueStack.setPadding(new Insets(32));
 
         Parent answer = makeAnswerContainer();
@@ -77,5 +64,10 @@ public class MainGame extends View {
         HBox.setHgrow(cluesAndAnswer, Priority.ALWAYS);
 
         this.getChildren().add(new HBox(sidebar, cluesAndAnswer));
+
+        game.getMessageLoop().registerNotifier(OnNewClue.class, message -> {
+            System.out.println("clue: " + message.clue());
+            clueStack.addClue(message.clue());
+        });
     }
 }

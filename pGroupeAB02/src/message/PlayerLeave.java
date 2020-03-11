@@ -3,7 +3,7 @@ package message;
 import messageloop.Message;
 import models.Player;
 
-public class PlayerLeave implements Message {
+public class PlayerLeave extends Message {
     private Player player;
 
     public PlayerLeave(Player player) {

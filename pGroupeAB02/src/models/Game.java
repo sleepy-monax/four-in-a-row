@@ -2,44 +2,45 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-import message.GameTick;
+import message.OnGameFinished;
+import message.OnGameTick;
+import message.OnThemeSelected;
+import message.OnGameEnterLobby;
 import message.PlayerJoin;
 import message.PlayerLeave;
-import message.StateChanged;
 import messageloop.MessageLoop;
 import states.Finish;
 import states.GameState;
+import states.Passive;
 import states.SelectTheme;
 
-public abstract class Game {
+public class Game {
     private Deck deck;
     private Player players[];
     private MessageLoop messageLoop;
     private GameState state;
     private Difficulty difficulty;
 
-    public Game(Deck deck) {
+    public Game(Deck deck, Difficulty difficulty) {
         setDeck(deck);
-        messageLoop = new MessageLoop();
-        players = new Player[4];
+
+        this.deck = deck;
+        this.messageLoop = new MessageLoop();
+        this.players = new Player[4];
+        this.difficulty = difficulty;
     }
 
-    public void letsPlay(Difficulty difficulty, int nbtheme) {
-        randomTheme(nbtheme);
-        setDifficulty(difficulty);
+    public void start() {
+        nextPlayer();
     }
 
-    public List<String> randomTheme(int nb) {
-        List<String> themeDeBase = new ArrayList<>(deck.getListThemes());
-        List<String> themeRand = new ArrayList<>();
-        for (int i = 0; i < nb; i++) {
-            int rand = new Random().nextInt(themeDeBase.size() - 1);
-            themeRand.add(themeDeBase.get(rand));
-            themeDeBase.remove(rand);
-        }
-        return themeRand;
+    public void startPassive() {
+        changeState(new Passive());
+    }
+
+    public void finish() {
+        messageLoop.post(new OnGameFinished());
     }
 
     public Player joinPlayer(String name) {
@@ -67,15 +68,6 @@ public abstract class Game {
         return null;
     }
 
-    public void tick() {
-        messageLoop.post(new GameTick());
-
-        if (state != null) {
-            // FIXME: use real elapsed time...
-            state.onTick(1.0);
-        }
-    }
-
     public boolean removePlayer(Player player) {
         for (int i = 0; i < players.length; i++) {
             if (players[i] == player) {
@@ -96,6 +88,15 @@ public abstract class Game {
         return removePlayer(players[id]);
     }
 
+    public void tick() {
+        messageLoop.post(new OnGameTick());
+
+        if (state != null) {
+            // FIXME: use real elapsed time...
+            state.onTick(1.0);
+        }
+    }
+
     public Deck getDeck() {
         return deck;
     }
@@ -107,10 +108,6 @@ public abstract class Game {
 
     public Difficulty getDifficulty() {
         return difficulty;
-    }
-
-    public void setDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty;
     }
 
     public List<Player> getPlayers() {
@@ -133,13 +130,16 @@ public abstract class Game {
         return messageLoop;
     }
 
-    public abstract void shutdown();
-
     public <GameStateType> void changeState(GameStateType state) {
+        if (this.state != null) {
+            this.state.onSwitchOut();
+        }
 
         this.state = (GameState) state;
 
-        messageLoop.post(new StateChanged<GameStateType>(state));
+        if (this.state != null) {
+            this.state.onSwitchIn();
+        }
     }
 
     public void nextPlayer() {
@@ -151,5 +151,17 @@ public abstract class Game {
         }
 
         changeState(new Finish());
+    }
+
+    public void selectTheme(String theme) {
+        messageLoop.post(new OnThemeSelected(theme));
+
+        if (state instanceof SelectTheme) {
+            ((SelectTheme) state).pickTheme(theme);
+        }
+    }
+
+    public void enterLobby() {
+        messageLoop.post(new OnGameEnterLobby());
     }
 }

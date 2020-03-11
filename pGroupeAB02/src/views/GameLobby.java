@@ -15,7 +15,7 @@ import utils.StageManager;
 import messageloop.*;
 import message.*;
 
-public class PendingGame extends View {
+public class GameLobby extends View {
     private RoomPlayer[] players;
 
     private Notifiable joinNotifier;
@@ -24,7 +24,7 @@ public class PendingGame extends View {
 
     private Game game;
 
-    public PendingGame(Game game) {
+    public GameLobby(Game game) {
         this.game = game;
         this.setPadding(new Insets(32, 32, 32, 32));
 
@@ -83,8 +83,7 @@ public class PendingGame extends View {
         this.getChildren().addAll(new Title("Multiplayer Room"), menuContainer, backButton);
 
         backButton.setOnAction(actionEvent -> {
-            game.shutdown();
-            StageManager.switchView(new MainMenu());
+            game.finish();
         });
     }
 

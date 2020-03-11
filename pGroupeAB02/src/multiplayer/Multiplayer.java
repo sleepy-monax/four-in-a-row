@@ -1,25 +1,27 @@
 package multiplayer;
 
+import models.Deck;
+import models.Difficulty;
 import models.Game;
-import utils.StageManager;
-import views.PendingGame;
+import utils.Serialization;
 
 public class Multiplayer {
     public static final int DEFAULT_PORT = 1234;
 
     public static void join(String username, String ip, int port) {
-        Game game = new Slave(username, ip, port);
+        Game game = new Game(null, Difficulty.EASY);
+        Slave slave = new Slave(game, ip, port);
 
-        PendingGame view = new PendingGame(game);
-
-        StageManager.switchView(view);
+        game.joinPlayer(username);
+        game.startPassive();
     }
 
     public static void host(int port) {
-        Game game = new Master(null, port);
+        Deck deck = Serialization.readFromJsonFile("data/question.json", Deck.class);
+        Game game = new Game(deck, Difficulty.EASY);
+        Master master = new Master(game, port);
 
-        PendingGame view = new PendingGame(game);
-
-        StageManager.switchView(view);
+        game.joinPlayer("Local Player");
+        game.enterLobby();
     }
 }

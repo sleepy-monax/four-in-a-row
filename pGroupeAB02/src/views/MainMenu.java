@@ -9,13 +9,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.Deck;
-import models.Game;
-import models.SinglePlayerGame;
 import multiplayer.Multiplayer;
+import singleplayer.SinglePlayer;
 import utils.Serialization;
 import utils.StageManager;
-
-import java.util.List;
 
 public class MainMenu extends View {
     public MainMenu() {
@@ -51,12 +48,7 @@ public class MainMenu extends View {
         this.setAlignment(Pos.CENTER);
         this.getChildren().add(menuContainer);
 
-        singleplayerButton.setOnMouseClicked(event -> {
-            Deck deck = Serialization.readFromJsonFile("data/question.json", Deck.class);
-            SinglePlayerGame spg = new SinglePlayerGame(deck);
-            List<String> rnd = spg.randomTheme(3);
-            StageManager.switchView(new SelectTheme(rnd, 3));
-        });
+        singleplayerButton.setOnMouseClicked(event -> SinglePlayer.play());
         joinMultiplayerButton.setOnMouseClicked(mouseEvent -> StageManager.switchView(new JoinMultiplayer()));
         hostMultiplayerButton.setOnMouseClicked(mouseEvent -> Multiplayer.host(Multiplayer.DEFAULT_PORT));
 

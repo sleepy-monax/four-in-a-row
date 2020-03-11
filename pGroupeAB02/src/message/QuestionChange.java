@@ -5,7 +5,7 @@ import messageloop.Message;
 /**
  * QuestionChange
  */
-public class QuestionChange implements Message {
+public class QuestionChange extends Message {
     @Override
     public boolean repostable() {
         return true;

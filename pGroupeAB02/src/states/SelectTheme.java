@@ -4,7 +4,7 @@ import java.util.List;
 
 import models.*;
 
-public class SelectTheme implements GameState {
+public class SelectTheme extends GameState {
     public static final int THEME_COUNT = 3;
 
     private final Game game;
@@ -18,7 +18,7 @@ public class SelectTheme implements GameState {
 
     public SelectTheme(Game game, Player player, double timer) {
         this.game = game;
-        this.themes = game.randomTheme(THEME_COUNT);
+        this.themes = game.getDeck().getRandomTheme(THEME_COUNT);
         this.player = player;
         this.timer = timer;
     }
@@ -27,11 +27,12 @@ public class SelectTheme implements GameState {
         return themes;
     }
 
-    public void pick(String theme) {
-        game.changeState(new Round(game, player, theme, game.getDeck().getQuestionsByTheme(theme)));
+    public void pickTheme(String theme) {
+        game.changeState(new Round(game, player, theme, game.getDeck().getQuestionsByTheme(theme), timer));
     }
 
-    public void onTick(double elapsed) {
-        // Do nothing...
+    @Override
+    public void onSwitchIn() {
+        game.getMessageLoop().post(new message.OnSelectTheme(themes));
     }
 }

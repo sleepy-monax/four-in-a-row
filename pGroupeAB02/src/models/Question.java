@@ -38,8 +38,12 @@ public class Question implements Serializable {
         }
     }
 
+    public void setClues(List<String> clues) {
+        this.clues = clues;
+    }
+
     public List<String> getClues() {
-        return clues;
+        return new ArrayList<>(clues);
     }
 
     public String getTheme() {

@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Deck implements Serializable {
     private List<Question> questions = null;
@@ -58,8 +59,21 @@ public class Deck implements Serializable {
         return var;
     }
 
-    public List<Question> getAllQuestions() {
+    public List<Question> getQuestions() {
         return questions;
+    }
+
+    public List<String> getRandomTheme(int nb) {
+        List<String> themeDeBase = new ArrayList<>(getListThemes());
+        List<String> themeRand = new ArrayList<>();
+
+        for (int i = 0; i < Math.min(nb, themeDeBase.size()); i++) {
+            int rand = new Random().nextInt(themeDeBase.size() - 1);
+            themeRand.add(themeDeBase.get(rand));
+            themeDeBase.remove(rand);
+        }
+
+        return themeRand;
     }
 
     public void clear() {
@@ -70,4 +84,8 @@ public class Deck implements Serializable {
         return questions.size();
     }
 
+    @Override
+    public String toString() {
+        return "{" + " questions='" + getQuestions() + "'" + "}";
+    }
 }

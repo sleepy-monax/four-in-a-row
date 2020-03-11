@@ -4,18 +4,17 @@ import network.*;
 
 import java.io.IOException;
 
+import controller.GameController;
 import message.GameDisconnected;
 import models.*;
 
-public class Slave extends Game implements ConnectionListener {
+public class Slave extends GameController implements ConnectionListener {
     private int localPlayer;
     private Connection connection;
     private String username;
 
-    public Slave(String username, String address, int port) {
-        super(null); // lol
-
-        this.username = username;
+    public Slave(Game game, String address, int port) {
+        super(game);
 
         connection = new Connection();
         connection.setClientListener(this);
@@ -35,7 +34,7 @@ public class Slave extends Game implements ConnectionListener {
 
     @Override
     public void onDisconnectByRemote(Connection connection) {
-        getMessageLoop().post(new GameDisconnected());
+        game().getMessageLoop().post(new GameDisconnected());
     }
 
     @Override
@@ -50,16 +49,16 @@ public class Slave extends Game implements ConnectionListener {
             case PLAYER_JOIN:
                 int player_count = reader.readInt();
                 for (int i = 0; i < player_count; i++) {
-                    this.joinPlayer(reader.readInt(), reader.readString());
+                    game().joinPlayer(reader.readInt(), reader.readString());
                 }
                 break;
 
             case PLAYER_LEAVE:
-                this.removePlayer(reader.readInt());
+                game().removePlayer(reader.readInt());
                 break;
 
             case TICK:
-                this.tick();
+                game().tick();
                 break;
 
             default:

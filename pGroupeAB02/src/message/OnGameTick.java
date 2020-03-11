@@ -2,11 +2,9 @@ package message;
 
 import messageloop.Message;
 
-public class GameTick implements Message {
-
+public class OnGameTick extends Message {
     @Override
     public boolean repostable() {
         return false;
     }
-
 }

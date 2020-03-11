@@ -1,5 +1,12 @@
 package states;
 
-public interface GameState {
-    void onTick(double elapsed);
+public abstract class GameState {
+    public void onTick(double elapsed) {
+    }
+
+    public void onSwitchIn() {
+    }
+
+    public void onSwitchOut() {
+    }
 }

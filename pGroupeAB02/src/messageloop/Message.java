@@ -1,5 +1,7 @@
 package messageloop;
 
-public interface Message {
-    boolean repostable();
+public abstract class Message {
+    public boolean repostable() {
+        return true;
+    }
 }

@@ -7,16 +7,16 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import controller.GameController;
+import message.OnGameTick;
 import models.*;
 
-public class Master extends Game implements ConnectionListener {
+public class Master extends GameController implements ConnectionListener {
     private Server server;
     private HashMap<Connection, ConnectedSlave> slaves;
-    private Timer tickTimer;
-    private TimerTask tickService;
 
-    public Master(Deck deck, int port) {
-        super(deck);
+    public Master(Game game, int port) {
+        super(game);
 
         slaves = new HashMap<>();
 
@@ -24,32 +24,22 @@ public class Master extends Game implements ConnectionListener {
         server.setListener(this);
         server.start(port);
 
-        tickTimer = new Timer();
-
-        Game game = this;
-
-        tickService = new TimerTask() {
-            @Override
-            public void run() {
-                server.broadcast(new PacketBuilder(PacketType.TICK).build());
-                game.tick();
-            }
-        };
-
-        tickTimer.schedule(tickService, 0, 1000);
+        game.getMessageLoop().registerNotifier(OnGameTick.class, message -> {
+            server.broadcast(new PacketBuilder(PacketType.TICK).build());
+        });
     }
 
     public void kickPlayer(int i) {
         for (ConnectedSlave slave : slaves.values()) {
             if (slave.getPlayer() != null && slave.getPlayer().getId() == i) {
-                removePlayer(slave.getPlayer());
+                game().removePlayer(slave.getPlayer());
             }
         }
     }
 
+    @Override
     public void shutdown() {
         System.out.println("Shutting down server...");
-        tickService.cancel();
         server.stop();
     }
 
@@ -69,7 +59,7 @@ public class Master extends Game implements ConnectionListener {
 
         if (player != null) {
             server.broadcast(new PacketBuilder(PacketType.PLAYER_LEAVE).withInt(player.getId()).build());
-            this.removePlayer(slave.getPlayer());
+            game().removePlayer(slave.getPlayer());
         }
 
         this.slaves.remove(connection);
@@ -92,7 +82,7 @@ public class Master extends Game implements ConnectionListener {
                 ConnectedSlave slave = this.slaves.get(connection);
 
                 try {
-                    Player newPlayer = this.joinPlayer(reader.readString());
+                    Player newPlayer = game().joinPlayer(reader.readString());
 
                     if (newPlayer != null) {
                         connection.send(new PacketBuilder(PacketType.ACCEPTED).withInt(newPlayer.getId()).build());
@@ -101,9 +91,9 @@ public class Master extends Game implements ConnectionListener {
 
                         PacketBuilder builder = new PacketBuilder(PacketType.PLAYER_JOIN);
 
-                        builder.withInt(getPlayers().size());
+                        builder.withInt(game().getPlayers().size());
 
-                        for (Player player : getPlayers()) {
+                        for (Player player : game().getPlayers()) {
                             builder.withInt(player.getId());
                             builder.withString(player.getName());
                         }
