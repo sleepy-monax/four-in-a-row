@@ -37,6 +37,7 @@ public class Slave extends GameController implements ConnectionListener {
 
     @Override
     public void onDisconnect(Connection connection) {
+        game().finish();
         shutdown();
     }
 
@@ -52,6 +53,7 @@ public class Slave extends GameController implements ConnectionListener {
         switch (packet.getPacketType()) {
             case ACCEPTED:
                 localPlayer = reader.readInt();
+                game().enterLobby();
                 break;
 
             case PLAYER_JOIN:

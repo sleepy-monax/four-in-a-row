@@ -1,33 +1,33 @@
 {
     "questions": [
         {
-            "author": "anon",
-            "theme": "Theme1",
-            "answer": "answer",
+            "author": "Van Bossuyt Nicolas",
+            "theme": "fruit",
+            "answer": "apple",
             "clues": [
-                "clue 1",
-                "clue 2",
-                "clue 3"
+                "It's a fruit.",
+                "It's red, green or yellow.",
+                "It's not a pear."
             ]
         },
         {
-            "author": "anon",
-            "theme": "Theme2",
-            "answer": "answer but not this one",
+            "author": "Van Bossuyt Nicolas",
+            "theme": "fruit",
+            "answer": "orange",
             "clues": [
-                "clue 1",
-                "clue 2",
-                "clue 3"
+                "It's orange.",
+                "It's acidic.",
+                "It's not an apple."
             ]
         },
         {
-            "author": "anon",
-            "theme": "Theme3",
-            "answer": "no answer",
+            "author": "Van Bossuyt Nicolas",
+            "theme": "fruit",
+            "answer": "banana",
             "clues": [
-                "clue 1",
-                "clue 2",
-                "clue 3"
+                "Its's from New Guinea.",
+                "It's yellow.",
+                "It's not a pineapple."
             ]
         },
         {

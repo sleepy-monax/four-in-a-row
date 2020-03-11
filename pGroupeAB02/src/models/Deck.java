@@ -1,10 +1,6 @@
 package models;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-
 import java.io.Serializable;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -44,10 +40,16 @@ public class Deck implements Serializable {
         return questions.remove(question);
     }
 
-    public List<String> getListThemes() {
-        List<String> var = new ArrayList<>();
-        questions.forEach(question -> var.add(question.getTheme()));
-        return var;
+    public List<String> themes() {
+        List<String> themes = new ArrayList<>();
+
+        for (Question question : questions) {
+            if (!themes.contains(question.getTheme())) {
+                themes.add(question.getTheme());
+            }
+        }
+
+        return themes;
     }
 
     public List<Question> getQuestionsByTheme(String theme) {
@@ -63,17 +65,22 @@ public class Deck implements Serializable {
         return questions;
     }
 
-    public List<String> getRandomTheme(int nb) {
-        List<String> themeDeBase = new ArrayList<>(getListThemes());
-        List<String> themeRand = new ArrayList<>();
+    public String[] getRandomThemes(int count) {
+        Random random = new Random();
 
-        for (int i = 0; i < Math.min(nb, themeDeBase.size()); i++) {
-            int rand = new Random().nextInt(themeDeBase.size() - 1);
-            themeRand.add(themeDeBase.get(rand));
-            themeDeBase.remove(rand);
+        List<String> pool = themes();
+        count = Math.min(count, pool.size());
+
+        String[] result = new String[count];
+
+        for (int i = 0; i < count; i++) {
+            int index = random.nextInt(pool.size());
+
+            result[i] = pool.get(index);
+            pool.remove(index);
         }
 
-        return themeRand;
+        return result;
     }
 
     public void clear() {

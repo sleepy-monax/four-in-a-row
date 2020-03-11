@@ -7,14 +7,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.Game;
-
-import java.util.List;
-
 import controls.Title;
 
 public class SelectTheme extends View {
 
-    public SelectTheme(Game game, List<String> themes) {
+    public SelectTheme(Game game, String[] themes) {
         this.setPadding(new Insets(32));
 
         VBox themesList = new VBox(16);
