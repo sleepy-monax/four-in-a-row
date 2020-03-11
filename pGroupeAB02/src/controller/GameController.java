@@ -3,7 +3,9 @@ package controller;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import dialogs.InfoDialog;
 import javafx.application.Platform;
+import message.GameDisconnected;
 import message.OnGameEnterLobby;
 import message.OnGameFinished;
 import message.OnSelectTheme;
@@ -44,6 +46,10 @@ public class GameController {
 
         game.getMessageLoop().registerNotifier(OnThemeSelected.class, message -> {
             StageManager.switchView(new MainGame(game));
+        });
+
+        game.getMessageLoop().registerNotifier(GameDisconnected.class, message -> {
+            new InfoDialog("Game stopped", "The server is disconnected!").show();
         });
 
         game.getMessageLoop().registerNotifier(OnGameFinished.class, message -> {

@@ -10,6 +10,7 @@ import main.Main;
 
 public class AudioController {
 	private static final int MAX_SOUND_EFFECTS = 8;
+	private static final boolean MUTED = true;
 
 	private static HashMap<String, Media> soundCache = new HashMap<>();
 	private static MediaPlayer musicPlayer;
@@ -37,6 +38,11 @@ public class AudioController {
 	}
 
 	public static void playNow(String name, Runnable then) {
+		if (MUTED) {
+			then.run();
+			return;
+		}
+
 		if (musicPlayer != null) {
 			musicPlayer.stop();
 		}
@@ -47,10 +53,15 @@ public class AudioController {
 		if (then != null) {
 			musicPlayer.setOnEndOfMedia(then);
 		}
+
 		musicPlayer.play();
 	}
 
 	public static void playLoopNow(String name) {
+		if (MUTED) {
+			return;
+		}
+
 		if (musicPlayer != null) {
 			musicPlayer.stop();
 		}
@@ -62,6 +73,10 @@ public class AudioController {
 	}
 
 	public static void playEffect(String name) {
+		if (MUTED) {
+			return;
+		}
+
 		if (effectPlayers.size() > MAX_SOUND_EFFECTS) {
 			return;
 		}

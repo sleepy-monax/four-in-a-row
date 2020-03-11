@@ -1,5 +1,6 @@
 package multiplayer;
 
+import dialogs.InfoDialog;
 import models.Deck;
 import models.Difficulty;
 import models.Game;
@@ -10,10 +11,15 @@ public class Multiplayer {
 
     public static void join(String username, String ip, int port) {
         Game game = new Game(null, Difficulty.EASY);
-        Slave slave = new Slave(game, ip, port);
+        Slave slave = new Slave(game, username, ip, port);
 
-        game.joinPlayer(username);
-        game.startPassive();
+        if (slave.connect()) {
+            game.startPassive();
+
+        } else {
+            new InfoDialog("Join multiplayer", "Failled to reache " + ip + ":" + port).show();
+            game.finish();
+        }
     }
 
     public static void host(int port) {

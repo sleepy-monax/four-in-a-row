@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import message.OnGameFinished;
-import message.OnCountDown;
 import message.OnThemeSelected;
 import message.OnGameEnterLobby;
 import message.PlayerJoin;
@@ -142,7 +141,7 @@ public class Game {
 
     public void nextPlayer() {
         for (Player player : players) {
-            if (!player.hasPlayed()) {
+            if (player != null && !player.hasPlayed()) {
                 changeState(new SelectTheme(this, player));
                 return;
             }

@@ -10,15 +10,23 @@ import models.*;
 
 public class Slave extends GameController implements ConnectionListener {
     private int localPlayer;
-    private Connection connection;
-    private String username;
+    private final Connection connection;
+    private final String username;
+    private final String address;
+    private final int port;
 
-    public Slave(Game game, String address, int port) {
+    public Slave(Game game, String username, String address, int port) {
         super(game);
 
         connection = new Connection();
         connection.setClientListener(this);
-        connection.connect(address, port);
+        this.address = address;
+        this.port = port;
+        this.username = username;
+    }
+
+    public boolean connect() {
+        return connection.connect(address, port);
     }
 
     @Override
