@@ -16,7 +16,7 @@ public class MessageLoop {
 
         for (Notifiable notifier : notifiables) {
             if (notifier.canAccept(message)) {
-                System.out.println("MESSAGELOOP dispatch: " + message.getClass().getTypeName() + " to " + notifier);
+                System.out.println("MESSAGELOOP dispatching: " + message.getClass().getTypeName() + " to " + notifier);
 
                 notifier.handle(message);
                 is_dispatched = true;
@@ -43,6 +43,8 @@ public class MessageLoop {
     }
 
     public void registerNotifier(Notifiable notifiable) {
+        System.out.println("MESSAGELOOP registering notifier: " + notifiable);
+
         notifiables.add(notifiable);
         repost();
     }
@@ -63,9 +65,13 @@ public class MessageLoop {
     public void post(Message message) {
         System.out.println("MESSAGELOOP post: " + message.getClass().getTypeName());
 
-        if (!dispatch(message) && message.repostable()) {
-            System.out.println("MESSAGELOOP failled to post: " + message.getClass().getTypeName());
-            pendings.add(message);
+        if (!dispatch(message)) {
+            if (message.repostable()) {
+                System.out.println("MESSAGELOOP reposting: " + message.getClass().getTypeName());
+                pendings.add(message);
+            } else {
+                System.out.println("MESSAGELOOP discarding: " + message.getClass().getTypeName());
+            }
         }
     }
 }

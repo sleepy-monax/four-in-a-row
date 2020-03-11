@@ -12,8 +12,4 @@ public class OnNewClue extends Message {
     public String clue() {
         return clue;
     }
-
-    public boolean repostable() {
-        return false;
-    }
 }
