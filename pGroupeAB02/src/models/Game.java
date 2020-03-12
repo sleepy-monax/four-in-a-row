@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import message.OnGameFinished;
+import message.OnPlayerAnswer;
 import message.OnThemeSelected;
 import message.OnGameEnterLobby;
 import message.PlayerJoin;
@@ -12,6 +13,7 @@ import messageloop.MessageLoop;
 import states.Finish;
 import states.GameState;
 import states.Passive;
+import states.Round;
 import states.SelectTheme;
 
 public class Game {
@@ -155,6 +157,14 @@ public class Game {
 
         if (state instanceof SelectTheme) {
             ((SelectTheme) state).pickTheme(theme);
+        }
+    }
+
+    public void answer(String answer) {
+        messageLoop.post(new OnPlayerAnswer(answer));
+
+        if (state instanceof Round) {
+            ((Round) state).answer(answer);
         }
     }
 

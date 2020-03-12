@@ -58,6 +58,7 @@ public class Round extends GameState {
             currentQuestion = questions.removeFirst();
             currentQuestionTime = 0;
 
+            game.getMessageLoop().post(new OnQuestionChange());
             sendClue();
         } else {
             game.changeState(new SelectTheme(game, player, timer));
@@ -88,9 +89,7 @@ public class Round extends GameState {
 
     public void pass() {
         questions.addLast(currentQuestion);
-        currentQuestion = questions.removeFirst();
-
-        game.getMessageLoop().post(new QuestionChange());
+        nextQuestion();
     }
 
 }
