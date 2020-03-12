@@ -53,12 +53,13 @@ public class Deck implements Serializable {
     }
 
     public List<Question> getQuestionsByTheme(String theme) {
-        List<Question> var = new ArrayList<>();
+        List<Question> result = new ArrayList<>();
         questions.forEach(question -> {
-            if (question.getTheme() == theme)
-                var.add(question);
+            if (question.getTheme().equals(theme)) {
+                result.add(question);
+            }
         });
-        return var;
+        return result;
     }
 
     public List<Question> getQuestions() {
