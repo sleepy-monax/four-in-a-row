@@ -8,6 +8,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import message.OnCountDown;
 import message.OnNewClue;
+import message.OnQuestionChange;
+import messageloop.Notifiable;
 import models.Game;
 import controls.AnswerField;
 import controls.ClueStack;
@@ -16,7 +18,18 @@ import dialogs.YesNoDialog;
 
 public class MainGame extends View {
 
+    private final Game game;
+
+    private final ClueStack clueStack;
+    private final Label countdown;
+
+    private Notifiable onNewClueNotifier;
+    private Notifiable onCountDownNotifier;
+    private Notifiable onQuestionChanged;
+
     public MainGame(Game game) {
+        this.game = game;
+
         this.setPadding(new Insets(0));
 
         Button quitButton = Widgets.makeButton("Exit");
@@ -28,16 +41,16 @@ public class MainGame extends View {
             }
         });
 
-        Label countdownLabel = new Label();
+        countdown = new Label();
 
         VBox sidebar = new VBox();
 
         sidebar.setId("sidebar");
         sidebar.setMinWidth(220);
         sidebar.setPadding(new Insets(16));
-        sidebar.getChildren().addAll(quitButton, countdownLabel);
+        sidebar.getChildren().addAll(quitButton, countdown);
 
-        ClueStack clueStack = new ClueStack();
+        clueStack = new ClueStack();
         clueStack.setPadding(new Insets(32));
 
         AnswerField answer = new AnswerField(game);
@@ -49,12 +62,25 @@ public class MainGame extends View {
 
         this.getChildren().add(new HBox(sidebar, cluesAndAnswer));
 
-        game.getMessageLoop().registerNotifier(OnNewClue.class, message -> {
+    }
+
+    public void onSwitchIn() {
+        onNewClueNotifier = game.getMessageLoop().registerNotifier(OnNewClue.class, message -> {
             clueStack.addClue(message.clue());
         });
 
-        game.getMessageLoop().registerNotifier(OnCountDown.class, message -> {
-            countdownLabel.setText(((int) message.time()) + "'");
+        onCountDownNotifier = game.getMessageLoop().registerNotifier(OnCountDown.class, message -> {
+            countdown.setText(((int) message.time()) + "'");
         });
+
+        onQuestionChanged = game.getMessageLoop().registerNotifier(OnQuestionChange.class, message -> {
+            clueStack.clearClues();
+        });
+    }
+
+    @Override
+    public void onSwitchOut() {
+        game.getMessageLoop().unregisterNotifier(onNewClueNotifier);
+        game.getMessageLoop().unregisterNotifier(onCountDownNotifier);
     }
 }

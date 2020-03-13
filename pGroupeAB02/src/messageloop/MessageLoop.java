@@ -42,15 +42,17 @@ public class MessageLoop {
         pendings.removeAll(reposted);
     }
 
-    public void registerNotifier(Notifiable notifiable) {
+    public Notifiable registerNotifier(Notifiable notifiable) {
         System.out.println("MESSAGELOOP registering notifier: " + notifiable);
 
         notifiables.add(notifiable);
         repost();
+
+        return notifiable;
     }
 
-    public <MessageType> void registerNotifier(Class<MessageType> type, Consumer<MessageType> consumer) {
-        registerNotifier(new Notifier<MessageType>(type) {
+    public <MessageType> Notifiable registerNotifier(Class<MessageType> type, Consumer<MessageType> consumer) {
+        return registerNotifier(new Notifier<MessageType>(type) {
             @Override
             public void handle(MessageType message) {
                 consumer.accept(message);
@@ -68,7 +70,7 @@ public class MessageLoop {
         if (!dispatch(message)) {
             if (message.repostable()) {
                 System.out.println("MESSAGELOOP reposting: " + message.getClass().getTypeName());
-                pendings.add(message);
+                pendings.addLast(message);
             } else {
                 System.out.println("MESSAGELOOP discarding: " + message.getClass().getTypeName());
             }
