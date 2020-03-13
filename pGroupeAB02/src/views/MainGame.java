@@ -19,6 +19,7 @@ import utils.ShakeTransition;
 import controller.AudioController;
 import controls.AnswerField;
 import controls.ClueStack;
+import controls.Countdown;
 import dialogs.YesNo;
 import dialogs.YesNoDialog;
 
@@ -27,8 +28,8 @@ public class MainGame extends View {
     private final Game game;
 
     private final ClueStack clueStack;
-    private final Label countdown;
     private final AnswerField answer;
+    private final Countdown countdown;
 
     public MainGame(Game game) {
         this.game = game;
@@ -44,7 +45,7 @@ public class MainGame extends View {
             }
         });
 
-        countdown = new Label();
+        countdown = new Countdown();
 
         VBox sidebar = new VBox();
 
@@ -79,7 +80,7 @@ public class MainGame extends View {
         });
 
         onCountdownNotifier = game.getMessageLoop().registerNotifier(OnCountDown.class, message -> {
-            countdown.setText(message.time() + "'");
+            countdown.update(message.time());
 
             if (message.time() == 5) {
                 AudioController.playEffect("assets/round-timer.wav");

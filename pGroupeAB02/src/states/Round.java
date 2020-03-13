@@ -35,6 +35,7 @@ public class Round extends GameState {
     @Override
     public void onSwitchIn() {
         nextQuestion();
+        game.getMessageLoop().post(new OnCountDown((int) (ROUND_TIME)));
     }
 
     public void onTick(double elapsed) {

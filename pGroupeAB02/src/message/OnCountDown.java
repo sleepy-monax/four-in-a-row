@@ -12,9 +12,4 @@ public class OnCountDown extends Message {
     public int time() {
         return this.time;
     }
-
-    @Override
-    public boolean repostable() {
-        return false;
-    }
 }
