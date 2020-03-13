@@ -52,6 +52,8 @@ public final class StageManager {
         View dummy = new View() {
         };
 
+        dummy.setStyle("-fx-background-color: black;");
+
         viewContainer = new StackPane();
         dialogContainer = new StackPane();
         dialogContainer.setDisable(true);
