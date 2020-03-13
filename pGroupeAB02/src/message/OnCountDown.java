@@ -3,13 +3,13 @@ package message;
 import messageloop.Message;
 
 public class OnCountDown extends Message {
-    private final double time;
+    private final int time;
 
-    public OnCountDown(double time) {
+    public OnCountDown(int time) {
         this.time = time;
     }
 
-    public double time() {
+    public int time() {
         return this.time;
     }
 

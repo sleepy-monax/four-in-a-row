@@ -48,7 +48,7 @@ public class AudioController {
 		}
 
 		musicPlayer = new MediaPlayer(getMedia(name));
-		musicPlayer.setVolume(0.5);
+		musicPlayer.setVolume(0.25);
 
 		if (then != null) {
 			musicPlayer.setOnEndOfMedia(then);
@@ -67,7 +67,7 @@ public class AudioController {
 		}
 
 		musicPlayer = new MediaPlayer(getMedia(name));
-		musicPlayer.setVolume(0.5);
+		musicPlayer.setVolume(0.25);
 		musicPlayer.setCycleCount(Integer.MAX_VALUE);
 		musicPlayer.play();
 	}
@@ -91,6 +91,10 @@ public class AudioController {
 		});
 
 		effectPlayer.play();
+	}
+
+	public static void stop() {
+		musicPlayer.stop();
 	}
 
 	public static void shutdown() {

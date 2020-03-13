@@ -38,7 +38,12 @@ public class Round extends GameState {
     }
 
     public void onTick(double elapsed) {
+        if ((int) (timer - elapsed) != (int) (timer)) {
+            game.getMessageLoop().post(new OnCountDown((int) (timer - elapsed)));
+        }
+
         timer -= elapsed;
+
         currentQuestionTime += elapsed;
 
         if (currentQuestionTime - lastclueTime >= CLUE_TIME) {
@@ -46,11 +51,10 @@ public class Round extends GameState {
         }
 
         if (timer <= 0) {
+            game.getMessageLoop().post(new OnRoundFinish());
             player.played();
             game.nextPlayer();
         }
-
-        game.getMessageLoop().post(new OnCountDown(timer));
     }
 
     public void nextQuestion() {

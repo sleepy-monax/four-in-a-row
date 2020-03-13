@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.Game;
+import controller.AudioController;
 import controls.Title;
 
 public class SelectTheme extends View {
@@ -36,5 +37,17 @@ public class SelectTheme extends View {
 
         this.setAlignment(Pos.CENTER);
         this.getChildren().addAll(new Title("Select a theme"), themesList, backButton);
+    }
+
+    @Override
+    public void onSwitchIn() {
+        AudioController.playLoopNow("assets/theme.wav");
+    }
+
+    @Override
+    public void onSwitchOut() {
+        AudioController.playNow("assets/transition.wav", () -> {
+            AudioController.playLoopNow("assets/loop2.wav");
+        });
     }
 }

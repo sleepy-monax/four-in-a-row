@@ -8,12 +8,15 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import message.OnCountDown;
+import message.OnGameFinished;
 import message.OnNewClue;
+import message.OnRoundFinish;
 import message.OnAnswerCorrect;
 import message.OnAnswerIncorrect;
 import messageloop.Notifiable;
 import models.Game;
 import utils.ShakeTransition;
+import controller.AudioController;
 import controls.AnswerField;
 import controls.ClueStack;
 import dialogs.YesNo;
@@ -65,35 +68,53 @@ public class MainGame extends View {
     }
 
     private Notifiable onNewClueNotifier;
-    private Notifiable onCountDownNotifier;
+    private Notifiable onCountdownNotifier;
     private Notifiable onAnswerCorrect;
     private Notifiable onAnswerIncorrect;
+    private Notifiable onRoundFinish;
 
     public void onSwitchIn() {
         onNewClueNotifier = game.getMessageLoop().registerNotifier(OnNewClue.class, message -> {
             clueStack.addClue(message.clue());
         });
 
-        onCountDownNotifier = game.getMessageLoop().registerNotifier(OnCountDown.class, message -> {
-            countdown.setText(((int) message.time()) + "'");
+        onCountdownNotifier = game.getMessageLoop().registerNotifier(OnCountDown.class, message -> {
+            countdown.setText(message.time() + "'");
+
+            if (message.time() == 5) {
+                AudioController.playEffect("assets/round-timer.wav");
+            }
+
+            if (message.time() == 1) {
+                AudioController.playEffect("assets/round-end.wav");
+            }
         });
 
         onAnswerCorrect = game.getMessageLoop().registerNotifier(OnAnswerCorrect.class, message -> {
+            AudioController.playEffect("assets/correct.wav");
+
             clueStack.clearClues();
+            answer.clear();
         });
 
         onAnswerIncorrect = game.getMessageLoop().registerNotifier(OnAnswerIncorrect.class, message -> {
-            ShakeTransition shake = new ShakeTransition(answer, Duration.seconds(1), 10, 10);
+            AudioController.playEffect("assets/wrong.wav");
 
+            ShakeTransition shake = new ShakeTransition(answer, Duration.seconds(0.5), 16, 3);
             shake.play();
+        });
+
+        onRoundFinish = game.getMessageLoop().registerNotifier(OnRoundFinish.class, message -> {
+            AudioController.stop();
         });
     }
 
     @Override
     public void onSwitchOut() {
         game.getMessageLoop().unregisterNotifier(onNewClueNotifier);
-        game.getMessageLoop().unregisterNotifier(onCountDownNotifier);
+        game.getMessageLoop().unregisterNotifier(onCountdownNotifier);
         game.getMessageLoop().unregisterNotifier(onAnswerCorrect);
         game.getMessageLoop().unregisterNotifier(onAnswerIncorrect);
+        game.getMessageLoop().unregisterNotifier(onRoundFinish);
     }
 }
