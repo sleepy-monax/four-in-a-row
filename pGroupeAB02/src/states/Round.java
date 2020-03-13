@@ -58,7 +58,6 @@ public class Round extends GameState {
             currentQuestion = questions.removeFirst();
             currentQuestionTime = 0;
 
-            game.getMessageLoop().post(new OnQuestionChange());
             sendClue();
         } else {
             game.changeState(new SelectTheme(game, player, timer));
@@ -79,10 +78,11 @@ public class Round extends GameState {
 
     public void answer(String answer) {
         if (currentQuestion.getAnswer().equals(answer)) {
+            game.getMessageLoop().post(new OnAnswerCorrect());
             player.answerCorrect();
             nextQuestion();
         } else {
-            game.getMessageLoop().post(new InvalidAnswer());
+            game.getMessageLoop().post(new OnAnswerIncorrect());
             player.failled();
         }
     }

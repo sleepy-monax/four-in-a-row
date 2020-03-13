@@ -6,11 +6,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import message.OnCountDown;
 import message.OnNewClue;
-import message.OnQuestionChange;
+import message.OnAnswerCorrect;
+import message.OnAnswerIncorrect;
 import messageloop.Notifiable;
 import models.Game;
+import utils.ShakeTransition;
 import controls.AnswerField;
 import controls.ClueStack;
 import dialogs.YesNo;
@@ -22,10 +25,7 @@ public class MainGame extends View {
 
     private final ClueStack clueStack;
     private final Label countdown;
-
-    private Notifiable onNewClueNotifier;
-    private Notifiable onCountDownNotifier;
-    private Notifiable onQuestionChanged;
+    private final AnswerField answer;
 
     public MainGame(Game game) {
         this.game = game;
@@ -53,7 +53,7 @@ public class MainGame extends View {
         clueStack = new ClueStack();
         clueStack.setPadding(new Insets(32));
 
-        AnswerField answer = new AnswerField(game);
+        answer = new AnswerField(game);
         HBox.setHgrow(answer, Priority.ALWAYS);
 
         BorderPane cluesAndAnswer = new BorderPane(clueStack, null, null, answer, null);
@@ -64,6 +64,11 @@ public class MainGame extends View {
 
     }
 
+    private Notifiable onNewClueNotifier;
+    private Notifiable onCountDownNotifier;
+    private Notifiable onAnswerCorrect;
+    private Notifiable onAnswerIncorrect;
+
     public void onSwitchIn() {
         onNewClueNotifier = game.getMessageLoop().registerNotifier(OnNewClue.class, message -> {
             clueStack.addClue(message.clue());
@@ -73,8 +78,14 @@ public class MainGame extends View {
             countdown.setText(((int) message.time()) + "'");
         });
 
-        onQuestionChanged = game.getMessageLoop().registerNotifier(OnQuestionChange.class, message -> {
+        onAnswerCorrect = game.getMessageLoop().registerNotifier(OnAnswerCorrect.class, message -> {
             clueStack.clearClues();
+        });
+
+        onAnswerIncorrect = game.getMessageLoop().registerNotifier(OnAnswerIncorrect.class, message -> {
+            ShakeTransition shake = new ShakeTransition(answer, Duration.seconds(1), 10, 10);
+
+            shake.play();
         });
     }
 
@@ -82,5 +93,7 @@ public class MainGame extends View {
     public void onSwitchOut() {
         game.getMessageLoop().unregisterNotifier(onNewClueNotifier);
         game.getMessageLoop().unregisterNotifier(onCountDownNotifier);
+        game.getMessageLoop().unregisterNotifier(onAnswerCorrect);
+        game.getMessageLoop().unregisterNotifier(onAnswerIncorrect);
     }
 }
