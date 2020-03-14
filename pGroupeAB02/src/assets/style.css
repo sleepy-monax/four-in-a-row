@@ -44,14 +44,14 @@
 }
 
 #sidebar{
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%,  #205BAE, #001D47);
+    -fx-background-color: linear-gradient( #205BAE, #001D47);
 
 }
 
 .button {
     -fx-border-width: 2;
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%,  #64A4FF, #0149AF);
-    -fx-border-color: linear-gradient(from 50% 0% to 50% 100%,  #FFF612, #FFB100);
+    -fx-background-color: linear-gradient( #64A4FF, #0149AF);
+    -fx-border-color: linear-gradient( #FFF612, #FFB100);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
 }
 
@@ -62,7 +62,7 @@
 
 .button:pressed{
     -fx-effect: none;
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #0149AF,  #64A4FF);
+    -fx-background-color: linear-gradient(#0149AF,  #64A4FF);
 }
 
 .FIR_button {
@@ -91,9 +91,9 @@
     -fx-pref-width: 72;
 
     -fx-background-radius: 36;
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%,  #000000, #434343);
+    -fx-background-color: linear-gradient( #000000, #434343);
 
-    -fx-border-color: linear-gradient(from 50% 0% to 50% 100%,  #ffffff, #757575);
+    -fx-border-color: linear-gradient( #ffffff, #757575);
     -fx-border-radius: 36;
     -fx-border-width: 8;
 
@@ -167,8 +167,8 @@
 
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
     -fx-text-fill: black;
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #C6C6C6, #FFFFFF);
-    -fx-border-color: linear-gradient(from 50% 0% to 50% 100%, #FFFFFF, #C6C6C6);
+    -fx-background-color: linear-gradient(#C6C6C6, #FFFFFF);
+    -fx-border-color: linear-gradient(#FFFFFF, #C6C6C6);
 }
 
 .FIR_player-state .status{
@@ -181,7 +181,7 @@
 }
 
 .dialog{
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #fff, #999);
+    -fx-background-color: linear-gradient(#fff, #999);
     -fx-background-radius: 16;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 16, 0, 0.0, 4.0);
 }
@@ -214,6 +214,7 @@
 }
 
 .countdown{
-    -fx-text-fill: linear-gradient(from 50% 0% to 50% 100%, #fff, #999);
+    -fx-text-fill: linear-gradient(#999, #fff);
     -fx-font-size: 64;
+    -fx-font-weight: bold;
 }
