@@ -1,26 +1,35 @@
 package controls;
 
+import java.util.function.Consumer;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import models.Game;
 import views.Widgets;
 
 public class AnswerField extends HBox {
     private final TextField answer;
     private final Pane buzzer;
+    private Consumer<String> onAnswerCallback;
 
-    public AnswerField(Game game) {
+    public AnswerField() {
         answer = Widgets.makeTextField("");
+        answer.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                onAnswerCallback.accept(answer.getText());
+            }
+        });
+
         StackPane.setAlignment(answer, Pos.CENTER);
 
         buzzer = Widgets.makeBuzzer();
         buzzer.setOnMouseClicked(event -> {
-            game.answer(answer.getText());
+            onAnswerCallback.accept(answer.getText());
         });
 
         StackPane answerContainer = new StackPane(answer);
@@ -29,6 +38,10 @@ public class AnswerField extends HBox {
 
         setMaxHeight(48);
         getChildren().addAll(answerContainer, buzzer);
+    }
+
+    public void setOnAnswer(Consumer<String> onAnswerCallback) {
+        this.onAnswerCallback = onAnswerCallback;
     }
 
     public void clear() {

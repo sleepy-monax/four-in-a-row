@@ -59,7 +59,8 @@ public class MainGame extends View {
         clueStack = new ClueStack();
         clueStack.setPadding(new Insets(32));
 
-        answer = new AnswerField(game);
+        answer = new AnswerField();
+        answer.setOnAnswer(answer -> game.answer(answer));
         HBox.setHgrow(answer, Priority.ALWAYS);
 
         BorderPane cluesAndAnswer = new BorderPane(clueStack, null, null, answer, null);
