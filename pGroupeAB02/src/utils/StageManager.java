@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import views.Animation;
 import views.View;
@@ -57,6 +58,9 @@ public final class StageManager {
         viewContainer = new StackPane();
         dialogContainer = new StackPane();
         dialogContainer.setDisable(true);
+        dialogContainer.setOpacity(0);
+        dialogContainer.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5)");
+        dialogContainer.setPadding(new Insets(32));
 
         background = new Background(true);
 
@@ -65,7 +69,7 @@ public final class StageManager {
 
         currentView = dummy;
 
-        Scene scene = new Scene(new StackPane(viewContainer, dialogContainer));
+        Scene scene = new Scene(new StackPane(viewContainer, dialogContainer), Color.BLACK);
 
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER) && event.isAltDown()) {
@@ -101,25 +105,21 @@ public final class StageManager {
         com.sun.javafx.tk.Toolkit.getToolkit().checkFxUserThread();
 
         dialogContainer.setDisable(false);
-        dialogContainer.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5)");
-        dialogContainer.setPadding(new Insets(32));
         dialogContainer.getChildren().add(dialog);
-
-        viewContainer.setEffect(new BoxBlur(8, 8, 2));
-
         StackPane.setAlignment(dialog, Pos.CENTER);
 
-        Animation.offsetY(dialog, 128, 0, 0.1);
         Animation.fade(dialogContainer, 0, 1, 0.1);
+        Animation.offsetY(dialog, 128, 0, 0.1);
 
         AudioController.playEffect("assets/woosh.wav");
+        viewContainer.setEffect(new BoxBlur(8, 8, 2));
         com.sun.javafx.tk.Toolkit.getToolkit().enterNestedEventLoop(dialog);
+        viewContainer.setEffect(null);
         AudioController.playEffect("assets/woosh.wav");
 
         Animation.offsetY(dialog, 0, 128, 0.1);
         Animation.fade(dialogContainer, 1, 0, 0.1, () -> {
             dialogContainer.getChildren().remove(dialog);
-            viewContainer.setEffect(null);
             dialogContainer.setDisable(true);
         });
     }
