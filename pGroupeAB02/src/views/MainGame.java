@@ -1,14 +1,14 @@
 package views;
 
 import javafx.geometry.Insets;
-import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import message.OnCountDown;
-import message.OnGameFinished;
 import message.OnNewClue;
 import message.OnRoundFinish;
 import message.OnAnswerCorrect;
@@ -36,7 +36,7 @@ public class MainGame extends View {
 
         this.setPadding(new Insets(0));
 
-        Button quitButton = Widgets.makeButton("Exit");
+        Pane quitButton = Widgets.makeOrbButton(Icon.CLOSE);
         quitButton.setMinWidth(200);
         quitButton.setOnMouseClicked(event -> {
             if (new YesNoDialog("Quit the game", "Do you want to quit the game?\nAll progress will be lost!")
@@ -47,12 +47,14 @@ public class MainGame extends View {
 
         countdown = new Countdown();
 
-        VBox sidebar = new VBox();
+        BorderPane sidebar = new BorderPane();
 
         sidebar.setId("sidebar");
         sidebar.setMinWidth(220);
         sidebar.setPadding(new Insets(16));
-        sidebar.getChildren().addAll(quitButton, countdown);
+
+        sidebar.setTop(new VBox(16, new StackPane(quitButton), new StackPane(Widgets.makeOrbButton(Icon.SKIP_NEXT))));
+        sidebar.setBottom(new StackPane(countdown));
 
         clueStack = new ClueStack();
         clueStack.setPadding(new Insets(32));

@@ -14,7 +14,10 @@ public class ClueStack extends StackPane {
 
     public ClueStack() {
         backClues = new VBox(16);
+        backClues.setMaxWidth(ClueCard.WIDTH);
+
         frontClues = new VBox(16);
+        frontClues.setMaxWidth(ClueCard.WIDTH);
 
         setPrefHeight(128 * 3);
         setPrefWidth(512);
