@@ -16,7 +16,7 @@ public class MessageLoop {
 
         for (Notifiable notifier : notifiables) {
             if (notifier.canAccept(message)) {
-                System.out.println("MESSAGELOOP dispatching: " + message.getClass().getTypeName() + " to " + notifier);
+                System.out.println("MESSAGELOOP: dispatching: " + message.getClass().getTypeName() + " to " + notifier);
 
                 notifier.handle(message);
                 is_dispatched = true;
@@ -27,7 +27,7 @@ public class MessageLoop {
     }
 
     private void repost() {
-        System.out.println("MESSAGELOOP repost");
+        System.out.println("MESSAGELOOP: repost");
 
         LinkedList<Message> reposted = new LinkedList<>();
 
@@ -35,7 +35,7 @@ public class MessageLoop {
             if (dispatch(message)) {
                 reposted.add(message);
             } else {
-                System.out.println("MESSAGELOOP Failled to repost: " + message.getClass().getTypeName());
+                System.out.println("MESSAGELOOP: Failled to repost: " + message.getClass().getTypeName());
             }
         }
 
@@ -43,7 +43,7 @@ public class MessageLoop {
     }
 
     public Notifiable registerNotifier(Notifiable notifiable) {
-        System.out.println("MESSAGELOOP registering notifier: " + notifiable);
+        System.out.println("MESSAGELOOP: registering notifier: " + notifiable);
 
         notifiables.add(notifiable);
         repost();
@@ -65,14 +65,14 @@ public class MessageLoop {
     }
 
     public void post(Message message) {
-        System.out.println("MESSAGELOOP post: " + message.getClass().getTypeName());
+        System.out.println("MESSAGELOOP: post: " + message.getClass().getTypeName());
 
         if (!dispatch(message)) {
             if (message.repostable()) {
-                System.out.println("MESSAGELOOP reposting: " + message.getClass().getTypeName());
+                System.out.println("MESSAGELOOP: reposting: " + message.getClass().getTypeName());
                 pendings.addLast(message);
             } else {
-                System.out.println("MESSAGELOOP discarding: " + message.getClass().getTypeName());
+                System.out.println("MESSAGELOOP: discarding: " + message.getClass().getTypeName());
             }
         }
     }

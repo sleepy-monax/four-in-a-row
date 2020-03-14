@@ -28,10 +28,13 @@ public class AudioController {
 	public static Media getMedia(String name) {
 		if (!soundCache.containsKey(name)) {
 			try {
+				System.out.println("AUDIO: Media cache *miss* for '" + name + "' !");
 				soundCache.put(name, new Media(Main.class.getResource("/" + name).toURI().toString()));
 			} catch (URISyntaxException e) {
 				return null;
 			}
+		} else {
+			System.out.println("AUDIO: Media cache hit for '" + name + "'");
 		}
 
 		return soundCache.get(name);
@@ -48,7 +51,6 @@ public class AudioController {
 		}
 
 		musicPlayer = new MediaPlayer(getMedia(name));
-		musicPlayer.setVolume(0.25);
 
 		if (then != null) {
 			musicPlayer.setOnEndOfMedia(then);
@@ -67,7 +69,6 @@ public class AudioController {
 		}
 
 		musicPlayer = new MediaPlayer(getMedia(name));
-		musicPlayer.setVolume(0.25);
 		musicPlayer.setCycleCount(Integer.MAX_VALUE);
 		musicPlayer.play();
 	}
