@@ -23,7 +23,7 @@ public class SelectTheme extends GameState {
     }
 
     public void pickTheme(String theme) {
-        game.changeState(new Round(game, player, theme, game.getDeck().getQuestionsByTheme(theme), timer));
+        game.changeState(new Round(game, player, game.getDeck().getQuestionsByTheme(theme), timer));
     }
 
     @Override

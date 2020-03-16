@@ -1,4 +1,5 @@
 @import "table-view.css";
+@import "slider.css";
 
 @font-face {
     font-family: roboto;
@@ -45,7 +46,6 @@
 
 #sidebar{
     -fx-background-color: linear-gradient( #205BAE, #001D47);
-
 }
 
 .button {

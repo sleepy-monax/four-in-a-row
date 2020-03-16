@@ -14,23 +14,21 @@ public class Round extends GameState {
 
     private final Game game;
     private final Player player;
-    private final String theme;
     private final LinkedList<Question> questions;
 
     private double timer;
     private double currentQuestionTime;
-    private double lastclueTime;
+    private double lastClueTime;
     private Question currentQuestion;
 
-    public Round(Game game, Player player, String theme, List<Question> questions, double timer) {
-        this(game, player, theme, questions);
+    public Round(Game game, Player player, List<Question> questions, double timer) {
+        this(game, player, questions);
         this.timer = timer;
     }
 
-    public Round(Game game, Player player, String theme, List<Question> questions) {
+    public Round(Game game, Player player, List<Question> questions) {
         this.game = game;
         this.player = player;
-        this.theme = theme;
         this.questions = new LinkedList<>(questions);
     }
 
@@ -49,7 +47,7 @@ public class Round extends GameState {
 
         currentQuestionTime += elapsed;
 
-        if (currentQuestionTime - lastclueTime >= CLUE_TIME) {
+        if (currentQuestionTime - lastClueTime >= CLUE_TIME) {
             sendClue();
         }
 
@@ -80,7 +78,7 @@ public class Round extends GameState {
             game.getMessageLoop().post(new OnNewClue(player, clue));
         }
 
-        lastclueTime = currentQuestionTime;
+        lastClueTime = currentQuestionTime;
     }
 
     public void answer(String answer) {
