@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import controller.GameController;
 import message.GameDisconnected;
+import messageloop.Message;
 import models.*;
 
 public class Slave extends GameController implements ConnectionListener {
@@ -69,6 +70,10 @@ public class Slave extends GameController implements ConnectionListener {
 
             case TICK:
                 game().tick();
+                break;
+
+            case GAME_MESSAGE:
+                game().getMessageLoop().post(Message.fromPacket(packet, game()));
                 break;
 
             default:
