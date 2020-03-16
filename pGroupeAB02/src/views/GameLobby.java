@@ -22,13 +22,14 @@ public class GameLobby extends View {
             players[i] = new RoomPlayer();
         }
 
-        game.getMessageLoop().registerNotifier(PlayerJoin.class, message -> {
-            players[message.player().getId()].updateState(message.player().getName(), PlayerState.CONNECTED);
-        });
+        game.getMessageLoop().registerNotifier(OnPlayerEvent.class, message -> {
 
-        game.getMessageLoop().registerNotifier(PlayerLeave.class, message -> {
-            players[message.player().getId()].updateState(message.player().getName(),
-                    PlayerState.WAITING_FOR_CONNECTION);
+            if (message.event() == PlayerEvent.JOIN) {
+                players[message.player().getId()].updateState(message.player().getName(), PlayerState.CONNECTED);
+            } else if (message.event() == PlayerEvent.LEAVE) {
+                players[message.player().getId()].updateState(message.player().getName(),
+                        PlayerState.WAITING_FOR_CONNECTION);
+            }
         });
 
         VBox menuContainer = new VBox(16);

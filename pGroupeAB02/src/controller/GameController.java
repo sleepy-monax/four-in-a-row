@@ -26,6 +26,7 @@ public class GameController {
         this.game = game;
 
         tickTimer = new Timer();
+
         tickService = new TimerTask() {
             @Override
             public void run() {

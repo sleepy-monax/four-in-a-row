@@ -10,7 +10,7 @@ import main.Main;
 
 public class AudioController {
 	private static final int MAX_SOUND_EFFECTS = 8;
-	private static final boolean MUTED = false;
+	private static final boolean MUTED = true;
 
 	private static HashMap<String, Media> soundCache = new HashMap<>();
 	private static MediaPlayer musicPlayer;
@@ -95,6 +95,10 @@ public class AudioController {
 	}
 
 	public static void stop() {
+		if (MUTED) {
+			return;
+		}
+
 		musicPlayer.stop();
 	}
 

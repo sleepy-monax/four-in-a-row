@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import message.OnGameFinished;
-import message.OnPlayerAnswer;
+import message.OnPlayerEvent;
 import message.OnThemeSelected;
+import message.PlayerEvent;
 import message.OnGameEnterLobby;
-import message.PlayerJoin;
-import message.PlayerLeave;
 import messageloop.MessageLoop;
 import states.Finish;
 import states.GameState;
@@ -61,7 +60,7 @@ public class Game {
 
             players[id] = newPlayer;
 
-            messageLoop.post(new PlayerJoin(newPlayer));
+            messageLoop.post(new OnPlayerEvent(newPlayer, PlayerEvent.JOIN));
 
             return newPlayer;
         }
@@ -74,7 +73,7 @@ public class Game {
             if (players[i] == player) {
                 System.out.println(player + " leave the game");
 
-                messageLoop.post(new PlayerLeave(player));
+                messageLoop.post(new OnPlayerEvent(player, PlayerEvent.LEAVE));
 
                 players[i] = null;
 
@@ -161,8 +160,6 @@ public class Game {
     }
 
     public void answer(String answer) {
-        messageLoop.post(new OnPlayerAnswer(answer));
-
         if (state instanceof Round) {
             ((Round) state).answer(answer);
         }

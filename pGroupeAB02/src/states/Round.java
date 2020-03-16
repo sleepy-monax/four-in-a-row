@@ -75,13 +75,15 @@ public class Round extends GameState {
         if (clueIndex < currentQuestion.getClues().size()) {
             String clue = currentQuestion.getClues().get(clueIndex);
 
-            game.getMessageLoop().post(new OnNewClue(clue));
+            game.getMessageLoop().post(new OnNewClue(player, clue));
         }
 
         lastclueTime = currentQuestionTime;
     }
 
     public void answer(String answer) {
+        game.getMessageLoop().post(new OnPlayerAnswer(player, answer));
+
         if (currentQuestion.getAnswer().equals(answer)) {
             game.getMessageLoop().post(new OnAnswerCorrect());
             player.answerCorrect();
@@ -93,8 +95,7 @@ public class Round extends GameState {
     }
 
     public void pass() {
-        questions.addLast(currentQuestion);
+        currentQuestion = null;
         nextQuestion();
     }
-
 }

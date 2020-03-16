@@ -8,35 +8,40 @@ import models.Player;
 import network.PacketBuilder;
 import network.PacketReader;
 
-public class OnNewClue extends Message {
+public class OnPlayerEvent extends Message {
     private Player player;
-    private String clue;
+    private PlayerEvent event;
 
-    public OnNewClue() {
+    public OnPlayerEvent() {
     }
 
-    public OnNewClue(Player player, String clue) {
+    public OnPlayerEvent(Player player, PlayerEvent event) {
         this.player = player;
-        this.clue = clue;
+        this.event = event;
     }
 
     public Player player() {
         return player;
     }
 
-    public String clue() {
-        return clue;
+    public PlayerEvent event() {
+        return event;
+    }
+
+    @Override
+    public boolean repostable() {
+        return true;
     }
 
     @Override
     public void makePacket(PacketBuilder builder) {
         builder.withInt(player.getId());
-        builder.withString(clue);
+        builder.withInt(event.ordinal());
     }
 
     @Override
     public void readPacket(PacketReader reader, Game game) throws IOException {
         player = game.getPlayer(reader.readInt());
-        clue = reader.readString();
+        event = PlayerEvent.values()[reader.readInt()];
     }
 }

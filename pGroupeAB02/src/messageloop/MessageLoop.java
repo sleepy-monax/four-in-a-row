@@ -19,7 +19,10 @@ public class MessageLoop {
                 System.out.println("MESSAGELOOP: dispatching: " + message.getClass().getTypeName() + " to " + notifier);
 
                 notifier.handle(message);
-                is_dispatched = true;
+
+                if (notifier.canConsume()) {
+                    is_dispatched = true;
+                }
             }
         }
 
@@ -56,6 +59,25 @@ public class MessageLoop {
             @Override
             public void handle(MessageType message) {
                 consumer.accept(message);
+            }
+
+            @Override
+            public boolean canConsume() {
+                return true;
+            }
+        });
+    }
+
+    public <MessageType> Notifiable registerNotifierNoConsume(Class<MessageType> type, Consumer<MessageType> consumer) {
+        return registerNotifier(new Notifier<MessageType>(type) {
+            @Override
+            public void handle(MessageType message) {
+                consumer.accept(message);
+            }
+
+            @Override
+            public boolean canConsume() {
+                return true;
             }
         });
     }

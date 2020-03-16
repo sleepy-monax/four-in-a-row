@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 import controller.GameController;
 import message.OnCountDown;
+import messageloop.Message;
+import messageloop.Notifiable;
 import models.*;
 
 public class Master extends GameController implements ConnectionListener {
@@ -24,6 +26,24 @@ public class Master extends GameController implements ConnectionListener {
 
         game.getMessageLoop().registerNotifier(OnCountDown.class, message -> {
             server.broadcast(new PacketBuilder(PacketType.TICK).build());
+        });
+
+        game.getMessageLoop().registerNotifier(new Notifiable() {
+
+            @Override
+            public void handle(Message message) {
+                server.broadcast(message.asPacket());
+            }
+
+            @Override
+            public boolean canConsume() {
+                return false;
+            }
+
+            @Override
+            public boolean canAccept(Message message) {
+                return true;
+            }
         });
     }
 
