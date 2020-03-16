@@ -10,19 +10,19 @@ import views.Animation;
 
 public class Background extends StackPane {
     private boolean spinnerVisible;
-    private double paralax = 1;
+    private double parallax = 1;
 
-    private Pane gradiant;
+    private Pane gradient;
     private Pane glitter;
     private Pane spinner;
 
     public Background(Boolean is_fancy) {
-        gradiant = new Pane();
-        gradiant.setId("background");
-        gradiant.setScaleX(1.25);
-        gradiant.setScaleY(1.25);
+        gradient = new Pane();
+        gradient.setId("background");
+        gradient.setScaleX(1.25);
+        gradient.setScaleY(1.25);
 
-        getChildren().add(gradiant);
+        getChildren().add(gradient);
 
         if (is_fancy) {
             spinnerVisible = false;
@@ -57,11 +57,11 @@ public class Background extends StackPane {
         double x = (mouseX - getWidth() / 2) / getWidth();
         double y = (mouseY - getHeight() / 2) / getHeight();
 
-        double offsetx = getWidth() * 0.25 * x * paralax;
-        double offsety = getHeight() * 0.25 * y * paralax;
+        double offsetx = getWidth() * 0.25 * x * parallax;
+        double offsety = getHeight() * 0.25 * y * parallax;
 
-        gradiant.setTranslateX(-offsetx);
-        gradiant.setTranslateY(-offsety);
+        gradient.setTranslateX(-offsetx);
+        gradient.setTranslateY(-offsety);
 
         glitter.setTranslateX(-offsetx * 0.75);
         glitter.setTranslateY(-offsety * 0.75);
@@ -88,11 +88,11 @@ public class Background extends StackPane {
         }
     }
 
-    public double getParalax() {
-        return this.paralax;
+    public double getParallax() {
+        return this.parallax;
     }
 
-    public void setParalax(double paralax) {
-        this.paralax = paralax;
+    public void setParallax(double parallax) {
+        this.parallax = parallax;
     }
 }

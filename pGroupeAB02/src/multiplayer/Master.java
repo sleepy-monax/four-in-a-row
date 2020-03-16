@@ -1,15 +1,15 @@
 package multiplayer;
 
-import network.*;
-
-import java.io.IOException;
-import java.util.HashMap;
-
 import controller.GameController;
 import message.OnCountDown;
 import messageloop.Message;
 import messageloop.Notifiable;
-import models.*;
+import models.Game;
+import models.Player;
+import network.*;
+
+import java.io.IOException;
+import java.util.HashMap;
 
 public class Master extends GameController implements ConnectionListener {
     private Server server;
@@ -93,43 +93,40 @@ public class Master extends GameController implements ConnectionListener {
     public void onReceive(Packet packet, Connection connection) {
         PacketReader reader = new PacketReader(packet);
 
-        switch (packet.getPacketType()) {
-            case LOGIN:
-                System.out.println("Player login" + connection.toString() + "...");
+        if (packet.getPacketType() == PacketType.LOGIN) {
+            System.out.println("Player login" + connection.toString() + "...");
 
-                ConnectedSlave slave = this.slaves.get(connection);
+            ConnectedSlave slave = this.slaves.get(connection);
 
-                try {
-                    Player newPlayer = game().joinPlayer(reader.readString());
+            try {
+                Player newPlayer = game().joinPlayer(reader.readString());
 
-                    if (newPlayer != null) {
-                        connection.send(new PacketBuilder(PacketType.ACCEPTED).withInt(newPlayer.getId()).build());
+                if (newPlayer != null) {
+                    connection.send(new PacketBuilder(PacketType.ACCEPTED).withInt(newPlayer.getId()).build());
 
-                        slave.setPlayer(newPlayer);
+                    slave.setPlayer(newPlayer);
 
-                        PacketBuilder builder = new PacketBuilder(PacketType.PLAYER_JOIN);
+                    PacketBuilder builder = new PacketBuilder(PacketType.PLAYER_JOIN);
 
-                        builder.withInt(game().getPlayers().size());
+                    builder.withInt(game().getPlayers().size());
 
-                        for (Player player : game().getPlayers()) {
-                            builder.withInt(player.getId());
-                            builder.withString(player.getName());
-                        }
-
-                        server.broadcast(builder.build());
-
-                    } else {
-                        connection.close();
-                        this.slaves.remove(connection);
+                    for (Player player : game().getPlayers()) {
+                        builder.withInt(player.getId());
+                        builder.withString(player.getName());
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    connection.close();
-                }
 
-                break;
-            default:
-                System.out.println("Unexpected packet " + packet.toString());
+                    server.broadcast(builder.build());
+
+                } else {
+                    connection.close();
+                    this.slaves.remove(connection);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                connection.close();
+            }
+        } else {
+            System.out.println("Unexpected packet " + packet.toString());
         }
     }
 

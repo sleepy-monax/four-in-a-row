@@ -1,7 +1,5 @@
 package controls;
 
-import java.util.function.Consumer;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
@@ -12,9 +10,10 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import views.Widgets;
 
+import java.util.function.Consumer;
+
 public class AnswerField extends HBox {
     private final TextField answer;
-    private final Pane buzzer;
     private Consumer<String> onAnswerCallback;
 
     public AnswerField() {
@@ -27,7 +26,7 @@ public class AnswerField extends HBox {
 
         StackPane.setAlignment(answer, Pos.CENTER);
 
-        buzzer = Widgets.makeBuzzer();
+        Pane buzzer = Widgets.makeBuzzer();
         buzzer.setOnMouseClicked(event -> {
             onAnswerCallback.accept(answer.getText());
         });

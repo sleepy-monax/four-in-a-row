@@ -1,17 +1,14 @@
 package message;
 
-import java.io.IOException;
-
 import messageloop.Message;
 import models.Game;
 import network.PacketBuilder;
 import network.PacketReader;
 
+import java.io.IOException;
+
 public class OnCountDown extends Message {
     private int time;
-
-    public OnCountDown() {
-    }
 
     public OnCountDown(int time) {
         this.time = time;

@@ -1,23 +1,15 @@
 package models;
 
+import message.*;
+import messageloop.MessageLoop;
+import states.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import message.OnGameFinished;
-import message.OnPlayerEvent;
-import message.OnThemeSelected;
-import message.PlayerEvent;
-import message.OnGameEnterLobby;
-import messageloop.MessageLoop;
-import states.Finish;
-import states.GameState;
-import states.Passive;
-import states.Round;
-import states.SelectTheme;
-
 public class Game {
     private Deck deck;
-    private Player players[];
+    private Player[] players;
     private MessageLoop messageLoop;
     private GameState state;
     private Difficulty difficulty;
@@ -84,8 +76,8 @@ public class Game {
         return false;
     }
 
-    public boolean removePlayer(int id) {
-        return removePlayer(players[id]);
+    public void removePlayer(int id) {
+        removePlayer(players[id]);
     }
 
     public void tick() {

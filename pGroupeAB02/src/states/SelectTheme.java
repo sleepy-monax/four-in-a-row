@@ -1,6 +1,7 @@
 package states;
 
-import models.*;
+import models.Game;
+import models.Player;
 
 public class SelectTheme extends GameState {
     public static final int THEME_COUNT = 3;

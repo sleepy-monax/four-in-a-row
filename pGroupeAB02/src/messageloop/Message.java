@@ -1,29 +1,14 @@
 package messageloop;
 
-import java.io.IOException;
-
 import models.Game;
 import network.Packet;
 import network.PacketBuilder;
 import network.PacketReader;
 import network.PacketType;
 
+import java.io.IOException;
+
 public abstract class Message {
-    public boolean repostable() {
-        return true;
-    }
-
-    public final Packet asPacket() {
-        PacketBuilder builder = new PacketBuilder(PacketType.GAME_MESSAGE);
-
-        makePacket(builder);
-
-        return builder.build();
-    }
-
-    public void makePacket(PacketBuilder builder) {
-    }
-
     public static Message fromPacket(Packet packet, Game game) {
         if (packet.getPacketType() != PacketType.GAME_MESSAGE) {
             System.out.println("MESSAGE: fromPacket(): invalid packet type " + packet.getPacketType() + " expected "
@@ -78,6 +63,21 @@ public abstract class Message {
         }
 
         return message;
+    }
+
+    public boolean repostable() {
+        return true;
+    }
+
+    public final Packet asPacket() {
+        PacketBuilder builder = new PacketBuilder(PacketType.GAME_MESSAGE);
+
+        makePacket(builder);
+
+        return builder.build();
+    }
+
+    public void makePacket(PacketBuilder builder) {
     }
 
     public void readPacket(PacketReader reader, Game game) throws IOException {

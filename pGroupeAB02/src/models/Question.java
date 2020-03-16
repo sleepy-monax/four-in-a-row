@@ -33,17 +33,15 @@ public class Question implements Serializable {
     }
 
     public void removeClues(String a) {
-        if (clues.contains(a)) {
-            clues.remove(a);
-        }
-    }
-
-    public void setClues(List<String> clues) {
-        this.clues = clues;
+        clues.remove(a);
     }
 
     public List<String> getClues() {
         return new ArrayList<>(clues);
+    }
+
+    public void setClues(List<String> clues) {
+        this.clues = clues;
     }
 
     public String getTheme() {
@@ -66,10 +64,7 @@ public class Question implements Serializable {
         if (author == null || author.trim().isEmpty() || clues == null)
             return false;
 
-        if (clues.size() < 1 || clues.size() > 3)
-            return false;
-
-        return true;
+        return clues.size() >= 1 && clues.size() <= 3;
     }
 
     @Override
@@ -96,8 +91,8 @@ public class Question implements Serializable {
 
     public Question clone() {
         Question q = new Question(author, theme, answer);
-        for (int i = 0; i < clues.size(); i++) {
-            q.addClues(clues.get(i));
+        for (String clue : clues) {
+            q.addClues(clue);
         }
         return q;
     }

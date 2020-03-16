@@ -1,27 +1,18 @@
 package views;
 
-import javafx.geometry.Insets;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.util.Duration;
-import message.OnCountDown;
-import message.OnNewClue;
-import message.OnRoundFinish;
-import message.OnAnswerCorrect;
-import message.OnAnswerIncorrect;
-import messageloop.Notifiable;
-import models.Game;
-import utils.ShakeTransition;
 import controller.AudioController;
 import controls.AnswerField;
 import controls.ClueStack;
 import controls.Countdown;
 import dialogs.YesNo;
 import dialogs.YesNoDialog;
+import javafx.geometry.Insets;
+import javafx.scene.layout.*;
+import javafx.util.Duration;
+import message.*;
+import messageloop.Notifiable;
+import models.Game;
+import utils.ShakeTransition;
 
 public class MainGame extends View {
 
@@ -30,7 +21,11 @@ public class MainGame extends View {
     private final ClueStack clueStack;
     private final AnswerField answer;
     private final Countdown countdown;
-
+    private Notifiable onNewClueNotifier;
+    private Notifiable onCountdownNotifier;
+    private Notifiable onAnswerCorrect;
+    private Notifiable onAnswerIncorrect;
+    private Notifiable onRoundFinish;
     public MainGame(Game game) {
         this.game = game;
 
@@ -70,12 +65,6 @@ public class MainGame extends View {
         this.getChildren().add(new HBox(sidebar, cluesAndAnswer));
 
     }
-
-    private Notifiable onNewClueNotifier;
-    private Notifiable onCountdownNotifier;
-    private Notifiable onAnswerCorrect;
-    private Notifiable onAnswerIncorrect;
-    private Notifiable onRoundFinish;
 
     public void onSwitchIn() {
         onNewClueNotifier = game.getMessageLoop().registerNotifier(OnNewClue.class, message -> {

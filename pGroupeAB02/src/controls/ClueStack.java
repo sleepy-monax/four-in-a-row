@@ -1,12 +1,12 @@
 package controls;
 
-import java.util.ArrayList;
-
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import views.Animation;
+
+import java.util.ArrayList;
 
 public class ClueStack extends StackPane {
     private final VBox backClues;

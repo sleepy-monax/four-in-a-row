@@ -1,7 +1,7 @@
 package config;
 
-import javafx.beans.property.*;
-
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import utils.Serialization;
 
 public class Config {

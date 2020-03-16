@@ -13,15 +13,6 @@ import javafx.scene.text.TextAlignment;
 import utils.StageManager;
 
 public class SplashScreen extends View {
-    private void goToMainMenu() {
-        StageManager.background().showSpinner();
-        StageManager.switchView(new MainMenu());
-
-        AudioController.playNow("assets/transition.wav", () -> {
-            AudioController.playLoopNow("assets/loop2.wav");
-        });
-    }
-
     public SplashScreen() {
         Button button = Widgets.makeButton("Press any key to start...");
         StackPane.setAlignment(button, Pos.BOTTOM_CENTER);
@@ -55,5 +46,14 @@ public class SplashScreen extends View {
         });
 
         this.getChildren().addAll(black, logo, button, label);
+    }
+
+    private void goToMainMenu() {
+        StageManager.background().showSpinner();
+        StageManager.switchView(new MainMenu());
+
+        AudioController.playNow("assets/transition.wav", () -> {
+            AudioController.playLoopNow("assets/loop2.wav");
+        });
     }
 }

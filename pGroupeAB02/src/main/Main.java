@@ -1,15 +1,13 @@
 package main;
 
+import controller.AudioController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import utils.StageManager;
 import utils.ThreadManager;
 import views.SplashScreen;
-import controller.AudioController;
 
 public class Main extends Application {
-
-    public static Main app;
 
     public static void main(String[] args) {
         launch(args);

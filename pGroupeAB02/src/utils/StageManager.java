@@ -17,36 +17,33 @@ import views.Animation;
 import views.View;
 
 public final class StageManager {
-    private StageManager() {
-    }
-
-    private static Stage stage;
-    private static StackPane viewContainer;
-    private static StackPane dialogContainer;
-
-    private static Background background;
-    private static View currentView;
-
     public static final int DEFAULT_SCREEN_WIDTH = 960;
     public static final int DEFAULT_SCREEN_HEIGHT = 720;
     public static final String DEFAULT_STAGE_TITLE = "Four in a Row";
     public static final String DEFAULT_STAGE_ICON = "assets/big-buzzer.png";
+    private static Stage stage;
+    private static StackPane viewContainer;
+    private static StackPane dialogContainer;
+    private static Background background;
+    private static View currentView;
+    private StageManager() {
+    }
 
-    public static void initialize(Stage s) {
-        stage = s;
+    public static void initialize(Stage stage) {
+        StageManager.stage = stage;
 
-        stage.setTitle(DEFAULT_STAGE_TITLE);
+        StageManager.stage.setTitle(DEFAULT_STAGE_TITLE);
 
-        stage.setWidth(DEFAULT_SCREEN_WIDTH);
-        stage.setHeight(DEFAULT_SCREEN_HEIGHT);
+        StageManager.stage.setWidth(DEFAULT_SCREEN_WIDTH);
+        StageManager.stage.setHeight(DEFAULT_SCREEN_HEIGHT);
 
-        stage.setMinWidth(DEFAULT_SCREEN_WIDTH);
-        stage.setMinHeight(DEFAULT_SCREEN_HEIGHT);
+        StageManager.stage.setMinWidth(DEFAULT_SCREEN_WIDTH);
+        StageManager.stage.setMinHeight(DEFAULT_SCREEN_HEIGHT);
 
-        stage.setFullScreenExitHint("");
+        StageManager.stage.setFullScreenExitHint("");
 
-        stage.getIcons().add(new Image(DEFAULT_STAGE_ICON));
-        stage.setOnCloseRequest(windowEvent -> {
+        StageManager.stage.getIcons().add(new Image(DEFAULT_STAGE_ICON));
+        StageManager.stage.setOnCloseRequest(windowEvent -> {
             Runtime.getRuntime().exit(0);
         });
 
@@ -73,7 +70,7 @@ public final class StageManager {
 
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER) && event.isAltDown()) {
-                stage.setFullScreen(!stage.isFullScreen());
+                StageManager.stage.setFullScreen(!StageManager.stage.isFullScreen());
                 event.consume();
             }
         });
@@ -82,8 +79,8 @@ public final class StageManager {
             background.animate(event.getX(), event.getY());
         });
 
-        stage.setScene(scene);
-        stage.show();
+        StageManager.stage.setScene(scene);
+        StageManager.stage.show();
     }
 
     public static void switchView(View nextView) {

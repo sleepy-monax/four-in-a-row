@@ -1,10 +1,12 @@
 package states;
 
+import message.*;
+import models.Game;
+import models.Player;
+import models.Question;
+
 import java.util.LinkedList;
 import java.util.List;
-
-import message.*;
-import models.*;
 
 public class Round extends GameState {
     public static final double ROUND_TIME = 60.0;
@@ -90,7 +92,7 @@ public class Round extends GameState {
             nextQuestion();
         } else {
             game.getMessageLoop().post(new OnAnswerIncorrect());
-            player.failled();
+            player.failed();
         }
     }
 

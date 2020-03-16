@@ -1,10 +1,6 @@
 package utils;
 
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.animation.Transition;
+import javafx.animation.*;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.CacheHint;
@@ -14,16 +10,14 @@ import javafx.util.Duration;
 public class ShakeTransition extends Transition {
 
     private final Node node;
-    private boolean wasNodeCached = false;
-    private CacheHint howNodeWasChached = CacheHint.DEFAULT;
-
     private final Duration duration;
     private final double offset;
     private final int steps;
-
+    private final DoubleProperty transitionValue = new SimpleDoubleProperty();
+    private boolean wasNodeCached = false;
+    private CacheHint howNodeWasChached = CacheHint.DEFAULT;
     private Timeline timeline;
     private Interpolator interpolation = Interpolator.SPLINE(0.25, 0.1, 0.25, 1);
-    private final DoubleProperty transitionValue = new SimpleDoubleProperty();
 
     public ShakeTransition(Node node, Duration duration, double offset, int steps) {
         this.node = node;

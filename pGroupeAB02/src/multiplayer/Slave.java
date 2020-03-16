@@ -1,20 +1,20 @@
 package multiplayer;
 
-import network.*;
-
-import java.io.IOException;
-
 import controller.GameController;
 import message.GameDisconnected;
 import messageloop.Message;
-import models.*;
+import models.Game;
+import network.*;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class Slave extends GameController implements ConnectionListener {
-    private int localPlayer;
     private final Connection connection;
     private final String username;
     private final String address;
     private final int port;
+    private int localPlayer;
 
     public Slave(Game game, String username, String address, int port) {
         super(game);
@@ -73,7 +73,7 @@ public class Slave extends GameController implements ConnectionListener {
                 break;
 
             case GAME_MESSAGE:
-                game().getMessageLoop().post(Message.fromPacket(packet, game()));
+                game().getMessageLoop().post(Objects.requireNonNull(Message.fromPacket(packet, game())));
                 break;
 
             default:

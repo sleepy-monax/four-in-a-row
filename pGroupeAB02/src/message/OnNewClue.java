@@ -1,12 +1,12 @@
 package message;
 
-import java.io.IOException;
-
 import messageloop.Message;
 import models.Game;
 import models.Player;
 import network.PacketBuilder;
 import network.PacketReader;
+
+import java.io.IOException;
 
 public class OnNewClue extends Message {
     private Player player;

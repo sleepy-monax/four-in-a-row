@@ -1,31 +1,26 @@
 package controller;
 
+import dialogs.InfoDialog;
+import javafx.application.Platform;
+import message.*;
+import models.Game;
+import utils.StageManager;
+import views.GameLobby;
+import views.MainGame;
+import views.MainMenu;
+import views.SelectTheme;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
-import dialogs.InfoDialog;
-import javafx.application.Platform;
-import message.GameDisconnected;
-import message.OnGameEnterLobby;
-import message.OnGameFinished;
-import message.OnSelectTheme;
-import message.OnThemeSelected;
-import models.Game;
-import utils.StageManager;
-import views.MainMenu;
-import views.GameLobby;
-import views.MainGame;
-import views.SelectTheme;
-
 public class GameController {
     private final Game game;
-    private final Timer tickTimer;
     private final TimerTask tickService;
 
     public GameController(Game game) {
         this.game = game;
 
-        tickTimer = new Timer();
+        Timer tickTimer = new Timer();
 
         tickService = new TimerTask() {
             @Override

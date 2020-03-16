@@ -38,9 +38,6 @@ public class Connection {
 
     private ConnectionListener clientListener;
 
-    /**
-     * Creates a new Client
-     */
     public Connection() {
     }
 
@@ -137,7 +134,7 @@ public class Connection {
         dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 
-        launchThread(() -> listenerService());
+        launchThread(this::listenerService);
 
         if (clientListener != null)
             clientListener.onConnect(this);

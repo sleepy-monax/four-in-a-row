@@ -25,7 +25,7 @@ public class Server {
         try {
             server = new ServerSocket(port);
         } catch (final Exception e) {
-            System.out.println("Failled to start server " + e);
+            System.out.println("Failed to start server " + e);
             return false;
         }
 
@@ -107,7 +107,7 @@ public class Server {
 
         try {
             server.close();
-        } catch (final Exception e) {
+        } catch (final Exception ignored) {
         }
     }
 }

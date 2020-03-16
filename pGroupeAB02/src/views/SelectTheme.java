@@ -1,5 +1,7 @@
 package views;
 
+import controller.AudioController;
+import controls.Title;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -7,8 +9,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.Game;
-import controller.AudioController;
-import controls.Title;
 
 public class SelectTheme extends View {
 

@@ -1,16 +1,17 @@
 package views;
 
+import controls.PlayerState;
 import controls.RoomPlayer;
 import controls.Title;
-import controls.PlayerState;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import message.OnPlayerEvent;
+import message.PlayerEvent;
 import models.Game;
-import message.*;
 
 public class GameLobby extends View {
     public GameLobby(Game game) {

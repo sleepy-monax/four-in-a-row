@@ -17,7 +17,7 @@ public class Multiplayer {
             game.startPassive();
 
         } else {
-            new InfoDialog("Join multiplayer", "Failled to reache " + ip + ":" + port).show();
+            new InfoDialog("Join multiplayer", "Failed to reach " + ip + ":" + port).show();
             game.finish();
         }
     }

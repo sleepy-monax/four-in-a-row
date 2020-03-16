@@ -1,11 +1,11 @@
 package controls;
 
-import java.util.Random;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
+
+import java.util.Random;
 
 public class ClueCard extends StackPane {
     public static final int WIDTH = 512;

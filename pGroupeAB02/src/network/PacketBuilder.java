@@ -37,7 +37,7 @@ public class PacketBuilder {
         checkBuilt();
         try {
             dataOutputStream.writeByte(b);
-        } catch (final IOException e) {
+        } catch (final IOException ignored) {
         }
         return this;
     }
@@ -56,14 +56,13 @@ public class PacketBuilder {
         checkBuilt();
         try {
             dataOutputStream.writeInt(i);
-        } catch (final IOException e) {
+        } catch (final IOException ignored) {
         }
         return this;
     }
 
     public synchronized PacketBuilder withString(final String s) {
         withBytes(s.getBytes(StandardCharsets.UTF_8));
-
         return this;
     }
 
@@ -71,7 +70,7 @@ public class PacketBuilder {
         checkBuilt();
         try {
             dataOutputStream.writeBoolean(b);
-        } catch (final IOException e) {
+        } catch (final IOException ignored) {
         }
         return this;
     }
@@ -80,7 +79,7 @@ public class PacketBuilder {
         checkBuilt();
         try {
             dataOutputStream.writeFloat(f);
-        } catch (final IOException e) {
+        } catch (final IOException ignored) {
         }
         return this;
     }
@@ -89,7 +88,7 @@ public class PacketBuilder {
         checkBuilt();
         try {
             dataOutputStream.writeDouble(d);
-        } catch (final IOException e) {
+        } catch (final IOException ignored) {
         }
 
         return this;
@@ -99,7 +98,7 @@ public class PacketBuilder {
         checkBuilt();
         try {
             dataOutputStream.writeLong(l);
-        } catch (final IOException e) {
+        } catch (final IOException ignored) {
         }
 
         return this;
@@ -109,7 +108,7 @@ public class PacketBuilder {
         checkBuilt();
         try {
             dataOutputStream.writeShort(s);
-        } catch (final IOException e) {
+        } catch (final IOException ignored) {
         }
 
         return this;
@@ -125,7 +124,7 @@ public class PacketBuilder {
 
         try {
             dataOutputStream.close();
-        } catch (final IOException e) {
+        } catch (final IOException ignored) {
         }
 
         return new Packet(

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Deck implements Serializable {
-    private List<Question> questions = null;
+    private List<Question> questions;
 
     public Deck() {
         questions = new ArrayList<>();

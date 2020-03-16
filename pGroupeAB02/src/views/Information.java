@@ -1,9 +1,10 @@
 package views;
 
 import controls.Title;
-import javafx.geometry.*;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.*;
+import javafx.scene.layout.VBox;
 import utils.StageManager;
 
 public class Information extends View {

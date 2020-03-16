@@ -45,7 +45,7 @@ public class Player {
     }
 
     public void setLevel(int level) {
-        if (level >= 0 || level <= 4)
+        if (level >= 0 && level <= 4)
             this.level = level;
     }
 
@@ -54,7 +54,7 @@ public class Player {
     }
 
     public void setLevelMax(int levelMax) {
-        if (levelMax >= 0 || levelMax <= 4)
+        if (levelMax >= 0 && levelMax <= 4)
             this.levelMax = levelMax;
     }
 
@@ -84,7 +84,7 @@ public class Player {
         levelMax = Math.max(levelMax, level);
     }
 
-    public void failled() {
+    public void failed() {
         level = 0;
     }
 

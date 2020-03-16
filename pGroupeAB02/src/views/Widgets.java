@@ -1,7 +1,5 @@
 package views;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import controller.AudioController;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -13,6 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import utils.StageManager;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public final class Widgets {
     private Widgets() {
