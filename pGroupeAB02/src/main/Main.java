@@ -1,11 +1,11 @@
 package main;
 
-import controller.AudioController;
+import utils.AudioManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import utils.StageManager;
 import utils.ThreadManager;
-import views.SplashScreen;
+import views.screen.Splash;
 
 public class Main extends Application {
 
@@ -18,17 +18,17 @@ public class Main extends Application {
         Application.setUserAgentStylesheet("assets/style.css");
 
         ThreadManager.initialize();
-        AudioController.initialize();
+        AudioManager.initialize();
         StageManager.initialize(stage);
 
-        StageManager.switchView(new SplashScreen());
+        StageManager.switchView(new Splash());
     }
 
     @Override
     public void stop() throws Exception {
         System.out.println("Shutting down...");
         ThreadManager.shutdown();
-        AudioController.shutdown();
+        AudioManager.shutdown();
 
         // make that there is no object left preventing the process to exit
         Runtime.getRuntime().runFinalization();

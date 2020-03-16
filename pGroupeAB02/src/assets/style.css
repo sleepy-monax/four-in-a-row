@@ -52,6 +52,7 @@
     -fx-border-width: 2;
     -fx-background-color: linear-gradient( #64A4FF, #0149AF);
     -fx-border-color: linear-gradient( #FFF612, #FFB100);
+    -fx-text-fill: white;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
 }
 
@@ -68,22 +69,16 @@
 .FIR_button {
     -fx-pref-height: 32;
     -fx-padding: 0 16;
-
-    -fx-text-fill: white;
     -fx-font-size: 14;
-
     -fx-background-radius: 16;
     -fx-border-radius: 16;
 }
 
 .FIR_big-button{
     -fx-pref-height: 48;
-
-    -fx-text-fill: white;
     -fx-font-size: 18;
-
-    -fx-background-radius: 32;
-    -fx-border-radius: 32;
+    -fx-background-radius: 24;
+    -fx-border-radius: 24;
 }
 
 .FIR_big-button-orb{

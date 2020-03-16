@@ -1,8 +1,8 @@
 package models;
 
-import message.*;
-import messageloop.MessageLoop;
-import states.*;
+import models.message.*;
+import models.messageloop.MessageLoop;
+import models.states.*;
 
 import java.util.ArrayList;
 import java.util.List;

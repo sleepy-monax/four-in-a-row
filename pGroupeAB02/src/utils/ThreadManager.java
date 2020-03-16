@@ -8,19 +8,19 @@ import java.util.concurrent.Future;
 public class ThreadManager {
     private static ExecutorService service;
 
-    public static Future launchThread(final Runnable runnable) {
-        return service.submit(runnable);
-    }
-
-    public static void waitForCompletion(final Future future) throws ExecutionException, InterruptedException {
-        future.get();
-    }
-
     public static void initialize() {
         service = Executors.newCachedThreadPool();
     }
 
     public static void shutdown() {
         service.shutdownNow();
+    }
+
+    public static Future launch(final Runnable runnable) {
+        return service.submit(runnable);
+    }
+
+    public static void wait(final Future future) throws ExecutionException, InterruptedException {
+        future.get();
     }
 }

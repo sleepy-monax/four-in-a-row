@@ -1,8 +1,7 @@
 package utils;
 
-import controller.AudioController;
-import controls.Background;
-import dialogs.Dialog;
+import views.widgets.Background;
+import views.dialogs.Dialog;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,7 +12,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import views.Animation;
 import views.View;
 
 public final class StageManager {
@@ -88,14 +86,14 @@ public final class StageManager {
 
         viewContainer.getChildren().add(nextView);
 
-        Animation.fade(nextView, 0, 1, 0.25, () -> {
+        Animations.fade(nextView, 0, 1, 0.25, () -> {
             viewContainer.getChildren().remove(currentView);
             currentView = nextView;
             nextView.onSwitchIn();
         });
 
-        Animation.scale(nextView, 4, 1, 0.25);
-        Animation.fade(currentView, 1, 0, 0.25);
+        Animations.scale(nextView, 4, 1, 0.25);
+        Animations.fade(currentView, 1, 0, 0.25);
     }
 
     public static void showDialog(Dialog dialog) {
@@ -105,17 +103,17 @@ public final class StageManager {
         dialogContainer.getChildren().add(dialog);
         StackPane.setAlignment(dialog, Pos.CENTER);
 
-        Animation.fade(dialogContainer, 0, 1, 0.1);
-        Animation.offsetY(dialog, 128, 0, 0.1);
+        Animations.fade(dialogContainer, 0, 1, 0.1);
+        Animations.offsetY(dialog, 128, 0, 0.1);
 
-        AudioController.playEffect("assets/woosh.wav");
+        AudioManager.playEffect("assets/woosh.wav");
         viewContainer.setEffect(new BoxBlur(8, 8, 2));
         com.sun.javafx.tk.Toolkit.getToolkit().enterNestedEventLoop(dialog);
         viewContainer.setEffect(null);
-        AudioController.playEffect("assets/woosh.wav");
+        AudioManager.playEffect("assets/woosh.wav");
 
-        Animation.offsetY(dialog, 0, 128, 0.1);
-        Animation.fade(dialogContainer, 1, 0, 0.1, () -> {
+        Animations.offsetY(dialog, 0, 128, 0.1);
+        Animations.fade(dialogContainer, 1, 0, 0.1, () -> {
             dialogContainer.getChildren().remove(dialog);
             dialogContainer.setDisable(true);
         });

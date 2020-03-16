@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import static utils.ThreadManager.launchThread;
+import static utils.ThreadManager.launch;
 
 public class Server {
     private final List<Connection> connections;
@@ -29,7 +29,7 @@ public class Server {
             return false;
         }
 
-        launchThread(this::connectionAcceptorService);
+        launch(this::connectionAcceptorService);
 
         return true;
     }

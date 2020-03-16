@@ -28,7 +28,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
-import static utils.ThreadManager.launchThread;
+import static utils.ThreadManager.launch;
 
 public class Connection {
     private boolean closeByClient = false;
@@ -134,7 +134,7 @@ public class Connection {
         dataInputStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
         dataOutputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 
-        launchThread(this::listenerService);
+        launch(this::listenerService);
 
         if (clientListener != null)
             clientListener.onConnect(this);
