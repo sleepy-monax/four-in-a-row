@@ -6,6 +6,7 @@ import views.widgets.Countdown;
 import views.dialogs.YesNo;
 import views.dialogs.YesNoDialog;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 import models.message.*;
@@ -27,15 +28,13 @@ public class MainGame extends View {
     private Notifiable onCountdownNotifier;
     private Notifiable onAnswerCorrect;
     private Notifiable onAnswerIncorrect;
-    private Notifiable onRoundFinish;
+
     public MainGame(Game game) {
         this.game = game;
 
         this.setPadding(new Insets(0));
 
-        Pane quitButton = Widget.iconButton(Icon.CLOSE);
-        quitButton.setMinWidth(200);
-        quitButton.setOnMouseClicked(event -> {
+        Node quitButton = Widget.iconButton(Icon.CLOSE, event -> {
             if (new YesNoDialog("Quit the game", "Do you want to quit the game?\nAll progress will be lost!")
                     .show() == YesNo.YES) {
                 game.finish();
@@ -50,7 +49,9 @@ public class MainGame extends View {
         sidebar.setMinWidth(220);
         sidebar.setPadding(new Insets(16));
 
-        sidebar.setTop(new VBox(16, new StackPane(quitButton), new StackPane(Widget.iconButton(Icon.SKIP_NEXT))));
+        sidebar.setTop(
+                new VBox(16, new StackPane(quitButton), new StackPane(Widget.iconButton(Icon.SKIP_NEXT, event -> {
+                }))));
         sidebar.setBottom(new StackPane(countdown));
 
         clueStack = new ClueStack();

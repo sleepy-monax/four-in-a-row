@@ -66,8 +66,7 @@ public class AudioManager {
         }
     }
 
-    public static void toggleMuted()
-    {
+    public static void toggleMuted() {
         setMuted(!isMuted());
     }
 
@@ -84,22 +83,25 @@ public class AudioManager {
     public static void playNow(String name, Runnable then) {
         if (musicPlayer != null) {
             musicPlayer.stop();
+            musicPlayer.dispose();
         }
 
         musicPlayer = new MediaPlayer(getMedia(name));
         musicPlayer.setVolume(musicVolume);
         musicPlayer.setMute(muted);
-        if (then != null) musicPlayer.setOnEndOfMedia(then);
+        if (then != null)
+            musicPlayer.setOnEndOfMedia(then);
         musicPlayer.play();
     }
 
     public static void playLoopNow(String name) {
         if (musicPlayer != null) {
             musicPlayer.stop();
+            musicPlayer.dispose();
         }
 
         musicPlayer = new MediaPlayer(getMedia(name));
-        
+
         musicPlayer.setCycleCount(Integer.MAX_VALUE);
         musicPlayer.setVolume(musicVolume);
         musicPlayer.setMute(muted);
@@ -113,7 +115,7 @@ public class AudioManager {
         }
 
         MediaPlayer effectPlayer = new MediaPlayer(getMedia(name));
-        
+
         effectPlayer.setVolume(effectVolume);
         effectPlayer.setMute(muted);
 
