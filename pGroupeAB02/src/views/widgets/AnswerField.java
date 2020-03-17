@@ -8,7 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import utils.Widgets;
+import views.Widget;
 
 import java.util.function.Consumer;
 
@@ -17,7 +17,7 @@ public class AnswerField extends HBox {
     private Consumer<String> onAnswerCallback;
 
     public AnswerField() {
-        answer = Widgets.makeTextField("");
+        answer = Widget.textField("");
         answer.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
                 onAnswerCallback.accept(answer.getText());
@@ -26,7 +26,7 @@ public class AnswerField extends HBox {
 
         StackPane.setAlignment(answer, Pos.CENTER);
 
-        Pane buzzer = Widgets.makeBuzzer();
+        Pane buzzer = Widget.smallBuzzer();
         buzzer.setOnMouseClicked(event -> {
             onAnswerCallback.accept(answer.getText());
         });

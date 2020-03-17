@@ -11,7 +11,7 @@ import javafx.scene.layout.StackPane;
 import models.Player;
 import utils.StageManager;
 import views.View;
-import utils.Widgets;
+import views.Widget;
 
 public class Score extends View {
     TableView tableView = new TableView();
@@ -34,8 +34,7 @@ public class Score extends View {
         tableView.getColumns().add(column2);
         tableView.getColumns().add(column3);
 
-        Button backButton = Widgets.makeButton("Go back");
-        backButton.setOnAction(actionEvent -> StageManager.switchView(new Main()));
+        Button backButton = Widget.button("Go back", event -> StageManager.switchView(new Main()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         this.getChildren().addAll(new Title("Score"), tableView, backButton);

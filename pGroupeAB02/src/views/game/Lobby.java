@@ -14,7 +14,7 @@ import models.message.PlayerEvent;
 import models.Game;
 import utils.Icon;
 import views.View;
-import utils.Widgets;
+import views.Widget;
 
 public class Lobby extends View {
     public Lobby(Game game) {
@@ -40,18 +40,17 @@ public class Lobby extends View {
         menuContainer.setAlignment(Pos.CENTER);
         menuContainer.setMaxWidth(512);
 
-        Button backButton = Widgets.makeButton("Go back");
-        backButton.setOnAction(actionEvent -> game.finish());
+        Button backButton = Widget.button("Go back", actionEvent -> game.finish());
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        Pane startGame = Widgets.makeBigButton(Icon.GROUP, "Start Game");
+        Pane startGame = Widget.buttonWithIcon(Icon.GROUP, "Start Game");
         StackPane.setAlignment(startGame, Pos.BOTTOM_RIGHT);
         startGame.setMaxWidth(256);
         startGame.setOnMouseClicked(event -> {
             game.start();
         });
 
-        menuContainer.getChildren().addAll(Widgets.makeLabel("Players"));
+        menuContainer.getChildren().addAll(Widget.label("Players"));
 
         for (int i = 0; i < 4; i++) {
             menuContainer.getChildren().add(players[i]);

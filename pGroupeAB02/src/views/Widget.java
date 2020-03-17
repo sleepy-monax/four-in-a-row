@@ -1,26 +1,36 @@
-package utils;
+package views;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import utils.AudioManager;
+import utils.Getter;
+import utils.Icon;
+import utils.StageManager;
 
-public final class Widgets {
-    private Widgets() {
+public final class Widget {
+    private Widget() {
     }
 
-    public static Parent makeLogo() {
+    public static Parent logo() {
         AnchorPane logo = new AnchorPane();
         logo.setId("logo");
 
-        Pane buzzer = Widgets.makeBigBuzzer();
+        Pane buzzer = Widget.buzzer();
 
         AnchorPane.setTopAnchor(buzzer, 0.0);
         AnchorPane.setRightAnchor(buzzer, 32.0);
@@ -30,17 +40,18 @@ public final class Widgets {
         return logo;
     }
 
-    public static Button makeButton(String text) {
+    public static Button button(String text, EventHandler<? super MouseEvent> onClick) {
         Button button = new Button(text);
 
         button.getStyleClass().addAll("button", "FIR_button");
         button.setMinWidth(96);
         button.setAlignment(Pos.CENTER);
+        button.setOnMouseClicked(onClick);
 
         return button;
     }
 
-    public static Pane makeBigButton(Icon icon, String text) {
+    public static Pane buttonWithIcon(Icon icon, String text) {
         AnchorPane button = new AnchorPane();
 
         Label label = new Label(text);
@@ -69,19 +80,7 @@ public final class Widgets {
         return button;
     }
 
-    public static Pane makeOrbButton(Icon icon) {
-        StackPane button = new StackPane();
-
-        button.getStyleClass().addAll("button", "FIR_orb-button");
-
-        ImageView image = new ImageView(icon.path);
-        button.getChildren().add(image);
-        StackPane.setAlignment(image, Pos.CENTER);
-
-        return button;
-    }
-
-    public static TextField makeTextField(String text) {
+    public static TextField textField(String text) {
         TextField field = new TextField(text);
 
         field.setAlignment(Pos.CENTER);
@@ -90,7 +89,7 @@ public final class Widgets {
         return field;
     }
 
-    public static Label makeLabel(String text) {
+    public static Label label(String text) {
         Label label = new Label(text);
 
         label.getStyleClass().add("FIR_label");
@@ -98,7 +97,7 @@ public final class Widgets {
         return label;
     }
 
-    public static Pane makeBuzzer() {
+    public static Pane smallBuzzer() {
         Pane buzzer = new Pane();
         buzzer.setMinSize(96, 96);
         buzzer.setMaxSize(96, 96);
@@ -119,7 +118,7 @@ public final class Widgets {
         return buzzer;
     }
 
-    public static Pane makeBigBuzzer() {
+    public static Pane buzzer() {
         Pane buzzer = new Pane();
         buzzer.setMinSize(128, 128);
         buzzer.setMaxSize(128, 128);
@@ -138,5 +137,41 @@ public final class Widgets {
         });
 
         return buzzer;
+    }
+
+    public static Node iconButton(Icon icon, EventHandler<? super MouseEvent> onClick) {
+        return iconButton(() -> icon, onClick);
+    }
+
+    public static Node iconButton(Getter<Icon> getIcon, EventHandler<? super MouseEvent> onClick)
+    {
+        StackPane iconButton = new StackPane();
+
+        iconButton.getStyleClass().addAll("button", "FIR_orb-button");
+
+        ImageView image = new ImageView(getIcon.call().path);
+        iconButton.getChildren().add(image);
+        StackPane.setAlignment(image, Pos.CENTER);
+
+        iconButton.setOnMouseClicked(event -> {
+            onClick.handle(event);
+            image.setImage(new Image(getIcon.call().path));
+        });
+
+        return iconButton;
+    }
+
+    public static Node slider(double min, double max, Getter<Double> getValue, Consumer<Double> onValueChange)
+    {
+        Slider slider = new Slider();
+
+        slider.setMin(min);
+        slider.setMax(max);
+        slider.setValue(getValue.call());
+        slider.valueProperty().addListener(event -> {
+            onValueChange.accept(slider.getValue());
+        });
+
+        return slider;
     }
 }

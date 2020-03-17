@@ -14,7 +14,7 @@ import models.Game;
 import utils.ShakeTransition;
 import utils.Icon;
 import views.View;
-import utils.Widgets;
+import views.Widget;
 
 public class MainGame extends View {
 
@@ -33,7 +33,7 @@ public class MainGame extends View {
 
         this.setPadding(new Insets(0));
 
-        Pane quitButton = Widgets.makeOrbButton(Icon.CLOSE);
+        Pane quitButton = Widget.iconButton(Icon.CLOSE);
         quitButton.setMinWidth(200);
         quitButton.setOnMouseClicked(event -> {
             if (new YesNoDialog("Quit the game", "Do you want to quit the game?\nAll progress will be lost!")
@@ -50,7 +50,7 @@ public class MainGame extends View {
         sidebar.setMinWidth(220);
         sidebar.setPadding(new Insets(16));
 
-        sidebar.setTop(new VBox(16, new StackPane(quitButton), new StackPane(Widgets.makeOrbButton(Icon.SKIP_NEXT))));
+        sidebar.setTop(new VBox(16, new StackPane(quitButton), new StackPane(Widget.iconButton(Icon.SKIP_NEXT))));
         sidebar.setBottom(new StackPane(countdown));
 
         clueStack = new ClueStack();

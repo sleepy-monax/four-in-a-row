@@ -10,7 +10,7 @@ import javafx.scene.layout.StackPane;
 import models.Deck;
 import utils.StageManager;
 import views.View;
-import utils.Widgets;
+import views.Widget;
 
 public class Editor extends View {
     public Editor(Deck deck) {
@@ -28,8 +28,7 @@ public class Editor extends View {
 
         table.getColumns().addAll(answerColumn, themeColumn, authorColumn, cluesColumn);
 
-        Button backButton = Widgets.makeButton("Go back");
-        backButton.setOnAction(actionEvent -> StageManager.switchView(new Main()));
+        Button backButton = Widget.button("Go back", actionEvent -> StageManager.switchView(new Main()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         getChildren().addAll(new Title("Editor"), table, backButton);

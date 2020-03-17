@@ -4,9 +4,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.TextAlignment;
-import utils.Widgets;
+import views.Layout;
+import views.Widget;
 
 public class YesNoDialog extends Dialog<YesNo> {
     public YesNoDialog(String title, String message) {
@@ -21,15 +23,12 @@ public class YesNoDialog extends Dialog<YesNo> {
         messageLabel.getStyleClass().add("dialog-body");
         messageLabel.setTextAlignment(TextAlignment.CENTER);
 
-        Button yesButton = Widgets.makeButton("Yes");
-        yesButton.setOnAction(e -> resume(YesNo.YES));
 
-        Button noButton = Widgets.makeButton("No");
-        noButton.setOnAction(e -> resume(YesNo.NO));
-
-        HBox buttonsContainer = new HBox(16, yesButton, noButton);
-        buttonsContainer.setAlignment(Pos.CENTER_RIGHT);
-        buttonsContainer.setMaxHeight(32);
+        Region buttonsContainer = Layout.horizontal(
+                16,
+                Pos.BOTTOM_RIGHT,
+                Widget.button("Yes", e -> resume(YesNo.YES)),
+                Widget.button("No", e -> resume(YesNo.NO)));
 
         StackPane.setAlignment(buttonsContainer, Pos.BOTTOM_RIGHT);
 

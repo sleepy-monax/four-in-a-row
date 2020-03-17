@@ -1,5 +1,6 @@
 package views.menu;
 
+import javafx.scene.Node;
 import views.dialogs.YesNo;
 import views.dialogs.YesNoDialog;
 import javafx.geometry.Insets;
@@ -14,26 +15,34 @@ import models.singleplayer.SinglePlayer;
 import utils.Icon;
 import utils.Serialization;
 import utils.StageManager;
-import utils.Widgets;
+import views.Widget;
 import views.*;
 import views.game.Join;
 import views.screen.End;
 
 public class Main extends View {
     public Main() {
-        Pane singleplayerButton = Widgets.makeBigButton(Icon.PERSON, "Singleplayer");
+        Pane singleplayerButton = Widget.buttonWithIcon(Icon.PERSON, "Singleplayer");
         singleplayerButton.setPadding(new Insets(0, 72, 0, 72));
 
-        Pane joinMultiplayerButton = Widgets.makeBigButton(Icon.GROUP_ADD, "Join Multiplayer");
+        Pane joinMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP_ADD, "Join Multiplayer");
         joinMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));
 
-        Pane hostMultiplayerButton = Widgets.makeBigButton(Icon.GROUP, "Host Multiplayer");
+        Pane hostMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP, "Host Multiplayer");
         hostMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));
 
-        Pane orbEditor = Widgets.makeOrbButton(Icon.EDIT);
-        Pane orbScores = Widgets.makeOrbButton(Icon.EMOJI_EVENTS);
-        Pane orbSettings = Widgets.makeOrbButton(Icon.SETTINGS);
-        Pane orbQuit = Widgets.makeOrbButton(Icon.CLOSE);
+        Node orbEditor = Widget.iconButton(Icon.EDIT, event -> StageManager
+                .switchView((new Editor(Serialization.readFromJsonFile("data/question.json", Deck.class)))));
+
+        Node orbScores = Widget.iconButton(Icon.EMOJI_EVENTS, mouseEvent -> StageManager.switchView((new Score())));
+
+        Node orbSettings = Widget.iconButton(Icon.SETTINGS, event -> StageManager.switchView((new Settings())));
+
+        Node orbQuit = Widget.iconButton(Icon.CLOSE, event -> {
+            if (new YesNoDialog("Quit the game", "Are you sure you want to quit?").show() == YesNo.YES) {
+                StageManager.switchView(new End());
+            }
+        });
 
         HBox orbContainer = new HBox(16, orbEditor, orbScores, orbSettings, orbQuit);
         orbContainer.setAlignment(Pos.CENTER);
@@ -42,7 +51,7 @@ public class Main extends View {
         orbContainer.setPadding(new Insets(24, 0, 0, 0));
         StackPane.setAlignment(orbContainer, Pos.BOTTOM_CENTER);
 
-        VBox menuContainer = new VBox(16, Widgets.makeLogo(), singleplayerButton, joinMultiplayerButton,
+        VBox menuContainer = new VBox(16, Widget.logo(), singleplayerButton, joinMultiplayerButton,
                 hostMultiplayerButton, orbContainer) {
             {
                 setAlignment(Pos.CENTER);
@@ -56,16 +65,5 @@ public class Main extends View {
         singleplayerButton.setOnMouseClicked(event -> SinglePlayer.play());
         joinMultiplayerButton.setOnMouseClicked(mouseEvent -> StageManager.switchView(new Join()));
         hostMultiplayerButton.setOnMouseClicked(mouseEvent -> Multiplayer.host(Multiplayer.DEFAULT_PORT));
-
-        orbEditor.setOnMouseClicked(mouseEvent -> StageManager
-                .switchView((new Editor(Serialization.readFromJsonFile("data/question.json", Deck.class)))));
-        orbSettings.setOnMouseClicked(mouseEvent -> StageManager.switchView((new Settings())));
-        orbScores.setOnMouseClicked(mouseEvent -> StageManager.switchView((new Score())));
-        orbQuit.setOnMouseClicked(mouseEvent -> {
-            if (new YesNoDialog("Quit the game", "Are you sure you want to quit?").show() == YesNo.YES) {
-
-                StageManager.switchView(new End());
-            }
-        });
     }
 }

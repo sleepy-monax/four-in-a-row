@@ -10,19 +10,19 @@ public class Animations {
     private Animations() {
     }
 
-    public static void fade(Node node, double from, double to, double duration) {
-        fade(node, from, to, duration, 0, null);
+    public static Node fade(double from, double to, double duration, Node node) {
+        return fade(from, to, duration, 0, null, node);
     }
 
-    public static void fade(Node node, double from, double to, double duration, double delay) {
-        fade(node, from, to, duration, delay, null);
+    public static Node fade(Node node, double from, double to, double duration, double delay) {
+        return fade(from, to, duration, delay, null, node);
     }
 
-    public static void fade(Node node, double from, double to, double duration, Runnable then) {
-        fade(node, from, to, duration, 0, then);
+    public static Node fade(double from, double to, double duration, Runnable then, Node node) {
+        return fade(from, to, duration, 0, then, node);
     }
 
-    public static void fade(Node node, double from, double to, double duration, double delay, Runnable then) {
+    public static Node fade(double from, double to, double duration, double delay, Runnable then, Node node) {
         FadeTransition fade = new FadeTransition(Duration.seconds(duration), node);
 
         fade.setDelay(Duration.seconds(delay));
@@ -34,21 +34,23 @@ public class Animations {
         }
 
         fade.play();
+
+        return node;
     }
 
-    public static void scale(Node node, double from, double to, double duration) {
-        scale(node, from, to, duration, 0, null);
+    public static Node scale(double from, double to, double duration, Node node) {
+        return scale(node, from, to, duration, 0, null);
     }
 
-    public static void scale(Node node, double from, double to, double duration, double delay) {
-        scale(node, from, to, duration, delay, null);
+    public static Node scale(double from, double to, double duration, double delay, Node node) {
+        return scale(node, from, to, duration, delay, null);
     }
 
-    public static void scale(Node node, double from, double to, double duration, Runnable then) {
-        scale(node, from, to, duration, 0, then);
+    public static Node scale(double from, double to, double duration, Runnable then, Node node) {
+        return scale(node, from, to, duration, 0, then);
     }
 
-    public static void scale(Node node, double from, double to, double duration, double delay, Runnable then) {
+    public static Node scale(Node node, double from, double to, double duration, double delay, Runnable then) {
         ScaleTransition scale = new ScaleTransition(Duration.seconds(duration), node);
 
         scale.setDelay(Duration.seconds(delay));
@@ -62,21 +64,23 @@ public class Animations {
         }
 
         scale.play();
+
+        return node;
     }
 
-    public static void offsetY(Node node, double from, double to, double duration) {
-        offsetY(node, from, to, duration, 0, null);
+    public static Node translateY(double from, double to, double duration, Node node) {
+        return translateY(from, to, duration, 0, null, node);
     }
 
-    public static void offsetY(Node node, double from, double to, double duration, double delay) {
-        offsetY(node, from, to, duration, delay, null);
+    public static Node translateY(Node node, double from, double to, double duration, double delay) {
+        return translateY(from, to, duration, delay, null, node);
     }
 
-    public static void offsetY(Node node, double from, double to, double duration, Runnable then) {
-        offsetY(node, from, to, duration, 0, then);
+    public static Node translateY(double from, double to, double duration, Runnable then, Node node) {
+        return translateY(from, to, duration, 0, then, node);
     }
 
-    public static void offsetY(Node node, double from, double to, double duration, double delay, Runnable then) {
+    public static Node translateY(double from, double to, double duration, double delay, Runnable then, Node node) {
         TranslateTransition offsetY = new TranslateTransition(Duration.seconds(duration), node);
 
         offsetY.setDelay(Duration.seconds(delay));
@@ -88,5 +92,7 @@ public class Animations {
         }
 
         offsetY.play();
+
+        return node;
     }
 }

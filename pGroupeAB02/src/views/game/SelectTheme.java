@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import models.Game;
 import utils.Icon;
 import views.View;
-import utils.Widgets;
+import views.Widget;
 
 public class SelectTheme extends View {
 
@@ -24,7 +24,7 @@ public class SelectTheme extends View {
         themesList.setMaxWidth(512);
 
         for (String theme : themes) {
-            Pane themeButton = Widgets.makeBigButton(Icon.STAR, theme);
+            Pane themeButton = Widget.buttonWithIcon(Icon.STAR, theme);
             themeButton.setPadding(new Insets(0, 72, 0, 72));
 
             themeButton.setOnMouseClicked(event -> {
@@ -34,8 +34,7 @@ public class SelectTheme extends View {
             themesList.getChildren().add(themeButton);
         }
 
-        Button backButton = Widgets.makeButton("Go back");
-        backButton.setOnAction(actionEvent -> game.finish());
+        Button backButton = Widget.button("Go back", event -> game.finish());
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         this.setAlignment(Pos.CENTER);

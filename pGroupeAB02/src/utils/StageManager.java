@@ -86,14 +86,14 @@ public final class StageManager {
 
         viewContainer.getChildren().add(nextView);
 
-        Animations.fade(nextView, 0, 1, 0.25, () -> {
+        Animations.fade(0, 1, 0.25, () -> {
             viewContainer.getChildren().remove(currentView);
             currentView = nextView;
             nextView.onSwitchIn();
-        });
+        }, nextView);
 
-        Animations.scale(nextView, 4, 1, 0.25);
-        Animations.fade(currentView, 1, 0, 0.25);
+        Animations.scale(4, 1, 0.25, nextView);
+        Animations.fade(1, 0, 0.25, currentView);
     }
 
     public static void showDialog(Dialog dialog) {
@@ -103,8 +103,8 @@ public final class StageManager {
         dialogContainer.getChildren().add(dialog);
         StackPane.setAlignment(dialog, Pos.CENTER);
 
-        Animations.fade(dialogContainer, 0, 1, 0.1);
-        Animations.offsetY(dialog, 128, 0, 0.1);
+        Animations.fade(0, 1, 0.1, dialogContainer);
+        Animations.translateY(128, 0, 0.1, dialog);
 
         AudioManager.playEffect("assets/woosh.wav");
         viewContainer.setEffect(new BoxBlur(8, 8, 2));
@@ -112,11 +112,11 @@ public final class StageManager {
         viewContainer.setEffect(null);
         AudioManager.playEffect("assets/woosh.wav");
 
-        Animations.offsetY(dialog, 0, 128, 0.1);
-        Animations.fade(dialogContainer, 1, 0, 0.1, () -> {
+        Animations.translateY(0, 128, 0.1, dialog);
+        Animations.fade(1, 0, 0.1, () -> {
             dialogContainer.getChildren().remove(dialog);
             dialogContainer.setDisable(true);
-        });
+        }, dialogContainer);
     }
 
     public static Background background() {

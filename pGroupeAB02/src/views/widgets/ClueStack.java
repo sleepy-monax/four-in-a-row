@@ -28,7 +28,7 @@ public class ClueStack extends StackPane {
     public void addClue(String clue) {
         ClueCard card = new ClueCard(clue);
 
-        Animations.offsetY(card, -512, 0, 0.25);
+        Animations.translateY(-512, 0, 0.25, card);
 
         StackPane.setAlignment(card, Pos.CENTER);
 

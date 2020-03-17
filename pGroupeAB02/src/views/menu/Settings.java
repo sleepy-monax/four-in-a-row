@@ -1,57 +1,80 @@
 package views.menu;
 
-import javafx.scene.control.Slider;
-import javafx.scene.layout.*;
-import utils.*;
-import views.widgets.IconButton;
-import views.widgets.Title;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import utils.AudioManager;
+import utils.Icon;
+import utils.StageManager;
+import views.Layout;
 import views.View;
+import views.Widget;
+import views.widgets.Title;
 
 public class Settings extends View {
     public Settings() {
         this.setPadding(new Insets(32));
-
-        IconButton orbEffect = new IconButton(
-                () -> AudioManager.isMuted() ? Icon.VOLUME_OFF : Icon.VOLUME_UP,
-                event -> AudioManager.toggleMuted()
-                );
-
-        Slider sliderMusicVolume = new Slider();
-        sliderMusicVolume.setMin(0);
-        sliderMusicVolume.setMax(100);
-        sliderMusicVolume.setValue(AudioManager.getMusicVolume() * 100);
-        sliderMusicVolume.valueProperty().addListener(event -> {
-            AudioManager.setMusicVolume(sliderMusicVolume.getValue() / 100.0);
-        });
-        HBox.setHgrow(sliderMusicVolume, Priority.ALWAYS);
-
-        Slider sliderEffectVolume = new Slider();
-        sliderEffectVolume.setMin(0);
-        sliderEffectVolume.setMax(100);
-        sliderEffectVolume.setValue(AudioManager.getEffectVolume() * 100);
-        sliderEffectVolume.valueProperty().addListener(event -> {
-            AudioManager.setEffectVolume(sliderEffectVolume.getValue() / 100.0);
-        });
-        HBox.setHgrow(sliderEffectVolume, Priority.ALWAYS);
-
         this.setAlignment(Pos.CENTER);
-        this.setPadding(new Insets(32));
 
-        VBox menuContainer = new VBox(16);
-        menuContainer.setAlignment(Pos.CENTER);
-        menuContainer.setMaxWidth(512);
-        menuContainer.getChildren().add(Widgets.makeLabel("Music"));
-        menuContainer.getChildren().add(Layout.verticalyCentered(sliderMusicVolume));
-        menuContainer.getChildren().add(Widgets.makeLabel("Effects"));
-        menuContainer.getChildren().add(new HBox(16, Layout.verticalyCentered(sliderEffectVolume), orbEffect));
+        Node menu = Layout.width(
+                512,
+                Layout.verticallyCentered(
+                        Layout.vertical(
+                                16,
+                                Layout.verticallyCentered(
+                                        Widget.label("Audio")
+                                ),
+                                Layout.horizontal(
+                                        16,
+                                        Layout.verticallyCentered(
+                                                Widget.label("Muted: ")
+                                        ),
+                                        Widget.iconButton(
+                                                () -> AudioManager.isMuted() ? Icon.VOLUME_OFF : Icon.VOLUME_UP,
+                                                event -> AudioManager.toggleMuted()
+                                        )
+                                ),
+                                Layout.horizontal(
+                                        16,
+                                        Layout.verticallyCentered(
+                                                Widget.label("Music: ")
+                                        ),
+                                        Layout.fill(
+                                                Layout.verticallyCentered(
+                                                        Widget.slider(
+                                                                0,
+                                                                1,
+                                                                AudioManager::getMusicVolume,
+                                                                AudioManager::setMusicVolume
+                                                        )
+                                                )
+                                        )
+                                ),
+                                Layout.horizontal(
+                                        16,
+                                        Layout.verticallyCentered(
+                                                Widget.label("Effects: ")
+                                        ),
+                                        Layout.fill(
+                                                Layout.verticallyCentered(
+                                                        Widget.slider(
+                                                                0,
+                                                                1,
+                                                                AudioManager::getEffectVolume,
+                                                                AudioManager::setEffectVolume
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
 
-        Button backButton = Widgets.makeButton("Go back");
-        backButton.setOnAction(actionEvent -> StageManager.switchView(new Main()));
+        Button backButton = Widget.button("Go back", event -> StageManager.switchView(new Main()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        this.getChildren().addAll(new Title("Settings"), menuContainer, backButton);
+        this.getChildren().addAll(new Title("Settings"), menu, backButton);
     }
 }

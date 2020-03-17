@@ -12,7 +12,7 @@ import models.multiplayer.Multiplayer;
 import utils.StageManager;
 import utils.Icon;
 import views.View;
-import utils.Widgets;
+import views.Widget;
 import views.menu.Main;
 
 public class Join extends View {
@@ -20,11 +20,11 @@ public class Join extends View {
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(32));
 
-        TextField userNameTextfield = Widgets.makeTextField("User");
+        TextField userNameTextfield = Widget.textField("User");
 
-        TextField addressTextfield = Widgets.makeTextField("localhost");
+        TextField addressTextfield = Widget.textField("localhost");
 
-        Pane joinButton = Widgets.makeBigButton(Icon.PEOPLE, "Connect");
+        Pane joinButton = Widget.buttonWithIcon(Icon.PEOPLE, "Connect");
         joinButton.setPadding(new Insets(0, 72, 0, 72));
         joinButton.setOnMouseClicked(mouseEvent -> {
             Multiplayer.join(userNameTextfield.getText(), addressTextfield.getText(), Multiplayer.DEFAULT_PORT);
@@ -35,12 +35,11 @@ public class Join extends View {
         menuContainer.setAlignment(Pos.CENTER);
         menuContainer.setMaxWidth(512);
 
-        Button backButton = Widgets.makeButton("Go back");
-        backButton.setOnAction(actionEvent -> StageManager.switchView(new Main()));
+        Button backButton = Widget.button("Go back", actionEvent -> StageManager.switchView(new Main()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        menuContainer.getChildren().addAll(Widgets.makeLabel("Username"), userNameTextfield,
-                Widgets.makeLabel("Host Address"), addressTextfield, joinButton);
+        menuContainer.getChildren().addAll(Widget.label("Username"), userNameTextfield,
+                Widget.label("Host Address"), addressTextfield, joinButton);
 
         this.getChildren().addAll(new Title("Join Multiplayer"), menuContainer, backButton);
     }
