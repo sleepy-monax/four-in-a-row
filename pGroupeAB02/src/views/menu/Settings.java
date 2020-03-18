@@ -6,64 +6,65 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import utils.AudioManager;
+import utils.SettingsManager;
 import utils.Icon;
 import utils.StageManager;
-import views.Layout;
 import views.View;
-import views.Widget;
 import views.widgets.Title;
+import static views.Widget.*;
+import static views.Layout.*;
 
 public class Settings extends View {
     public Settings() {
         this.setPadding(new Insets(32));
         this.setAlignment(Pos.CENTER);
 
-        Node menu = Layout.width(
+        Node menu = width(
                 512,
-                Layout.verticallyCentered(
-                        Layout.vertical(
+                verticallyCentered(
+                        vertical(
                                 16,
-                                Layout.verticallyCentered(
-                                        Widget.label("Audio")
+                                verticallyCentered(
+                                        label("Audio")
                                 ),
-                                Layout.horizontal(
+                                horizontal(
                                         16,
-                                        Layout.verticallyCentered(
-                                                Widget.label("Muted: ")
+                                        verticallyCentered(
+                                                width(96, label("Muted: "))
                                         ),
-                                        Widget.iconButton(
-                                                () -> AudioManager.isMuted() ? Icon.VOLUME_OFF : Icon.VOLUME_UP,
-                                                event -> AudioManager.toggleMuted()
+                                        iconButton(
+                                                () -> SettingsManager.get().getAudioMuted() ? Icon.VOLUME_OFF : Icon.VOLUME_UP,
+                                                event -> SettingsManager.get().toggleAudioMuted()
                                         )
                                 ),
-                                Layout.horizontal(
+                                horizontal(
                                         16,
-                                        Layout.verticallyCentered(
-                                                Widget.label("Music: ")
+                                        verticallyCentered(
+                                                width(96, label("Music: "))
                                         ),
-                                        Layout.fill(
-                                                Layout.verticallyCentered(
-                                                        Widget.slider(
+                                        fill(
+                                                verticallyCentered(
+                                                        slider(
                                                                 0,
                                                                 1,
-                                                                AudioManager::getMusicVolume,
-                                                                AudioManager::setMusicVolume
+                                                                () -> SettingsManager.get().getAudioMusicVolume(),
+                                                                value -> SettingsManager.get().setAudioMusicVolume(value)
                                                         )
                                                 )
                                         )
                                 ),
-                                Layout.horizontal(
+                                horizontal(
                                         16,
-                                        Layout.verticallyCentered(
-                                                Widget.label("Effects: ")
+                                        verticallyCentered(
+                                                width(96, label("Effects: "))
                                         ),
-                                        Layout.fill(
-                                                Layout.verticallyCentered(
-                                                        Widget.slider(
+                                        fill(
+                                                verticallyCentered(
+                                                        slider(
                                                                 0,
                                                                 1,
-                                                                AudioManager::getEffectVolume,
-                                                                AudioManager::setEffectVolume
+                                                                () -> SettingsManager.get().getAudioEffectVolume(),
+                                                                value -> SettingsManager.get().setAudioEffectVolume(value)
                                                         )
                                                 )
                                         )
@@ -72,7 +73,10 @@ public class Settings extends View {
                 )
         );
 
-        Button backButton = Widget.button("Go back", event -> StageManager.switchView(new Main()));
+        Button backButton = button("Go back", event -> {
+                SettingsManager.save();
+                StageManager.switchView(new Main());
+        });
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         this.getChildren().addAll(new Title("Settings"), menu, backButton);

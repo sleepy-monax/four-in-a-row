@@ -15,7 +15,8 @@ import models.Game;
 import utils.ShakeTransition;
 import utils.Icon;
 import views.View;
-import views.Widget;
+import static views.Widget.*;
+import static views.Layout.*;
 
 public class MainGame extends View {
 
@@ -34,7 +35,7 @@ public class MainGame extends View {
 
         this.setPadding(new Insets(0));
 
-        Node quitButton = Widget.iconButton(Icon.CLOSE, event -> {
+        Node quitButton = iconButton(Icon.CLOSE, event -> {
             if (new YesNoDialog("Quit the game", "Do you want to quit the game?\nAll progress will be lost!")
                     .show() == YesNo.YES) {
                 game.finish();
@@ -50,7 +51,7 @@ public class MainGame extends View {
         sidebar.setPadding(new Insets(16));
 
         sidebar.setTop(
-                new VBox(16, new StackPane(quitButton), new StackPane(Widget.iconButton(Icon.SKIP_NEXT, event -> {
+                new VBox(16, new StackPane(quitButton), new StackPane(iconButton(Icon.SKIP_NEXT, event -> {
                 }))));
         sidebar.setBottom(new StackPane(countdown));
 

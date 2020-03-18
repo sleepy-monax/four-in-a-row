@@ -66,17 +66,32 @@ public class AudioManager {
         }
     }
 
-    public static void toggleMuted() {
-        setMuted(!isMuted());
-    }
-
     public static void setMuted(boolean muted) {
         AudioManager.muted = muted;
-
+        
         musicPlayer.setMute(muted);
+        
+        if (muted)
+        {
+            musicPlayer.setVolume(0);
+        }
+        else
+        {
+            musicPlayer.setVolume(musicVolume);
+        }
+
 
         for (MediaPlayer effect : effectPlayers) {
             effect.setMute(muted);
+
+            if (muted)
+            {
+                effect.setVolume(0);
+            }
+            else
+            {
+                effect.setVolume(effectVolume);
+            }
         }
     }
 
@@ -87,8 +102,13 @@ public class AudioManager {
         }
 
         musicPlayer = new MediaPlayer(getMedia(name));
-        musicPlayer.setVolume(musicVolume);
         musicPlayer.setMute(muted);
+        
+        if (muted)
+        {
+            musicPlayer.setVolume(0);
+        }
+
         if (then != null)
             musicPlayer.setOnEndOfMedia(then);
         musicPlayer.play();
@@ -103,8 +123,12 @@ public class AudioManager {
         musicPlayer = new MediaPlayer(getMedia(name));
 
         musicPlayer.setCycleCount(Integer.MAX_VALUE);
-        musicPlayer.setVolume(musicVolume);
         musicPlayer.setMute(muted);
+        
+        if (muted)
+        {
+            musicPlayer.setVolume(0);
+        }
 
         musicPlayer.play();
     }
@@ -116,8 +140,12 @@ public class AudioManager {
 
         MediaPlayer effectPlayer = new MediaPlayer(getMedia(name));
 
-        effectPlayer.setVolume(effectVolume);
         effectPlayer.setMute(muted);
+
+        if (muted)
+        {
+            effectPlayer.setVolume(0);
+        }
 
         effectPlayer.setOnEndOfMedia(() -> {
             effectPlayers.remove(effectPlayer);

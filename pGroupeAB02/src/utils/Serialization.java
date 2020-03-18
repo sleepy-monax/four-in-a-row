@@ -14,10 +14,10 @@ public class Serialization {
         ) {
             new GsonBuilder()
                     .disableHtmlEscaping()
+                    .setPrettyPrinting()
                     .create()
                     .toJson(object, out);
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -31,7 +31,6 @@ public class Serialization {
             Gson gson = new Gson();
             object = gson.fromJson(reader, class_name);
         } catch (Exception e) {
-            e.printStackTrace();
         }
 
         return object;

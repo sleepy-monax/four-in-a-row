@@ -21,6 +21,7 @@ public class Layout {
     public static Region width(double width, Region region)
     {
         region.setMaxWidth(width);
+        region.setPrefWidth(width);
 
         return region;
     }
@@ -28,6 +29,8 @@ public class Layout {
     public static Region height(double height, Region region)
     {
         region.setMaxHeight(height);
+        region.setPrefHeight(height);
+
 
         return region;
     }

@@ -1,6 +1,7 @@
 package main;
 
 import utils.AudioManager;
+import utils.SettingsManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import utils.StageManager;
@@ -20,6 +21,7 @@ public class Main extends Application {
         ThreadManager.initialize();
         AudioManager.initialize();
         StageManager.initialize(stage);
+        SettingsManager.apply();
 
         StageManager.switchView(new Splash());
     }
