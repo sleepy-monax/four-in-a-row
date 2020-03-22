@@ -1,5 +1,9 @@
 package views.menu;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.cell.PropertyValueFactory;
+import models.Question;
 import views.widgets.Title;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -26,11 +30,22 @@ public class Editor extends View {
         TableColumn authorColumn = new TableColumn("Author");
         TableColumn cluesColumn = new TableColumn("Clues");
 
+        authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
+        themeColumn.setCellValueFactory(new PropertyValueFactory<>("theme"));
+        cluesColumn.setCellValueFactory(new PropertyValueFactory<>("clues"));
+        answerColumn.setCellValueFactory(new PropertyValueFactory<>("answer"));
+        ObservableList< Question> list = FXCollections.observableArrayList(deck.getQuestions());
+
+       table.setItems(list);
+
         table.getColumns().addAll(answerColumn, themeColumn, authorColumn, cluesColumn);
+
 
         Button backButton = Widget.button("Go back", actionEvent -> StageManager.switchView(new Main()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         getChildren().addAll(new Title("Editor"), table, backButton);
     }
+
+
 }
