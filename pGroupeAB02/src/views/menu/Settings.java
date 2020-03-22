@@ -31,6 +31,19 @@ public class Settings extends View {
                                         newName -> SettingsManager.get().setPlayerName(newName)
                                 ),
                                 verticallyCentered(
+                                        label("Graphics")
+                                ),
+                                horizontal(
+                                        16,
+                                        verticallyCentered(
+                                                width(128, label("Fullscreen: "))
+                                        ),
+                                        iconButton(
+                                                () -> SettingsManager.get().isGraphicFullscreen() ? Icon.FULLSCREEN_EXIT : Icon.FULLSCREEN,
+                                                event -> SettingsManager.get().toggleGraphicFullscreen()
+                                        )
+                                ),
+                                verticallyCentered(
                                         label("Audio")
                                 ),
                                 horizontal(

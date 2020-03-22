@@ -10,6 +10,7 @@ public class SettingsManager implements Serializable {
     private double audioMusicVolume = 0.75;
     private double audioEffectVolume = 0.75;
     private String playerName = "LocalPlayer";
+    private boolean graphicFullscreen = false;
 
     public static SettingsManager get() {
         if (instance == null) {
@@ -39,6 +40,7 @@ public class SettingsManager implements Serializable {
         AudioManager.setMuted(get().audioMuted);
         AudioManager.setMusicVolume(get().audioMusicVolume);
         AudioManager.setEffectVolume(get().audioEffectVolume);
+        StageManager.setFullscreen(get().graphicFullscreen);
     }
 
     public boolean getAudioMuted() {
@@ -86,4 +88,17 @@ public class SettingsManager implements Serializable {
         apply();
     }
 
+    public boolean isGraphicFullscreen() {
+        return graphicFullscreen;
+    }
+
+    public void setGraphicFullscreen(boolean graphicFullscreen) {
+        this.graphicFullscreen = graphicFullscreen;
+        apply();
+    }
+
+    public void toggleGraphicFullscreen()
+    {
+        setGraphicFullscreen(!isGraphicFullscreen());
+    }
 }

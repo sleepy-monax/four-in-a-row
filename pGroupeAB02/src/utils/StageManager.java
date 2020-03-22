@@ -68,7 +68,9 @@ public final class StageManager {
 
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER) && event.isAltDown()) {
-                StageManager.stage.setFullScreen(!StageManager.stage.isFullScreen());
+                SettingsManager.get().toggleGraphicFullscreen();
+                SettingsManager.save();
+
                 event.consume();
             }
         });
@@ -132,5 +134,9 @@ public final class StageManager {
 
     public static void quit() {
         stage.close();
+    }
+
+    public static void setFullscreen(boolean graphicFullscreen) {
+        stage.setFullScreen(graphicFullscreen);
     }
 }
