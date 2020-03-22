@@ -83,13 +83,16 @@ public final class StageManager {
 
     public static void switchView(View nextView) {
         currentView.onSwitchOut();
+        currentView.setDisable(true);
 
         viewContainer.getChildren().add(nextView);
+        nextView.setDisable(true);
 
         Animations.fade(0, 1, 0.25, () -> {
             viewContainer.getChildren().remove(currentView);
             currentView = nextView;
             nextView.onSwitchIn();
+            nextView.setDisable(false);
         }, nextView);
 
         Animations.scale(4, 1, 0.25, nextView);

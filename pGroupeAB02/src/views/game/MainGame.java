@@ -16,10 +16,8 @@ import utils.ShakeTransition;
 import utils.Icon;
 import views.View;
 import static views.Widget.*;
-import static views.Layout.*;
 
 public class MainGame extends View {
-
     private final Game game;
 
     private final ClueStack clueStack;
@@ -29,6 +27,7 @@ public class MainGame extends View {
     private Notifiable onCountdownNotifier;
     private Notifiable onAnswerCorrect;
     private Notifiable onAnswerIncorrect;
+    private Notifiable onQuestionPassed;
 
     public MainGame(Game game) {
         this.game = game;
@@ -42,6 +41,10 @@ public class MainGame extends View {
             }
         });
 
+        Node passButton = iconButton(Icon.SKIP_NEXT, event -> {
+            game.pass();
+        });
+
         countdown = new Countdown();
 
         BorderPane sidebar = new BorderPane();
@@ -50,16 +53,14 @@ public class MainGame extends View {
         sidebar.setMinWidth(220);
         sidebar.setPadding(new Insets(16));
 
-        sidebar.setTop(
-                new VBox(16, new StackPane(quitButton), new StackPane(iconButton(Icon.SKIP_NEXT, event -> {
-                }))));
+        sidebar.setTop(new VBox(16, new StackPane(quitButton), new StackPane(passButton)));
         sidebar.setBottom(new StackPane(countdown));
 
         clueStack = new ClueStack();
         clueStack.setPadding(new Insets(32));
 
         answer = new AnswerField();
-        answer.setOnAnswer(answer -> game.answer(answer));
+        answer.setOnAnswer(game::answer);
         HBox.setHgrow(answer, Priority.ALWAYS);
 
         BorderPane cluesAndAnswer = new BorderPane(clueStack, null, null, answer, null);
@@ -88,6 +89,11 @@ public class MainGame extends View {
             ShakeTransition shake = new ShakeTransition(answer, Duration.seconds(0.5), 16, 3);
             shake.play();
         });
+
+        onQuestionPassed = game.getMessageLoop().registerNotifier(OnQuestionPassed.class, message -> {
+            clueStack.clearClues();
+            answer.clear();
+        });
     }
 
     @Override
@@ -96,5 +102,6 @@ public class MainGame extends View {
         game.getMessageLoop().unregisterNotifier(onCountdownNotifier);
         game.getMessageLoop().unregisterNotifier(onAnswerCorrect);
         game.getMessageLoop().unregisterNotifier(onAnswerIncorrect);
+        game.getMessageLoop().unregisterNotifier(onQuestionPassed);
     }
 }

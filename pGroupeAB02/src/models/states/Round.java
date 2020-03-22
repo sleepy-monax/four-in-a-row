@@ -96,6 +96,8 @@ public class Round extends GameState {
 
     public void pass() {
         currentQuestion = null;
+
+        game.getMessageLoop().post(new OnQuestionPassed());
         nextQuestion();
     }
 }

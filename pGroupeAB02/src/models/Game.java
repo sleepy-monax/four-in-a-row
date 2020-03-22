@@ -157,6 +157,13 @@ public class Game {
         }
     }
 
+    public void pass()
+    {
+        if (state instanceof Round) {
+            ((Round) state).pass();
+        }
+    }
+
     public void enterLobby() {
         messageLoop.post(new OnGameEnterLobby());
     }
