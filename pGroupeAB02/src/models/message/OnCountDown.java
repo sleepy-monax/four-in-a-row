@@ -1,7 +1,7 @@
 package models.message;
 
-import models.messageloop.Message;
 import models.Game;
+import models.messageloop.Message;
 import network.PacketBuilder;
 import network.PacketReader;
 
@@ -9,6 +9,10 @@ import java.io.IOException;
 
 public class OnCountDown extends Message {
     private int time;
+
+    public OnCountDown() {
+        this.time = 0;
+    }
 
     public OnCountDown(int time) {
         this.time = time;

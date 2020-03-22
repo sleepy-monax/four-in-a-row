@@ -72,6 +72,8 @@ public abstract class Message {
     public final Packet asPacket() {
         PacketBuilder builder = new PacketBuilder(PacketType.GAME_MESSAGE);
 
+        builder.withString(this.getClass().getName());
+
         makePacket(builder);
 
         return builder.build();

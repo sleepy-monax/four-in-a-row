@@ -2,10 +2,11 @@ package utils;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import main.Main;
+
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.LinkedList;
-import main.Main;
 
 public class AudioManager {
     private static final int MAX_SOUND_EFFECTS = 8;
@@ -68,28 +69,21 @@ public class AudioManager {
 
     public static void setMuted(boolean muted) {
         AudioManager.muted = muted;
-        
+
         musicPlayer.setMute(muted);
-        
-        if (muted)
-        {
+
+        if (muted) {
             musicPlayer.setVolume(0);
-        }
-        else
-        {
+        } else {
             musicPlayer.setVolume(musicVolume);
         }
-
 
         for (MediaPlayer effect : effectPlayers) {
             effect.setMute(muted);
 
-            if (muted)
-            {
+            if (muted) {
                 effect.setVolume(0);
-            }
-            else
-            {
+            } else {
                 effect.setVolume(effectVolume);
             }
         }
@@ -103,14 +97,16 @@ public class AudioManager {
 
         musicPlayer = new MediaPlayer(getMedia(name));
         musicPlayer.setMute(muted);
-        
-        if (muted)
-        {
+
+        if (muted) {
             musicPlayer.setVolume(0);
+        } else {
+            musicPlayer.setVolume(musicVolume);
         }
 
         if (then != null)
             musicPlayer.setOnEndOfMedia(then);
+
         musicPlayer.play();
     }
 
@@ -124,10 +120,11 @@ public class AudioManager {
 
         musicPlayer.setCycleCount(Integer.MAX_VALUE);
         musicPlayer.setMute(muted);
-        
-        if (muted)
-        {
+
+        if (muted) {
             musicPlayer.setVolume(0);
+        } else {
+            musicPlayer.setVolume(musicVolume);
         }
 
         musicPlayer.play();
@@ -142,9 +139,10 @@ public class AudioManager {
 
         effectPlayer.setMute(muted);
 
-        if (muted)
-        {
+        if (muted) {
             effectPlayer.setVolume(0);
+        } else {
+            effectPlayer.setVolume(effectVolume);
         }
 
         effectPlayer.setOnEndOfMedia(() -> {

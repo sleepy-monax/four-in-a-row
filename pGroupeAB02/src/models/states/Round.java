@@ -1,9 +1,9 @@
 package models.states;
 
-import models.message.*;
 import models.Game;
 import models.Player;
 import models.Question;
+import models.message.*;
 
 import java.util.LinkedList;
 import java.util.List;
