@@ -4,9 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
-import utils.AudioManager;
 import utils.SettingsManager;
 import utils.Icon;
 import utils.StageManager;
@@ -19,13 +17,19 @@ public class Settings extends View {
     public Settings() {
         this.setPadding(new Insets(32));
         this.setAlignment(Pos.CENTER);
-        TextField textField = textField(SettingsManager.get().getPlayerName());
 
         Node menu = width(
                 512,
                 verticallyCentered(
                         vertical(
                                 16,
+                                verticallyCentered(
+                                        label("Username")
+                                ),
+                                textField(
+                                        ()->SettingsManager.get().getPlayerName(),
+                                        newName -> SettingsManager.get().setPlayerName(newName)
+                                ),
                                 verticallyCentered(
                                         label("Audio")
                                 ),
@@ -70,20 +74,12 @@ public class Settings extends View {
                                                         )
                                                 )
                                         )
-                                ),
-                                horizontal(
-                                        16,
-                                        verticallyCentered(
-                                                width(96, label("Player Name: "))
-                                        ),
-                                        textField
                                 )
                         )
                 )
         );
 
         Button backButton = button("Go back", event -> {
-                SettingsManager.get().setPlayerName(textField.getText());
                 SettingsManager.save();
                 StageManager.switchView(new Main());
         });

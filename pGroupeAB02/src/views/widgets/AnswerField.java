@@ -17,7 +17,7 @@ public class AnswerField extends HBox {
     private Consumer<String> onAnswerCallback;
 
     public AnswerField() {
-        answer = Widget.textField("");
+        answer = Widget.textField();
         answer.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
                 onAnswerCallback.accept(answer.getText());

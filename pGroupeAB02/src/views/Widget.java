@@ -80,11 +80,30 @@ public final class Widget {
         return button;
     }
 
+    public static TextField textField() {
+        TextField field = new TextField();
+
+        field.setAlignment(Pos.CENTER);
+        field.getStyleClass().add("FIR_textfield");
+
+        return field;
+    }
+
     public static TextField textField(String text) {
         TextField field = new TextField(text);
 
         field.setAlignment(Pos.CENTER);
         field.getStyleClass().add("FIR_textfield");
+
+        return field;
+    }
+
+    public static TextField textField(Getter<String> getText, Consumer<String> onTextChange) {
+        TextField field = new TextField(getText.call());
+
+        field.setAlignment(Pos.CENTER);
+        field.getStyleClass().add("FIR_textfield");
+        field.textProperty().addListener((observable, oldValue, newValue) -> onTextChange.accept(newValue));
 
         return field;
     }
