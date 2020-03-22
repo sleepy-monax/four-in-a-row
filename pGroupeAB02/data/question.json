@@ -32,7 +32,7 @@
         },
         {
             "author": "Van Bossuyt Nicolas",
-            "theme": "fruit",
+            "theme": "Fruit",
             "answer": "apple",
             "clues": [
                 "It's a fruit.",
@@ -42,7 +42,7 @@
         },
         {
             "author": "Van Bossuyt Nicolas",
-            "theme": "fruit",
+            "theme": "Fruit",
             "answer": "orange",
             "clues": [
                 "It's orange.",
@@ -52,7 +52,7 @@
         },
         {
             "author": "Van Bossuyt Nicolas",
-            "theme": "fruit",
+            "theme": "Fruit",
             "answer": "banana",
             "clues": [
                 "Its's from New Guinea.",
@@ -120,7 +120,6 @@
                 "I’m an adaptation of the fantasy novels A Song of Ice and Fire",
                 "Ed Sheeran makes a brief appearance as a Lannister soldier during season seven,",
                 "Nine noble families fight for control over the mythical lands of Westeros"
-
             ]
         }
     ]
