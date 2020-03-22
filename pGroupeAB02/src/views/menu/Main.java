@@ -32,7 +32,7 @@ public class Main extends View {
         hostMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));
 
         Node orbEditor = Widget.iconButton(Icon.EDIT, event -> StageManager
-                .switchView((new Editor(Serialization.readFromJsonFile("data/question.json", Deck.class)))));
+                .switchView((new Editor(Deck.load()))));
 
         Node orbScores = Widget.iconButton(Icon.EMOJI_EVENTS, mouseEvent -> StageManager.switchView((new Score())));
 

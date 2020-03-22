@@ -3,7 +3,7 @@ package utils;
 import java.io.Serializable;
 
 public class SettingsManager implements Serializable {
-    private static final String CONFIG_PATH = "data/settings.json";
+    private static final String CONFIG_PATH = "settings.json";
     private static SettingsManager instance;
 
     private boolean audioMuted = false;

@@ -23,8 +23,7 @@ public class Multiplayer {
     }
 
     public static void host(int port) {
-        Deck deck = Serialization.readFromJsonFile("data/question.json", Deck.class);
-        Game game = new Game(deck, Difficulty.EASY);
+        Game game = new Game(Deck.load(), Difficulty.EASY);
         Master master = new Master(game, port);
 
         game.joinPlayer("Local Player");

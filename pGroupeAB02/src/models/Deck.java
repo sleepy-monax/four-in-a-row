@@ -1,5 +1,7 @@
 package models;
 
+import utils.Serialization;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,5 +97,19 @@ public class Deck implements Serializable {
     @Override
     public String toString() {
         return "{" + " questions='" + getQuestions() + "'" + "}";
+    }
+
+    public static Deck load() {
+        Deck deck = Serialization.readFromJsonFile("questions.json", Deck.class);
+
+        if (deck == null) {
+            System.out.println("DECK: WARNING: Falling back on the builtin deck.");
+
+            deck = Serialization.readFromJsonFileInJar("/assets/questions.json", Deck.class);
+        } else {
+            System.out.println("DECK: Using the deck from the data folder");
+        }
+
+        return deck;
     }
 }

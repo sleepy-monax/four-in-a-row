@@ -3,6 +3,7 @@ package utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
+import main.Main;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -26,6 +27,21 @@ public class Serialization {
 
         try (
                 Reader in = new InputStreamReader(new FileInputStream(path), StandardCharsets.UTF_8);
+                JsonReader reader = new JsonReader(in)
+        ) {
+            Gson gson = new Gson();
+            object = gson.fromJson(reader, class_name);
+        } catch (Exception e) {
+        }
+
+        return object;
+    }
+
+    public static <T> T readFromJsonFileInJar(String path, Class<T> class_name) {
+        T object = null;
+
+        try (
+                Reader in = new InputStreamReader(class_name.getResourceAsStream(path), StandardCharsets.UTF_8);
                 JsonReader reader = new JsonReader(in)
         ) {
             Gson gson = new Gson();
