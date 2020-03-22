@@ -31,33 +31,33 @@
             ]
         },
         {
-            "author": "anon",
-            "theme": "Theme4",
-            "answer": "an answer",
+            "author": "De Laet Lorris",
+            "theme": "France",
+            "answer": "Eiffel Tower",
             "clues": [
-                "clue 1",
-                "clue 2",
-                "clue 3"
+                "It’s exposed on a large square in Paris.",
+                "One of the main monuments of France.",
+                "Gustave Eiffel is the name of its builder."
             ]
         },
         {
-            "author": "anon",
-            "theme": "Theme5",
-            "answer": "the answer",
+            "author": "De Laet Lorris",
+            "theme": "France",
+            "answer": "Champs Elysée",
             "clues": [
-                "clue 1",
-                "clue 2",
-                "clue 3"
+                "Which Parisian avenues name translates as the Elysian Field. ",
+                "his street contains the Triumphal arch.",
+                "This street hosts the military parade every year."
             ]
         },
         {
-            "author": "anon",
-            "theme": "Theme6",
-            "answer": "that answer",
+            "author": "De Laet Lorris",
+            "theme": "France",
+            "answer": "Cheese",
             "clues": [
-                "clue 1",
-                "clue 2",
-                "clue 3"
+                "France is renowned for having several hundred different.",
+                "The French eat them for lunch or as desert.",
+                "The camembert is one of its varieties."
             ]
         }
     ]
