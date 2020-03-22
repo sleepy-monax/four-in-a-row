@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import utils.AudioManager;
 import utils.SettingsManager;
@@ -18,6 +19,7 @@ public class Settings extends View {
     public Settings() {
         this.setPadding(new Insets(32));
         this.setAlignment(Pos.CENTER);
+        TextField textField = textField(SettingsManager.get().getPlayerName());
 
         Node menu = width(
                 512,
@@ -68,12 +70,20 @@ public class Settings extends View {
                                                         )
                                                 )
                                         )
+                                ),
+                                horizontal(
+                                        16,
+                                        verticallyCentered(
+                                                width(96, label("Player Name: "))
+                                        ),
+                                        textField
                                 )
                         )
                 )
         );
 
         Button backButton = button("Go back", event -> {
+                SettingsManager.get().setPlayerName(textField.getText());
                 SettingsManager.save();
                 StageManager.switchView(new Main());
         });

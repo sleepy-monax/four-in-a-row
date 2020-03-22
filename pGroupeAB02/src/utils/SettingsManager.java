@@ -9,6 +9,7 @@ public class SettingsManager implements Serializable {
     private boolean audioMuted = false;
     private double audioMusicVolume = 0.75;
     private double audioEffectVolume = 0.75;
+    private String playerName = "LocalPlayer";
 
     public static SettingsManager get() {
         if (instance == null) {
@@ -74,4 +75,15 @@ public class SettingsManager implements Serializable {
 
         apply();
     }
+
+    public String getPlayerName(){
+        return this.playerName;
+    }
+
+    public void setPlayerName(String playerName){
+        this.playerName = playerName;
+
+        apply();
+    }
+
 }
