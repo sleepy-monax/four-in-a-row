@@ -1,5 +1,6 @@
 package views.game;
 
+import utils.SettingsManager;
 import views.widgets.Title;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,14 +21,12 @@ public class Join extends View {
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(32));
 
-        TextField userNameTextfield = Widget.textField("User");
-
         TextField addressTextfield = Widget.textField("localhost");
 
         Pane joinButton = Widget.buttonWithIcon(Icon.PEOPLE, "Connect");
         joinButton.setPadding(new Insets(0, 72, 0, 72));
         joinButton.setOnMouseClicked(mouseEvent -> {
-            Multiplayer.join(userNameTextfield.getText(), addressTextfield.getText(), Multiplayer.DEFAULT_PORT);
+            Multiplayer.join(addressTextfield.getText(), Multiplayer.DEFAULT_PORT);
         });
         VBox.setMargin(joinButton, new Insets(16, 0, 0, 0));
 
@@ -38,8 +37,7 @@ public class Join extends View {
         Button backButton = Widget.button("Go back", actionEvent -> StageManager.switchView(new Main()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        menuContainer.getChildren().addAll(Widget.label("Username"), userNameTextfield,
-                Widget.label("Host Address"), addressTextfield, joinButton);
+        menuContainer.getChildren().addAll(Widget.label("Host Address"), addressTextfield, joinButton);
 
         this.getChildren().addAll(new Title("Join Multiplayer"), menuContainer, backButton);
     }

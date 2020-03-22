@@ -25,7 +25,7 @@ public class Splash extends View {
 
         StackPane.setAlignment(button, Pos.BOTTOM_CENTER);
 
-        Label label = new Label("Groupe AB02\nL. De Laet, C. Lepine, N. Van Bossuyt\n\nRelease 1");
+        Label label = new Label("Groupe AB02\nL. De Laet, C. Lepine, N. Van Bossuyt\n\nRelease 2");
         label.setTextAlignment(TextAlignment.CENTER);
         label.setTextFill(new Color(1, 1, 1, 0.5));
         label.setOpacity(0);
