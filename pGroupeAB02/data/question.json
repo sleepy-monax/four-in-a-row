@@ -2,6 +2,36 @@
     "questions": [
         {
             "author": "Van Bossuyt Nicolas",
+            "theme": "Computer History",
+            "answer": "Ada Lovelace",
+            "clues": [
+                "She wrote the first computer program ever.",
+                "She worked on the babage machine.",
+                "She is born in 1815"
+            ]
+        },
+        {
+            "author": "Van Bossuyt Nicolas",
+            "theme": "Computer History",
+            "answer": "Grace Hopper",
+            "clues": [
+                "She is a American computer scientist and United States Navy rear admiral.",
+                "She is one of the first programmers of the Harvard Mark I computer.",
+                "The Cray XE6 is named after her."
+            ]
+        },
+        {
+            "author": "Van Bossuyt Nicolas",
+            "theme": "Computer History",
+            "answer": "Alan Turing",
+            "clues": [
+                "During the Second World War II he had a crucial role in cracking intercepted coded messages that enabled the Allies to defeat the Nazis.",
+                "He develop a mathematical model of computation that defines an abstract machine.",
+                "He designed the Automatic Computing Engine, which was one of the first designs for a stored-program computer."
+            ]
+        },
+        {
+            "author": "Van Bossuyt Nicolas",
             "theme": "fruit",
             "answer": "apple",
             "clues": [

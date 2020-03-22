@@ -1,8 +1,8 @@
 package models.controller;
 
 import javafx.application.Platform;
-import models.message.*;
 import models.Game;
+import models.message.OnGameFinished;
 
 import java.util.Timer;
 import java.util.TimerTask;
