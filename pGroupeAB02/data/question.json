@@ -59,6 +59,39 @@
                 "The French eat them for lunch or as desert.",
                 "The camembert is one of its varieties."
             ]
+        },
+        {
+            "author": "Lepine Cedric",
+            "theme": "Movie",
+            "answer": "Toy Story",
+            "clues": [
+               "I’m produced in 1995 by Pixar Animation Studios and released by Walt Disney Pictures",
+                "The voice of the main character was played by Tom Hanks",
+                "Hamm, Rex, Slinky Dog, Woody and Buzz Lightyear are Andy’s toys"
+
+            ]
+        },
+        {
+            "author": "Lepine Cedric",
+            "theme": "Movie",
+            "answer": "Harry Potter",
+            "clues": [
+                "My parents were murdered at home when I was 1 years old",
+                "During my childhood my room was a cupboard under the stairs at 4 Privet Drive, Little Whinging, Surrey",
+                "I’m a wizard. My worst enemy has no nose and his name is Lord Voldemort"
+
+            ]
+        },
+        {
+            "author": "Lepine Cedric",
+            "theme": "Movie",
+            "answer": "Game of Thrones",
+            "clues": [
+                "I’m an adaptation of the fantasy novels A Song of Ice and Fire",
+                "Ed Sheeran makes a brief appearance as a Lannister soldier during season seven,",
+                "Nine noble families fight for control over the mythical lands of Westeros"
+
+            ]
         }
     ]
 }
