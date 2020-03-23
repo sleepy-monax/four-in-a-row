@@ -13,7 +13,6 @@ import models.Deck;
 import models.multiplayer.Multiplayer;
 import models.singleplayer.SinglePlayer;
 import utils.Icon;
-import utils.Serialization;
 import utils.StageManager;
 import views.Widget;
 import views.*;
@@ -22,14 +21,9 @@ import views.screen.End;
 
 public class Main extends View {
     public Main() {
-        Pane singleplayerButton = Widget.buttonWithIcon(Icon.PERSON, "Singleplayer");
-        singleplayerButton.setPadding(new Insets(0, 72, 0, 72));
-
-        Pane joinMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP_ADD, "Join Multiplayer");
-        joinMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));
-
-        Pane hostMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP, "Host Multiplayer");
-        hostMultiplayerButton.setPadding(new Insets(0, 72, 0, 72));
+        Node singleplayerButton = Widget.buttonWithIcon(Icon.PERSON, "Singleplayer", event -> SinglePlayer.play());
+        Node joinMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP_ADD, "Join Multiplayer", mouseEvent -> StageManager.switchView(new Join()));
+        Node hostMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP, "Host Multiplayer", mouseEvent -> Multiplayer.host(Multiplayer.DEFAULT_PORT));
 
         Node orbEditor = Widget.iconButton(Icon.EDIT, event -> StageManager
                 .switchView((new Editor(Deck.load()))));
@@ -61,9 +55,5 @@ public class Main extends View {
 
         this.setAlignment(Pos.CENTER);
         this.getChildren().add(menuContainer);
-
-        singleplayerButton.setOnMouseClicked(event -> SinglePlayer.play());
-        joinMultiplayerButton.setOnMouseClicked(mouseEvent -> StageManager.switchView(new Join()));
-        hostMultiplayerButton.setOnMouseClicked(mouseEvent -> Multiplayer.host(Multiplayer.DEFAULT_PORT));
     }
 }

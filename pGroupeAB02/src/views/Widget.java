@@ -1,8 +1,5 @@
 package views;
 
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
-
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -13,7 +10,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import utils.*;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -43,12 +42,14 @@ public final class Widget {
         button.getStyleClass().addAll("button", "FIR_button");
         button.setMinWidth(96);
         button.setAlignment(Pos.CENTER);
+
+        button.setOnMousePressed(event -> AudioManager.playEffect("assets/click.wav"));
         button.setOnMouseClicked(onClick);
 
         return button;
     }
 
-    public static Pane buttonWithIcon(Icon icon, String text) {
+    public static Node buttonWithIcon(Icon icon, String text, EventHandler<? super MouseEvent> onClick) {
         AnchorPane button = new AnchorPane();
 
         Label label = new Label(text);
@@ -74,7 +75,33 @@ public final class Widget {
         button.getChildren().addAll(label, orb);
         button.setMaxHeight(72);
 
+        button.setOnMousePressed(event -> AudioManager.playEffect("assets/click.wav"));
+        button.setOnMouseClicked(onClick);
+
         return button;
+    }
+
+    public static Node iconButton(Icon icon, EventHandler<? super MouseEvent> onClick) {
+        return iconButton(() -> icon, onClick);
+    }
+
+    public static Node iconButton(Getter<Icon> getIcon, EventHandler<? super MouseEvent> onClick) {
+        StackPane iconButton = new StackPane();
+
+        iconButton.getStyleClass().addAll("button", "FIR_orb-button");
+
+        ImageView image = new ImageView(getIcon.call().path);
+        iconButton.getChildren().add(image);
+        StackPane.setAlignment(image, Pos.CENTER);
+
+        iconButton.setOnMousePressed(event -> AudioManager.playEffect("assets/click.wav"));
+
+        iconButton.setOnMouseClicked(event -> {
+            onClick.handle(event);
+            image.setImage(new Image(getIcon.call().path));
+        });
+
+        return iconButton;
     }
 
     public static TextField textField() {

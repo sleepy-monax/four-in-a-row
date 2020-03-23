@@ -24,10 +24,7 @@ public class SelectTheme extends View {
         themesList.setMaxWidth(512);
 
         for (String theme : themes) {
-            Pane themeButton = Widget.buttonWithIcon(Icon.STAR, theme);
-            themeButton.setPadding(new Insets(0, 72, 0, 72));
-
-            themeButton.setOnMouseClicked(event -> {
+            Node themeButton = Widget.buttonWithIcon(Icon.STAR, theme, event -> {
                 game.selectTheme(theme);
             });
 
