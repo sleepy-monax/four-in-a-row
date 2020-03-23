@@ -1,5 +1,7 @@
 @import "table-view.css";
 @import "slider.css";
+@import "panel.css";
+@import "text.css";
 
 @font-face {
     font-family: roboto;
@@ -121,11 +123,6 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
 }
 
-.FIR_label{
-    -fx-text-fill: white;
-    -fx-font-size: 24;
-}
-
 .FIR_buzzer {
     -fx-background-image: url("buzzer.png");
     -fx-background-repeat: no-repeat;
@@ -144,13 +141,6 @@
 
 .FIR_big-buzzer:pressed {
     -fx-background-image: url("big-buzzer-pressed.png");
-}
-
-.FIR_title {
-    -fx-text-fill: white;
-    -fx-font-family: 'candice';
-    -fx-font-size: 32pt;
-    -fx-effect: dropshadow(gaussian, rgba(128, 128, 128, 1), 1, 0, 0.0, 4.0);
 }
 
 .FIR_player-state {

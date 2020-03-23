@@ -1,6 +1,5 @@
 package views.menu;
 
-import views.widgets.Title;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -10,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.StackPane;
 import models.Player;
 import utils.StageManager;
+import views.TextStyle;
 import views.View;
 import views.Widget;
 
@@ -37,6 +37,6 @@ public class Score extends View {
         Button backButton = Widget.button("Go back", event -> StageManager.switchView(new Main()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        this.getChildren().addAll(new Title("Score"), tableView, backButton);
+        this.getChildren().addAll(Widget.text("Score", TextStyle.TITLE), tableView, backButton);
     }
 }

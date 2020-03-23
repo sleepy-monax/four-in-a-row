@@ -132,10 +132,17 @@ public final class Widget {
         return field;
     }
 
-    public static Label label(String text) {
+    public static Label text(String text, TextStyle style) {
         Label label = new Label(text);
 
-        label.getStyleClass().add("FIR_label");
+        if (style == TextStyle.TITLE)
+        {
+            StackPane.setAlignment(label, Pos.TOP_CENTER);
+        }
+
+        label.getStyleClass().add(style.styleClass);
+
+        label.setTextOverrun(OverrunStyle.CLIP);
 
         return label;
     }
@@ -223,5 +230,14 @@ public final class Widget {
         });
 
         return slider;
+    }
+
+    public static Region panel(Node content)
+    {
+        StackPane pane = new StackPane(content);
+
+        pane.getStyleClass().add("panel");
+
+        return pane;
     }
 }

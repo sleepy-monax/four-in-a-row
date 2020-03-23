@@ -5,6 +5,7 @@ import models.Deck;
 import models.Difficulty;
 import models.Game;
 import utils.Serialization;
+import utils.SettingsManager;
 
 public class SinglePlayer extends GameController {
 
@@ -17,7 +18,7 @@ public class SinglePlayer extends GameController {
         Game game = new Game(Deck.load(), Difficulty.MEDIUM);
         SinglePlayer singleplayer = new SinglePlayer(game);
 
-        game.joinPlayer("Local Player");
+        game.joinPlayer(SettingsManager.get().getPlayerName());
         game.start();
     }
 }

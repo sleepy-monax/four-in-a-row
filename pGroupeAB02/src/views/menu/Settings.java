@@ -5,99 +5,108 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
-import utils.SettingsManager;
 import utils.Icon;
+import utils.SettingsManager;
 import utils.StageManager;
+import views.Layout;
+import views.TextStyle;
 import views.View;
-import views.widgets.Title;
-import static views.Widget.*;
+import views.Widget;
+
 import static views.Layout.*;
+import static views.Widget.*;
 
 public class Settings extends View {
     public Settings() {
         this.setPadding(new Insets(32));
         this.setAlignment(Pos.CENTER);
 
-        Node menu = width(
-                512,
-                verticallyCentered(
-                        vertical(
+        Node menu =
+                vertical(
+                        16,
+                        verticallyCentered(
+                                text("Username", TextStyle.SUBTITLE)
+                        ),
+                        textField(
+                                () -> SettingsManager.get().getPlayerName(),
+                                newName -> SettingsManager.get().setPlayerName(newName)
+                        ),
+                        verticallyCentered(
+                                text("Graphics", TextStyle.SUBTITLE)
+                        ),
+                        horizontal(
                                 16,
                                 verticallyCentered(
-                                        label("Username")
+                                        width(128, text("Fullscreen", TextStyle.LABEL))
                                 ),
-                                textField(
-                                        ()->SettingsManager.get().getPlayerName(),
-                                        newName -> SettingsManager.get().setPlayerName(newName)
-                                ),
+                                iconButton(
+                                        () -> SettingsManager.get().isGraphicFullscreen() ? Icon.FULLSCREEN_EXIT : Icon.FULLSCREEN,
+                                        event -> SettingsManager.get().toggleGraphicFullscreen()
+                                )
+                        ),
+                        horizontal(
+                                16,
                                 verticallyCentered(
-                                        label("Graphics")
+                                        width(128, text("Parallax", TextStyle.LABEL))
                                 ),
-                                horizontal(
-                                        16,
+                                fill(
                                         verticallyCentered(
-                                                width(128, label("Fullscreen: "))
-                                        ),
-                                        iconButton(
-                                                () -> SettingsManager.get().isGraphicFullscreen() ? Icon.FULLSCREEN_EXIT : Icon.FULLSCREEN,
-                                                event -> SettingsManager.get().toggleGraphicFullscreen()
-                                        )
-                                ),
-                                verticallyCentered(
-                                        label("Audio")
-                                ),
-                                horizontal(
-                                        16,
-                                        verticallyCentered(
-                                                width(96, label("Muted: "))
-                                        ),
-                                        iconButton(
-                                                () -> SettingsManager.get().getAudioMuted() ? Icon.VOLUME_OFF : Icon.VOLUME_UP,
-                                                event -> SettingsManager.get().toggleAudioMuted()
-                                        )
-                                ),
-                                horizontal(
-                                        16,
-                                        verticallyCentered(
-                                                width(96, label("Music: "))
-                                        ),
-                                        fill(
-                                                verticallyCentered(
-                                                        slider(
-                                                                0,
-                                                                1,
-                                                                () -> SettingsManager.get().getAudioMusicVolume(),
-                                                                value -> SettingsManager.get().setAudioMusicVolume(value)
-                                                        )
+                                                slider(
+                                                        () -> SettingsManager.get().getGraphicParallax(),
+                                                        value -> SettingsManager.get().setGraphicParallax(value)
                                                 )
                                         )
+                                )
+                        ),
+                        verticallyCentered(
+                                text("Audio", TextStyle.SUBTITLE)
+                        ),
+                        horizontal(
+                                16,
+                                verticallyCentered(
+                                        width(96, text("Muted", TextStyle.LABEL))
                                 ),
-                                horizontal(
-                                        16,
+                                iconButton(
+                                        () -> SettingsManager.get().getAudioMuted() ? Icon.VOLUME_OFF : Icon.VOLUME_UP,
+                                        event -> SettingsManager.get().toggleAudioMuted()
+                                )
+                        ),
+                        horizontal(
+                                16,
+                                verticallyCentered(
+                                        width(96, text("Music", TextStyle.LABEL))
+                                ),
+                                fill(
                                         verticallyCentered(
-                                                width(96, label("Effects: "))
-                                        ),
-                                        fill(
-                                                verticallyCentered(
-                                                        slider(
-                                                                0,
-                                                                1,
-                                                                () -> SettingsManager.get().getAudioEffectVolume(),
-                                                                value -> SettingsManager.get().setAudioEffectVolume(value)
-                                                        )
+                                                slider(
+                                                        () -> SettingsManager.get().getAudioMusicVolume(),
+                                                        value -> SettingsManager.get().setAudioMusicVolume(value)
+                                                )
+                                        )
+                                )
+                        ),
+                        horizontal(
+                                16,
+                                verticallyCentered(
+                                        width(96, text("Effects", TextStyle.LABEL))
+                                ),
+                                fill(
+                                        verticallyCentered(
+                                                slider(
+                                                        () -> SettingsManager.get().getAudioEffectVolume(),
+                                                        value -> SettingsManager.get().setAudioEffectVolume(value)
                                                 )
                                         )
                                 )
                         )
-                )
-        );
+                );
 
         Button backButton = button("Go back", event -> {
-                SettingsManager.save();
-                StageManager.switchView(new Main());
+            SettingsManager.save();
+            StageManager.switchView(new Main());
         });
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        this.getChildren().addAll(new Title("Settings"), menu, backButton);
+        this.getChildren().addAll(Widget.text("Settings", TextStyle.TITLE), Layout.verticallyCentered(Layout.width(512, Widget.panel(menu))), backButton);
     }
 }

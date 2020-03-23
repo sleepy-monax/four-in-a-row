@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.Question;
-import views.widgets.Title;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -13,6 +12,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.StackPane;
 import models.Deck;
 import utils.StageManager;
+import views.TextStyle;
 import views.View;
 import views.Widget;
 
@@ -44,7 +44,7 @@ public class Editor extends View {
         Button backButton = Widget.button("Go back", actionEvent -> StageManager.switchView(new Main()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        getChildren().addAll(new Title("Editor"), table, backButton);
+        getChildren().addAll(Widget.text("Editor", TextStyle.TITLE), table, backButton);
     }
 
 

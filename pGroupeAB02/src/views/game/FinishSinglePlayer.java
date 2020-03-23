@@ -2,25 +2,34 @@ package views.game;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import models.Game;
 import views.Layout;
+import views.TextStyle;
 import views.View;
 import views.Widget;
-import views.widgets.Title;
 
 public class FinishSinglePlayer extends View {
 
-    public FinishSinglePlayer(Game game ){
+    public FinishSinglePlayer(Game game) {
         this.setPadding(new Insets(32));
 
         Button goHome = Widget.button("Go home", event -> game.finish());
         StackPane.setAlignment(goHome, Pos.BOTTOM_LEFT);
         this.setAlignment(Pos.CENTER);
 
-        Title title = new Title("Hey "+game.getPlayer(0).getName()+" \n- Your score is: "+game.getPlayer(0).getScore()+" \n- Your max level is: "+game.getPlayer(0).getLevelMax());
+        Region panel = Widget.panel(Layout.vertical(
+                16,
+                Widget.text("Hey " + game.getPlayer(0).getName() + "!", TextStyle.SUBTITLE),
+                Widget.text("- Your score is: " + game.getPlayer(0).getScore(), TextStyle.LABEL),
+                Widget.text("- Your max level is: " + game.getPlayer(0).getLevelMax(), TextStyle.LABEL)
+        ));
 
-        this.getChildren().addAll(Layout.verticallyCentered(title) ,goHome);
+        StackPane.setAlignment(panel, Pos.CENTER);
+
+        this.getChildren().addAll(Widget.text("Game Finished!", TextStyle.TITLE), Layout.verticallyCentered(Layout.width(512, panel)), goHome);
     }
 }

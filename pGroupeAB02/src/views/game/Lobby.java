@@ -1,12 +1,12 @@
 package views.game;
 
+import javafx.scene.Node;
+import views.TextStyle;
 import views.widgets.PlayerState;
 import views.widgets.RoomPlayer;
-import views.widgets.Title;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.message.OnPlayerEvent;
@@ -43,14 +43,13 @@ public class Lobby extends View {
         Button backButton = Widget.button("Go back", actionEvent -> game.finish());
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        Pane startGame = Widget.buttonWithIcon(Icon.GROUP, "Start Game");
-        StackPane.setAlignment(startGame, Pos.BOTTOM_RIGHT);
-        startGame.setMaxWidth(256);
-        startGame.setOnMouseClicked(event -> {
+        Node startGame = Widget.buttonWithIcon(Icon.GROUP, "Start Game", event -> {
             game.start();
         });
 
-        menuContainer.getChildren().addAll(Widget.label("Players"));
+        StackPane.setAlignment(startGame, Pos.BOTTOM_RIGHT);
+
+        menuContainer.getChildren().addAll(Widget.text("Players", TextStyle.SUBTITLE));
 
         for (int i = 0; i < 4; i++) {
             menuContainer.getChildren().add(players[i]);
@@ -58,6 +57,6 @@ public class Lobby extends View {
 
         menuContainer.getChildren().add(startGame);
 
-        this.getChildren().addAll(new Title("Multiplayer Room"), menuContainer, backButton);
+        this.getChildren().addAll(Widget.text("Multiplayer Room", TextStyle.SUBTITLE), menuContainer, backButton);
     }
 }

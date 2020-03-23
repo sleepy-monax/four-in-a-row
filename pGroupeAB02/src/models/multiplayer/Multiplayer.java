@@ -5,7 +5,6 @@ import views.dialogs.InfoDialog;
 import models.Deck;
 import models.Difficulty;
 import models.Game;
-import utils.Serialization;
 
 public class Multiplayer {
     public static final int DEFAULT_PORT = 1234;

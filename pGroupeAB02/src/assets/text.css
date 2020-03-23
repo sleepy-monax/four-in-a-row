@@ -1,0 +1,21 @@
+.text-title {
+    -fx-font-family: 'candice';
+    -fx-effect: dropshadow(gaussian, rgba(128, 128, 128, 1), 1, 0, 0.0, 4.0);
+    -fx-font-size: 32pt;
+    -fx-text-fill: white;
+}
+
+.text-subtitle {
+    -fx-font-size: 16pt;
+    -fx-font-family: 'roboto';
+}
+
+.text-body {
+    -fx-font-size: 11pt;
+    -fx-font-family: 'roboto';
+}
+
+.text-label {
+    -fx-font-size: 11pt;
+    -fx-font-family: 'roboto';
+}
