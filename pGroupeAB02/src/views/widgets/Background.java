@@ -3,6 +3,7 @@ package views.widgets;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
+import javafx.scene.CacheHint;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -10,47 +11,48 @@ import utils.Animations;
 
 public class Background extends StackPane {
     private boolean spinnerVisible;
-    private double parallax = 1;
+    private double parallax = 0;
 
     private Pane gradient;
     private Pane glitter;
     private Pane spinner;
 
-    public Background(Boolean is_fancy) {
+    public Background() {
         gradient = new Pane();
         gradient.setId("background");
         gradient.setScaleX(1.25);
         gradient.setScaleY(1.25);
+        gradient.setCacheHint(CacheHint.SPEED);
 
         getChildren().add(gradient);
 
-        if (is_fancy) {
-            spinnerVisible = false;
+        spinnerVisible = false;
 
-            glitter = new Pane();
-            glitter.setId("glitter");
-            glitter.setScaleX(1.25);
-            glitter.setScaleY(1.25);
-            glitter.setOpacity(0);
+        glitter = new Pane();
+        glitter.setId("glitter");
+        glitter.setScaleX(1.25);
+        glitter.setScaleY(1.25);
+        glitter.setOpacity(0);
+        glitter.setCacheHint(CacheHint.SPEED);
 
-            spinner = new Pane();
-            spinner.setId("wheel");
-            spinner.setMinHeight(350);
-            spinner.setMinWidth(350);
-            spinner.setMaxHeight(350);
-            spinner.setMaxWidth(350);
-            spinner.setScaleX(0);
-            spinner.setScaleY(0);
-            spinner.setOpacity(0.25);
+        spinner = new Pane();
+        spinner.setId("wheel");
+        spinner.setMinHeight(350);
+        spinner.setMinWidth(350);
+        spinner.setMaxHeight(350);
+        spinner.setMaxWidth(350);
+        spinner.setScaleX(0);
+        spinner.setScaleY(0);
+        spinner.setOpacity(0.25);
+        spinner.setCacheHint(CacheHint.SPEED);
 
-            RotateTransition animation = new RotateTransition(Duration.seconds(16), spinner);
-            animation.setByAngle(360);
-            animation.setCycleCount(Transition.INDEFINITE);
-            animation.setInterpolator(Interpolator.LINEAR);
-            animation.play();
+        RotateTransition animation = new RotateTransition(Duration.seconds(16), spinner);
+        animation.setByAngle(360);
+        animation.setCycleCount(Transition.INDEFINITE);
+        animation.setInterpolator(Interpolator.LINEAR);
+        animation.play();
 
-            getChildren().addAll(glitter, spinner);
-        }
+        getChildren().addAll(glitter, spinner);
     }
 
     public void animate(double mouseX, double mouseY) {

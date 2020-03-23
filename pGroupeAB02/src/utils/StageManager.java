@@ -57,7 +57,7 @@ public final class StageManager {
         dialogContainer.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5)");
         dialogContainer.setPadding(new Insets(32));
 
-        background = new Background(true);
+        background = new Background();
 
         viewContainer.getChildren().add(background);
         viewContainer.getChildren().add(dummy);
