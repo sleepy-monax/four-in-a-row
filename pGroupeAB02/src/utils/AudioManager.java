@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class AudioManager {
-    private static final int MAX_SOUND_EFFECTS = 8;
+    private static final int MAX_SOUND_EFFECTS = 16;
 
     private static boolean muted = false;
     private static double musicVolume = 1.0;
@@ -131,6 +131,10 @@ public class AudioManager {
     }
 
     public static void playEffect(String name) {
+        playEffect(name, 1);
+    }
+
+    public static void playEffect(String name, double pitch) {
         if (effectPlayers.size() > MAX_SOUND_EFFECTS) {
             return;
         }
@@ -138,6 +142,8 @@ public class AudioManager {
         MediaPlayer effectPlayer = new MediaPlayer(getMedia(name));
 
         effectPlayer.setMute(muted);
+        effectPlayer.setRate(pitch);
+
 
         if (muted) {
             effectPlayer.setVolume(0);

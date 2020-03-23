@@ -7,20 +7,17 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import utils.AudioManager;
-import utils.Getter;
-import utils.Icon;
-import utils.StageManager;
+import utils.*;
+
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 public final class Widget {
     private Widget() {
@@ -158,36 +155,43 @@ public final class Widget {
         return buzzer;
     }
 
-    public static Node iconButton(Icon icon, EventHandler<? super MouseEvent> onClick) {
-        return iconButton(() -> icon, onClick);
-    }
-
-    public static Node iconButton(Getter<Icon> getIcon, EventHandler<? super MouseEvent> onClick)
-    {
-        StackPane iconButton = new StackPane();
-
-        iconButton.getStyleClass().addAll("button", "FIR_orb-button");
-
-        ImageView image = new ImageView(getIcon.call().path);
-        iconButton.getChildren().add(image);
-        StackPane.setAlignment(image, Pos.CENTER);
-
-        iconButton.setOnMouseClicked(event -> {
-            onClick.handle(event);
-            image.setImage(new Image(getIcon.call().path));
-        });
-
-        return iconButton;
-    }
-
-    public static Node slider(double min, double max, Getter<Double> getValue, Consumer<Double> onValueChange)
-    {
+    public static Node slider(Getter<Double> getValue, Consumer<Double> onValueChange) {
         Slider slider = new Slider();
 
-        slider.setMin(min);
-        slider.setMax(max);
+        slider.setMin(0);
+        slider.setMax(1);
         slider.setValue(getValue.call());
+
+        final int[] lastTick = {(int) (getValue.call() * 10)};
+        final long[] lastTickTime = {System.currentTimeMillis()};
+
+
         slider.valueProperty().addListener(event -> {
+            int tick = (int) (slider.getValue() * 15);
+            int tickDown = (int) (Math.ceil(slider.getValue() * 15));
+            int tickUp = (int) (Math.floor(slider.getValue() * 15));
+
+            if (tickDown == 0) {
+                AudioManager.playEffect(
+                        "assets/tick.wav",
+                        0.7);
+
+            } else if (tickUp == 15) {
+                AudioManager.playEffect(
+                        "assets/tick.wav",
+                        1);
+
+            } else if (Math.abs(lastTick[0] - tick) >= 1 && lastTickTime[0] + 50 <= System.currentTimeMillis()) {
+                lastTick[0] = tick;
+                lastTickTime[0] = System.currentTimeMillis();
+
+
+                AudioManager.playEffect(
+                        "assets/tick.wav",
+                        slider.getValue() * 0.1 + 0.8);
+            }
+
+
             onValueChange.accept(slider.getValue());
         });
 

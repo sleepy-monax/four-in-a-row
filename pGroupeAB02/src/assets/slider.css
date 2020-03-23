@@ -1,8 +1,4 @@
 .slider {
-    -fx-padding: 4;
-
-    -fx-background-radius: 32;
-    -fx-background-color: linear-gradient(#C6C6C6, #FFFFFF);
 }
 
 .slider .thumb {
@@ -20,5 +16,7 @@
 }
 
 .slider .track {
-
+    -fx-background-color: linear-gradient(#C6C6C6, #FFFFFF);
+    -fx-padding: 4;
+    -fx-background-radius: 4;
 }

@@ -59,9 +59,11 @@ public class Animations {
         scale.setFromY(from);
         scale.setToY(to);
 
-        if (then != null) {
-            scale.setOnFinished(even -> then.run());
-        }
+        scale.setOnFinished(even -> {
+            if (then != null) {
+                then.run();
+            }
+        });
 
         scale.play();
 
