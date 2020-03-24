@@ -2,15 +2,19 @@ package views.menu;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import models.Question;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.StackPane;
 import models.Deck;
+import utils.Serialization;
 import utils.StageManager;
 import views.TextStyle;
 import views.View;
@@ -21,20 +25,29 @@ public class Editor extends View {
         setPadding(new Insets(32));
 
         TableView table = new TableView();
+        table.setEditable(true);
 
         table.setMaxWidth(512);
         table.setMaxHeight(480);
 
         TableColumn answerColumn = new TableColumn("Answer");
         TableColumn themeColumn = new TableColumn("Theme");
-        TableColumn authorColumn = new TableColumn("Author");
+        TableColumn  authorColumn = new TableColumn("Author");
         TableColumn cluesColumn = new TableColumn("Clues");
 
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
+        authorColumn.setCellFactory(TextFieldTableCell. forTableColumn());
+
+
         themeColumn.setCellValueFactory(new PropertyValueFactory<>("theme"));
+        themeColumn.setCellFactory(TextFieldTableCell. forTableColumn());
         cluesColumn.setCellValueFactory(new PropertyValueFactory<>("clues"));
         answerColumn.setCellValueFactory(new PropertyValueFactory<>("answer"));
+        answerColumn.setCellFactory(TextFieldTableCell. forTableColumn());
         ObservableList< Question> list = FXCollections.observableArrayList(deck.getQuestions());
+
+
+
 
        table.setItems(list);
 
