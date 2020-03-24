@@ -18,7 +18,7 @@ public final class StageManager {
     public static final int DEFAULT_SCREEN_WIDTH = 960;
     public static final int DEFAULT_SCREEN_HEIGHT = 720;
     public static final String DEFAULT_STAGE_TITLE = "Four in a Row";
-    public static final String DEFAULT_STAGE_ICON = "assets/big-buzzer.png";
+    public static final String DEFAULT_STAGE_ICON = "assets/images/big-buzzer.png";
     private static Stage stage;
     private static StackPane viewContainer;
     private static StackPane dialogContainer;
@@ -111,11 +111,11 @@ public final class StageManager {
         Animations.fade(0, 1, 0.1, dialogContainer);
         Animations.translateY(128, 0, 0.1, dialog);
 
-        AudioManager.playEffect("assets/woosh.wav");
+        AudioManager.playEffect("assets/effects/woosh.wav");
         viewContainer.setEffect(new BoxBlur(8, 8, 2));
         com.sun.javafx.tk.Toolkit.getToolkit().enterNestedEventLoop(dialog);
         viewContainer.setEffect(null);
-        AudioManager.playEffect("assets/woosh.wav");
+        AudioManager.playEffect("assets/effects/woosh.wav");
 
         Animations.translateY(0, 128, 0.1, dialog);
         Animations.fade(1, 0, 0.1, () -> {

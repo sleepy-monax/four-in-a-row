@@ -23,8 +23,8 @@ public class AudioManager {
     }
 
     public static void initialize() {
-        playNow("assets/intro.wav", () -> {
-            playLoopNow("assets/loop.wav");
+        playNow("assets/musics/intro.wav", () -> {
+            playLoopNow("assets/musics/loop.wav");
         });
     }
 
@@ -32,7 +32,11 @@ public class AudioManager {
         if (!soundCache.containsKey(name)) {
             try {
                 System.out.println("AUDIO: Media cache *miss* for '" + name + "' !");
-                soundCache.put(name, new Media(Main.class.getResource("/" + name).toURI().toString()));
+                String soundURI = Main.class.getResource("/" + name).toURI().toString();
+
+                System.out.println("AUDIO: Loading media from " + soundURI);
+
+                soundCache.put(name, new Media(soundURI));
             } catch (URISyntaxException e) {
                 return null;
             }

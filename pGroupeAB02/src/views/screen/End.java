@@ -23,7 +23,7 @@ public class End extends View {
 
         this.getChildren().addAll(background, logo);
 
-        AudioManager.playNow("assets/end.wav", StageManager::quit);
+        AudioManager.playNow("assets/musics/end.wav", StageManager::quit);
 
         StageManager.background().hideSpinner();
     }

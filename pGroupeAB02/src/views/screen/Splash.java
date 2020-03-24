@@ -58,8 +58,8 @@ public class Splash extends View {
         StageManager.background().showSpinner();
         StageManager.switchView(new Main());
 
-        AudioManager.playNow("assets/transition.wav", () -> {
-            AudioManager.playLoopNow("assets/loop2.wav");
+        AudioManager.playNow("assets/musics/transition.wav", () -> {
+            AudioManager.playLoopNow("assets/musics/loop2.wav");
         });
     }
 }

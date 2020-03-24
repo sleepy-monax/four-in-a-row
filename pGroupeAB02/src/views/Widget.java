@@ -43,7 +43,7 @@ public final class Widget {
         button.setMinWidth(96);
         button.setAlignment(Pos.CENTER);
 
-        button.setOnMousePressed(event -> AudioManager.playEffect("assets/click.wav"));
+        button.setOnMousePressed(event -> AudioManager.playEffect("assets/effects/click.wav"));
         button.setOnMouseClicked(event -> {
             Animations.scale(1.1, 1.0, 0.1, button);
             onClick.handle(event);
@@ -78,7 +78,7 @@ public final class Widget {
         button.getChildren().addAll(label, orb);
         button.setMaxHeight(72);
 
-        button.setOnMousePressed(event -> AudioManager.playEffect("assets/click.wav"));
+        button.setOnMousePressed(event -> AudioManager.playEffect("assets/effects/click.wav"));
         button.setOnMouseClicked(event -> {
             Animations.scale(1.1, 1.0, 0.1, button);
             onClick.handle(event);
@@ -100,7 +100,7 @@ public final class Widget {
         iconButton.getChildren().add(image);
         StackPane.setAlignment(image, Pos.CENTER);
 
-        iconButton.setOnMousePressed(event -> AudioManager.playEffect("assets/click.wav"));
+        iconButton.setOnMousePressed(event -> AudioManager.playEffect("assets/effects/click.wav"));
 
         iconButton.setOnMouseClicked(event -> {
             Animations.scale(1.1, 1.0, 0.1, iconButton);
@@ -168,7 +168,7 @@ public final class Widget {
             if (click_count.get() == 10) {
                 StageManager.setTitle("Ah oui oui oui oui oui");
             } else {
-                AudioManager.playEffect("assets/bruh.wav");
+                AudioManager.playEffect("assets/effects/bruh.wav");
             }
         });
 
@@ -186,10 +186,10 @@ public final class Widget {
         buzzer.setOnMouseClicked(mouseEvent -> {
             if (click_count.incrementAndGet() == 1) {
                 StageManager.setTitle("Ah oui oui oui oui oui");
-                AudioManager.playEffect("assets/ouai.wav");
+                AudioManager.playEffect("assets/effects/ouai.wav");
 
             } else if (click_count.get() > 1) {
-                AudioManager.playEffect("assets/bruh.wav");
+                AudioManager.playEffect("assets/effects/bruh.wav");
             }
         });
 
@@ -214,12 +214,12 @@ public final class Widget {
 
             if (tickDown == 0) {
                 AudioManager.playEffect(
-                        "assets/tick.wav",
+                        "assets/effects/tick.wav",
                         0.7);
 
             } else if (tickUp == 15) {
                 AudioManager.playEffect(
-                        "assets/tick.wav",
+                        "assets/effects/tick.wav",
                         1);
 
             } else if (Math.abs(lastTick[0] - tick) >= 1 && lastTickTime[0] + 50 <= System.currentTimeMillis()) {
@@ -228,7 +228,7 @@ public final class Widget {
 
 
                 AudioManager.playEffect(
-                        "assets/tick.wav",
+                        "assets/effects/tick.wav",
                         slider.getValue() * 0.1 + 0.8);
             }
 

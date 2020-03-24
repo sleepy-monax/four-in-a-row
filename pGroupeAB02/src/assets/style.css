@@ -5,12 +5,12 @@
 
 @font-face {
     font-family: roboto;
-    src: url('roboto.ttf');
+    src: url('fonts/roboto.ttf');
 }
 
 @font-face {
     font-family: candice;
-    src: url('candice.ttf');
+    src: url('fonts/candice.ttf');
 }
 
 .root {
@@ -18,26 +18,26 @@
 }
 
 #background {
-    -fx-background-image: url("background.png");
+    -fx-background-image: url("images/background.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
 }
 
 #glitter {
     -fx-background-color: transparent;
-    -fx-background-image: url("glitter.png");
+    -fx-background-image: url("images/glitter.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
 }
 
 
 #wheel{
-    -fx-background-image: url("wheel.png");
+    -fx-background-image: url("images/wheel.png");
     -fx-background-size: cover;
 }
 
 #logo {
-    -fx-background-image: url("logo.png");
+    -fx-background-image: url("images/logo.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
     -fx-min-width: 512;
@@ -124,23 +124,23 @@
 }
 
 .FIR_buzzer {
-    -fx-background-image: url("buzzer.png");
+    -fx-background-image: url("images/buzzer.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
 }
 
 .FIR_buzzer:pressed {
-    -fx-background-image: url("buzzer-pressed.png");
+    -fx-background-image: url("images/buzzer-pressed.png");
 }
 
 .FIR_big-buzzer{
-    -fx-background-image: url("big-buzzer.png");
+    -fx-background-image: url("images/big-buzzer.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
 }
 
 .FIR_big-buzzer:pressed {
-    -fx-background-image: url("big-buzzer-pressed.png");
+    -fx-background-image: url("images/big-buzzer-pressed.png");
 }
 
 .FIR_player-state {
