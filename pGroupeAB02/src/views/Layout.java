@@ -18,8 +18,10 @@ public class Layout {
         return node;
     }
 
-    public static Region width(double width, Region region)
+    public static  Node width(double width, Node node)
     {
+        Region region = (Region) node;
+
         region.setMaxWidth(width);
         region.setPrefWidth(width);
 

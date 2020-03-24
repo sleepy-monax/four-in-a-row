@@ -9,6 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.Game;
 import utils.Icon;
+import views.Layout;
 import views.TextStyle;
 import views.View;
 import views.Widget;
@@ -28,7 +29,7 @@ public class SelectTheme extends View {
                 game.selectTheme(theme);
             });
 
-            themesList.getChildren().add(themeButton);
+            themesList.getChildren().add(Layout.width(360, themeButton));
         }
 
         Button backButton = Widget.button("Go back", event -> game.finish());

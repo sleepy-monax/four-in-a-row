@@ -1,12 +1,9 @@
 package views.menu;
 
-import javafx.scene.Node;
-import views.dialogs.YesNo;
-import views.dialogs.YesNoDialog;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.Deck;
@@ -14,8 +11,11 @@ import models.multiplayer.Multiplayer;
 import models.singleplayer.SinglePlayer;
 import utils.Icon;
 import utils.StageManager;
+import views.Layout;
+import views.View;
 import views.Widget;
-import views.*;
+import views.dialogs.YesNo;
+import views.dialogs.YesNoDialog;
 import views.game.Join;
 import views.screen.End;
 
@@ -45,8 +45,15 @@ public class Main extends View {
         orbContainer.setPadding(new Insets(24, 0, 0, 0));
         StackPane.setAlignment(orbContainer, Pos.BOTTOM_CENTER);
 
-        VBox menuContainer = new VBox(16, Widget.logo(), singleplayerButton, joinMultiplayerButton,
-                hostMultiplayerButton, orbContainer) {
+        VBox menuContainer = new VBox(
+                16,
+                Widget.logo(),
+                Layout.horizontallyCentered(Layout.width(360, Layout.vertical(16,
+                        singleplayerButton,
+                        joinMultiplayerButton,
+                        hostMultiplayerButton
+                ))),
+                orbContainer) {
             {
                 setAlignment(Pos.CENTER);
                 setMaxWidth(512);
