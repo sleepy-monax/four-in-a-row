@@ -24,78 +24,53 @@ public class Settings extends View {
         Node menu =
                 vertical(
                         16,
-                        verticallyCentered(
-                                text("Username", TextStyle.SUBTITLE)
+                        horizontallyCentered(
+                                horizontal(
+                                        16,
+                                        iconButton(
+                                                () -> SettingsManager.get().getAudioMuted() ? Icon.VOLUME_OFF : Icon.VOLUME_UP,
+                                                event -> SettingsManager.get().toggleAudioMuted()
+                                        ),
+                                        iconButton(
+                                                () -> SettingsManager.get().isGraphicFullscreen() ? Icon.FULLSCREEN_EXIT : Icon.FULLSCREEN,
+                                                event -> SettingsManager.get().toggleGraphicFullscreen()
+                                        )
+                                )
                         ),
+                        text("Username", TextStyle.SUBTITLE),
                         textField(
                                 () -> SettingsManager.get().getPlayerName(),
                                 newName -> SettingsManager.get().setPlayerName(newName)
                         ),
-                        verticallyCentered(
-                                text("Graphics", TextStyle.SUBTITLE)
-                        ),
-                        horizontal(
-                                16,
-                                verticallyCentered(
-                                        width(128, text("Fullscreen", TextStyle.LABEL))
-                                ),
-                                iconButton(
-                                        () -> SettingsManager.get().isGraphicFullscreen() ? Icon.FULLSCREEN_EXIT : Icon.FULLSCREEN,
-                                        event -> SettingsManager.get().toggleGraphicFullscreen()
-                                )
-                        ),
-                        horizontal(
-                                16,
-                                verticallyCentered(
-                                        width(128, text("Parallax", TextStyle.LABEL))
-                                ),
+                        text("Graphics", TextStyle.SUBTITLE),
+                        vertical(
+                                4,
+                                text("Parallax", TextStyle.LABEL),
                                 fill(
-                                        verticallyCentered(
-                                                slider(
-                                                        () -> SettingsManager.get().getGraphicParallax(),
-                                                        value -> SettingsManager.get().setGraphicParallax(value)
-                                                )
+                                        slider(
+                                                () -> SettingsManager.get().getGraphicParallax(),
+                                                value -> SettingsManager.get().setGraphicParallax(value)
                                         )
                                 )
                         ),
-                        verticallyCentered(
-                                text("Audio", TextStyle.SUBTITLE)
-                        ),
-                        horizontal(
-                                16,
-                                verticallyCentered(
-                                        width(96, text("Muted", TextStyle.LABEL))
-                                ),
-                                iconButton(
-                                        () -> SettingsManager.get().getAudioMuted() ? Icon.VOLUME_OFF : Icon.VOLUME_UP,
-                                        event -> SettingsManager.get().toggleAudioMuted()
-                                )
-                        ),
-                        horizontal(
-                                16,
-                                verticallyCentered(
-                                        width(96, text("Music", TextStyle.LABEL))
-                                ),
+                        text("Audio", TextStyle.SUBTITLE),
+                        vertical(
+                                4,
+                                text("Music", TextStyle.LABEL),
                                 fill(
-                                        verticallyCentered(
-                                                slider(
-                                                        () -> SettingsManager.get().getAudioMusicVolume(),
-                                                        value -> SettingsManager.get().setAudioMusicVolume(value)
-                                                )
+                                        slider(
+                                                () -> SettingsManager.get().getAudioMusicVolume(),
+                                                value -> SettingsManager.get().setAudioMusicVolume(value)
                                         )
                                 )
                         ),
-                        horizontal(
-                                16,
-                                verticallyCentered(
-                                        width(96, text("Effects", TextStyle.LABEL))
-                                ),
+                        vertical(
+                                4,
+                                text("Effects", TextStyle.LABEL),
                                 fill(
-                                        verticallyCentered(
-                                                slider(
-                                                        () -> SettingsManager.get().getAudioEffectVolume(),
-                                                        value -> SettingsManager.get().setAudioEffectVolume(value)
-                                                )
+                                        slider(
+                                                () -> SettingsManager.get().getAudioEffectVolume(),
+                                                value -> SettingsManager.get().setAudioEffectVolume(value)
                                         )
                                 )
                         )
