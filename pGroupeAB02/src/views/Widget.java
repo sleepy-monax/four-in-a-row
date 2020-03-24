@@ -44,7 +44,10 @@ public final class Widget {
         button.setAlignment(Pos.CENTER);
 
         button.setOnMousePressed(event -> AudioManager.playEffect("assets/click.wav"));
-        button.setOnMouseClicked(onClick);
+        button.setOnMouseClicked(event -> {
+            Animations.scale(1.1, 1.0, 0.1, button);
+            onClick.handle(event);
+        });
 
         return button;
     }
@@ -76,7 +79,10 @@ public final class Widget {
         button.setMaxHeight(72);
 
         button.setOnMousePressed(event -> AudioManager.playEffect("assets/click.wav"));
-        button.setOnMouseClicked(onClick);
+        button.setOnMouseClicked(event -> {
+            Animations.scale(1.1, 1.0, 0.1, button);
+            onClick.handle(event);
+        });
 
         return button;
     }
@@ -97,6 +103,7 @@ public final class Widget {
         iconButton.setOnMousePressed(event -> AudioManager.playEffect("assets/click.wav"));
 
         iconButton.setOnMouseClicked(event -> {
+            Animations.scale(1.1, 1.0, 0.1, iconButton);
             onClick.handle(event);
             image.setImage(new Image(getIcon.call().path));
         });
