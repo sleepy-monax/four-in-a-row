@@ -203,3 +203,15 @@
     -fx-font-size: 64;
     -fx-font-weight: bold;
 }
+
+.actualScore{
+    -fx-text-fill: linear-gradient(#999, #fff);
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
+}
+
+.maxLevel{
+    -fx-text-fill: linear-gradient(#999, #fff);
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+}

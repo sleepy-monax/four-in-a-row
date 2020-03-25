@@ -1,8 +1,7 @@
 package views.game;
 
-import views.widgets.AnswerField;
-import views.widgets.ClueStack;
-import views.widgets.Countdown;
+import javafx.scene.control.Label;
+import views.widgets.*;
 import views.dialogs.YesNo;
 import views.dialogs.YesNoDialog;
 import javafx.geometry.Insets;
@@ -23,6 +22,8 @@ public class MainGame extends View {
     private final ClueStack clueStack;
     private final AnswerField answer;
     private final Countdown countdown;
+    private final ActualScore actualScore;
+    private final MaxLevel maxLevel;
     private Notifiable onNewClueNotifier;
     private Notifiable onCountdownNotifier;
     private Notifiable onAnswerCorrect;
@@ -45,7 +46,11 @@ public class MainGame extends View {
             game.pass();
         });
 
+
+
         countdown = new Countdown();
+        actualScore = new ActualScore(game.getPlayer(0).getScore());
+        maxLevel = new MaxLevel(game.getPlayer(0).getLevelMax());
 
         BorderPane sidebar = new BorderPane();
 
@@ -54,6 +59,7 @@ public class MainGame extends View {
         sidebar.setPadding(new Insets(16));
 
         sidebar.setTop(new VBox(16, new StackPane(quitButton), new StackPane(passButton)));
+        sidebar.setCenter(new VBox(new StackPane(actualScore), new StackPane(maxLevel)));
         sidebar.setBottom(new StackPane(countdown));
 
         clueStack = new ClueStack();
@@ -83,11 +89,14 @@ public class MainGame extends View {
         onAnswerCorrect = game.getMessageLoop().registerNotifier(OnAnswerCorrect.class, message -> {
             clueStack.clearClues();
             answer.clear();
+            actualScore.update(game.getPlayer(0).getScore());
+            maxLevel.update(game.getPlayer(0).getLevelMax());
         });
 
         onAnswerIncorrect = game.getMessageLoop().registerNotifier(OnAnswerIncorrect.class, message -> {
             ShakeTransition shake = new ShakeTransition(answer, Duration.seconds(0.5), 16, 3);
             shake.play();
+            maxLevel.update(game.getPlayer(0).getLevelMax());
         });
 
         onQuestionPassed = game.getMessageLoop().registerNotifier(OnQuestionPassed.class, message -> {
