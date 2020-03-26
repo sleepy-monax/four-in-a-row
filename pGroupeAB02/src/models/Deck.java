@@ -112,4 +112,8 @@ public class Deck implements Serializable {
 
         return deck;
     }
+
+    public void save() {
+        Serialization.writeToJsonFile("questions.json", this);
+    }
 }

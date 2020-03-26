@@ -47,8 +47,7 @@ public class Editor extends View {
             Question question =  event.getTableView().getItems().get(row);
 
             question.setAuthor(newAuthor);
-            Serialization.writeToJsonFile("src/assets/questions.json",deck);
-
+            deck.save();
         });
 
 
@@ -64,8 +63,7 @@ public class Editor extends View {
             Question question =  event.getTableView().getItems().get(row);
 
             question.setTheme(newTheme);
-            Serialization.writeToJsonFile("src/assets/questions.json",deck);
-
+            deck.save();
         });
         //Edit cluesColumn
         cluesColumn.setCellValueFactory(new PropertyValueFactory<>("clues"));
@@ -81,7 +79,7 @@ public class Editor extends View {
 
             Question question= event.getTableView().getItems().get(row);
             question.setAnswer(newAnswer);
-            Serialization.writeToJsonFile("src/assets/questions.json", deck);
+            deck.save();
         });
 
         ObservableList< Question> list = FXCollections.observableArrayList(deck.getQuestions());
