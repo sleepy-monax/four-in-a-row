@@ -30,26 +30,63 @@ public class Editor extends View {
         table.setMaxWidth(512);
         table.setMaxHeight(480);
 
-        TableColumn answerColumn = new TableColumn("Answer");
-        TableColumn themeColumn = new TableColumn("Theme");
-        TableColumn  authorColumn = new TableColumn("Author");
+        TableColumn <Question, String> answerColumn = new TableColumn <Question, String>("Answer");
+        TableColumn <Question, String> themeColumn = new TableColumn <Question, String>("Theme");
+        TableColumn <Question, String> authorColumn = new TableColumn <Question, String>("Author");
         TableColumn cluesColumn = new TableColumn("Clues");
 
+        //Edit authorColumn
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
         authorColumn.setCellFactory(TextFieldTableCell. forTableColumn());
+        authorColumn.setOnEditCommit((CellEditEvent <Question, String> event) -> {
+            TablePosition <Question, String> pos = event.getTablePosition();
+
+            String newAuthor =  event.getNewValue();
+
+            int row = pos.getRow();
+            Question question =  event.getTableView().getItems().get(row);
+
+            question.setAuthor(newAuthor);
+            Serialization.writeToJsonFile("src/assets/questions.json",deck);
+
+        });
 
 
+        // Edit themeColumn
         themeColumn.setCellValueFactory(new PropertyValueFactory<>("theme"));
-        themeColumn.setCellFactory(TextFieldTableCell. forTableColumn());
+        themeColumn.setCellFactory(TextFieldTableCell.<Question> forTableColumn());
+        themeColumn.setOnEditCommit((CellEditEvent <Question, String> event) -> {
+            TablePosition <Question, String> pos = event.getTablePosition();
+
+            String newTheme =  event.getNewValue();
+
+            int row = pos.getRow();
+            Question question =  event.getTableView().getItems().get(row);
+
+            question.setTheme(newTheme);
+            Serialization.writeToJsonFile("src/assets/questions.json",deck);
+
+        });
+        //Edit cluesColumn
         cluesColumn.setCellValueFactory(new PropertyValueFactory<>("clues"));
+        // Edit answerColumn
         answerColumn.setCellValueFactory(new PropertyValueFactory<>("answer"));
         answerColumn.setCellFactory(TextFieldTableCell. forTableColumn());
+        answerColumn.setOnEditCommit((CellEditEvent<Question, String> event) ->{
+            TablePosition <Question, String> pos= event.getTablePosition();
+
+            String newAnswer= event.getNewValue();
+
+            int row=pos.getRow();
+
+            Question question= event.getTableView().getItems().get(row);
+            question.setAnswer(newAnswer);
+            Serialization.writeToJsonFile("src/assets/questions.json", deck);
+        });
+
         ObservableList< Question> list = FXCollections.observableArrayList(deck.getQuestions());
 
-
-
-
-       table.setItems(list);
+        table.setItems(list);
 
         table.getColumns().addAll(answerColumn, themeColumn, authorColumn, cluesColumn);
 
