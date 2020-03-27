@@ -14,7 +14,6 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.StackPane;
 import models.Deck;
-import utils.Serialization;
 import utils.StageManager;
 import views.TextStyle;
 import views.View;
