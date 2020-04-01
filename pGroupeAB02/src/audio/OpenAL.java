@@ -2,47 +2,60 @@ package audio;
 
 import org.lwjgl.openal.*;
 
-import static org.lwjgl.openal.AL10.*;
+import utils.ThreadManager;
+
 import static org.lwjgl.openal.ALC10.*;
 
 public class OpenAL {
-    public static void main(String[] args) {
-        // Initialization
+    private static long device;
+    private static long context;
+
+    public static void initialize() {
         String defaultDeviceName = alcGetString(0, ALC_DEFAULT_DEVICE_SPECIFIER);
-        long device = alcOpenDevice(defaultDeviceName);
+        device = alcOpenDevice(defaultDeviceName);
 
         int[] attributes = { 0 };
-        long context = alcCreateContext(device, attributes);
+
+        context = alcCreateContext(device, attributes);
         alcMakeContextCurrent(context);
 
         ALCCapabilities alcCapabilities = ALC.createCapabilities(device);
         ALCapabilities alCapabilities = AL.createCapabilities(alcCapabilities);
+    }
 
-        AudioBuffer buffer = AudioBuffer.loadFromFile("src/assets/musics/loop.ogg");
-        AudioBuffer buffer2 = AudioBuffer.loadFromFile("src/assets/musics/loop2.ogg");
+    public static void shutdown() {
+        alcDestroyContext(context);
+        alcCloseDevice(device);
+    }
 
-        // Request a source
-        int sourcePointer = alGenSources();
+    public static void main(String[] args) {
+        ThreadManager.initialize();
+        OpenAL.initialize();
 
-        // Assign the sound we just loaded to the source
-        alSourcei(sourcePointer, AL_LOOPING, 1);
+        AudioBuffer bufferIntro = AudioBuffer.loadFrom("assets/musics/intro.wav");
+        AudioBuffer bufferLoop = AudioBuffer.loadFrom("assets/musics/loop.wav");
+        AudioBuffer bufferTransition = AudioBuffer.loadFrom("assets/musics/transition.wav");
+        AudioBuffer bufferLoop2 = AudioBuffer.loadFrom("assets/musics/loop2.wav");
+        AudioBuffer bufferTransition2 = AudioBuffer.loadFrom("assets/musics/transition2.wav");
+        AudioBuffer bufferEnd = AudioBuffer.loadFrom("assets/musics/end.wav");
 
-        // Play the sound
-        alSourceQueueBuffers(sourcePointer, buffer.handle());
-        alSourceQueueBuffers(sourcePointer, buffer2.handle());
-        alSourcePlay(sourcePointer);
+        System.out.println(bufferIntro.lenghtInSecounds());
+
+        AudioSource source = new AudioSource();
+        source.playNowWithTransition(bufferLoop, bufferIntro);
 
         try {
             // Wait for a second
+            Thread.sleep(15000);
+            System.out.println("Switching song");
+            source.playNowWithTransition(bufferLoop2, bufferTransition);
+            Thread.sleep(15000);
+            source.playNow(bufferEnd);
 
             Thread.sleep(1000000);
         } catch (InterruptedException ignored) {
         }
 
-        // Terminate OpenAL
-        alDeleteSources(sourcePointer);
-        buffer.close();
-        alcDestroyContext(context);
-        alcCloseDevice(device);
+        OpenAL.shutdown();
     }
 }

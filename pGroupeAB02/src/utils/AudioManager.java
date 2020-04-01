@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import audio.OpenAL;
+
 public class AudioManager {
     private static final int MAX_SOUND_EFFECTS = 16;
 
@@ -23,9 +25,28 @@ public class AudioManager {
     }
 
     public static void initialize() {
+        OpenAL.initialize();
+
         playNow("assets/musics/intro.wav", () -> {
             playLoopNow("assets/musics/loop.wav");
         });
+    }
+
+    public static void shutdown() {
+        if (musicPlayer != null) {
+            musicPlayer.stop();
+            musicPlayer.dispose();
+            musicPlayer = null;
+        }
+
+        for (MediaPlayer mediaPlayer : effectPlayers) {
+            mediaPlayer.stop();
+            mediaPlayer.dispose();
+        }
+
+        effectPlayers.clear();
+
+        OpenAL.shutdown();
     }
 
     public static Media getMedia(String name) {
@@ -148,7 +169,6 @@ public class AudioManager {
         effectPlayer.setMute(muted);
         effectPlayer.setRate(pitch);
 
-
         if (muted) {
             effectPlayer.setVolume(0);
         } else {
@@ -166,20 +186,5 @@ public class AudioManager {
 
     public static void stop() {
         musicPlayer.stop();
-    }
-
-    public static void shutdown() {
-        if (musicPlayer != null) {
-            musicPlayer.stop();
-            musicPlayer.dispose();
-            musicPlayer = null;
-        }
-
-        for (MediaPlayer mediaPlayer : effectPlayers) {
-            mediaPlayer.stop();
-            mediaPlayer.dispose();
-        }
-
-        effectPlayers.clear();
     }
 }
