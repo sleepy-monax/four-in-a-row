@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.nio.*;
 
 import static org.lwjgl.openal.AL10.*;
-import static org.lwjgl.stb.STBVorbis.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
 
 public class AudioBuffer {
