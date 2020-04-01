@@ -2,56 +2,99 @@ package audio;
 
 import static org.lwjgl.openal.AL10.*;
 
+import java.util.concurrent.Future;
+
+import javafx.application.Platform;
 import utils.ThreadManager;
 
 public class AudioSource {
-    private final int handle;
+    private int handle;
+    private double volume;
+    private boolean muted;
+    private Future future;
 
     public AudioSource() {
         handle = alGenSources();
     }
 
     public void reset() {
+        System.out.println("AUDIO: " + this + " reset!");
+
+        if (future != null) {
+            future.cancel(true);
+        }
+
         stop();
         setLooping(false);
-        alSourceUnqueueBuffers(handle);
+        unqueueProcessed();
     }
 
-    public void stop() {
+    private void stop() {
         alSourceStop(handle);
     }
 
-    public void play() {
+    private void play() {
         alSourcePlay(handle);
+    }
+
+    private void unqueueProcessed() {
+        int processed_count = alGetSourcei(handle, AL_BUFFERS_PROCESSED);
+
+        System.out.println("AUDIO: " + "Unqueing " + processed_count + " buffer from " + this);
+
+        for (int i = 0; i < processed_count; i++) {
+            alSourceUnqueueBuffers(handle);
+        }
     }
 
     public void setLooping(boolean looping) {
         alSourcei(handle, AL_LOOPING, looping ? AL_TRUE : AL_FALSE);
     }
 
-    public void playNow(AudioBuffer buffer) {
-        playNow(buffer, () -> {
-        });
+    public void setVolume(double volume) {
+        this.volume = volume;
+
+        if (!muted) {
+            alSourcef(handle, AL_GAIN, (float) volume);
+        }
     }
 
-    public void setVolume(double volume) {
-        alSourcef(handle, AL_GAIN, (float) volume);
+    public void setMuted(boolean muted) {
+        this.muted = muted;
+
+        if (muted) {
+            alSourcef(handle, AL_GAIN, (float) 0.0);
+        } else {
+            alSourcef(handle, AL_GAIN, (float) this.volume);
+        }
     }
 
     public void setPitch(double pitch) {
         alSourcef(handle, AL_PITCH, (float) pitch);
     }
 
+    public void playNow(AudioBuffer buffer) {
+        playNow(buffer, null);
+    }
+
     public void playNow(AudioBuffer buffer, Runnable then) {
+        System.out.println("AUDIO: " + this + ".PlayNow(" + buffer + ")");
+
         reset();
 
         alSourceQueueBuffers(handle, buffer.handle());
 
-        ThreadManager.launch(() -> {
+        future = ThreadManager.launch(() -> {
             try {
-                Thread.sleep((int) (1000 * (buffer.lenghtInSecounds() + 0.25)));
-                then.run();
+                Thread.sleep((int) (1000 * (buffer.lenghtInSecounds() + 0.1)));
+                stop();
+
+                if (then != null) {
+                    Platform.runLater(then);
+                }
             } catch (InterruptedException e) {
+                System.out.println("AUDIO: " + this + " interrupted!");
+
                 stop();
                 return;
             }
@@ -60,25 +103,46 @@ public class AudioSource {
         play();
     }
 
-    public void playNowWithTransition(AudioBuffer buffer, AudioBuffer transition) {
-        playNowWithTransition(buffer, transition, () -> {
-        });
+    public void playLoop(AudioBuffer buffer) {
+        System.out.println("AUDIO: " + this + ".PlayLoop(" + buffer + ")");
+        reset();
+
+        System.out.println("AUDIO: " + this + ".PlayLoop(" + buffer + "): queuing buffer...");
+        alSourceQueueBuffers(handle, buffer.handle());
+        setLooping(true);
+
+        play();
+        System.out.println("AUDIO: " + this + ".PlayLoop(" + buffer + "): Start playing");
     }
 
-    public void playNowWithTransition(AudioBuffer buffer, AudioBuffer transition, Runnable then) {
+    public void playLoopWithTransition(AudioBuffer buffer, AudioBuffer transition) {
+        playLoopWithTransition(buffer, transition, null);
+    }
+
+    public void playLoopWithTransition(AudioBuffer buffer, AudioBuffer transition, Runnable then) {
+        System.out.println("AUDIO: " + this + ".playLoopWithTransition(" + buffer + ", " + transition + ")");
         reset();
 
         alSourceQueueBuffers(handle, transition.handle());
         alSourceQueueBuffers(handle, buffer.handle());
 
-        ThreadManager.launch(() -> {
+        future = ThreadManager.launch(() -> {
             try {
-                Thread.sleep((int) (1000 * (transition.lenghtInSecounds() + 0.05)));
-                alSourceUnqueueBuffers(handle);
+                Thread.sleep((int) (1000 * (transition.lenghtInSecounds() + 0.1)));
+                System.out.println("AUDIO: " + this + " switching to the loop");
+
+                unqueueProcessed();
+
                 setLooping(true);
 
-                then.run();
+                if (then != null) {
+                    Platform.runLater(then);
+                }
+
+                System.out.println("AUDIO: " + this + " switching to the loop completed");
             } catch (InterruptedException e) {
+                System.out.println("AUDIO: " + this + " interrupted!");
+
                 stop();
                 return;
             }
@@ -88,6 +152,13 @@ public class AudioSource {
     }
 
     public void close() {
+        reset();
         alDeleteSources(handle);
+        handle = -1;
+    }
+
+    @Override
+    public String toString() {
+        return "AudioSource{" + handle + "}";
     }
 }

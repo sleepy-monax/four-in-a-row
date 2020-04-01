@@ -59,4 +59,9 @@ public class AudioBuffer {
     public void close() {
         AL10.alDeleteBuffers(handle);
     }
+
+    @Override
+    public String toString() {
+        return "AudioBuffer{" + handle + "}";
+    }
 }

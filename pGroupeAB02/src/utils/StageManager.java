@@ -2,6 +2,7 @@ package utils;
 
 import views.widgets.Background;
 import views.dialogs.Dialog;
+import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,6 +25,7 @@ public final class StageManager {
     private static StackPane dialogContainer;
     private static Background background;
     private static View currentView;
+
     private StageManager() {
     }
 
@@ -89,8 +91,10 @@ public final class StageManager {
 
         viewContainer.getChildren().add(nextView);
         nextView.setDisable(true);
+        nextView.onAttach();
 
         Animations.fade(0, 1, 0.25, () -> {
+            currentView.onDettach();
             viewContainer.getChildren().remove(currentView);
             currentView = nextView;
             nextView.onSwitchIn();
@@ -133,6 +137,7 @@ public final class StageManager {
     }
 
     public static void quit() {
+        System.out.println("Quitting...");
         stage.close();
     }
 

@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import models.Deck;
 import models.multiplayer.Multiplayer;
 import models.singleplayer.SinglePlayer;
+import utils.AudioManager;
 import utils.Icon;
 import utils.StageManager;
 import views.Layout;
@@ -22,11 +23,12 @@ import views.screen.End;
 public class Main extends View {
     public Main() {
         Node singleplayerButton = Widget.buttonWithIcon(Icon.PERSON, "Singleplayer", event -> SinglePlayer.play());
-        Node joinMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP_ADD, "Join Multiplayer", mouseEvent -> StageManager.switchView(new Join()));
-        Node hostMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP, "Host Multiplayer", mouseEvent -> Multiplayer.host(Multiplayer.DEFAULT_PORT));
+        Node joinMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP_ADD, "Join Multiplayer",
+                mouseEvent -> StageManager.switchView(new Join()));
+        Node hostMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP, "Host Multiplayer",
+                mouseEvent -> Multiplayer.host(Multiplayer.DEFAULT_PORT));
 
-        Node orbEditor = Widget.iconButton(Icon.EDIT, event -> StageManager
-                .switchView((new Editor(Deck.load()))));
+        Node orbEditor = Widget.iconButton(Icon.EDIT, event -> StageManager.switchView((new Editor(Deck.load()))));
 
         Node orbScores = Widget.iconButton(Icon.EMOJI_EVENTS, mouseEvent -> StageManager.switchView((new Score())));
 
@@ -45,14 +47,9 @@ public class Main extends View {
         orbContainer.setPadding(new Insets(24, 0, 0, 0));
         StackPane.setAlignment(orbContainer, Pos.BOTTOM_CENTER);
 
-        VBox menuContainer = new VBox(
-                16,
-                Widget.logo(),
-                Layout.horizontallyCentered(Layout.width(360, Layout.vertical(16,
-                        singleplayerButton,
-                        joinMultiplayerButton,
-                        hostMultiplayerButton
-                ))),
+        VBox menuContainer = new VBox(16, Widget.logo(),
+                Layout.horizontallyCentered(Layout.width(360,
+                        Layout.vertical(16, singleplayerButton, joinMultiplayerButton, hostMultiplayerButton))),
                 orbContainer) {
             {
                 setAlignment(Pos.CENTER);
@@ -63,4 +60,5 @@ public class Main extends View {
         this.setAlignment(Pos.CENTER);
         this.getChildren().add(menuContainer);
     }
+
 }

@@ -6,6 +6,12 @@ public abstract class View extends StackPane {
     public View() {
     }
 
+    public void onAttach() {
+    }
+
+    public void onDettach() {
+    }
+
     public void onSwitchIn() {
     }
 

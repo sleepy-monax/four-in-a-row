@@ -1,14 +1,13 @@
 package utils;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import main.Main;
-
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import audio.AudioBuffer;
+import audio.AudioSource;
 import audio.OpenAL;
+import main.Main;
 
 public class AudioManager {
     private static final int MAX_SOUND_EFFECTS = 16;
@@ -17,55 +16,62 @@ public class AudioManager {
     private static double musicVolume = 1.0;
     private static double effectVolume = 1.0;
 
-    private static HashMap<String, Media> soundCache = new HashMap<>();
-    private static MediaPlayer musicPlayer;
-    private static LinkedList<MediaPlayer> effectPlayers = new LinkedList<>();
+    private static AudioSource musicSource = null;
+    private static LinkedList<AudioSource> effectSources = new LinkedList<>();
+    private static HashMap<String, AudioBuffer> bufferCache = new HashMap<>();
 
     public AudioManager() {
     }
 
+    private static AudioSource makeNewMusicSource() {
+        if (musicSource != null) {
+            musicSource.close();
+        }
+
+        musicSource = new AudioSource();
+        musicSource.setMuted(muted);
+        musicSource.setVolume(musicVolume);
+
+        return musicSource;
+    }
+
     public static void initialize() {
         OpenAL.initialize();
-
-        playNow("assets/musics/intro.wav", () -> {
-            playLoopNow("assets/musics/loop.wav");
-        });
     }
 
     public static void shutdown() {
-        if (musicPlayer != null) {
-            musicPlayer.stop();
-            musicPlayer.dispose();
-            musicPlayer = null;
+        if (musicSource != null) {
+            musicSource.close();
         }
 
-        for (MediaPlayer mediaPlayer : effectPlayers) {
-            mediaPlayer.stop();
-            mediaPlayer.dispose();
+        for (AudioSource effectSource : effectSources) {
+            effectSource.close();
         }
 
-        effectPlayers.clear();
+        for (AudioBuffer buffer : bufferCache.values()) {
+            buffer.close();
+        }
 
+        bufferCache.clear();
         OpenAL.shutdown();
     }
 
-    public static Media getMedia(String name) {
-        if (!soundCache.containsKey(name)) {
+    public static AudioBuffer getBuffer(String name) {
+        if (!bufferCache.containsKey(name)) {
             try {
-                System.out.println("AUDIO: Media cache *miss* for '" + name + "' !");
-                String soundURI = Main.class.getResource("/" + name).toURI().toString();
+                System.out.println("AUDIO: Buffer cache *miss* for '" + name + "' !");
+                String bufferURI = Main.class.getResource("/" + name).toURI().toString();
+                System.out.println("AUDIO: Loading Buffer from " + bufferURI);
 
-                System.out.println("AUDIO: Loading media from " + soundURI);
-
-                soundCache.put(name, new Media(soundURI));
+                bufferCache.put(name, AudioBuffer.loadFrom(name));
             } catch (URISyntaxException e) {
                 return null;
             }
         } else {
-            System.out.println("AUDIO: Media cache hit for '" + name + "'");
+            System.out.println("AUDIO: Buffer cache hit for '" + name + "'");
         }
 
-        return soundCache.get(name);
+        return bufferCache.get(name);
     }
 
     public static double getMusicVolume() {
@@ -82,77 +88,41 @@ public class AudioManager {
 
     public static void setMusicVolume(double musicVolume) {
         AudioManager.musicVolume = musicVolume;
-        musicPlayer.setVolume(musicVolume);
+
+        if (musicSource != null) {
+            musicSource.setVolume(musicVolume);
+        }
     }
 
     public static void setEffectVolume(double effectVolume) {
         AudioManager.effectVolume = effectVolume;
-        for (MediaPlayer effect : effectPlayers) {
-            effect.setVolume(effectVolume);
+        for (AudioSource effectSource : effectSources) {
+            effectSource.setVolume(effectVolume);
         }
     }
 
     public static void setMuted(boolean muted) {
         AudioManager.muted = muted;
 
-        musicPlayer.setMute(muted);
-
-        if (muted) {
-            musicPlayer.setVolume(0);
-        } else {
-            musicPlayer.setVolume(musicVolume);
+        if (musicSource != null) {
+            musicSource.setMuted(muted);
         }
 
-        for (MediaPlayer effect : effectPlayers) {
-            effect.setMute(muted);
-
-            if (muted) {
-                effect.setVolume(0);
-            } else {
-                effect.setVolume(effectVolume);
-            }
+        for (AudioSource effectSource : effectSources) {
+            effectSource.setMuted(muted);
         }
     }
 
     public static void playNow(String name, Runnable then) {
-        if (musicPlayer != null) {
-            musicPlayer.stop();
-            musicPlayer.dispose();
-        }
+        makeNewMusicSource().playNow(getBuffer(name), then);
+    }
 
-        musicPlayer = new MediaPlayer(getMedia(name));
-        musicPlayer.setMute(muted);
-
-        if (muted) {
-            musicPlayer.setVolume(0);
-        } else {
-            musicPlayer.setVolume(musicVolume);
-        }
-
-        if (then != null)
-            musicPlayer.setOnEndOfMedia(then);
-
-        musicPlayer.play();
+    public static void playLoopWithTransition(String loop, String Transition) {
+        makeNewMusicSource().playLoopWithTransition(getBuffer(loop), getBuffer(Transition));
     }
 
     public static void playLoopNow(String name) {
-        if (musicPlayer != null) {
-            musicPlayer.stop();
-            musicPlayer.dispose();
-        }
-
-        musicPlayer = new MediaPlayer(getMedia(name));
-
-        musicPlayer.setCycleCount(Integer.MAX_VALUE);
-        musicPlayer.setMute(muted);
-
-        if (muted) {
-            musicPlayer.setVolume(0);
-        } else {
-            musicPlayer.setVolume(musicVolume);
-        }
-
-        musicPlayer.play();
+        makeNewMusicSource().playLoop(getBuffer(name));
     }
 
     public static void playEffect(String name) {
@@ -160,31 +130,25 @@ public class AudioManager {
     }
 
     public static void playEffect(String name, double pitch) {
-        if (effectPlayers.size() > MAX_SOUND_EFFECTS) {
+        if (effectSources.size() > MAX_SOUND_EFFECTS) {
             return;
         }
 
-        MediaPlayer effectPlayer = new MediaPlayer(getMedia(name));
+        AudioSource effectSource = new AudioSource();
 
-        effectPlayer.setMute(muted);
-        effectPlayer.setRate(pitch);
+        effectSource.setMuted(muted);
+        effectSource.setPitch(pitch);
+        effectSource.setVolume(effectVolume);
 
-        if (muted) {
-            effectPlayer.setVolume(0);
-        } else {
-            effectPlayer.setVolume(effectVolume);
-        }
-
-        effectPlayer.setOnEndOfMedia(() -> {
-            effectPlayers.remove(effectPlayer);
-            effectPlayer.dispose();
+        effectSources.add(effectSource);
+        effectSource.playNow(getBuffer(name), () -> {
+            effectSources.remove(effectSource);
+            effectSource.close();
         });
 
-        effectPlayers.add(effectPlayer);
-        effectPlayer.play();
     }
 
     public static void stop() {
-        musicPlayer.stop();
+        musicSource.reset();
     }
 }

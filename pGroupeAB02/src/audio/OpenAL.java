@@ -32,26 +32,16 @@ public class OpenAL {
         ThreadManager.initialize();
         OpenAL.initialize();
 
-        AudioBuffer bufferIntro = AudioBuffer.loadFrom("assets/musics/intro.wav");
-        AudioBuffer bufferLoop = AudioBuffer.loadFrom("assets/musics/loop.wav");
-        AudioBuffer bufferTransition = AudioBuffer.loadFrom("assets/musics/transition.wav");
-        AudioBuffer bufferLoop2 = AudioBuffer.loadFrom("assets/musics/loop2.wav");
-        AudioBuffer bufferTransition2 = AudioBuffer.loadFrom("assets/musics/transition2.wav");
-        AudioBuffer bufferEnd = AudioBuffer.loadFrom("assets/musics/end.wav");
+        AudioBuffer bufferIntro = AudioBuffer.loadFrom("assets/effects/click.wav");
 
+        System.out.println(bufferIntro.lengthInSamples());
         System.out.println(bufferIntro.lenghtInSecounds());
 
         AudioSource source = new AudioSource();
-        source.playNowWithTransition(bufferLoop, bufferIntro);
+        source.playLoop(bufferIntro);
 
         try {
             // Wait for a second
-            Thread.sleep(15000);
-            System.out.println("Switching song");
-            source.playNowWithTransition(bufferLoop2, bufferTransition);
-            Thread.sleep(15000);
-            source.playNow(bufferEnd);
-
             Thread.sleep(1000000);
         } catch (InterruptedException ignored) {
         }

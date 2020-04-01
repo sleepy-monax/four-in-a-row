@@ -46,8 +46,6 @@ public class SelectTheme extends View {
 
     @Override
     public void onSwitchOut() {
-        AudioManager.playNow("assets/musics/transition.wav", () -> {
-            AudioManager.playLoopNow("assets/musics/loop2.wav");
-        });
+        AudioManager.playLoopWithTransition("assets/musics/loop2.wav", "assets/musics/transition.wav");
     }
 }

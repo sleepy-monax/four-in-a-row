@@ -54,12 +54,15 @@ public class Splash extends View {
         this.getChildren().addAll(logo, button, label, black);
     }
 
+    @Override
+    public void onAttach() {
+        AudioManager.playLoopWithTransition("assets/musics/loop.wav", "assets/musics/intro.wav");
+
+    }
+
     private void goToMainMenu() {
         StageManager.background().showSpinner();
         StageManager.switchView(new Main());
-
-        AudioManager.playNow("assets/musics/transition.wav", () -> {
-            AudioManager.playLoopNow("assets/musics/loop2.wav");
-        });
+        AudioManager.playLoopWithTransition("assets/musics/loop2.wav", "assets/musics/transition.wav");
     }
 }
