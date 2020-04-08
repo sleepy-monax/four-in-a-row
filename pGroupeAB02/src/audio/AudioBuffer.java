@@ -2,13 +2,6 @@ package audio;
 
 import org.lwjgl.openal.AL10;
 import org.lwjgl.system.MemoryStack;
-import org.lwjgl.system.libc.LibCStdlib;
-
-import main.Main;
-import sun.misc.IOUtils;
-
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.nio.*;
 
 import static org.lwjgl.openal.AL10.*;

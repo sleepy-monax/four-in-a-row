@@ -2,7 +2,6 @@ package utils;
 
 import views.widgets.Background;
 import views.dialogs.Dialog;
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
