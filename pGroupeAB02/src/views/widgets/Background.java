@@ -2,13 +2,10 @@ package views.widgets;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
-import javafx.application.Platform;
 import javafx.scene.CacheHint;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -108,15 +105,19 @@ public class Background extends StackPane {
     }
 
     public void julien() {
-        for (Pane pane : particles) {
-            pane.setId("julien");
-        }
-
         Pane julien = new Pane();
         julien.setId("julien");
         this.getChildren().add(julien);
 
-        Animations.translateY(julien, 1080, 0, 0.25, 0);
+        Animations.translateY(1080, 0, 0.25, 0, () -> {
+            if (spinnerVisible) {
+                Animations.fade(particlesContainer, 0, 1, 1, 0);
+            }
+
+            for (Pane pane : particles) {
+                pane.setId("julien");
+            }
+        }, julien);
         Animations.translateY(julien, 0, 1080, 0.25, 1);
     }
 

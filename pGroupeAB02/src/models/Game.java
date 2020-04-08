@@ -144,8 +144,6 @@ public class Game {
     }
 
     public void selectTheme(String theme) {
-        messageLoop.post(new OnThemeSelected(theme));
-
         if (state instanceof SelectTheme) {
             ((SelectTheme) state).pickTheme(theme);
         }
@@ -157,8 +155,7 @@ public class Game {
         }
     }
 
-    public void pass()
-    {
+    public void pass() {
         if (state instanceof Round) {
             ((Round) state).pass();
         }
