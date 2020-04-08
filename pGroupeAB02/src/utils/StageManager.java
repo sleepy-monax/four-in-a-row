@@ -2,6 +2,11 @@ package utils;
 
 import views.widgets.Background;
 import views.dialogs.Dialog;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,6 +29,7 @@ public final class StageManager {
     private static StackPane dialogContainer;
     private static Background background;
     private static View currentView;
+    private static Timer backgroundTimer;
 
     private StageManager() {
     }
@@ -42,9 +48,6 @@ public final class StageManager {
         StageManager.stage.setFullScreenExitHint("");
 
         StageManager.stage.getIcons().add(new Image(DEFAULT_STAGE_ICON));
-        StageManager.stage.setOnCloseRequest(windowEvent -> {
-            Runtime.getRuntime().exit(0);
-        });
 
         View dummy = new View() {
         };
@@ -59,6 +62,22 @@ public final class StageManager {
         dialogContainer.setPadding(new Insets(32));
 
         background = new Background();
+
+        backgroundTimer = new Timer();
+        TimerTask backgroundTickTask = new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    background().tick();
+                });
+            }
+        };
+
+        backgroundTimer.schedule(backgroundTickTask, 0, 1000 / 32);
+
+        StageManager.stage.setOnCloseRequest(windowEvent -> {
+            Runtime.getRuntime().exit(0);
+        });
 
         viewContainer.getChildren().add(background);
         viewContainer.getChildren().add(dummy);
@@ -137,10 +156,12 @@ public final class StageManager {
 
     public static void quit() {
         System.out.println("Quitting...");
+        backgroundTimer.cancel();
         stage.close();
     }
 
     public static void setFullscreen(boolean graphicFullscreen) {
         stage.setFullScreen(graphicFullscreen);
+
     }
 }

@@ -187,7 +187,7 @@ public final class Widget {
             if (click_count.incrementAndGet() == 1) {
                 StageManager.setTitle("Ah oui oui oui oui oui");
                 AudioManager.playEffect("assets/effects/ouai.wav");
-
+                StageManager.background().julien();
             } else if (click_count.get() > 1) {
                 AudioManager.playEffect("assets/effects/bruh.wav");
             }

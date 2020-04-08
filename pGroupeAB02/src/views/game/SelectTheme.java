@@ -9,6 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.Game;
 import utils.Icon;
+import utils.StageManager;
 import views.Layout;
 import views.TextStyle;
 import views.View;
@@ -40,12 +41,14 @@ public class SelectTheme extends View {
     }
 
     @Override
-    public void onSwitchIn() {
+    public void onAttach() {
         AudioManager.playLoopNow("assets/musics/loop3.wav");
+        StageManager.background().hideSpinnerInstant();
     }
 
     @Override
     public void onSwitchOut() {
         AudioManager.playLoopWithTransition("assets/musics/loop2.wav", "assets/musics/transition.wav");
+        StageManager.background().showSpinner();
     }
 }

@@ -46,7 +46,7 @@ public class Animations {
         return scale(node, from, to, duration, delay, null);
     }
 
-    public static Node scale(double from, double to, double duration, Runnable then, Node node) {
+    public static Node scale(Node node, double from, double to, double duration, Runnable then) {
         return scale(node, from, to, duration, 0, then);
     }
 

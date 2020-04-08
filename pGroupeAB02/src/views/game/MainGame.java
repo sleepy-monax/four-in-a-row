@@ -46,8 +46,6 @@ public class MainGame extends View {
             game.pass();
         });
 
-
-
         countdown = new Countdown();
         actualScore = new ActualScore(game.getPlayer(0).getScore());
         maxLevel = new MaxLevel(game.getPlayer(0).getLevelMax());

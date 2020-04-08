@@ -30,6 +30,15 @@
     -fx-background-size: cover;
 }
 
+#particle{
+    -fx-background-image: url("images/particle.png");
+    -fx-background-size: cover;
+}
+
+#julien{
+    -fx-background-image: url("images/julien.png");
+    -fx-background-size: cover;
+}
 
 #wheel{
     -fx-background-image: url("images/wheel.png");
