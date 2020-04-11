@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 public class Player {
     public static final int MAX_LEVEl = 4;
 
@@ -91,4 +93,21 @@ public class Player {
     public boolean hasPlayed() {
         return this.hasPlayed;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Player)) {
+            return false;
+        }
+        Player player = (Player) o;
+        return id == player.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
 }

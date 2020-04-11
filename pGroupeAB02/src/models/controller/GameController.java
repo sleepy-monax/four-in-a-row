@@ -2,6 +2,7 @@ package models.controller;
 
 import javafx.application.Platform;
 import models.Game;
+import models.Player;
 import models.message.OnGameFinished;
 
 import java.util.Timer;
@@ -10,6 +11,9 @@ import java.util.TimerTask;
 public class GameController {
     private final Game game;
     private final TimerTask tickService;
+
+    private AudioController audioController;
+    private ViewController viewController;
 
     public GameController(Game game) {
         this.game = game;
@@ -26,8 +30,8 @@ public class GameController {
             }
         };
 
-        new AudioController(game);
-        new ViewController(game);
+        audioController = new AudioController(game);
+        viewController = new ViewController(game);
 
         game.getMessageLoop().registerNotifier(OnGameFinished.class, message -> {
             tickService.cancel();
@@ -35,6 +39,10 @@ public class GameController {
         });
 
         tickTimer.schedule(tickService, 0, 1000);
+    }
+
+    public void setLocalPlayer(Player player) {
+        viewController.setLocalPlayer(player);
     }
 
     public Game game() {
