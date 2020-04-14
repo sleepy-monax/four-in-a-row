@@ -38,7 +38,7 @@ public class MainGame extends View {
         Node quitButton = iconButton(Icon.CLOSE, event -> {
             if (new YesNoDialog("Quit the game", "Do you want to quit the game?\nAll progress will be lost!")
                     .show() == YesNo.YES) {
-                game.finish();
+                game.quit();
             }
         });
 

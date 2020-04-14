@@ -9,4 +9,16 @@ public abstract class GameState {
 
     public void onSwitchOut() {
     }
+
+    public void selectTheme(String theme) {
+    }
+
+    public void answer(String answer) {
+    }
+
+    public void pass() {
+    }
+
+    public void quit() {
+    }
 }

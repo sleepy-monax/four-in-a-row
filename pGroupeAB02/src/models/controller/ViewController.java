@@ -5,6 +5,7 @@ import models.Player;
 import models.message.*;
 import utils.StageManager;
 import views.dialogs.InfoDialog;
+import views.game.FinishSinglePlayer;
 import views.game.Lobby;
 import views.game.MainGame;
 import views.game.OtherPlayerPlaying;
@@ -12,15 +13,13 @@ import views.game.SelectTheme;
 import views.menu.Main;
 
 public class ViewController {
-    private Player localPlayer;
-
     public ViewController(Game game) {
         game.getMessageLoop().registerNotifier(OnGameEnterLobby.class, message -> {
             StageManager.switchView(new Lobby(game));
         });
 
         game.getMessageLoop().registerNotifier(OnSelectTheme.class, message -> {
-            if (localPlayer.equals(message.player())) {
+            if (game.getLocalPlayer().equals(message.player())) {
                 StageManager.switchView(new SelectTheme(game, message.themes()));
             } else {
                 StageManager.switchView(new OtherPlayerPlaying(game, message.player(), "selecting a theme"));
@@ -28,7 +27,7 @@ public class ViewController {
         });
 
         game.getMessageLoop().registerNotifier(OnThemeSelected.class, message -> {
-            if (localPlayer.equals(message.player())) {
+            if (game.getLocalPlayer().equals(message.player())) {
                 StageManager.switchView(new MainGame(game));
             } else {
                 StageManager.switchView(new OtherPlayerPlaying(game, message.player(), "playing"));
@@ -40,18 +39,14 @@ public class ViewController {
         });
 
         game.getMessageLoop().registerNotifier(OnGameFinished.class, message -> {
-            if (localPlayer.equals(message.player())) {
+            StageManager.switchView(new FinishSinglePlayer(game));
+
+        });
+
+        game.getMessageLoop().registerNotifier(OnPlayerQuit.class, message -> {
+            if (game.getLocalPlayer().equals(message.player())) {
                 StageManager.switchView(new Main());
             }
         });
-
-        game.getMessageLoop().registerNotifier(OnRoundFinish.class, message -> {
-            // FIXME: display scores
-            // StageManager.switchView(new FinishSinglePlayer(game));
-        });
-    }
-
-    public void setLocalPlayer(Player player) {
-        localPlayer = player;
     }
 }

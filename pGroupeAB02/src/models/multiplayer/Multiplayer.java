@@ -18,7 +18,7 @@ public class Multiplayer {
 
         } else {
             new InfoDialog("Join Multiplayer", "Failed to reach " + ip + ":" + port).show();
-            game.finish();
+            game.quit();
         }
     }
 
@@ -26,7 +26,7 @@ public class Multiplayer {
         Game game = new Game(Deck.load(), Difficulty.MEDIUM);
         Master master = new Master(game, port);
 
-        master.setLocalPlayer(game.joinPlayer(SettingsManager.get().getPlayerName()));
+        game.setLocalPlayer(game.joinPlayer(SettingsManager.get().getPlayerName()));
         game.enterLobby();
     }
 }

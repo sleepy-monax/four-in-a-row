@@ -38,7 +38,7 @@ public class Slave extends GameController implements ConnectionListener {
 
     @Override
     public void onDisconnect(Connection connection) {
-        game().finish();
+        game().quit();
         shutdown();
     }
 
@@ -56,7 +56,7 @@ public class Slave extends GameController implements ConnectionListener {
                 localPlayer = reader.readInt();
                 game().enterLobby();
 
-                setLocalPlayer(game().joinPlayer(localPlayer, username));
+                game().setLocalPlayer(game().joinPlayer(localPlayer, username));
 
                 break;
 

@@ -41,10 +41,6 @@ public class GameController {
         tickTimer.schedule(tickService, 0, 1000);
     }
 
-    public void setLocalPlayer(Player player) {
-        viewController.setLocalPlayer(player);
-    }
-
     public Game game() {
         return game;
     }

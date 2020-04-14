@@ -33,7 +33,7 @@ public class SelectTheme extends View {
             themesList.getChildren().add(Layout.width(360, themeButton));
         }
 
-        Button backButton = Widget.button("Go back", event -> game.finish());
+        Button backButton = Widget.button("Go back", event -> game.quit());
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         this.setAlignment(Pos.CENTER);

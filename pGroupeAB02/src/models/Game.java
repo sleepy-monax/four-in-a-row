@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Game {
     private Deck deck;
+    private int localPlayer = -1;
     private Player[] players;
     private MessageLoop messageLoop;
     private GameState state;
@@ -31,8 +32,10 @@ public class Game {
         changeState(new Passive());
     }
 
-    public void finish() {
-        messageLoop.post(new OnGameFinished());
+    public void quit() {
+        messageLoop.post(new OnPlayerQuit(getLocalPlayer()));
+
+        state.quit();
     }
 
     public Player joinPlayer(String name) {
@@ -112,6 +115,18 @@ public class Game {
         return playerList;
     }
 
+    public void setLocalPlayer(Player player) {
+        localPlayer = player.getId();
+    }
+
+    public Player getLocalPlayer() {
+        if (localPlayer != -1) {
+            return players[localPlayer];
+        }
+
+        return null;
+    }
+
     public Player getPlayer(int id) {
         return players[id];
     }
@@ -140,25 +155,20 @@ public class Game {
             }
         }
 
+        messageLoop.post(new OnGameFinished());
         changeState(new Finish());
     }
 
     public void selectTheme(String theme) {
-        if (state instanceof SelectTheme) {
-            ((SelectTheme) state).pickTheme(theme);
-        }
+        state.selectTheme(theme);
     }
 
     public void answer(String answer) {
-        if (state instanceof Round) {
-            ((Round) state).answer(answer);
-        }
+        state.answer(answer);
     }
 
     public void pass() {
-        if (state instanceof Round) {
-            ((Round) state).pass();
-        }
+        state.pass();
     }
 
     public void enterLobby() {
