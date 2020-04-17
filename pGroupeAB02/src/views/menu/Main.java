@@ -6,10 +6,8 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import models.Deck;
 import models.multiplayer.Multiplayer;
 import models.singleplayer.SinglePlayer;
-import utils.AudioManager;
 import utils.Icon;
 import utils.StageManager;
 import views.Layout;
@@ -28,7 +26,7 @@ public class Main extends View {
         Node hostMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP, "Host Multiplayer",
                 mouseEvent -> Multiplayer.host(Multiplayer.DEFAULT_PORT));
 
-        Node orbEditor = Widget.iconButton(Icon.EDIT, event -> StageManager.switchView((new Editor(Deck.load()))));
+        Node orbEditor = Widget.iconButton(Icon.EDIT, event -> StageManager.switchView((new AdminConnect())));
 
         Node orbScores = Widget.iconButton(Icon.EMOJI_EVENTS, mouseEvent -> StageManager.switchView((new Score())));
 

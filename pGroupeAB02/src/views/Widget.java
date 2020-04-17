@@ -12,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import utils.*;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -136,6 +135,22 @@ public final class Widget {
         field.getStyleClass().add("FIR_textfield");
         field.textProperty().addListener((observable, oldValue, newValue) -> onTextChange.accept(newValue));
 
+        return field;
+    }
+
+    public static TextField usernameField(){
+        TextField field = new TextField();
+
+        field.setAlignment(Pos.CENTER);
+        field.getStyleClass().add("FIR_textfield");
+        return field;
+    }
+
+    public static PasswordField passwordField(){
+        PasswordField field = new PasswordField();
+
+        field.setAlignment(Pos.CENTER);
+        field.getStyleClass().add("FIR_textfield");
         return field;
     }
 
