@@ -4,33 +4,45 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import models.Deck;
+import models.Users.User;
 import utils.StageManager;
 import views.Layout;
 import views.TextStyle;
 import views.View;
 import views.Widget;
+import views.dialogs.InfoDialog;
 
 import static views.Layout.*;
 import static views.Widget.*;
 
 public class AdminConnect extends View {
+    User admin = new User("admin","helha");
 
 
     public AdminConnect() {
         setPadding(new Insets(32));
-
+        TextField logField = textField();
+        PasswordField pswField = passwordField();
 
         Node menu =
                 vertical(
                         16,
                         text("Username", TextStyle.SUBTITLE),
-                        usernameField(),
+                        logField,
                         text("Password", TextStyle.SUBTITLE),
-                        passwordField(),
+                        pswField,
                         button("Connect", event -> {
-                            StageManager.switchView(new Editor(Deck.load()));
+                            User usr = new User(logField.getText(), pswField.getText());
+                            if (usr.equals(admin)) {
+                                System.out.println("this is ok");
+                                StageManager.switchView(new Editor(Deck.load()));
+                            }else {
+                                new InfoDialog("Erreur","Le login ou le mot de passe est erroné").show();
+                            }
                         })
                 );
 
