@@ -100,7 +100,6 @@ public class Editor extends View {
 
 
         Button backButton = Widget.button("Go back", actionEvent -> StageManager.switchView(new Main()));
-        Button addButton= Widget.button("Add", actionEvent ->   new InfoDialog("Error","Please, select a row").show());
 
         Node orbAdd = Widget.iconButton(Icon.ADD,  actionEvent -> {
 
@@ -129,7 +128,7 @@ public class Editor extends View {
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
 
-        getChildren().addAll(Widget.text("Editor", TextStyle.TITLE), table, backButton, addButton, orbContainer);
+        getChildren().addAll(Widget.text("Editor", TextStyle.TITLE), table, backButton, orbContainer);
     }
 
 
