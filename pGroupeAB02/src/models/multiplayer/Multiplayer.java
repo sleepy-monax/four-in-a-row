@@ -18,7 +18,7 @@ public class Multiplayer {
 
         } else {
             new InfoDialog("Join Multiplayer", "Failed to reach " + ip + ":" + port).show();
-            game.quit();
+            game.shutdown();
         }
     }
 

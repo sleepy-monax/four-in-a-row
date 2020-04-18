@@ -94,6 +94,10 @@ public class Player {
         return this.hasPlayed;
     }
 
+    public void setHasPlayed() {
+        this.hasPlayed = true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == this)

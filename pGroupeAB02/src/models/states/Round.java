@@ -37,6 +37,7 @@ public class Round extends GameState {
     @Override
     public void onSwitchIn() {
         nextQuestion();
+        player.setHasPlayed();
         game.getMessageLoop().post(new OnCountDown((int) (ROUND_TIME)));
     }
 
@@ -84,8 +85,7 @@ public class Round extends GameState {
     }
 
     public static int min(int... numbers) {
-        return Arrays.stream(numbers)
-                .min().orElse(Integer.MAX_VALUE);
+        return Arrays.stream(numbers).min().orElse(Integer.MAX_VALUE);
     }
 
     public static int costOfSubstitution(char a, char b) {
@@ -102,10 +102,8 @@ public class Round extends GameState {
                 } else if (j == 0) {
                     dp[i][j] = i;
                 } else {
-                    dp[i][j] = min(dp[i - 1][j - 1]
-                                    + costOfSubstitution(x.charAt(i - 1), y.charAt(j - 1)),
-                            dp[i - 1][j] + 1,
-                            dp[i][j - 1] + 1);
+                    dp[i][j] = min(dp[i - 1][j - 1] + costOfSubstitution(x.charAt(i - 1), y.charAt(j - 1)),
+                            dp[i - 1][j] + 1, dp[i][j - 1] + 1);
                 }
             }
         }
@@ -114,10 +112,12 @@ public class Round extends GameState {
     }
 
     private boolean AreAnswersEquals(String lhs, String rhs) {
-        lhs = Normalizer.normalize(lhs.toLowerCase().replace(" ", ""), Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-        rhs = Normalizer.normalize(rhs.toLowerCase().replace(" ", ""), Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        lhs = Normalizer.normalize(lhs.toLowerCase().replace(" ", ""), Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        rhs = Normalizer.normalize(rhs.toLowerCase().replace(" ", ""), Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 
-        return levenshteinDistance(lhs,rhs) <= game.getDifficulty().getAnswerTolerance();
+        return levenshteinDistance(lhs, rhs) <= game.getDifficulty().getAnswerTolerance();
     }
 
     public void answer(String answer) {
@@ -130,6 +130,13 @@ public class Round extends GameState {
         } else {
             game.getMessageLoop().post(new OnAnswerIncorrect());
             player.failed();
+        }
+    }
+
+    @Override
+    public void quit(Player player) {
+        if (player.equals(this.player)) {
+            game.nextPlayer();
         }
     }
 

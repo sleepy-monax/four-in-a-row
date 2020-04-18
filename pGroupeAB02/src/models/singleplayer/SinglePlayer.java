@@ -7,7 +7,6 @@ import models.Game;
 import utils.SettingsManager;
 
 public class SinglePlayer extends GameController {
-
     public SinglePlayer(Game game) {
         super(game);
     }

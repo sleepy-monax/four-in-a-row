@@ -14,6 +14,7 @@ public class Game {
     private MessageLoop messageLoop;
     private GameState state;
     private Difficulty difficulty;
+    private boolean stopped = false;
 
     public Game(Deck deck, Difficulty difficulty) {
         setDeck(deck);
@@ -30,12 +31,6 @@ public class Game {
 
     public void startPassive() {
         changeState(new Passive());
-    }
-
-    public void quit() {
-        messageLoop.post(new OnPlayerQuit(getLocalPlayer()));
-
-        state.quit();
     }
 
     public Player joinPlayer(String name) {
@@ -67,7 +62,7 @@ public class Game {
         for (int i = 0; i < players.length; i++) {
             if (players[i] == player) {
                 System.out.println(player + " leave the game");
-
+                state.quit(player);
                 messageLoop.post(new OnPlayerEvent(player, PlayerEvent.LEAVE));
 
                 players[i] = null;
@@ -173,5 +168,10 @@ public class Game {
 
     public void enterLobby() {
         messageLoop.post(new OnGameEnterLobby());
+    }
+
+    public void shutdown() {
+        stopped = true;
+        messageLoop.post(new GameShutdown());
     }
 }

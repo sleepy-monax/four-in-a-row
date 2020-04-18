@@ -2,8 +2,7 @@ package models.controller;
 
 import javafx.application.Platform;
 import models.Game;
-import models.Player;
-import models.message.OnGameFinished;
+import models.message.GameShutdown;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -33,7 +32,7 @@ public class GameController {
         audioController = new AudioController(game);
         viewController = new ViewController(game);
 
-        game.getMessageLoop().registerNotifier(OnGameFinished.class, message -> {
+        game.getMessageLoop().registerNotifier(GameShutdown.class, message -> {
             tickService.cancel();
             shutdown();
         });

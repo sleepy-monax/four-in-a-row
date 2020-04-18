@@ -40,7 +40,7 @@ public class Lobby extends View {
         menuContainer.setAlignment(Pos.CENTER);
         menuContainer.setMaxWidth(512);
 
-        Button backButton = Widget.button("Go back", actionEvent -> game.quit());
+        Button backButton = Widget.button("Go back", actionEvent -> game.shutdown());
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         Node startGame = Widget.buttonWithIcon(Icon.GROUP, "Start Game", event -> {

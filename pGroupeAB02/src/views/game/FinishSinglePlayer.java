@@ -18,7 +18,7 @@ public class FinishSinglePlayer extends View {
     public FinishSinglePlayer(Game game) {
         this.setPadding(new Insets(32));
 
-        Button goHome = Widget.button("Go home", event -> game.quit());
+        Button goHome = Widget.button("Go home", event -> game.shutdown());
         StackPane.setAlignment(goHome, Pos.BOTTOM_LEFT);
         this.setAlignment(Pos.CENTER);
 

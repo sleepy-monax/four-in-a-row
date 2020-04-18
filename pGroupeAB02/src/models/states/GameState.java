@@ -1,5 +1,7 @@
 package models.states;
 
+import models.Player;
+
 public abstract class GameState {
     public void onTick(double elapsed) {
     }
@@ -19,6 +21,6 @@ public abstract class GameState {
     public void pass() {
     }
 
-    public void quit() {
+    public void quit(Player player) {
     }
 }

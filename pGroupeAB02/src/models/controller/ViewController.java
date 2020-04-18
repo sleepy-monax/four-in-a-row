@@ -40,13 +40,10 @@ public class ViewController {
 
         game.getMessageLoop().registerNotifier(OnGameFinished.class, message -> {
             StageManager.switchView(new FinishSinglePlayer(game));
-
         });
 
-        game.getMessageLoop().registerNotifier(OnPlayerQuit.class, message -> {
-            if (game.getLocalPlayer().equals(message.player())) {
-                StageManager.switchView(new Main());
-            }
+        game.getMessageLoop().registerNotifier(GameShutdown.class, message -> {
+            StageManager.switchView(new Main());
         });
     }
 }
