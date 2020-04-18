@@ -2,9 +2,11 @@ package views.menu;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.HBox;
 import models.Question;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,6 +16,7 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.StackPane;
 import models.Deck;
+import utils.Icon;
 import utils.StageManager;
 import views.TextStyle;
 import views.View;
@@ -97,8 +100,13 @@ public class Editor extends View {
 
 
         Button backButton = Widget.button("Go back", actionEvent -> StageManager.switchView(new Main()));
+        Button addButton= Widget.button("Add", actionEvent ->   new InfoDialog("Error","Please, select a row").show());
 
-        Button deleteButton = Widget.button("Delete", actionEvent -> {
+        Node orbAdd = Widget.iconButton(Icon.ADD,  actionEvent -> {
+
+        });
+
+        Node orbDelete = Widget.iconButton(Icon.DELETE_FOREVER,  actionEvent -> {
             if(table.getSelectionModel().getSelectedIndex()<0) {
                 new InfoDialog("Error","Please, select a row").show();
             }
@@ -111,11 +119,17 @@ public class Editor extends View {
 
         });
 
+        HBox orbContainer = new HBox(16, orbAdd, orbDelete);
+        orbContainer.setAlignment(Pos.CENTER);
+        orbContainer.setPrefHeight(48);
+        orbContainer.setMaxHeight(48 + 24);
+        orbContainer.setPadding(new Insets(24, 0, 0, 0));
+        StackPane.setAlignment(orbContainer, Pos.BOTTOM_CENTER);
 
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
-        StackPane.setAlignment(deleteButton, Pos.BOTTOM_RIGHT);
 
-        getChildren().addAll(Widget.text("Editor", TextStyle.TITLE), table, backButton, deleteButton);
+
+        getChildren().addAll(Widget.text("Editor", TextStyle.TITLE), table, backButton, addButton, orbContainer);
     }
 
 
