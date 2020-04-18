@@ -39,10 +39,10 @@ public class AdminConnect extends View {
                         button("Connect", event -> {
                             User usr = new User(logField.getText(), pswField.getText());
                             if (usr.equals(admin)) {
-                                System.out.println("this is ok");
+                                System.out.println("Connected");
                                 StageManager.switchView(new Editor(Deck.load()));
                             }else {
-                                new InfoDialog("Error","Bad login or password").show();
+                                new InfoDialog("Error","Wrong login or password").show();
                             }
                         }))
                 );

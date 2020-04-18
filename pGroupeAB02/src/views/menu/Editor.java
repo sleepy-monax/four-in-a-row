@@ -19,6 +19,8 @@ import views.TextStyle;
 import views.View;
 import views.Widget;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Editor extends View {
     public Editor(Deck deck) {
         setPadding(new Insets(32));
@@ -32,7 +34,9 @@ public class Editor extends View {
         TableColumn <Question, String> answerColumn = new TableColumn <Question, String>("Answer");
         TableColumn <Question, String> themeColumn = new TableColumn <Question, String>("Theme");
         TableColumn <Question, String> authorColumn = new TableColumn <Question, String>("Author");
-        TableColumn cluesColumn = new TableColumn("Clues");
+        TableColumn cluesColumn1 = new TableColumn("Clues 1");
+        TableColumn cluesColumn2 = new TableColumn("Clues 2");
+        TableColumn cluesColumn3 = new TableColumn("Clues 3");
 
         //Edit authorColumn
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
@@ -64,8 +68,11 @@ public class Editor extends View {
             question.setTheme(newTheme);
             deck.save();
         });
-        //Edit cluesColumn
-        cluesColumn.setCellValueFactory(new PropertyValueFactory<>("clues"));
+
+        //Edit cluesColumn 1
+        cluesColumn1.setCellValueFactory(new PropertyValueFactory<>("clues"));
+        //Edit cluesColumn 2
+        //Edit cluesColumn 3
         // Edit answerColumn
         answerColumn.setCellValueFactory(new PropertyValueFactory<>("answer"));
         answerColumn.setCellFactory(TextFieldTableCell. forTableColumn());
@@ -85,13 +92,23 @@ public class Editor extends View {
 
         table.setItems(list);
 
-        table.getColumns().addAll(answerColumn, themeColumn, authorColumn, cluesColumn);
+        table.getColumns().addAll(answerColumn, themeColumn, authorColumn, cluesColumn1, cluesColumn2, cluesColumn3);
 
 
         Button backButton = Widget.button("Go back", actionEvent -> StageManager.switchView(new Main()));
-        StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        getChildren().addAll(Widget.text("Editor", TextStyle.TITLE), table, backButton);
+        Button deleteButton = Widget.button("Delete", actionEvent -> {
+            deck.remove(table.getSelectionModel().getSelectedIndex());
+            deck.save();
+            table.refresh();
+
+        });
+
+
+        StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
+        StackPane.setAlignment(deleteButton, Pos.BOTTOM_RIGHT);
+
+        getChildren().addAll(Widget.text("Editor", TextStyle.TITLE), table, backButton, deleteButton);
     }
 
 

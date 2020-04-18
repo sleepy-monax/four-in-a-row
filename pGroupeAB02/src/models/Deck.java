@@ -42,6 +42,10 @@ public class Deck implements Serializable {
         return questions.remove(question);
     }
 
+    public Question remove(int index) {
+        return questions.remove(index);
+    }
+
     public List<String> themes() {
         List<String> themes = new ArrayList<>();
 
