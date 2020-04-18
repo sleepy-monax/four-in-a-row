@@ -41,7 +41,7 @@ public class AdminConnect extends View {
                                 System.out.println("this is ok");
                                 StageManager.switchView(new Editor(Deck.load()));
                             }else {
-                                new InfoDialog("Erreur","Le login ou le mot de passe est erroné").show();
+                                new InfoDialog("Error","Bad login or password").show();
                             }
                         })
                 );
