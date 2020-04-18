@@ -61,9 +61,10 @@ public class Game {
     public boolean removePlayer(Player player) {
         for (int i = 0; i < players.length; i++) {
             if (players[i] == player) {
-                System.out.println(player + " leave the game");
+                System.out.println(player + " leave the game lolololololo");
                 state.quit(player);
                 messageLoop.post(new OnPlayerEvent(player, PlayerEvent.LEAVE));
+                System.out.println(player + " leave the game");
 
                 players[i] = null;
 
@@ -167,6 +168,7 @@ public class Game {
     }
 
     public void enterLobby() {
+        changeState(new Pending());
         messageLoop.post(new OnGameEnterLobby());
     }
 

@@ -81,7 +81,6 @@ public class Master extends GameController implements ConnectionListener {
         }
 
         this.slaves.remove(connection);
-
     }
 
     @Override

@@ -27,7 +27,6 @@ public class Lobby extends View {
         }
 
         game.getMessageLoop().registerNotifier(OnPlayerEvent.class, message -> {
-
             if (message.event() == PlayerEvent.JOIN) {
                 players[message.player().getId()].updateState(message.player().getName(), PlayerState.CONNECTED);
             } else if (message.event() == PlayerEvent.LEAVE) {
