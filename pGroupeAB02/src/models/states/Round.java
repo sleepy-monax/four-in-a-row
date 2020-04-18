@@ -55,7 +55,7 @@ public class Round extends GameState {
         }
 
         if (timer <= 0) {
-            game.getMessageLoop().post(new OnRoundFinish());
+            game.getMessageLoop().post(new OnRoundFinish(player));
             player.played();
             game.nextPlayer();
         }
@@ -124,11 +124,11 @@ public class Round extends GameState {
         game.getMessageLoop().post(new OnPlayerAnswer(player, answer));
 
         if (AreAnswersEquals(currentQuestion.getAnswer(), answer.toLowerCase())) {
-            game.getMessageLoop().post(new OnAnswerCorrect());
+            game.getMessageLoop().post(new OnAnswerCorrect(player));
             player.answerCorrect();
             nextQuestion();
         } else {
-            game.getMessageLoop().post(new OnAnswerIncorrect());
+            game.getMessageLoop().post(new OnAnswerIncorrect(player));
             player.failed();
         }
     }
@@ -143,7 +143,7 @@ public class Round extends GameState {
     public void pass() {
         currentQuestion = null;
 
-        game.getMessageLoop().post(new OnQuestionPassed());
+        game.getMessageLoop().post(new OnQuestionPassed(player));
         nextQuestion();
     }
 }

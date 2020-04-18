@@ -33,6 +33,11 @@ public class Game {
         changeState(new Passive());
     }
 
+    public void enterLobby() {
+        changeState(new Pending());
+        messageLoop.post(new OnGameEnterLobby());
+    }
+
     public Player joinPlayer(String name) {
         for (int i = 0; i < players.length; i++) {
             if (players[i] == null) {
@@ -165,11 +170,6 @@ public class Game {
 
     public void pass() {
         state.pass();
-    }
-
-    public void enterLobby() {
-        changeState(new Pending());
-        messageLoop.post(new OnGameEnterLobby());
     }
 
     public void shutdown() {
