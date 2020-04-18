@@ -18,6 +18,7 @@ import utils.StageManager;
 import views.TextStyle;
 import views.View;
 import views.Widget;
+import views.dialogs.InfoDialog;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -98,9 +99,15 @@ public class Editor extends View {
         Button backButton = Widget.button("Go back", actionEvent -> StageManager.switchView(new Main()));
 
         Button deleteButton = Widget.button("Delete", actionEvent -> {
-            deck.remove(table.getSelectionModel().getSelectedIndex());
-            deck.save();
-            table.refresh();
+            if(table.getSelectionModel().getSelectedIndex()<0) {
+                new InfoDialog("Error","Please, select a row").show();
+            }
+            else{
+                deck.remove(table.getSelectionModel().getSelectedIndex());
+                deck.save();
+                StageManager.switchView(new Editor(Deck.load()));
+
+            }
 
         });
 
