@@ -35,6 +35,7 @@ public class AdminConnect extends View {
                         logField,
                         text("Password", TextStyle.SUBTITLE),
                         pswField,
+                        Layout.horizontallyCentered(
                         button("Connect", event -> {
                             User usr = new User(logField.getText(), pswField.getText());
                             if (usr.equals(admin)) {
@@ -43,7 +44,7 @@ public class AdminConnect extends View {
                             }else {
                                 new InfoDialog("Error","Bad login or password").show();
                             }
-                        })
+                        }))
                 );
 
 
