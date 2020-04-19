@@ -32,7 +32,7 @@ public class Editor extends View {
         TableView table = new TableView();
         table.setEditable(true);
 
-        table.setMaxWidth(512);
+        table.setMinWidth(512);
         table.setMaxHeight(480);
 
         TableColumn <Question, String> answerColumn = new TableColumn <Question, String>("Answer");
