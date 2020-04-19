@@ -24,6 +24,8 @@ import views.View;
 import views.Widget;
 import views.dialogs.InfoDialog;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Editor extends View {
@@ -42,6 +44,8 @@ public class Editor extends View {
         TableColumn <Question, String> cluesColumn1 = new TableColumn("Clues 1");
         TableColumn <Question, String> cluesColumn2 = new TableColumn("Clues 2");
         TableColumn <Question, String> cluesColumn3 = new TableColumn("Clues 3");
+
+        ObservableList< Question> list = FXCollections.observableArrayList(deck.getQuestions());
 
         //Edit authorColumn
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
@@ -76,6 +80,22 @@ public class Editor extends View {
 
         //Edit cluesColumn 1
         cluesColumn1.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getClues().get(0)));
+        cluesColumn1.setCellFactory(TextFieldTableCell.<Question> forTableColumn());
+        cluesColumn1.setOnEditCommit((CellEditEvent <Question, String> event) -> {
+            TablePosition <Question, String> pos = event.getTablePosition();
+
+            String newClues1 =  event.getNewValue();
+            List newList= new ArrayList<>();
+            int row = pos.getRow();
+            System.out.println( list.get(row).getClues().get(1));
+            newList.add(newClues1);
+            newList.add(list.get(row).getClues().get(1));
+            newList.add(list.get(row).getClues().get(2));
+            Question question =  event.getTableView().getItems().get(row);
+
+            question.setClues(newList);
+            deck.save();
+        });
         //Edit cluesColumn 2
         cluesColumn2.setCellValueFactory(param -> {
             if(param.getValue().getClues().size() > 1)
@@ -84,6 +104,24 @@ public class Editor extends View {
                 return new SimpleStringProperty("");
             }
         });
+        cluesColumn2.setCellFactory(TextFieldTableCell.<Question> forTableColumn());
+
+        cluesColumn2.setOnEditCommit((CellEditEvent <Question, String> event) -> {
+            TablePosition <Question, String> pos = event.getTablePosition();
+
+            String newClues2 =  event.getNewValue();
+            List newList= new ArrayList<>();
+            int row = pos.getRow();
+            System.out.println( list.get(row).getClues().get(1));
+
+            newList.add(list.get(row).getClues().get(0));
+            newList.add(newClues2);
+            newList.add(list.get(row).getClues().get(2));
+            Question question =  event.getTableView().getItems().get(row);
+
+            question.setClues(newList);
+            deck.save();
+        });
         //Edit cluesColumn 3
         cluesColumn3.setCellValueFactory(param -> {
             if(param.getValue().getClues().size() > 2)
@@ -91,6 +129,24 @@ public class Editor extends View {
             else{
                 return new SimpleStringProperty("");
             }
+        });
+        cluesColumn3.setCellFactory(TextFieldTableCell.<Question> forTableColumn());
+
+        cluesColumn3.setOnEditCommit((CellEditEvent <Question, String> event) -> {
+            TablePosition <Question, String> pos = event.getTablePosition();
+
+            String newClues3 =  event.getNewValue();
+            List newList= new ArrayList<>();
+            int row = pos.getRow();
+            System.out.println( list.get(row).getClues().get(1));
+
+            newList.add(list.get(row).getClues().get(0));
+            newList.add(list.get(row).getClues().get(1));
+            newList.add(newClues3);
+            Question question =  event.getTableView().getItems().get(row);
+
+            question.setClues(newList);
+            deck.save();
         });
 
         // Edit answerColumn
@@ -108,7 +164,6 @@ public class Editor extends View {
             deck.save();
         });
 
-        ObservableList< Question> list = FXCollections.observableArrayList(deck.getQuestions());
 
         table.setItems(list);
 
