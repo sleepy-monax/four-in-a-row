@@ -87,7 +87,6 @@ public class Editor extends View {
             String newClues1 =  event.getNewValue();
             List newList= new ArrayList<>();
             int row = pos.getRow();
-            System.out.println( list.get(row).getClues().get(1));
             newList.add(newClues1);
             newList.add(list.get(row).getClues().get(1));
             newList.add(list.get(row).getClues().get(2));
@@ -112,7 +111,6 @@ public class Editor extends View {
             String newClues2 =  event.getNewValue();
             List newList= new ArrayList<>();
             int row = pos.getRow();
-            System.out.println( list.get(row).getClues().get(1));
 
             newList.add(list.get(row).getClues().get(0));
             newList.add(newClues2);
@@ -138,7 +136,6 @@ public class Editor extends View {
             String newClues3 =  event.getNewValue();
             List newList= new ArrayList<>();
             int row = pos.getRow();
-            System.out.println( list.get(row).getClues().get(1));
 
             newList.add(list.get(row).getClues().get(0));
             newList.add(list.get(row).getClues().get(1));
