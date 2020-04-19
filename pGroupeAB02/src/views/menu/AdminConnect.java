@@ -27,7 +27,7 @@ public class AdminConnect extends View {
         setPadding(new Insets(32));
         TextField logField = textField();
         PasswordField pswField = passwordField();
-
+        
         Node menu =
                 vertical(
                         16,

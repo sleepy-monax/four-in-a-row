@@ -1,5 +1,6 @@
 package views.menu;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -38,9 +39,9 @@ public class Editor extends View {
         TableColumn <Question, String> answerColumn = new TableColumn <Question, String>("Answer");
         TableColumn <Question, String> themeColumn = new TableColumn <Question, String>("Theme");
         TableColumn <Question, String> authorColumn = new TableColumn <Question, String>("Author");
-        TableColumn cluesColumn1 = new TableColumn("Clues 1");
-        TableColumn cluesColumn2 = new TableColumn("Clues 2");
-        TableColumn cluesColumn3 = new TableColumn("Clues 3");
+        TableColumn <Question, String> cluesColumn1 = new TableColumn("Clues 1");
+        TableColumn <Question, String> cluesColumn2 = new TableColumn("Clues 2");
+        TableColumn <Question, String> cluesColumn3 = new TableColumn("Clues 3");
 
         //Edit authorColumn
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
@@ -74,9 +75,24 @@ public class Editor extends View {
         });
 
         //Edit cluesColumn 1
-        cluesColumn1.setCellValueFactory(new PropertyValueFactory<>("clues"));
+        cluesColumn1.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getClues().get(0)));
         //Edit cluesColumn 2
+        cluesColumn2.setCellValueFactory(param -> {
+            if(param.getValue().getClues().size() > 1)
+                return new SimpleStringProperty(param.getValue().getClues().get(1));
+            else{
+                return new SimpleStringProperty("");
+            }
+        });
         //Edit cluesColumn 3
+        cluesColumn3.setCellValueFactory(param -> {
+            if(param.getValue().getClues().size() > 2)
+                return new SimpleStringProperty(param.getValue().getClues().get(2));
+            else{
+                return new SimpleStringProperty("");
+            }
+        });
+
         // Edit answerColumn
         answerColumn.setCellValueFactory(new PropertyValueFactory<>("answer"));
         answerColumn.setCellFactory(TextFieldTableCell. forTableColumn());
