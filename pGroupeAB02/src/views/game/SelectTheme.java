@@ -5,6 +5,7 @@ import utils.AudioManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.Game;
@@ -32,6 +33,12 @@ public class SelectTheme extends View {
 
             themesList.getChildren().add(Layout.width(360, themeButton));
         }
+
+        Pane themeButton = Widget.buttonWithIcon(Icon.SHUFFLE, "Mystery theme", event -> {
+            game.selectMisteryTheme();
+        });
+
+        themesList.getChildren().addAll(Layout.spacer(16), Layout.width(360, themeButton));
 
         Button backButton = Widget.button("Go back", event -> game.shutdown());
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);

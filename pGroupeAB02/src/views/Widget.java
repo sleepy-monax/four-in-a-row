@@ -1,6 +1,7 @@
 package views;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -12,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import utils.*;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -51,10 +53,11 @@ public final class Widget {
         return button;
     }
 
-    public static Node buttonWithIcon(Icon icon, String text, EventHandler<? super MouseEvent> onClick) {
+    public static Pane buttonWithIcon(Icon icon, String text, EventHandler<? super MouseEvent> onClick) {
         AnchorPane button = new AnchorPane();
 
         Label label = new Label(text);
+        label.setPadding(new Insets(0, 16, 0, 16));
         label.setAlignment(Pos.CENTER);
         label.getStyleClass().addAll("button", "FIR_big-button");
 
@@ -138,7 +141,7 @@ public final class Widget {
         return field;
     }
 
-    public static TextField usernameField(){
+    public static TextField usernameField() {
         TextField field = new TextField();
 
         field.setAlignment(Pos.CENTER);
@@ -146,7 +149,7 @@ public final class Widget {
         return field;
     }
 
-    public static PasswordField passwordField(){
+    public static TextField passwordField() {
         PasswordField field = new PasswordField();
 
         field.setAlignment(Pos.CENTER);
@@ -157,14 +160,14 @@ public final class Widget {
     public static Label text(String text, TextStyle style) {
         Label label = new Label(text);
 
-        if (style == TextStyle.TITLE)
-        {
+        if (style == TextStyle.TITLE) {
             StackPane.setAlignment(label, Pos.TOP_CENTER);
         }
 
         label.getStyleClass().add(style.styleClass);
 
         label.setTextOverrun(OverrunStyle.CLIP);
+        label.setTextFill(Color.WHITE);
 
         return label;
     }
@@ -218,9 +221,8 @@ public final class Widget {
         slider.setMax(1);
         slider.setValue(getValue.call());
 
-        final int[] lastTick = {(int) (getValue.call() * 10)};
-        final long[] lastTickTime = {System.currentTimeMillis()};
-
+        final int[] lastTick = { (int) (getValue.call() * 10) };
+        final long[] lastTickTime = { System.currentTimeMillis() };
 
         slider.valueProperty().addListener(event -> {
             int tick = (int) (slider.getValue() * 15);
@@ -228,25 +230,17 @@ public final class Widget {
             int tickUp = (int) (Math.floor(slider.getValue() * 15));
 
             if (tickDown == 0) {
-                AudioManager.playEffect(
-                        "assets/effects/tick.wav",
-                        0.7);
+                AudioManager.playEffect("assets/effects/tick.wav", 0.7);
 
             } else if (tickUp == 15) {
-                AudioManager.playEffect(
-                        "assets/effects/tick.wav",
-                        1);
+                AudioManager.playEffect("assets/effects/tick.wav", 1);
 
             } else if (Math.abs(lastTick[0] - tick) >= 1 && lastTickTime[0] + 50 <= System.currentTimeMillis()) {
                 lastTick[0] = tick;
                 lastTickTime[0] = System.currentTimeMillis();
 
-
-                AudioManager.playEffect(
-                        "assets/effects/tick.wav",
-                        slider.getValue() * 0.1 + 0.8);
+                AudioManager.playEffect("assets/effects/tick.wav", slider.getValue() * 0.1 + 0.8);
             }
-
 
             onValueChange.accept(slider.getValue());
         });
@@ -254,8 +248,7 @@ public final class Widget {
         return slider;
     }
 
-    public static Region panel(Node content)
-    {
+    public static Region panel(Node content) {
         StackPane pane = new StackPane(content);
 
         pane.getStyleClass().add("panel");

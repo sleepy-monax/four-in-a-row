@@ -164,6 +164,9 @@ public class Game {
         state.selectTheme(theme);
     }
 
+    public void selectMisteryTheme() {
+    }
+
     public void answer(String answer) {
         state.answer(answer);
     }

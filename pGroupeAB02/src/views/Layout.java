@@ -8,18 +8,17 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class Layout {
-    private Layout(){}
+    private Layout() {
+    }
 
-    public static Node fill(Node node)
-    {
+    public static Node fill(Node node) {
         HBox.setHgrow(node, Priority.ALWAYS);
         VBox.setVgrow(node, Priority.ALWAYS);
 
         return node;
     }
 
-    public static  Node width(double width, Node node)
-    {
+    public static Node width(double width, Node node) {
         Region region = (Region) node;
 
         region.setMaxWidth(width);
@@ -28,27 +27,22 @@ public class Layout {
         return region;
     }
 
-    public static Region height(double height, Region region)
-    {
+    public static Region height(double height, Region region) {
         region.setMaxHeight(height);
         region.setPrefHeight(height);
-
 
         return region;
     }
 
-    public static Region vertical(double spacing, Node... nodes)
-    {
+    public static Region vertical(double spacing, Node... nodes) {
         return new VBox(spacing, nodes);
     }
 
-    public static  Region horizontal(double spacing, Node... nodes)
-    {
+    public static Region horizontal(double spacing, Node... nodes) {
         return new HBox(spacing, nodes);
     }
 
-    public static  Region horizontal(double spacing, Pos alignment, Node... nodes)
-    {
+    public static Region horizontal(double spacing, Pos alignment, Node... nodes) {
         HBox hbox = new HBox(spacing, nodes);
 
         hbox.setAlignment(alignment);
@@ -56,8 +50,7 @@ public class Layout {
         return hbox;
     }
 
-    public static Region verticallyCentered(Node node)
-    {
+    public static Region verticallyCentered(Node node) {
         VBox vbox = new VBox(node);
 
         vbox.setAlignment(Pos.CENTER);
@@ -65,12 +58,21 @@ public class Layout {
         return vbox;
     }
 
-    public static Region horizontallyCentered(Node node)
-    {
+    public static Region horizontallyCentered(Node node) {
         HBox hbox = new HBox(node);
 
         hbox.setAlignment(Pos.CENTER);
 
         return hbox;
+    }
+
+    public static Region spacer(int size) {
+        Region spacer = new Region();
+        spacer.setPrefHeight(size);
+        spacer.setPrefHeight(size);
+        // VBox.setVgrow(spacer, Priority.ALWAYS);
+        // HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        return spacer;
     }
 }

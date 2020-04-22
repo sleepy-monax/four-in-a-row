@@ -8,6 +8,7 @@ import javafx.scene.control.TablePosition;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import models.Question;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,17 +22,20 @@ import utils.Icon;
 import utils.StageManager;
 import views.TextStyle;
 import views.View;
-import views.Widget;
 import views.dialogs.InfoDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static views.Layout.*;
+import static views.Widget.*;
+
 public class Editor extends View {
 
-    public Editor(Deck deck) {
-        setPadding(new Insets(32));
+    private static TableView createTable(Deck deck)
+    {
+        ObservableList<Question> list = FXCollections.observableArrayList(deck.getQuestions());
 
         TableView table = new TableView();
         table.setEditable(true);
@@ -46,8 +50,6 @@ public class Editor extends View {
         TableColumn<Question, String> cluesColumn2 = new TableColumn("Clues 2");
         TableColumn<Question, String> cluesColumn3 = new TableColumn("Clues 3");
 
-        ObservableList< Question> list = FXCollections.observableArrayList(deck.getQuestions());
-
         //Edit authorColumn
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
         authorColumn.setCellFactory(TextFieldTableCell. forTableColumn());
@@ -60,90 +62,6 @@ public class Editor extends View {
             Question question =  event.getTableView().getItems().get(row);
 
             question.setAuthor(newAuthor);
-            deck.save();
-        });
-
-
-        // Edit themeColumn
-        themeColumn.setCellValueFactory(new PropertyValueFactory<>("theme"));
-        themeColumn.setCellFactory(TextFieldTableCell.<Question> forTableColumn());
-        themeColumn.setOnEditCommit((CellEditEvent <Question, String> event) -> {
-            TablePosition <Question, String> pos = event.getTablePosition();
-
-            String newTheme =  event.getNewValue();
-
-            int row = pos.getRow();
-            Question question =  event.getTableView().getItems().get(row);
-
-            question.setTheme(newTheme);
-            deck.save();
-        });
-
-        //Edit cluesColumn 1
-        cluesColumn1.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getClues().get(0)));
-        cluesColumn1.setCellFactory(TextFieldTableCell.<Question> forTableColumn());
-        cluesColumn1.setOnEditCommit((CellEditEvent <Question, String> event) -> {
-            TablePosition <Question, String> pos = event.getTablePosition();
-
-            String newClues1 =  event.getNewValue();
-            List newList= new ArrayList<>();
-            int row = pos.getRow();
-            newList.add(newClues1);
-            newList.add(list.get(row).getClues().get(1));
-            newList.add(list.get(row).getClues().get(2));
-            Question question =  event.getTableView().getItems().get(row);
-
-            question.setClues(newList);
-            deck.save();
-        });
-        //Edit cluesColumn 2
-        cluesColumn2.setCellValueFactory(param -> {
-            if(param.getValue().getClues().size() > 1)
-                return new SimpleStringProperty(param.getValue().getClues().get(1));
-            else{
-                return new SimpleStringProperty("");
-            }
-        });
-        cluesColumn2.setCellFactory(TextFieldTableCell.<Question> forTableColumn());
-
-        cluesColumn2.setOnEditCommit((CellEditEvent <Question, String> event) -> {
-            TablePosition <Question, String> pos = event.getTablePosition();
-
-            String newClues2 =  event.getNewValue();
-            List newList= new ArrayList<>();
-            int row = pos.getRow();
-
-            newList.add(list.get(row).getClues().get(0));
-            newList.add(newClues2);
-            newList.add(list.get(row).getClues().get(2));
-            Question question =  event.getTableView().getItems().get(row);
-
-            question.setClues(newList);
-            deck.save();
-        });
-        //Edit cluesColumn 3
-        cluesColumn3.setCellValueFactory(param -> {
-            if(param.getValue().getClues().size() > 2)
-                return new SimpleStringProperty(param.getValue().getClues().get(2));
-            else{
-                return new SimpleStringProperty("");
-            }
-        });
-        cluesColumn3.setCellFactory(TextFieldTableCell.<Question> forTableColumn());
-
-        cluesColumn3.setOnEditCommit((CellEditEvent <Question, String> event) -> {
-            TablePosition <Question, String> pos = event.getTablePosition();
-
-            String newClues3 =  event.getNewValue();
-            List newList= new ArrayList<>();
-            int row = pos.getRow();
-
-            newList.add(list.get(row).getClues().get(0));
-            newList.add(list.get(row).getClues().get(1));
-            newList.add(newClues3);
-            Question question =  event.getTableView().getItems().get(row);
-
-            question.setClues(newList);
             deck.save();
         });
 
@@ -162,43 +80,71 @@ public class Editor extends View {
             deck.save();
         });
 
+        // Edit themeColumn
+        themeColumn.setCellValueFactory(new PropertyValueFactory<>("theme"));
+        themeColumn.setCellFactory(TextFieldTableCell.<Question> forTableColumn());
+        themeColumn.setOnEditCommit((CellEditEvent <Question, String> event) -> {
+            TablePosition <Question, String> pos = event.getTablePosition();
 
+            String newTheme =  event.getNewValue();
+
+            int row = pos.getRow();
+            Question question =  event.getTableView().getItems().get(row);
+
+            question.setTheme(newTheme);
+            deck.save();
+        });
+
+        table.getColumns().addAll(authorColumn, answerColumn, themeColumn);
         table.setItems(list);
 
-        table.getColumns().addAll(answerColumn, themeColumn, authorColumn, cluesColumn1, cluesColumn2, cluesColumn3);
+        return table;
+    }
 
+    public Editor(Deck deck) {
+        setPadding(new Insets(32));
 
-        Button backButton = Widget.button("Go back", actionEvent -> StageManager.switchView(new Main()));
+        TableView table = createTable(deck);
 
-        Node orbAdd = Widget.iconButton(Icon.ADD,  actionEvent -> {
+        Node createQuestionButton = buttonWithIcon(
+            Icon.ADD,
+            "Create",
+            event -> {
 
-        });
-
-        Node orbDelete = Widget.iconButton(Icon.DELETE_FOREVER,  actionEvent -> {
-            if(table.getSelectionModel().getSelectedIndex()<0) {
-                new InfoDialog("Error","Please, select a row").show();
             }
-            else{
-                deck.remove(table.getSelectionModel().getSelectedIndex());
-                table.getItems().remove(table.getSelectionModel().getSelectedIndex());
-                deck.save();
-                table.refresh();
+        );
+
+        Node deleteQuestionButton = buttonWithIcon(
+            Icon.DELETE_FOREVER,
+            "Delete",
+            event -> {
+                if(table.getSelectionModel().getSelectedIndex()<0) {
+                    new InfoDialog("Something went wrong...","No row where selected").show();
+                }
+                else{
+                    deck.remove(table.getSelectionModel().getSelectedIndex());
+                    table.getItems().remove(table.getSelectionModel().getSelectedIndex());
+                    deck.save();
+                    table.refresh();
+                }
             }
+        );
 
-        });
+        Region editorPane = panel(
+            vertical(
+                16,
+                horizontallyCentered(text("Question editor", TextStyle.TITLE)),
+                spacer(16),
+                table,
+                spacer(8),
+                horizontal(16, Pos.CENTER, fill(createQuestionButton), fill(deleteQuestionButton))
+            )
+        );
 
-        HBox orbContainer = new HBox(16, orbAdd, orbDelete);
-        orbContainer.setAlignment(Pos.CENTER);
-        orbContainer.setPrefHeight(48);
-        orbContainer.setMaxWidth(48);
-        orbContainer.setMaxHeight(48 + 24);
-        orbContainer.setPadding(new Insets(24, 0, 0, 0));
-        StackPane.setAlignment(orbContainer, Pos.BOTTOM_CENTER);
-
+        Button backButton = button("Go back", actionEvent -> StageManager.switchView(new Main()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-
-        getChildren().addAll(Widget.text("Editor", TextStyle.TITLE), table, backButton, orbContainer);
+        getChildren().addAll(width(512,editorPane), backButton);
     }
 
 

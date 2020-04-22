@@ -14,7 +14,6 @@
 
 .table-row-cell:selected {
     -fx-background-color: rgb(51, 153, 255);
-
 }
 
 .table-view .nested-column-header

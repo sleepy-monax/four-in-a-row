@@ -6,9 +6,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import models.Deck;
 import models.Users.User;
+import utils.Icon;
 import utils.StageManager;
 import views.Layout;
 import views.TextStyle;
@@ -20,27 +22,52 @@ import static views.Layout.*;
 import static views.Widget.*;
 
 public class AdminConnect extends View {
-    User admin = new User("admin", "helha");
+    private static User ADMIN = new User("admin", "helha");
+
+    private void login(String username, String password)
+    {
+        User user = new User(username, password);
+
+        if (user.equals(ADMIN)) {
+            StageManager.switchView(new Editor(Deck.get()));
+        } else {
+            new InfoDialog("Error", "Wrong login or password").show();
+        }
+    }
 
     public AdminConnect() {
         setPadding(new Insets(32));
-        TextField logField = textField();
-        PasswordField pswField = passwordField();
 
-        Node menu = vertical(16, text("Username", TextStyle.SUBTITLE), logField, text("Password", TextStyle.SUBTITLE),
-                pswField, Layout.horizontallyCentered(button("Connect", event -> {
-                    User usr = new User(logField.getText(), pswField.getText());
-                    if (usr.equals(admin)) {
-                        StageManager.switchView(new Editor(Deck.get()));
-                    } else {
-                        new InfoDialog("Error", "Wrong login or password").show();
-                    }
-                })));
+        TextField userNameFiled = textField();
+
+        TextField passwordField = passwordField();
+
+        Region connectButton = buttonWithIcon(
+            Icon.CHECK,
+            "Connect",
+            event -> login(userNameFiled.getText(), passwordField.getText())
+        );
+
+        Region loginPane = panel(
+            vertical(
+                16,
+                horizontallyCentered(text("Connect", TextStyle.TITLE)),
+                spacer(16),
+                text("Username:", TextStyle.LABEL),
+                userNameFiled,
+                text("Password:", TextStyle.LABEL),
+                passwordField,
+                spacer(16),
+                horizontallyCentered(width(320, connectButton))
+            )
+        );
 
         Button backButton = Widget.button("Go back", actionEvent -> StageManager.switchView(new Main()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        getChildren().addAll(Widget.text("Connect", TextStyle.TITLE),
-                Layout.verticallyCentered(Layout.width(512, Widget.panel(menu))), backButton);
+        getChildren().addAll(
+            Layout.verticallyCentered(Layout.width(512, loginPane)),
+            backButton
+        );
     }
 }
