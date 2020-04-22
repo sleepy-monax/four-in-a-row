@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Editor extends View {
+
     public Editor(Deck deck) {
         setPadding(new Insets(32));
 
@@ -179,9 +180,9 @@ public class Editor extends View {
             }
             else{
                 deck.remove(table.getSelectionModel().getSelectedIndex());
+                table.getItems().remove(table.getSelectionModel().getSelectedIndex());
                 deck.save();
-                StageManager.switchView(new Editor(Deck.load()));
-
+                table.refresh();
             }
 
         });
