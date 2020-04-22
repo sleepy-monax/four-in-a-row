@@ -12,10 +12,8 @@ import models.Deck;
 import models.Users.User;
 import utils.Icon;
 import utils.StageManager;
-import views.Layout;
 import views.TextStyle;
 import views.View;
-import views.Widget;
 import views.dialogs.InfoDialog;
 
 import static views.Layout.*;
@@ -62,11 +60,11 @@ public class AdminConnect extends View {
             )
         );
 
-        Button backButton = Widget.button("Go back", actionEvent -> StageManager.switchView(new Main()));
+        Button backButton = button("Go back", actionEvent -> StageManager.switchView(new Main()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         getChildren().addAll(
-            Layout.verticallyCentered(Layout.width(512, loginPane)),
+            verticallyCentered(width(512, loginPane)),
             backButton
         );
     }

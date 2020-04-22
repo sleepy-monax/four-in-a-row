@@ -118,7 +118,7 @@ public class Editor extends View {
             Icon.DELETE_FOREVER,
             "Delete",
             event -> {
-                if(table.getSelectionModel().getSelectedIndex()<0) {
+                if(table.getSelectionModel().getSelectedIndex() < 0) {
                     new InfoDialog("Something went wrong...","No row where selected").show();
                 }
                 else{
@@ -135,7 +135,7 @@ public class Editor extends View {
                 16,
                 horizontallyCentered(text("Question editor", TextStyle.TITLE)),
                 spacer(16),
-                table,
+                fill(table),
                 spacer(8),
                 horizontal(16, Pos.CENTER, fill(createQuestionButton), fill(deleteQuestionButton))
             )
@@ -144,7 +144,7 @@ public class Editor extends View {
         Button backButton = button("Go back", actionEvent -> StageManager.switchView(new Main()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        getChildren().addAll(width(512,editorPane), backButton);
+        getChildren().addAll(verticallyCentered(width(512,editorPane)), backButton);
     }
 
 

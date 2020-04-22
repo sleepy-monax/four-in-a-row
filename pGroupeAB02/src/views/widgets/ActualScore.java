@@ -2,7 +2,6 @@ package views.widgets;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import views.Layout;
 
 public class ActualScore extends Label {
 

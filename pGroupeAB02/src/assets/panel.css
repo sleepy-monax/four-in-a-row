@@ -1,5 +1,7 @@
 .panel{
-    -fx-background-color: #000a;
+    --fx-background-color: #000a;
+    -fx-background-color: linear-gradient( #205BAE, #001D47);
+
     -fx-background-radius: 16;
     -fx-padding: 16;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 16, 0, 0.0, 4.0);

@@ -7,14 +7,17 @@ import views.widgets.RoomPlayer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import models.message.OnPlayerEvent;
 import models.message.PlayerEvent;
 import models.Game;
 import utils.Icon;
 import views.View;
 import views.Widget;
+
+import static views.Layout.*;
+import static views.Widget.*;
 
 public class Lobby extends View {
     public Lobby(Game game) {
@@ -35,27 +38,31 @@ public class Lobby extends View {
             }
         });
 
-        VBox menuContainer = new VBox(16);
-        menuContainer.setAlignment(Pos.CENTER);
-        menuContainer.setMaxWidth(512);
+
+        Node startGameButton = Widget.buttonWithIcon(Icon.GROUP, "Start Game", event -> {
+            game.start();
+        });
+
+
+        Region lobbyPanel = panel(
+            vertical(
+                16,
+                horizontallyCentered(Widget.text("Multiplayer Lobby", TextStyle.TITLE)),
+                spacer(16),
+                text("Players", TextStyle.LABEL),
+                vertical(8, players),
+                spacer(16),
+                horizontal(
+                    8,
+                    fill(verticallyCentered(startGameButton)),
+                    verticallyCentered(iconButton(Icon.SETTINGS, event->{}))
+                )
+            )
+        );
 
         Button backButton = Widget.button("Go back", actionEvent -> game.shutdown());
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        Node startGame = Widget.buttonWithIcon(Icon.GROUP, "Start Game", event -> {
-            game.start();
-        });
-
-        StackPane.setAlignment(startGame, Pos.BOTTOM_RIGHT);
-
-        menuContainer.getChildren().addAll(Widget.text("Players", TextStyle.SUBTITLE));
-
-        for (int i = 0; i < 4; i++) {
-            menuContainer.getChildren().add(players[i]);
-        }
-
-        menuContainer.getChildren().add(startGame);
-
-        this.getChildren().addAll(Widget.text("Multiplayer Room", TextStyle.SUBTITLE), menuContainer, backButton);
+        this.getChildren().addAll(Widget.text("Multiplayer Room", TextStyle.SUBTITLE), verticallyCentered(width(512,lobbyPanel)), backButton);
     }
 }
