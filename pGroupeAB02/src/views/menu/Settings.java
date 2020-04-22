@@ -24,6 +24,7 @@ public class Settings extends View {
         Node menu =
                 vertical(
                         16,
+                        horizontallyCentered(text("Settings", TextStyle.TITLE)),
                         horizontallyCentered(
                                 horizontal(
                                         16,
@@ -73,15 +74,17 @@ public class Settings extends View {
                                                 value -> SettingsManager.get().setAudioEffectVolume(value)
                                         )
                                 )
-                        )
+                        ),
+                        verticallyCentered( width(320, buttonWithIcon(
+                                Icon.SAVE,
+                                "Save & Exit", 
+                                event -> {
+                                        SettingsManager.save();
+                                        StageManager.switchView(new Main());
+                                }
+                        )))
                 );
 
-        Button backButton = button("Go back", event -> {
-            SettingsManager.save();
-            StageManager.switchView(new Main());
-        });
-        StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
-
-        this.getChildren().addAll(Widget.text("Settings", TextStyle.TITLE), Layout.verticallyCentered(Layout.width(512, Widget.panel(menu))), backButton);
+        this.getChildren().addAll(Layout.verticallyCentered(Layout.width(512, Widget.panel(menu))));
     }
 }

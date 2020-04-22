@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.multiplayer.Multiplayer;
@@ -15,27 +16,41 @@ import views.View;
 import views.Widget;
 import views.menu.Main;
 
+import static views.Layout.*;
+import static views.Widget.*;
+
 public class Join extends View {
     public Join() {
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(32));
 
-        TextField addressTextfield = Widget.textField("localhost");
+        TextField hostAddressField = Widget.textField("localhost");
+        TextField hostPortField = Widget.textField("" + Multiplayer.DEFAULT_PORT);
+        TextField hostPasswordField = Widget.passwordField();
 
         Node joinButton = Widget.buttonWithIcon(Icon.PEOPLE, "Connect", mouseEvent -> {
-            Multiplayer.join(addressTextfield.getText(), Multiplayer.DEFAULT_PORT);
+            Multiplayer.join(hostAddressField.getText(), Integer.parseInt(hostPortField.getText()), hostPasswordField.getText());
         });
-        VBox.setMargin(joinButton, new Insets(16, 0, 0, 0));
 
-        VBox menuContainer = new VBox(16);
-        menuContainer.setAlignment(Pos.CENTER);
-        menuContainer.setMaxWidth(512);
+        Region loginPane = panel(
+            vertical(
+                16,
+                horizontallyCentered(Widget.text("Join Multiplayer", TextStyle.TITLE)),
+                spacer(16),
+                text("Host adrress:", TextStyle.LABEL),
+                hostAddressField,
+                text("Host port:", TextStyle.LABEL),
+                hostPortField,
+                text("Password:", TextStyle.LABEL),
+                hostPasswordField,
+                spacer(16),
+                joinButton
+            )
+        );
 
         Button backButton = Widget.button("Go back", actionEvent -> StageManager.switchView(new Main()));
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
-        menuContainer.getChildren().addAll(Widget.text("Host Address", TextStyle.SUBTITLE), addressTextfield, joinButton);
-
-        this.getChildren().addAll(Widget.text("Join Multiplayer", TextStyle.TITLE), menuContainer, backButton);
+        this.getChildren().addAll(verticallyCentered(width(512,loginPane)), backButton);
     }
 }

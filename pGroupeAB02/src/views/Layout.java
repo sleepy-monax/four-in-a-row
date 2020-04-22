@@ -70,8 +70,6 @@ public class Layout {
         Region spacer = new Region();
         spacer.setPrefHeight(size);
         spacer.setPrefHeight(size);
-        // VBox.setVgrow(spacer, Priority.ALWAYS);
-        // HBox.setHgrow(spacer, Priority.ALWAYS);
 
         return spacer;
     }

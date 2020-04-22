@@ -9,7 +9,7 @@ import models.Game;
 public class Multiplayer {
     public static final int DEFAULT_PORT = 1234;
 
-    public static void join(String ip, int port) {
+    public static void join(String ip, int port, String password) {
         Game game = new Game(null, Difficulty.EASY);
         Slave slave = new Slave(game, SettingsManager.get().getPlayerName(), ip, port);
 
