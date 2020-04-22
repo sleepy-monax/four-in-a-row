@@ -23,7 +23,7 @@ public class Multiplayer {
     }
 
     public static void host(int port) {
-        Game game = new Game(Deck.load(), Difficulty.MEDIUM);
+        Game game = new Game(Deck.get(), Difficulty.MEDIUM);
         Master master = new Master(game, port);
 
         game.setLocalPlayer(game.joinPlayer(SettingsManager.get().getPlayerName()));

@@ -39,12 +39,12 @@ public class Editor extends View {
         table.setMinWidth(512);
         table.setMaxHeight(480);
 
-        TableColumn <Question, String> answerColumn = new TableColumn <Question, String>("Answer");
-        TableColumn <Question, String> themeColumn = new TableColumn <Question, String>("Theme");
-        TableColumn <Question, String> authorColumn = new TableColumn <Question, String>("Author");
-        TableColumn <Question, String> cluesColumn1 = new TableColumn("Clues 1");
-        TableColumn <Question, String> cluesColumn2 = new TableColumn("Clues 2");
-        TableColumn <Question, String> cluesColumn3 = new TableColumn("Clues 3");
+        TableColumn<Question, String> answerColumn = new TableColumn <Question, String>("Answer");
+        TableColumn<Question, String> themeColumn  = new TableColumn <Question, String>("Theme");
+        TableColumn<Question, String> authorColumn = new TableColumn <Question, String>("Author");
+        TableColumn<Question, String> cluesColumn1 = new TableColumn("Clues 1");
+        TableColumn<Question, String> cluesColumn2 = new TableColumn("Clues 2");
+        TableColumn<Question, String> cluesColumn3 = new TableColumn("Clues 3");
 
         ObservableList< Question> list = FXCollections.observableArrayList(deck.getQuestions());
 

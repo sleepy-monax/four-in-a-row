@@ -103,21 +103,25 @@ public class Deck implements Serializable {
         return "{" + " questions='" + getQuestions() + "'" + "}";
     }
 
-    public static Deck load() {
-        Deck deck = Serialization.readFromJsonFile("questions.json", Deck.class);
+    static Deck cachedDeck = null;
 
-        if (deck == null) {
-            System.out.println("DECK: WARNING: Falling back on the builtin deck.");
+    public static Deck get() {
+        if (cachedDeck == null) {
+            cachedDeck = Serialization.readFromJsonFile("questions.json", Deck.class);
 
-            deck = Serialization.readFromJsonFileInJar("/assets/questions.json", Deck.class);
-        } else {
-            System.out.println("DECK: Using the deck from the data folder");
+            if (cachedDeck == null) {
+                System.out.println("DECK: WARNING: Falling back on the builtin deck.");
+
+                cachedDeck = Serialization.readFromJsonFileInJar("/assets/questions.json", Deck.class);
+            } else {
+                System.out.println("DECK: Using the deck from the data folder");
+            }
         }
 
-        return deck;
+        return cachedDeck;
     }
 
-    public void save() {
-        Serialization.writeToJsonFile("questions.json", this);
+    public static void save() {
+        Serialization.writeToJsonFile("questions.json", cachedDeck);
     }
 }

@@ -31,7 +31,7 @@ public class AdminConnect extends View {
                 pswField, Layout.horizontallyCentered(button("Connect", event -> {
                     User usr = new User(logField.getText(), pswField.getText());
                     if (usr.equals(admin)) {
-                        StageManager.switchView(new Editor(Deck.load()));
+                        StageManager.switchView(new Editor(Deck.get()));
                     } else {
                         new InfoDialog("Error", "Wrong login or password").show();
                     }

@@ -12,7 +12,7 @@ public class SinglePlayer extends GameController {
     }
 
     public static void play() {
-        Game game = new Game(Deck.load(), Difficulty.MEDIUM);
+        Game game = new Game(Deck.get(), Difficulty.MEDIUM);
         SinglePlayer singleplayer = new SinglePlayer(game);
         game.setLocalPlayer(game.joinPlayer(SettingsManager.get().getPlayerName()));
         game.start();
