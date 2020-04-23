@@ -1,13 +1,11 @@
 package views.menu;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import models.Question;
 import javafx.geometry.Insets;
@@ -23,10 +21,6 @@ import utils.StageManager;
 import views.TextStyle;
 import views.View;
 import views.dialogs.InfoDialog;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static views.Layout.*;
 import static views.Widget.*;

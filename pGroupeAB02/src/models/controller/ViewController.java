@@ -1,7 +1,6 @@
 package models.controller;
 
 import models.Game;
-import models.Player;
 import models.message.*;
 import utils.StageManager;
 import views.dialogs.InfoDialog;

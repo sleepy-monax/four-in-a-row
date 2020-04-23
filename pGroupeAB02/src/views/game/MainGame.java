@@ -1,6 +1,5 @@
 package views.game;
 
-import javafx.scene.control.Label;
 import views.widgets.*;
 import views.dialogs.YesNo;
 import views.dialogs.YesNoDialog;
