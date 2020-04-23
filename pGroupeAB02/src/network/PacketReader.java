@@ -24,7 +24,12 @@ public class PacketReader {
 
     public synchronized byte[] readBytes() throws IOException {
         final int dataLength = dataInputStream.readInt();
+
         final byte[] data = new byte[dataLength];
+        if (dataLength == 0)
+        {
+            return data;
+        }
 
         final int dataRead = dataInputStream.read(data, 0, dataLength);
         if (dataRead != dataLength)
