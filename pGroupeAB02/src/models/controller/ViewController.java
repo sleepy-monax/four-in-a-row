@@ -27,7 +27,7 @@ public class ViewController {
 
         game.getMessageLoop().registerNotifier(OnThemeSelected.class, message -> {
             if (game.getLocalPlayer().equals(message.player())) {
-                StageManager.switchView(new MainGame(game));
+                StageManager.switchView(new MainGame(game, message.player()));
             } else {
                 StageManager.switchView(new OtherPlayerPlaying(game, message.player(), "playing"));
             }

@@ -16,7 +16,7 @@ public class MessageLoop {
 
         for (Notifiable notifier : notifiables) {
             if (notifier.canAccept(message)) {
-                System.out.println("MESSAGELOOP: dispatching: " + message.getClass().getTypeName() + " to " + notifier);
+                System.out.println("MESSAGELOOP: dispatching: " + message + " to " + notifier);
 
                 notifier.handle(message);
 
@@ -38,7 +38,7 @@ public class MessageLoop {
             if (dispatch(message)) {
                 reposted.add(message);
             } else {
-                System.out.println("MESSAGELOOP: Failled to repost: " + message.getClass().getTypeName());
+                System.out.println("MESSAGELOOP: Failled to repost: " + message);
             }
         }
 

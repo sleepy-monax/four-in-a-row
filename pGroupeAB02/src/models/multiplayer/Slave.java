@@ -2,7 +2,9 @@ package models.multiplayer;
 
 import models.controller.GameController;
 import models.message.GameDisconnected;
+import models.message.OnSelectTheme;
 import models.messageloop.Message;
+import models.states.GameState;
 import models.Game;
 import network.*;
 
@@ -88,5 +90,44 @@ public class Slave extends GameController implements ConnectionListener {
     @Override
     public void shutdown() {
         connection.close();
+    }
+
+    public GameState getPassiveState()
+    {
+        return new GameState() {
+            @Override
+            public void selectTheme(String theme) {
+                connection.send(
+                    new PacketBuilder(PacketType.PLAYER_SELECT_THEME)
+                    .withString(theme)
+                    .build()
+                );
+            }
+
+            @Override
+            public void selectMisteryTheme() {
+                connection.send(
+                    new PacketBuilder(PacketType.PLAYER_SELECT_MISTERY_THEME)
+                    .build()
+                );
+            }
+
+            @Override
+            public void answer(String answer) {
+                connection.send(
+                    new PacketBuilder(PacketType.PLAYER_ANSWER)
+                    .withString(answer)
+                    .build()
+                );
+            }
+
+            @Override
+            public void pass() {
+                connection.send(
+                    new PacketBuilder(PacketType.PLAYER_PASS)
+                    .build()
+                );
+            }
+        };
     }
 }

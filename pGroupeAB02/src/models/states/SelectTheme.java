@@ -30,6 +30,11 @@ public class SelectTheme extends GameState {
     }
 
     @Override
+    public void selectMisteryTheme() {
+        selectTheme(game.getDeck().getRandomThemes(1)[0]);
+    }
+
+    @Override
     public void onSwitchIn() {
         game.getMessageLoop().post(new models.message.OnSelectTheme(player, themes));
     }

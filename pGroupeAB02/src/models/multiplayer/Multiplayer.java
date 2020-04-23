@@ -5,6 +5,7 @@ import views.dialogs.InfoDialog;
 import models.Deck;
 import models.Difficulty;
 import models.Game;
+import models.states.Pending;
 
 public class Multiplayer {
     public static final int DEFAULT_PORT = 1234;
@@ -14,8 +15,7 @@ public class Multiplayer {
         Slave slave = new Slave(game, SettingsManager.get().getPlayerName(), ip, port);
 
         if (slave.connect()) {
-            game.startPassive();
-
+            game.startWidthState(slave.getPassiveState());
         } else {
             new InfoDialog("Join Multiplayer", "Failed to reach " + ip + ":" + port).show();
             game.shutdown();
@@ -27,6 +27,7 @@ public class Multiplayer {
         Master master = new Master(game, port);
 
         game.setLocalPlayer(game.joinPlayer(SettingsManager.get().getPlayerName()));
+        game.startWidthState(new Pending());
         game.enterLobby();
     }
 }

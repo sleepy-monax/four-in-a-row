@@ -15,6 +15,9 @@ public abstract class GameState {
     public void selectTheme(String theme) {
     }
 
+    public void selectMisteryTheme() {
+    }
+
     public void answer(String answer) {
     }
 

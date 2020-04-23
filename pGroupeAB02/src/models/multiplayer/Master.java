@@ -124,6 +124,24 @@ public class Master extends GameController implements ConnectionListener {
                 e.printStackTrace();
                 connection.close();
             }
+        } else if (packet.getPacketType() == PacketType.PLAYER_SELECT_THEME) {
+            try {
+                game().selectTheme(reader.readString());
+            } catch (IOException e) {
+                e.printStackTrace();
+                connection.close();
+            }
+        } else if (packet.getPacketType() == PacketType.PLAYER_SELECT_MISTERY_THEME) {
+            game().selectMisteryTheme();
+        } else if (packet.getPacketType() == PacketType.PLAYER_ANSWER) {
+            try {
+                game().answer(reader.readString());
+            } catch (IOException e) {
+                e.printStackTrace();
+                connection.close();
+            }
+        } else if (packet.getPacketType() == PacketType.PLAYER_PASS) {
+            game().pass();
         } else {
             System.out.println("Unexpected packet " + packet.toString());
         }

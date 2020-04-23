@@ -10,6 +10,7 @@ import javafx.util.Duration;
 import models.message.*;
 import models.messageloop.Notifiable;
 import models.Game;
+import models.Player;
 import utils.ShakeTransition;
 import utils.Icon;
 import views.View;
@@ -17,6 +18,7 @@ import static views.Widget.*;
 
 public class MainGame extends View {
     private final Game game;
+    private final Player player;
 
     private final ClueStack clueStack;
     private final AnswerField answer;
@@ -29,8 +31,9 @@ public class MainGame extends View {
     private Notifiable onAnswerIncorrect;
     private Notifiable onQuestionPassed;
 
-    public MainGame(Game game) {
+    public MainGame(Game game, Player player) {
         this.game = game;
+        this.player = player;
 
         this.setPadding(new Insets(0));
 
@@ -76,7 +79,8 @@ public class MainGame extends View {
 
     public void onSwitchIn() {
         onNewClueNotifier = game.getMessageLoop().registerNotifier(OnNewClue.class, message -> {
-            clueStack.addClue(message.clue());
+            if (message.player().equals(player))
+                clueStack.addClue(message.clue());
         });
 
         onCountdownNotifier = game.getMessageLoop().registerNotifier(OnCountDown.class, message -> {
@@ -84,21 +88,30 @@ public class MainGame extends View {
         });
 
         onAnswerCorrect = game.getMessageLoop().registerNotifier(OnAnswerCorrect.class, message -> {
-            clueStack.clearClues();
-            answer.clear();
-            actualScore.update(game.getPlayer(0).getScore());
-            maxLevel.update(game.getPlayer(0).getLevelMax());
+            if (message.player().equals(player))
+            {
+                clueStack.clearClues();
+                answer.clear();
+                actualScore.update(game.getPlayer(0).getScore());
+                maxLevel.update(game.getPlayer(0).getLevelMax());
+            }
         });
 
         onAnswerIncorrect = game.getMessageLoop().registerNotifier(OnAnswerIncorrect.class, message -> {
-            ShakeTransition shake = new ShakeTransition(answer, Duration.seconds(0.5), 16, 3);
-            shake.play();
-            maxLevel.update(game.getPlayer(0).getLevelMax());
+            if (message.player().equals(player))
+            {
+                ShakeTransition shake = new ShakeTransition(answer, Duration.seconds(0.5), 16, 3);
+                shake.play();
+                maxLevel.update(game.getPlayer(0).getLevelMax());
+            }
         });
 
         onQuestionPassed = game.getMessageLoop().registerNotifier(OnQuestionPassed.class, message -> {
-            clueStack.clearClues();
-            answer.clear();
+            if (message.player().equals(player))
+            {
+                clueStack.clearClues();
+                answer.clear();
+            }
         });
     }
 

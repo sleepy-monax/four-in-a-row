@@ -84,4 +84,9 @@ public abstract class Message {
 
     public void readPacket(PacketReader reader, Game game) throws IOException {
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getName();
+    }
 }

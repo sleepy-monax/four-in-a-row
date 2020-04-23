@@ -29,12 +29,11 @@ public class Game {
         nextPlayer();
     }
 
-    public void startPassive() {
-        changeState(new Passive());
+    public void startWidthState(GameState gameState) {
+        changeState(gameState);
     }
 
     public void enterLobby() {
-        changeState(new Pending());
         messageLoop.post(new OnGameEnterLobby());
     }
 
@@ -165,6 +164,7 @@ public class Game {
     }
 
     public void selectMisteryTheme() {
+        state.selectMisteryTheme();
     }
 
     public void answer(String answer) {
