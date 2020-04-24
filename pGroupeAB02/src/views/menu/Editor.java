@@ -90,7 +90,7 @@ public class Editor extends View {
     }
 
     public Editor(Deck deck) {
-        setPadding(new Insets(32));
+        super(true);
 
         ObservableList<Question> data = FXCollections.observableArrayList(deck.getQuestions());
         TableView table = createTable(data);
@@ -159,15 +159,11 @@ public class Editor extends View {
             )
         );
 
-        Button backButton = button(
-            "Go back", 
-            actionEvent -> {StageManager.switchView(new Main()); deck.save();}
-        );
-
-        StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
-
-        getChildren().addAll(verticallyCentered(width(512,editorPane)), backButton);
+        getChildren().addAll(
+            verticallyCentered(width(512,editorPane)),
+            backButton(actionEvent -> {
+                StageManager.switchView(new Main());
+                deck.save();
+            }));
     }
-
-
 }

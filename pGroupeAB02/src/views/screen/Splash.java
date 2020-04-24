@@ -4,20 +4,24 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import utils.Animations;
 import utils.AudioManager;
 import utils.StageManager;
+import views.TextStyle;
 import views.View;
-import views.Widget;
 import views.menu.Main;
+
+import static views.Layout.*;
+import static views.Widget.*;
 
 public class Splash extends View {
     public Splash() {
-        Button button = Widget.button("Press any key to start...", event -> {
+        super(false);
+
+        Button button = button("Press any key to start...", event -> {
             goToMainMenu();
         });
 
@@ -32,11 +36,16 @@ public class Splash extends View {
 
         StackPane.setAlignment(label, Pos.BOTTOM_CENTER);
 
-        Pane black = new Pane();
+        StackPane black = new StackPane();
         black.setDisable(true);
         black.setStyle("-fx-background-color: black");
 
-        Node logo = Widget.logo();
+        black.getChildren().add(
+            verticallyCentered(horizontallyCentered(buzzer()))
+        );
+
+
+        Node logo = logo();
 
         setOnKeyTyped(keyEvent -> {
             goToMainMenu();

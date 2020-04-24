@@ -11,15 +11,14 @@ import models.Player;
 import utils.StageManager;
 import views.TextStyle;
 import views.View;
-import views.Widget;
+
+import static views.Widget.*;
 
 public class Score extends View {
     TableView tableView = new TableView();
 
     public Score() {
-        setPadding(new Insets(32));
-        tableView.setMaxWidth(512);
-        tableView.setMaxHeight(480);
+        super(true);
 
         TableColumn<String, Player> column1 = new TableColumn<>("Position");
         column1.setCellValueFactory(new PropertyValueFactory<>("position"));
@@ -34,9 +33,10 @@ public class Score extends View {
         tableView.getColumns().add(column2);
         tableView.getColumns().add(column3);
 
-        Button backButton = Widget.button("Go back", event -> StageManager.switchView(new Main()));
-        StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
-
-        this.getChildren().addAll(Widget.text("Score", TextStyle.TITLE), tableView, backButton);
+        this.getChildren().addAll(
+            text("Score", TextStyle.TITLE),
+            tableView,
+            backButton(actionEvent -> StageManager.switchView(new Main()))
+        );
     }
 }

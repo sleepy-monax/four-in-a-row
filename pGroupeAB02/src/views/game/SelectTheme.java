@@ -11,15 +11,16 @@ import javafx.scene.layout.VBox;
 import models.Game;
 import utils.Icon;
 import utils.StageManager;
-import views.Layout;
 import views.TextStyle;
 import views.View;
-import views.Widget;
+
+import static views.Layout.*;
+import static views.Widget.*;
 
 public class SelectTheme extends View {
 
     public SelectTheme(Game game, String[] themes) {
-        this.setPadding(new Insets(32));
+        super(true);
 
         VBox themesList = new VBox(16);
 
@@ -27,24 +28,25 @@ public class SelectTheme extends View {
         themesList.setMaxWidth(512);
 
         for (String theme : themes) {
-            Node themeButton = Widget.buttonWithIcon(Icon.STAR, theme, event -> {
+            Node themeButton = buttonWithIcon(Icon.STAR, theme, event -> {
                 game.selectTheme(theme);
             });
 
-            themesList.getChildren().add(Layout.width(360, themeButton));
+            themesList.getChildren().add(width(360, themeButton));
         }
 
-        Pane themeButton = Widget.buttonWithIcon(Icon.SHUFFLE, "Mystery theme", event -> {
+        Pane themeButton = buttonWithIcon(Icon.SHUFFLE, "Mystery theme", event -> {
             game.selectMisteryTheme();
         });
 
-        themesList.getChildren().addAll(Layout.spacer(16), Layout.width(360, themeButton));
-
-        Button backButton = Widget.button("Go back", event -> game.shutdown());
-        StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
+        themesList.getChildren().addAll(spacer(16), width(360, themeButton));
 
         this.setAlignment(Pos.CENTER);
-        this.getChildren().addAll(Widget.text("Select a theme", TextStyle.TITLE), themesList, backButton);
+        this.getChildren().addAll(
+            text("Select a theme", TextStyle.TITLE), 
+            themesList, 
+            backButton(actionEvent -> game.shutdown())
+        );
     }
 
     @Override

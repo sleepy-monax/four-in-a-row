@@ -1,5 +1,6 @@
 package views;
 
+import javafx.animation.Animation;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -258,5 +260,55 @@ public final class Widget {
         pane.getStyleClass().add("panel");
 
         return pane;
+    }
+
+    public static Region backButton(EventHandler<? super MouseEvent> onClick)
+    {
+        Pane button = new Pane();
+        //button.setStyle("-fx-border-color: green");
+
+        button.setMaxWidth(96);
+        button.setMaxHeight(48);
+
+        StackPane icon = new StackPane();
+        icon.setPrefWidth(48);
+        icon.setPrefHeight(48);
+        icon.setTranslateX(-8);
+
+        ImageView image = new ImageView(Icon.ARROW_BACK.path);
+        icon.getChildren().add(image);
+        StackPane.setAlignment(image, Pos.CENTER);
+
+        StackPane text = new StackPane();
+        text.setPrefWidth(64);
+        text.setPrefHeight(48);
+        text.setTranslateX(-96);
+        text.setOpacity(0);
+        text.getChildren().add(text("Go Back", TextStyle.LABEL));
+
+        button.getChildren().addAll(text, icon);
+
+        button.setOnMouseEntered(event -> {
+            Animations.translateX(icon, -8, 0 + 8, 0.1, 0, () -> {
+                Animations.translateX(icon, 8, 0, 0.1);
+            });
+
+            Animations.translateX(text, -96, 48 + 8, 0.1, 0, () -> {
+                Animations.translateX(text, 48 + 8, 48, 0.1);
+            });
+
+            Animations.fade(text, 0, 1, 0.05, 0);
+        });
+        
+        button.setOnMouseExited(event -> {
+            Animations.translateX(icon, 0, -8, 0.1, 0);
+            Animations.translateX(text, 48, -96, 0.1, 0);
+            Animations.fade(text, 1, 0, 0.05, 0);
+        });
+
+        button.setOnMouseClicked(onClick);
+        StackPane.setAlignment(button, Pos.CENTER_LEFT);
+
+        return button;
     }
 }

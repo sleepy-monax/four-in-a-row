@@ -32,10 +32,10 @@ public class MainGame extends View {
     private Notifiable onQuestionPassed;
 
     public MainGame(Game game, Player player) {
+        super(true);
+
         this.game = game;
         this.player = player;
-
-        this.setPadding(new Insets(0));
 
         Node quitButton = iconButton(Icon.CLOSE, event -> {
             if (new YesNoDialog("Quit the game", "Do you want to quit the game?\nAll progress will be lost!")

@@ -1,6 +1,7 @@
 package utils;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
@@ -94,6 +95,36 @@ public class Animations {
         }
 
         offsetY.play();
+
+        return node;
+    }
+
+
+    public static Node translateX(Node node, double from, double to, double duration) {
+        return translateX(node, from, to, duration, 0, null);
+    }
+
+    public static Node translateX(Node node, double from, double to, double duration, double delay) {
+        return translateX(node, from, to, duration, delay, null);
+    }
+
+    public static Node translateX( Node node, double from, double to, double duration, Runnable then) {
+        return translateX(node, from, to, duration, 0, then);
+    }
+
+    public static Node translateX(Node node, double from, double to, double duration, double delay, Runnable then) {
+        TranslateTransition offsetX = new TranslateTransition(Duration.seconds(duration), node);
+
+        offsetX.setDelay(Duration.seconds(delay));
+        offsetX.setFromX(from);
+        offsetX.setToX(to);
+        offsetX.setInterpolator(Interpolator.EASE_BOTH);
+
+        if (then != null) {
+            offsetX.setOnFinished(even -> then.run());
+        }
+
+        offsetX.play();
 
         return node;
     }

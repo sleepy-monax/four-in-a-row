@@ -11,6 +11,7 @@ import views.Widget;
 public class End extends View {
 
     public End() {
+        super(false);
 
         Pane background = new Pane();
         background.setStyle("-fx-background-color: black;");

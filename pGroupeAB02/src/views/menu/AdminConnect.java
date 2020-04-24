@@ -32,7 +32,7 @@ public class AdminConnect extends View {
     }
 
     public AdminConnect() {
-        setPadding(new Insets(32));
+        super(true);
 
         TextField userNameFiled = textField();
 
@@ -58,12 +58,10 @@ public class AdminConnect extends View {
             )
         );
 
-        Button backButton = button("Go back", actionEvent -> StageManager.switchView(new Main()));
-        StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         getChildren().addAll(
             verticallyCentered(width(512, loginPane)),
-            backButton
+            backButton(actionEvent -> StageManager.switchView(new Main()))
         );
     }
 }

@@ -49,7 +49,7 @@ public final class StageManager {
 
         StageManager.stage.getIcons().add(new Image(DEFAULT_STAGE_ICON));
 
-        View dummy = new View() {
+        View dummy = new View(false) {
         };
 
         dummy.setStyle("-fx-background-color: black;");
@@ -79,12 +79,11 @@ public final class StageManager {
             Runtime.getRuntime().exit(0);
         });
 
-        viewContainer.getChildren().add(background);
         viewContainer.getChildren().add(dummy);
 
         currentView = dummy;
 
-        Scene scene = new Scene(new StackPane(viewContainer, dialogContainer), Color.BLACK);
+        Scene scene = new Scene(new StackPane(background, viewContainer, dialogContainer), Color.BLACK);
 
         scene.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER) && event.isAltDown()) {

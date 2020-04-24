@@ -21,7 +21,7 @@ import static views.Widget.*;
 
 public class Lobby extends View {
     public Lobby(Game game) {
-        this.setPadding(new Insets(32, 32, 32, 32));
+        super(true);
 
         RoomPlayer[] players = new RoomPlayer[4];
 
@@ -60,9 +60,10 @@ public class Lobby extends View {
             )
         );
 
-        Button backButton = Widget.button("Go back", actionEvent -> game.shutdown());
-        StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
-
-        this.getChildren().addAll(Widget.text("Multiplayer Room", TextStyle.SUBTITLE), verticallyCentered(width(512,lobbyPanel)), backButton);
+        this.getChildren().addAll(
+            Widget.text("Multiplayer Room", TextStyle.SUBTITLE),
+            verticallyCentered(width(512,lobbyPanel)),
+            backButton(actionEvent -> game.shutdown())
+        );
     }
 }

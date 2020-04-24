@@ -16,8 +16,7 @@ import static views.Widget.*;
 
 public class Settings extends View {
     public Settings() {
-    this.setPadding(new Insets(32));
-    this.setAlignment(Pos.CENTER);
+    super(true);
 
     Node menu =
         vertical(
@@ -72,17 +71,15 @@ public class Settings extends View {
                         value -> SettingsManager.get().setAudioEffectVolume(value)
                     )
                 )
-            ),
-            verticallyCentered( width(320, buttonWithIcon(
-                Icon.SAVE,
-                "Save & Exit", 
-                event -> {
-                    SettingsManager.save();
-                    StageManager.switchView(new Main());
-                }
-            )))
+            )
         );
 
-    this.getChildren().addAll(Layout.verticallyCentered(Layout.width(512, Widget.panel(menu))));
+        this.getChildren().addAll(
+            Layout.verticallyCentered(Layout.width(512, Widget.panel(menu))),
+            backButton(actionEvent -> {
+                StageManager.switchView(new Main());
+                SettingsManager.save();
+            })
+        );
     }
 }

@@ -13,7 +13,7 @@ import views.Widget;
 
 public class OtherPlayerPlaying extends View {
     public OtherPlayerPlaying(Game game, Player player, String what) {
-        this.setPadding(new Insets(32));
+        super(true);
 
         Label label = Widget.text(player.getName() + " is " + what, TextStyle.SUBTITLE);
 

@@ -4,10 +4,8 @@ import javafx.scene.Node;
 import views.TextStyle;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import models.multiplayer.Multiplayer;
 import utils.StageManager;
 import utils.Icon;
@@ -20,6 +18,8 @@ import static views.Widget.*;
 
 public class Join extends View {
     public Join() {
+        super(true);
+
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(32));
 
@@ -47,9 +47,8 @@ public class Join extends View {
             )
         );
 
-        Button backButton = Widget.button("Go back", actionEvent -> StageManager.switchView(new Main()));
-        StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
-
-        this.getChildren().addAll(verticallyCentered(width(512,loginPane)), backButton);
+        this.getChildren().addAll(
+            verticallyCentered(width(512,loginPane)), 
+            backButton(actionEvent -> StageManager.switchView(new Main())));
     }
 }

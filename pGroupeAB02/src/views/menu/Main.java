@@ -17,9 +17,12 @@ import views.dialogs.YesNo;
 import views.dialogs.YesNoDialog;
 import views.game.Join;
 import views.screen.End;
+import views.screen.Splash;
 
 public class Main extends View {
     public Main() {
+        super(true);
+
         Node singleplayerButton = Widget.buttonWithIcon(Icon.PERSON, "Singleplayer", event -> SinglePlayer.play());
         Node joinMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP_ADD, "Join Multiplayer",
                 mouseEvent -> StageManager.switchView(new Join()));
@@ -56,7 +59,7 @@ public class Main extends View {
         };
 
         this.setAlignment(Pos.CENTER);
-        this.getChildren().add(menuContainer);
+        this.getChildren().addAll(menuContainer, Widget.backButton(actionEvent -> StageManager.switchView(new Splash())));
     }
 
 }
