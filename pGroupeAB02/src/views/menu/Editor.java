@@ -20,17 +20,17 @@ import utils.Icon;
 import utils.StageManager;
 import views.TextStyle;
 import views.View;
+import views.dialogs.EditQuestion;
 import views.dialogs.InfoDialog;
+import views.dialogs.OkCancel;
 
 import static views.Layout.*;
 import static views.Widget.*;
 
 public class Editor extends View {
 
-    private static TableView createTable(Deck deck)
+    private static TableView createTable(ObservableList<Question> data)
     {
-        ObservableList<Question> list = FXCollections.observableArrayList(deck.getQuestions());
-
         TableView table = new TableView();
         table.setEditable(true);
 
@@ -40,9 +40,6 @@ public class Editor extends View {
         TableColumn<Question, String> answerColumn = new TableColumn <Question, String>("Answer");
         TableColumn<Question, String> themeColumn  = new TableColumn <Question, String>("Theme");
         TableColumn<Question, String> authorColumn = new TableColumn <Question, String>("Author");
-        TableColumn<Question, String> cluesColumn1 = new TableColumn("Clues 1");
-        TableColumn<Question, String> cluesColumn2 = new TableColumn("Clues 2");
-        TableColumn<Question, String> cluesColumn3 = new TableColumn("Clues 3");
 
         //Edit authorColumn
         authorColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
@@ -56,7 +53,6 @@ public class Editor extends View {
             Question question =  event.getTableView().getItems().get(row);
 
             question.setAuthor(newAuthor);
-            deck.save();
         });
 
         // Edit answerColumn
@@ -71,7 +67,6 @@ public class Editor extends View {
 
             Question question= event.getTableView().getItems().get(row);
             question.setAnswer(newAnswer);
-            deck.save();
         });
 
         // Edit themeColumn
@@ -86,11 +81,10 @@ public class Editor extends View {
             Question question =  event.getTableView().getItems().get(row);
 
             question.setTheme(newTheme);
-            deck.save();
         });
 
         table.getColumns().addAll(authorColumn, answerColumn, themeColumn);
-        table.setItems(list);
+        table.setItems(data);
 
         return table;
     }
@@ -98,29 +92,59 @@ public class Editor extends View {
     public Editor(Deck deck) {
         setPadding(new Insets(32));
 
-        TableView table = createTable(deck);
+        ObservableList<Question> data = FXCollections.observableArrayList(deck.getQuestions());
+        TableView table = createTable(data);
 
         Node createQuestionButton = buttonWithIcon(
             Icon.ADD,
             "Create",
             event -> {
+                Question newQuestion = new Question();
 
+                if (new EditQuestion(newQuestion).show() == OkCancel.OK)
+                {
+                    deck.add(newQuestion);
+                    data.clear();
+                    data.addAll(deck.getQuestions());
+                }
             }
         );
 
-        Node deleteQuestionButton = buttonWithIcon(
-            Icon.DELETE_FOREVER,
-            "Delete",
+        Node editQuestionButton = buttonWithIcon(
+            Icon.EDIT,
+            "Edit",
             event -> {
-                if(table.getSelectionModel().getSelectedIndex() < 0) {
+                if(table.getSelectionModel().getSelectedIndex() < 0)
+                {
                     new InfoDialog("Something went wrong...","No row where selected").show();
+                    return;
                 }
-                else{
-                    deck.remove(table.getSelectionModel().getSelectedIndex());
-                    table.getItems().remove(table.getSelectionModel().getSelectedIndex());
-                    deck.save();
-                    table.refresh();
+
+                Question originalQuestion =  deck.getQuestions().get(table.getSelectionModel().getSelectedIndex());
+                Question editedQuestion = originalQuestion.clone();
+
+                if (new EditQuestion(editedQuestion).show() == OkCancel.OK)
+                {
+                    deck.replace(originalQuestion, editedQuestion);
+
+                    data.clear();
+                    data.addAll(deck.getQuestions());
                 }
+            }
+        );
+
+        Node deleteQuestionButton = iconButton(
+            Icon.DELETE_FOREVER,
+            event -> {
+                if(table.getSelectionModel().getSelectedIndex() < 0)
+                {
+                    new InfoDialog("Something went wrong...","No row where selected").show();
+                    return;
+                }
+
+                deck.remove(table.getSelectionModel().getSelectedIndex());
+                data.clear();
+                data.addAll(deck.getQuestions());
             }
         );
 
@@ -129,13 +153,17 @@ public class Editor extends View {
                 16,
                 horizontallyCentered(text("Question editor", TextStyle.TITLE)),
                 spacer(16),
-                fill(table),
+                fillWith(table),
                 spacer(8),
-                horizontal(16, Pos.CENTER, fill(createQuestionButton), fill(deleteQuestionButton))
+                horizontal(16, Pos.CENTER, fillWith(createQuestionButton), fillWith(editQuestionButton), fillWith(deleteQuestionButton))
             )
         );
 
-        Button backButton = button("Go back", actionEvent -> StageManager.switchView(new Main()));
+        Button backButton = button(
+            "Go back", 
+            actionEvent -> {StageManager.switchView(new Main()); deck.save();}
+        );
+
         StackPane.setAlignment(backButton, Pos.BOTTOM_LEFT);
 
         getChildren().addAll(verticallyCentered(width(512,editorPane)), backButton);

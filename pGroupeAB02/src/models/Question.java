@@ -9,6 +9,13 @@ public class Question implements Serializable {
     private List<String> clues;
     private String author, theme, answer;
 
+    public Question() {
+        clues = new ArrayList<String>();
+        for (int i = 0; i < 3; i++) {
+            clues.add("");
+        }
+    }
+
     public Question(String author, String theme, String answer) {
         setAuthor(author);
         clues = new ArrayList<String>();

@@ -45,7 +45,7 @@ public class Settings extends View {
             vertical(
                 4,
                 text("Parallax", TextStyle.LABEL),
-                fill(
+                fillWith(
                     slider(
                         () -> SettingsManager.get().getGraphicParallax(),
                         value -> SettingsManager.get().setGraphicParallax(value)
@@ -56,7 +56,7 @@ public class Settings extends View {
             vertical(
                 4,
                 text("Music", TextStyle.LABEL),
-                fill(
+                fillWith(
                     slider(
                         () -> SettingsManager.get().getAudioMusicVolume(),
                         value -> SettingsManager.get().setAudioMusicVolume(value)
@@ -66,7 +66,7 @@ public class Settings extends View {
             vertical(
                 4,
                 text("Effects", TextStyle.LABEL),
-                fill(
+                fillWith(
                     slider(
                         () -> SettingsManager.get().getAudioEffectVolume(),
                         value -> SettingsManager.get().setAudioEffectVolume(value)

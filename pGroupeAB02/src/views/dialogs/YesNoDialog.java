@@ -1,35 +1,30 @@
 package views.dialogs;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.TextAlignment;
-import views.Layout;
-import views.Widget;
+import javafx.scene.paint.Color;
+import views.TextStyle;
+
+import static views.Layout.*;
+import static views.Widget.*;
 
 public class YesNoDialog extends Dialog<YesNo> {
     public YesNoDialog(String title, String message) {
         super();
 
-        Label titleLabel = new Label(title);
-        titleLabel.getStyleClass().add("dialog-title");
+        Region buttonsContainer = horizontal(
+            16,
+            Pos.BOTTOM_RIGHT,
+            button("Yes", e -> resume(YesNo.YES)),
+            button("No", e -> resume(YesNo.NO))
+        );
 
-        StackPane.setAlignment(titleLabel, Pos.TOP_LEFT);
+        Region container = vertical(8,
+            text(title, TextStyle.SUBTITLE, Color.BLACK),
+            fillWith(horizontallyCentered(text(message, TextStyle.BODY, Color.BLACK))),
+            buttonsContainer
+        );
 
-        Label messageLabel = new Label(message);
-        messageLabel.getStyleClass().add("dialog-body");
-        messageLabel.setTextAlignment(TextAlignment.CENTER);
-
-
-        Region buttonsContainer = Layout.horizontal(
-                16,
-                Pos.BOTTOM_RIGHT,
-                Widget.button("Yes", e -> resume(YesNo.YES)),
-                Widget.button("No", e -> resume(YesNo.NO)));
-
-        StackPane.setAlignment(buttonsContainer, Pos.BOTTOM_RIGHT);
-
-        this.getChildren().addAll(titleLabel, messageLabel, buttonsContainer);
+        this.getChildren().add(container);
     }
 }

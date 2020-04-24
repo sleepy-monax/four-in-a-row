@@ -157,7 +157,7 @@ public final class Widget {
         return field;
     }
 
-    public static Label text(String text, TextStyle style) {
+    public static Label text(String text, TextStyle style, Color color) {
         Label label = new Label(text);
 
         if (style == TextStyle.TITLE) {
@@ -167,9 +167,13 @@ public final class Widget {
         label.getStyleClass().add(style.styleClass);
 
         label.setTextOverrun(OverrunStyle.CLIP);
-        label.setTextFill(Color.WHITE);
+        label.setTextFill(color);
 
         return label;
+    }
+
+    public static Label text(String text, TextStyle style) {
+        return text(text, style, Color.WHITE);
     }
 
     public static Pane smallBuzzer() {

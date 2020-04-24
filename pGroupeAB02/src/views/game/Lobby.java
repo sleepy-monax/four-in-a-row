@@ -54,7 +54,7 @@ public class Lobby extends View {
                 spacer(16),
                 horizontal(
                     8,
-                    fill(verticallyCentered(startGameButton)),
+                    fillWith(verticallyCentered(startGameButton)),
                     verticallyCentered(iconButton(Icon.SETTINGS, event->{}))
                 )
             )

@@ -11,7 +11,7 @@ public class Layout {
     private Layout() {
     }
 
-    public static Node fill(Node node) {
+    public static Node fillWith(Node node) {
         HBox.setHgrow(node, Priority.ALWAYS);
         VBox.setVgrow(node, Priority.ALWAYS);
 
