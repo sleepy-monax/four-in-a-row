@@ -1,13 +1,9 @@
 package views.menu;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import models.Player;
 import utils.StageManager;
 import views.TextStyle;
@@ -17,7 +13,6 @@ import static views.Widget.*;
 import static views.Layout.*;
 
 public class Score extends View {
-    
     public Score() {
         super(true);
         

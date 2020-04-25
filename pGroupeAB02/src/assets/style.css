@@ -63,8 +63,8 @@
     -fx-border-width: 2;
     -fx-background-color: linear-gradient( #64A4FF, #0149AF);
     -fx-border-color: linear-gradient( #FFF612, #FFB100);
-    -fx-text-fill: white;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
+    -fx-text-fill: white;
 }
 
 .button:hover {
@@ -224,3 +224,47 @@
     -fx-font-size: 20;
     -fx-font-weight: bold;
 }
+
+.radio-button{
+    -fx-label-padding: 0 0 0 8;
+    -fx-font-size: 11pt;
+    -fx-font-family: 'roboto';
+    -fx-text-fill: white;
+}
+
+.radio-button .radio {
+    -fx-background-radius: 24;
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #C6C6C6, #FFFFFF);
+
+    -fx-border-color: linear-gradient(from 50% 0% to 50% 100%, #FFFFFF, #C6C6C6);
+
+    -fx-border-radius: 24;
+    -fx-border-width: 4;
+    -fx-padding: 4px;
+}
+
+.radio-button:selected .radio {
+
+    -fx-background-radius: 24;
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #C6C6C6, #FFFFFF);
+
+    -fx-border-color: linear-gradient( #FFF612, #FFB100);
+
+    -fx-border-radius: 24;
+    -fx-border-width: 4;
+    -fx-padding: 4px;
+}
+
+.radio-button .dot {
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-padding: 8px;
+    -fx-border-width: 2;
+}
+
+.radio-button:selected .dot{
+    -fx-background-radius: 8px;
+    -fx-background-color: linear-gradient( #64A4FF, #0149AF);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
+}
+
