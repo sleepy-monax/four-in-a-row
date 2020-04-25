@@ -42,6 +42,7 @@ public class EditQuestion extends Dialog<OkCancel> {
             textField(() -> question.getAnswer(), value -> question.setAnswer(value)),
             text("Clues", TextStyle.LABEL, Color.BLACK),
             vertical(4, clues),
+            spacer(16),
             buttonsContainer
         );
 

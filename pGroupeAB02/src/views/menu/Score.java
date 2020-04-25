@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import models.Player;
 import utils.StageManager;
@@ -13,12 +14,14 @@ import views.TextStyle;
 import views.View;
 
 import static views.Widget.*;
+import static views.Layout.*;
 
 public class Score extends View {
-    TableView tableView = new TableView();
-
+    
     public Score() {
         super(true);
+        
+        TableView table = new TableView();
 
         TableColumn<String, Player> column1 = new TableColumn<>("Position");
         column1.setCellValueFactory(new PropertyValueFactory<>("position"));
@@ -29,13 +32,21 @@ public class Score extends View {
         TableColumn<String, Player> column3 = new TableColumn<>("Score");
         column3.setCellValueFactory(new PropertyValueFactory<>("score"));
 
-        tableView.getColumns().add(column1);
-        tableView.getColumns().add(column2);
-        tableView.getColumns().add(column3);
+        table.getColumns().add(column1);
+        table.getColumns().add(column2);
+        table.getColumns().add(column3);
+
+        Region scorePanel = panel(
+            vertical(
+                16,
+                horizontallyCentered(text("Scores", TextStyle.TITLE)),
+                spacer(16),
+                fillWith(table)
+            )
+        );
 
         this.getChildren().addAll(
-            text("Score", TextStyle.TITLE),
-            tableView,
+            verticallyCentered(width(512,scorePanel)),
             backButton(actionEvent -> StageManager.switchView(new Main()))
         );
     }
