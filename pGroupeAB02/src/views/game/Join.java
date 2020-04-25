@@ -34,9 +34,9 @@ public class Join extends View {
         Region loginPane = panel(
             vertical(
                 16,
-                horizontallyCentered(Widget.text("Join Multiplayer", TextStyle.TITLE)),
+                horizontallyCentered(Widget.text("Join Game", TextStyle.TITLE)),
                 spacer(16),
-                text("Host adrress:", TextStyle.LABEL),
+                text("Host adress:", TextStyle.LABEL),
                 hostAddressField,
                 text("Host port:", TextStyle.LABEL),
                 hostPortField,

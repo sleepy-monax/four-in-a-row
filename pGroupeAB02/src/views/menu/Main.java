@@ -6,7 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import models.multiplayer.Multiplayer;
+import models.Deck;
 import models.singleplayer.SinglePlayer;
 import utils.Icon;
 import utils.StageManager;
@@ -15,6 +15,7 @@ import views.View;
 import views.Widget;
 import views.dialogs.YesNo;
 import views.dialogs.YesNoDialog;
+import views.game.Host;
 import views.game.Join;
 import views.screen.End;
 import views.screen.Splash;
@@ -24,12 +25,14 @@ public class Main extends View {
         super(true);
 
         Node singleplayerButton = Widget.buttonWithIcon(Icon.PERSON, "Singleplayer", event -> SinglePlayer.play());
-        Node joinMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP_ADD, "Join Multiplayer",
-                mouseEvent -> StageManager.switchView(new Join()));
-        Node hostMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP, "Host Multiplayer",
-                mouseEvent -> Multiplayer.host(Multiplayer.DEFAULT_PORT, ""));
 
-        Node orbEditor = Widget.iconButton(Icon.EDIT, event -> StageManager.switchView((new AdminConnect())));
+        Node joinMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP_ADD, "Join Game",
+                mouseEvent -> StageManager.switchView(new Join()));
+
+        Node hostMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP, "Host Game",
+                mouseEvent -> StageManager.switchView(new Host()));
+
+        Node orbEditor = Widget.iconButton(Icon.EDIT, event -> StageManager.switchView((new Editor(Deck.get()))));
 
         Node orbScores = Widget.iconButton(Icon.EMOJI_EVENTS, mouseEvent -> StageManager.switchView((new Score())));
 
