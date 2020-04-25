@@ -14,7 +14,9 @@ import models.Player;
 import utils.ShakeTransition;
 import utils.Icon;
 import views.View;
+
 import static views.Widget.*;
+import static views.Layout.*;
 
 public class MainGame extends View {
     private final Game game;
@@ -32,7 +34,7 @@ public class MainGame extends View {
     private Notifiable onQuestionPassed;
 
     public MainGame(Game game, Player player) {
-        super(true);
+        super(false);
 
         this.game = game;
         this.player = player;
@@ -58,22 +60,22 @@ public class MainGame extends View {
         sidebar.setMinWidth(220);
         sidebar.setPadding(new Insets(16));
 
-        sidebar.setTop(new VBox(16, new StackPane(quitButton), new StackPane(passButton)));
-        sidebar.setCenter(new VBox(new StackPane(actualScore), new StackPane(maxLevel)));
-        sidebar.setBottom(new StackPane(countdown));
+        sidebar.setLeft(new HBox(16, new StackPane(quitButton), new StackPane(passButton)));
+        sidebar.setCenter(new HBox(new StackPane(actualScore), new StackPane(maxLevel)));
+        sidebar.setRight(new StackPane(countdown));
 
         clueStack = new ClueStack();
         clueStack.setPadding(new Insets(32));
 
         answer = new AnswerField();
         answer.setOnAnswer(game::answer);
-        HBox.setHgrow(answer, Priority.ALWAYS);
+        VBox.setVgrow(answer, Priority.ALWAYS);
 
-        BorderPane cluesAndAnswer = new BorderPane(clueStack, null, null, answer, null);
+        BorderPane cluesAndAnswer = new BorderPane(clueStack, null, null, horizontallyCentered(width(512,answer)), null);
 
-        HBox.setHgrow(cluesAndAnswer, Priority.ALWAYS);
+        VBox.setVgrow(cluesAndAnswer, Priority.ALWAYS);
 
-        this.getChildren().add(new HBox(sidebar, cluesAndAnswer));
+        this.getChildren().add(new VBox(sidebar, cluesAndAnswer));
 
     }
 
