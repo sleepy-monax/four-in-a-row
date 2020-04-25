@@ -28,24 +28,24 @@ public class OpenAL {
         alcCloseDevice(device);
     }
 
-    public static void main(String[] args) {
-        ThreadManager.initialize();
-        OpenAL.initialize();
-
-        AudioBuffer bufferIntro = AudioBuffer.loadFrom("assets/effects/click.wav");
-
-        System.out.println(bufferIntro.lengthInSamples());
-        System.out.println(bufferIntro.lenghtInSecounds());
-
-        AudioSource source = new AudioSource();
-        source.playLoop(bufferIntro);
-
-        try {
-            // Wait for a second
-            Thread.sleep(1000000);
-        } catch (InterruptedException ignored) {
-        }
-
-        OpenAL.shutdown();
-    }
+//    public static void main(String[] args) {
+//        ThreadManager.initialize();
+//        OpenAL.initialize();
+//
+//        AudioBuffer bufferIntro = AudioBuffer.loadFrom("assets/effects/click.wav");
+//
+//        System.out.println(bufferIntro.lengthInSamples());
+//        System.out.println(bufferIntro.lenghtInSecounds());
+//
+//        AudioSource source = new AudioSource();
+//        source.playLoop(bufferIntro);
+//
+//        try {
+//            // Wait for a second
+//            Thread.sleep(1000000);
+//        } catch (InterruptedException ignored) {
+//        }
+//
+//        OpenAL.shutdown();
+//    }
 }

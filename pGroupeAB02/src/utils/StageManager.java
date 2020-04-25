@@ -21,7 +21,7 @@ import views.View;
 
 public final class StageManager {
     public static final int DEFAULT_SCREEN_WIDTH = 960;
-    public static final int DEFAULT_SCREEN_HEIGHT = 720;
+    public static final int DEFAULT_SCREEN_HEIGHT = 768;
     public static final String DEFAULT_STAGE_TITLE = "Four in a Row";
     public static final String DEFAULT_STAGE_ICON = "assets/images/big-buzzer.png";
     private static Stage stage;
@@ -118,7 +118,7 @@ public final class StageManager {
             nextView.setDisable(false);
         }, nextView);
 
-        Animations.scale(4, 1, 0.25, nextView);
+        Animations.scale(nextView, 4, 1, 0.25);
         Animations.fade(1, 0, 0.25, currentView);
     }
 

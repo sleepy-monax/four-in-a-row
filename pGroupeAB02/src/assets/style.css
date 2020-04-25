@@ -59,6 +59,23 @@
     -fx-background-color: linear-gradient( #205BAE, #001D47);
 }
 
+#level-gold{
+    -fx-background-color: linear-gradient( #FFB100, #FFF612);
+    -fx-border-color: linear-gradient( #FFF612, #FFB100);
+    -fx-background-radius: 32;
+    -fx-border-radius: 32;
+    -fx-border-width: 8;
+}
+
+#level-black{
+    -fx-background-color: linear-gradient(#C6C6C6, #FFFFFF);
+    -fx-border-color: linear-gradient(#FFFFFF, #C6C6C6);
+    -fx-background-radius: 32;
+    -fx-border-radius: 32;
+    -fx-border-width: 8;
+
+}
+
 .button {
     -fx-border-width: 2;
     -fx-background-color: linear-gradient( #64A4FF, #0149AF);
@@ -195,9 +212,9 @@
     -fx-background-radius: 16;
     -fx-background-color: white;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 16, 0, 0, 4);
-    -fx-min-width: 512;
+    -fx-min-width: 480;
     -fx-min-height: 128;
-    -fx-max-width: 512;
+    -fx-max-width: 480;
     -fx-max-height: 128;
     -fx-padding: 16;
 }
@@ -215,7 +232,7 @@
 
 .actualScore{
     -fx-text-fill: linear-gradient(#999, #fff);
-    -fx-font-size: 25;
+    -fx-font-size: 48;
     -fx-font-weight: bold;
 }
 
@@ -243,18 +260,6 @@
     -fx-padding: 4px;
 }
 
-.radio-button:selected .radio {
-
-    -fx-background-radius: 24;
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 100%, #C6C6C6, #FFFFFF);
-
-    -fx-border-color: linear-gradient( #FFF612, #FFB100);
-
-    -fx-border-radius: 24;
-    -fx-border-width: 4;
-    -fx-padding: 4px;
-}
-
 .radio-button .dot {
     -fx-background-radius: 8px;
     -fx-border-radius: 8px;
@@ -264,7 +269,7 @@
 
 .radio-button:selected .dot{
     -fx-background-radius: 8px;
-    -fx-background-color: linear-gradient( #64A4FF, #0149AF);
+    -fx-background-color: linear-gradient( #434343,  #000000);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
 }
 

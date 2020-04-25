@@ -42,7 +42,7 @@ public class ViewController {
         });
 
         game.getMessageLoop().registerNotifier(GameShutdown.class, message -> {
-            StageManager.switchView(new Main());
+            StageManager.goBackTo(new Main());
         });
     }
 }

@@ -4,6 +4,7 @@ import views.widgets.*;
 import views.dialogs.YesNo;
 import views.dialogs.YesNoDialog;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
@@ -22,11 +23,12 @@ public class MainGame extends View {
     private final Game game;
     private final Player player;
 
-    private final ClueStack clueStack;
-    private final AnswerField answer;
     private final Countdown countdown;
     private final ActualScore actualScore;
     private final MaxLevel maxLevel;
+    private final ClueStack clueStack;
+    private final AnswerField answer;
+
     private Notifiable onNewClueNotifier;
     private Notifiable onCountdownNotifier;
     private Notifiable onAnswerCorrect;
@@ -34,7 +36,7 @@ public class MainGame extends View {
     private Notifiable onQuestionPassed;
 
     public MainGame(Game game, Player player) {
-        super(false);
+        super(true);
 
         this.game = game;
         this.player = player;
@@ -53,29 +55,32 @@ public class MainGame extends View {
         countdown = new Countdown();
         actualScore = new ActualScore(game.getPlayer(0).getScore());
         maxLevel = new MaxLevel(game.getPlayer(0).getLevelMax());
-
-        BorderPane sidebar = new BorderPane();
-
-        sidebar.setId("sidebar");
-        sidebar.setMinWidth(220);
-        sidebar.setPadding(new Insets(16));
-
-        sidebar.setLeft(new HBox(16, new StackPane(quitButton), new StackPane(passButton)));
-        sidebar.setCenter(new HBox(new StackPane(actualScore), new StackPane(maxLevel)));
-        sidebar.setRight(new StackPane(countdown));
-
         clueStack = new ClueStack();
         clueStack.setPadding(new Insets(32));
-
         answer = new AnswerField();
         answer.setOnAnswer(game::answer);
-        VBox.setVgrow(answer, Priority.ALWAYS);
 
-        BorderPane cluesAndAnswer = new BorderPane(clueStack, null, null, horizontallyCentered(width(512,answer)), null);
+        Region statusPanel = panel(
+            new StackPane(
+                fillWith(horizontallyCentered(countdown)),
+            horizontal(
+                32,
+                verticallyCentered(quitButton),
+                verticallyCentered(actualScore),
+                fillWith(spacer(0)),
+                maxLevel,
+                verticallyCentered(passButton)
+            ))
+        );
 
-        VBox.setVgrow(cluesAndAnswer, Priority.ALWAYS);
+        Region cluesAndAnswerPanel = vertical(
+            0,
+            statusPanel,
+            fillWith(clueStack),
+            horizontallyCentered(width(512, answer))
+        );
 
-        this.getChildren().add(new VBox(sidebar, cluesAndAnswer));
+        this.getChildren().add(cluesAndAnswerPanel);
 
     }
 
@@ -95,7 +100,7 @@ public class MainGame extends View {
                 clueStack.clearClues();
                 answer.clear();
                 actualScore.update(game.getPlayer(0).getScore());
-                maxLevel.update(game.getPlayer(0).getLevelMax());
+                maxLevel.update(game.getPlayer(0).getLevel());
             }
         });
 
@@ -104,7 +109,7 @@ public class MainGame extends View {
             {
                 ShakeTransition shake = new ShakeTransition(answer, Duration.seconds(0.5), 16, 3);
                 shake.play();
-                maxLevel.update(game.getPlayer(0).getLevelMax());
+                maxLevel.update(game.getPlayer(0).getLevel());
             }
         });
 

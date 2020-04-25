@@ -29,9 +29,7 @@ public class ClueStack extends StackPane {
         ClueCard card = new ClueCard(clue);
 
         Animations.translateY(-512, 0, 0.25, card);
-
         StackPane.setAlignment(card, Pos.CENTER);
-
         frontClues.getChildren().add(card);
     }
 

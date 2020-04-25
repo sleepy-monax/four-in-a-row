@@ -158,7 +158,7 @@ public class Background extends StackPane {
         if (!spinnerVisible && spinner != null) {
             spinnerVisible = true;
 
-            Animations.scale(0, 5, 0.5, spinner);
+            Animations.scale(spinner, 0, 5, 0.5);
             spinner.setOpacity(0.25);
 
             Animations.fade(0, 0.1, 0.5, particlesContainer);
@@ -169,7 +169,7 @@ public class Background extends StackPane {
         if (spinnerVisible && spinner != null) {
             spinnerVisible = false;
 
-            Animations.scale(5, 0, 0.5, spinner);
+            Animations.scale(spinner, 5, 0, 0.5);
             Animations.fade(0.1, 0, 0.5, particlesContainer);
         }
     }
