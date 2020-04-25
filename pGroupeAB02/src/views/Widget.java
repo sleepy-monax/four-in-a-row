@@ -306,7 +306,12 @@ public final class Widget {
             Animations.fade(text, 1, 0, 0.05, 0);
         });
 
-        button.setOnMouseClicked(onClick);
+        button.setOnMousePressed(event -> {
+            Animations.translateX(button, 0, -256, 0.1, 0, () -> onClick.handle(event));
+            Animations.fade(button, 1, 0, 0.1, 0);
+        });
+
+
         StackPane.setAlignment(button, Pos.CENTER_LEFT);
 
         return button;

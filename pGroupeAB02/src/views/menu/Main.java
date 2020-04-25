@@ -24,19 +24,20 @@ public class Main extends View {
     public Main() {
         super(true);
 
-        Node singleplayerButton = Widget.buttonWithIcon(Icon.PERSON, "Singleplayer", event -> SinglePlayer.play());
+        Node singleplayerButton = Widget.buttonWithIcon(Icon.PERSON, "Singleplayer",
+                event -> SinglePlayer.play());
 
         Node joinMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP_ADD, "Join Game",
-                mouseEvent -> StageManager.switchView(new Join()));
+                mouseEvent -> StageManager.goTo(new Join()));
 
         Node hostMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP, "Host Game",
-                mouseEvent -> StageManager.switchView(new Host()));
+                mouseEvent -> StageManager.goTo(new Host()));
 
-        Node orbEditor = Widget.iconButton(Icon.EDIT, event -> StageManager.switchView((new Editor(Deck.get()))));
+        Node orbEditor = Widget.iconButton(Icon.EDIT, event -> StageManager.goTo((new Editor(Deck.get()))));
 
-        Node orbScores = Widget.iconButton(Icon.EMOJI_EVENTS, mouseEvent -> StageManager.switchView((new Score())));
+        Node orbScores = Widget.iconButton(Icon.EMOJI_EVENTS, mouseEvent -> StageManager.goTo((new Score())));
 
-        Node orbSettings = Widget.iconButton(Icon.SETTINGS, event -> StageManager.switchView((new Settings())));
+        Node orbSettings = Widget.iconButton(Icon.SETTINGS, event -> StageManager.goTo((new Settings())));
 
         Node orbQuit = Widget.iconButton(Icon.CLOSE, event -> {
             if (new YesNoDialog("Quit the game", "Are you sure you want to quit?").show() == YesNo.YES) {

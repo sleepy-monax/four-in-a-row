@@ -159,7 +159,7 @@ public class Editor extends View {
         getChildren().addAll(
             verticallyCentered(width(512,editorPane)),
             backButton(actionEvent -> {
-                StageManager.switchView(new Main());
+                StageManager.goBackTo(new Main());
                 deck.save();
             }));
     }

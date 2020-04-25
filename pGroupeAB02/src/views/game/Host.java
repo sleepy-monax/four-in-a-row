@@ -65,7 +65,7 @@ public class Host extends View {
 
         this.getChildren().addAll(
             verticallyCentered(width(512,loginPane)),
-            backButton(actionEvent -> StageManager.switchView(new Main())));
+            backButton(actionEvent -> StageManager.goBackTo(new Main())));
     }
 
 }

@@ -77,7 +77,7 @@ public class Settings extends View {
         this.getChildren().addAll(
             Layout.verticallyCentered(Layout.width(512, Widget.panel(menu))),
             backButton(actionEvent -> {
-                StageManager.switchView(new Main());
+                StageManager.goBackTo(new Main());
                 SettingsManager.save();
             })
         );

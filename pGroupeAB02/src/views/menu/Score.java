@@ -42,7 +42,7 @@ public class Score extends View {
 
         this.getChildren().addAll(
             verticallyCentered(width(512,scorePanel)),
-            backButton(actionEvent -> StageManager.switchView(new Main()))
+            backButton(actionEvent -> StageManager.goBackTo(new Main()))
         );
     }
 }

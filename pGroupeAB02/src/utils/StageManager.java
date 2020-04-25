@@ -122,6 +122,55 @@ public final class StageManager {
         Animations.fade(1, 0, 0.25, currentView);
     }
 
+
+    public static void goBackTo(View nextView) {
+        currentView.onSwitchOut();
+        currentView.setDisable(true);
+
+        viewContainer.getChildren().add(nextView);
+        nextView.setDisable(true);
+        nextView.onAttach();
+
+        Animations.fade(0, 1, 0.25, () -> {
+            currentView.onDettach();
+            viewContainer.getChildren().remove(currentView);
+            currentView = nextView;
+            nextView.onSwitchIn();
+            nextView.setDisable(false);
+        }, nextView);
+
+        Animations.translateX(nextView, -DEFAULT_SCREEN_WIDTH, 0, 0.25);
+
+        Animations.fade(1, 0, 0.25, currentView);
+        Animations.translateX(currentView, 0, DEFAULT_SCREEN_WIDTH, 0.25);
+
+        AudioManager.playEffect("assets/effects/woosh.wav");
+    }
+
+    public static void goTo(View nextView) {
+        currentView.onSwitchOut();
+        currentView.setDisable(true);
+
+        viewContainer.getChildren().add(nextView);
+        nextView.setDisable(true);
+        nextView.onAttach();
+
+        Animations.fade(0, 1, 0.25, () -> {
+            currentView.onDettach();
+            viewContainer.getChildren().remove(currentView);
+            currentView = nextView;
+            nextView.onSwitchIn();
+            nextView.setDisable(false);
+        }, nextView);
+
+        Animations.translateX(nextView, DEFAULT_SCREEN_WIDTH, 0, 0.25);
+
+        Animations.fade(1, 0, 0.25, currentView);
+        Animations.translateX(currentView, 0, -DEFAULT_SCREEN_WIDTH, 0.25);
+
+        AudioManager.playEffect("assets/effects/woosh.wav");
+    }
+
     public static void showDialog(Dialog dialog) {
         com.sun.javafx.tk.Toolkit.getToolkit().checkFxUserThread();
 
