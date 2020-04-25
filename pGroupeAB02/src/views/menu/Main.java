@@ -27,7 +27,7 @@ public class Main extends View {
         Node joinMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP_ADD, "Join Multiplayer",
                 mouseEvent -> StageManager.switchView(new Join()));
         Node hostMultiplayerButton = Widget.buttonWithIcon(Icon.GROUP, "Host Multiplayer",
-                mouseEvent -> Multiplayer.host(Multiplayer.DEFAULT_PORT));
+                mouseEvent -> Multiplayer.host(Multiplayer.DEFAULT_PORT, ""));
 
         Node orbEditor = Widget.iconButton(Icon.EDIT, event -> StageManager.switchView((new AdminConnect())));
 

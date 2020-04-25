@@ -13,19 +13,26 @@ import java.util.Objects;
 
 public class Slave extends GameController implements ConnectionListener {
     private final Connection connection;
+    
     private final String username;
+    private final String password;
     private final String address;
     private final int port;
+    
     private int localPlayer;
 
-    public Slave(Game game, String username, String address, int port) {
+    public Slave(Game game, String username, String address, int port, String password) {
         super(game);
 
         connection = new Connection();
         connection.setClientListener(this);
+        
+        this.username = username;
+        this.password = password;
         this.address = address;
         this.port = port;
-        this.username = username;
+
+        localPlayer = -1;
     }
 
     public boolean connect() {
@@ -35,7 +42,12 @@ public class Slave extends GameController implements ConnectionListener {
     @Override
     public void onConnect(Connection connection) {
         System.out.println("Logging in...");
-        connection.send(new PacketBuilder(PacketType.LOGIN).withString(username).build());
+        connection.send(
+            new PacketBuilder(PacketType.LOGIN)
+            .withString(username)
+            .withLong(Objects.hash(password))
+            .build()
+        );
     }
 
     @Override

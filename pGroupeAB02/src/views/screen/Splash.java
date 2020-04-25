@@ -10,7 +10,6 @@ import javafx.scene.text.TextAlignment;
 import utils.Animations;
 import utils.AudioManager;
 import utils.StageManager;
-import views.TextStyle;
 import views.View;
 import views.menu.Main;
 

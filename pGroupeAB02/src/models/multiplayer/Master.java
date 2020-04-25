@@ -10,13 +10,17 @@ import network.*;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Master extends GameController implements ConnectionListener {
     private Server server;
     private HashMap<Connection, ConnectedSlave> slaves;
+    private String password;
 
-    public Master(Game game, int port) {
+    public Master(Game game, int port, String password) {
         super(game);
+
+        this.password = password;
 
         slaves = new HashMap<>();
 
@@ -98,7 +102,18 @@ public class Master extends GameController implements ConnectionListener {
             ConnectedSlave slave = this.slaves.get(connection);
 
             try {
-                Player newPlayer = game().joinPlayer(reader.readString());
+                String userName = reader.readString();
+                Long userPassword = reader.readLong();
+
+                if (userPassword != Objects.hash(password))
+                {
+                    System.out.println("LOGIN: Invalide password for " + userName);
+                    connection.close();
+                    this.slaves.remove(connection);
+                    return;
+                }
+
+                Player newPlayer = game().joinPlayer(userName);
 
                 if (newPlayer != null) {
                     connection.send(new PacketBuilder(PacketType.ACCEPTED).withInt(newPlayer.getId()).build());
