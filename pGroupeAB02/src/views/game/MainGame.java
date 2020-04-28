@@ -32,6 +32,7 @@ public class MainGame extends View {
     private Notifiable onNewClueNotifier;
     private Notifiable onCountdownNotifier;
     private Notifiable onAnswerCorrect;
+    private Notifiable onPlayerScoreChange;
     private Notifiable onAnswerIncorrect;
     private Notifiable onQuestionPassed;
 
@@ -53,8 +54,8 @@ public class MainGame extends View {
         });
 
         countdown = new Countdown();
-        actualScore = new ActualScore(game.getPlayer(0).getScore());
-        maxLevel = new MaxLevel(game.getPlayer(0).getLevelMax());
+        actualScore = new ActualScore(player.getScore());
+        maxLevel = new MaxLevel(player.getLevelMax());
         clueStack = new ClueStack();
         clueStack.setPadding(new Insets(32));
         answer = new AnswerField();
@@ -99,8 +100,15 @@ public class MainGame extends View {
             {
                 clueStack.clearClues();
                 answer.clear();
-                actualScore.update(game.getPlayer(0).getScore());
-                maxLevel.update(game.getPlayer(0).getLevel());
+            }
+        });
+
+        onPlayerScoreChange = game.getMessageLoop().registerNotifier(OnPlayerScoreChange.class, message -> {
+            if (message.player().equals(player))
+            {
+                System.out.println(player + " ?= " + message.player());
+                actualScore.update(message.getScore());
+                maxLevel.update(message.getLevel());
             }
         });
 
@@ -127,6 +135,7 @@ public class MainGame extends View {
         game.getMessageLoop().unregisterNotifier(onNewClueNotifier);
         game.getMessageLoop().unregisterNotifier(onCountdownNotifier);
         game.getMessageLoop().unregisterNotifier(onAnswerCorrect);
+        game.getMessageLoop().unregisterNotifier(onPlayerScoreChange);
         game.getMessageLoop().unregisterNotifier(onAnswerIncorrect);
         game.getMessageLoop().unregisterNotifier(onQuestionPassed);
     }

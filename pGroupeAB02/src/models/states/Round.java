@@ -125,7 +125,11 @@ public class Round extends GameState {
 
         if (AreAnswersEquals(currentQuestion.getAnswer(), answer.toLowerCase())) {
             game.getMessageLoop().post(new OnAnswerCorrect(player));
+            
             player.answerCorrect();
+
+            game.getMessageLoop().post(new OnPlayerScoreChange(player, player.getScore(), player.getLevel(), player.getLevelMax()));
+
             nextQuestion();
         } else {
             game.getMessageLoop().post(new OnAnswerIncorrect(player));

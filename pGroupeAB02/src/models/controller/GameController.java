@@ -3,6 +3,7 @@ package models.controller;
 import javafx.application.Platform;
 import models.Game;
 import models.message.GameShutdown;
+import models.message.OnPlayerScoreChange;
 
 import java.util.Timer;
 import java.util.TimerTask;

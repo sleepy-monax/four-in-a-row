@@ -277,7 +277,7 @@ public final class Widget {
         hitRegion.setScaleX(12);
         hitRegion.setScaleY(25);
         hitRegion.setTranslateX(-512);
-        
+
         StackPane icon = new StackPane();
         icon.setPrefWidth(48);
         icon.setPrefHeight(48);
@@ -307,7 +307,7 @@ public final class Widget {
 
             Animations.fade(text, 0, 1, 0.05, 0);
         });
-        
+
         hitRegion.setOnMouseExited(event -> {
             Animations.translateX(icon, 0, -8, 0.1, 0);
             Animations.translateX(text, 48, -96, 0.1, 0);

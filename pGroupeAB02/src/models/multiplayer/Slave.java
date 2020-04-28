@@ -2,6 +2,7 @@ package models.multiplayer;
 
 import models.controller.GameController;
 import models.message.GameDisconnected;
+import models.message.OnPlayerScoreChange;
 import models.message.OnSelectTheme;
 import models.messageloop.Message;
 import models.states.GameState;
@@ -33,6 +34,12 @@ public class Slave extends GameController implements ConnectionListener {
         this.port = port;
 
         localPlayer = -1;
+
+        game.getMessageLoop().registerNotifier(OnPlayerScoreChange.class, message -> {
+            message.player().setScore(message.getScore());
+            message.player().setLevel(message.getLevel());
+            message.player().setLevelMax(message.getLevelMax());
+        });
     }
 
     public boolean connect() {
