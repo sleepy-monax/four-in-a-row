@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import models.Game;
 import utils.AudioManager;
+import utils.Serialization;
 import views.Layout;
 import views.TextStyle;
 import views.View;
@@ -30,6 +31,9 @@ public class FinishSinglePlayer extends View {
 
         this.getChildren().addAll(Widget.text("Game Finished!", TextStyle.TITLE),
                 Layout.verticallyCentered(Layout.width(512, panel)), goHome);
+
+        Serialization.writeToJsonFile("scores.json",game.getPlayer(0));
+
     }
 
     @Override
