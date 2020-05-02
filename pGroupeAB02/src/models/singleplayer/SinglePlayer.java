@@ -1,9 +1,9 @@
 package models.singleplayer;
 
-import models.controller.GameController;
 import models.Deck;
 import models.Difficulty;
 import models.Game;
+import models.controller.GameController;
 import utils.SettingsManager;
 
 public class SinglePlayer extends GameController {

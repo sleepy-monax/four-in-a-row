@@ -38,8 +38,7 @@ public class SettingsManager implements Serializable {
         }
     }
 
-    public static void apply()
-    {
+    public static void apply() {
         AudioManager.setMuted(get().audioMuted);
         AudioManager.setMusicVolume(get().audioMusicVolume);
         AudioManager.setEffectVolume(get().audioEffectVolume);
@@ -58,8 +57,7 @@ public class SettingsManager implements Serializable {
         apply();
     }
 
-    public void toggleAudioMuted()
-    {
+    public void toggleAudioMuted() {
         setAudioMuted(!getAudioMuted());
     }
 
@@ -83,11 +81,11 @@ public class SettingsManager implements Serializable {
         apply();
     }
 
-    public String getPlayerName(){
+    public String getPlayerName() {
         return this.playerName;
     }
 
-    public void setPlayerName(String playerName){
+    public void setPlayerName(String playerName) {
         this.playerName = playerName;
 
         apply();
@@ -102,8 +100,7 @@ public class SettingsManager implements Serializable {
         apply();
     }
 
-    public void toggleGraphicFullscreen()
-    {
+    public void toggleGraphicFullscreen() {
         setGraphicFullscreen(!isGraphicFullscreen());
     }
 

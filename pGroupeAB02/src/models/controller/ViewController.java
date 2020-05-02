@@ -4,11 +4,7 @@ import models.Game;
 import models.message.*;
 import utils.StageManager;
 import views.dialogs.InfoDialog;
-import views.game.FinishSinglePlayer;
-import views.game.Lobby;
-import views.game.MainGame;
-import views.game.OtherPlayerPlaying;
-import views.game.SelectTheme;
+import views.game.*;
 import views.menu.Main;
 
 public class ViewController {

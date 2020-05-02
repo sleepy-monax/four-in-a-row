@@ -1,16 +1,16 @@
 package views.game;
 
 import javafx.scene.Node;
-import views.TextStyle;
-import views.widgets.PlayerState;
-import views.widgets.RoomPlayer;
 import javafx.scene.layout.Region;
+import models.Game;
 import models.message.OnPlayerEvent;
 import models.message.PlayerEvent;
-import models.Game;
 import utils.Icon;
+import views.TextStyle;
 import views.View;
 import views.Widget;
+import views.widgets.PlayerState;
+import views.widgets.RoomPlayer;
 
 import static views.Layout.*;
 import static views.Widget.*;
@@ -41,25 +41,26 @@ public class Lobby extends View {
 
 
         Region lobbyPanel = panel(
-            vertical(
-                16,
-                horizontallyCentered(Widget.text("Multiplayer Lobby", TextStyle.TITLE)),
-                spacer(16),
-                text("Players", TextStyle.LABEL),
-                vertical(8, players),
-                spacer(16),
-                horizontal(
-                    8,
-                    fillWith(verticallyCentered(startGameButton)),
-                    verticallyCentered(iconButton(Icon.SETTINGS, event->{}))
+                vertical(
+                        16,
+                        horizontallyCentered(Widget.text("Multiplayer Lobby", TextStyle.TITLE)),
+                        spacer(16),
+                        text("Players", TextStyle.LABEL),
+                        vertical(8, players),
+                        spacer(16),
+                        horizontal(
+                                8,
+                                fillWith(verticallyCentered(startGameButton)),
+                                verticallyCentered(iconButton(Icon.SETTINGS, event -> {
+                                }))
+                        )
                 )
-            )
         );
 
         this.getChildren().addAll(
-            Widget.text("Multiplayer Room", TextStyle.SUBTITLE),
-            verticallyCentered(width(512,lobbyPanel)),
-            backButton(actionEvent -> game.shutdown())
+                Widget.text("Multiplayer Room", TextStyle.SUBTITLE),
+                verticallyCentered(width(512, lobbyPanel)),
+                backButton(actionEvent -> game.shutdown())
         );
     }
 }

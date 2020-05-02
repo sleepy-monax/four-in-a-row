@@ -4,7 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import utils.Animations;
+import views.Animations;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class ClueStack extends StackPane {
     public void addClue(String clue) {
         ClueCard card = new ClueCard(clue);
 
-        Animations.translateY(-512, 0, 0.25, card);
+        Animations.translateY(card, -512, 0, 0.25);
         StackPane.setAlignment(card, Pos.CENTER);
         frontClues.getChildren().add(card);
     }

@@ -1,11 +1,11 @@
 package models.multiplayer;
 
+import models.Game;
+import models.Player;
 import models.controller.GameController;
 import models.message.OnCountDown;
 import models.messageloop.Message;
 import models.messageloop.Notifiable;
-import models.Game;
-import models.Player;
 import network.*;
 
 import java.io.IOException;
@@ -13,9 +13,9 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class Master extends GameController implements ConnectionListener {
-    private Server server;
-    private HashMap<Connection, ConnectedSlave> slaves;
-    private String password;
+    private final Server server;
+    private final HashMap<Connection, ConnectedSlave> slaves;
+    private final String password;
 
     public Master(Game game, int port, String password) {
         super(game);
@@ -105,8 +105,7 @@ public class Master extends GameController implements ConnectionListener {
                 String userName = reader.readString();
                 Long userPassword = reader.readLong();
 
-                if (userPassword != Objects.hash(password))
-                {
+                if (userPassword != Objects.hash(password)) {
                     System.out.println("LOGIN: Invalide password for " + userName);
                     connection.close();
                     this.slaves.remove(connection);

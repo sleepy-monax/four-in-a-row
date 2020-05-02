@@ -7,13 +7,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
-import utils.Animations;
+import views.Animations;
 import utils.AudioManager;
 import utils.StageManager;
 import views.View;
 import views.menu.Main;
 
-import static views.Layout.*;
+import static views.Layout.horizontallyCentered;
+import static views.Layout.verticallyCentered;
 import static views.Widget.*;
 
 public class Splash extends View {
@@ -40,9 +41,8 @@ public class Splash extends View {
         black.setStyle("-fx-background-color: black");
 
         black.getChildren().add(
-            verticallyCentered(horizontallyCentered(buzzer()))
+                verticallyCentered(horizontallyCentered(buzzer()))
         );
-
 
         Node logo = logo();
 

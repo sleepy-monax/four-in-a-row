@@ -1,11 +1,8 @@
 package views.dialogs;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import models.Question;
 import views.TextStyle;
@@ -19,10 +16,10 @@ public class EditQuestion extends Dialog<OkCancel> {
         super();
 
         Region buttonsContainer = horizontal(
-            16,
-            Pos.BOTTOM_RIGHT,
-            button("Cancel", e -> resume(OkCancel.CANCEL)),
-            button("Ok", e -> resume(OkCancel.OK))
+                16,
+                Pos.BOTTOM_RIGHT,
+                button("Cancel", e -> resume(OkCancel.CANCEL)),
+                button("Ok", e -> resume(OkCancel.OK))
         );
 
         TextField[] clues = new TextField[question.getClues().size()];
@@ -33,17 +30,17 @@ public class EditQuestion extends Dialog<OkCancel> {
         }
 
         Region container = vertical(8,
-            text("Edit a question", TextStyle.SUBTITLE, Color.BLACK),
-            text("Author", TextStyle.LABEL, Color.BLACK),
-            textField(() -> question.getAuthor(), value -> question.setAuthor(value)),
-            text("Theme", TextStyle.LABEL, Color.BLACK),
-            textField(() -> question.getTheme(), value -> question.setTheme(value)),
-            text("Answer", TextStyle.LABEL, Color.BLACK),
-            textField(() -> question.getAnswer(), value -> question.setAnswer(value)),
-            text("Clues", TextStyle.LABEL, Color.BLACK),
-            vertical(4, clues),
-            spacer(16),
-            buttonsContainer
+                text("Edit a question", TextStyle.SUBTITLE, Color.BLACK),
+                text("Author", TextStyle.LABEL, Color.BLACK),
+                textField(() -> question.getAuthor(), value -> question.setAuthor(value)),
+                text("Theme", TextStyle.LABEL, Color.BLACK),
+                textField(() -> question.getTheme(), value -> question.setTheme(value)),
+                text("Answer", TextStyle.LABEL, Color.BLACK),
+                textField(() -> question.getAnswer(), value -> question.setAnswer(value)),
+                text("Clues", TextStyle.LABEL, Color.BLACK),
+                vertical(4, clues),
+                spacer(16),
+                buttonsContainer
         );
 
         this.setMaxHeight(USE_PREF_SIZE);

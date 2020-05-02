@@ -1,9 +1,9 @@
 package main;
 
-import utils.AudioManager;
-import utils.SettingsManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import utils.AudioManager;
+import utils.SettingsManager;
 import utils.StageManager;
 import utils.ThreadManager;
 import views.screen.Splash;

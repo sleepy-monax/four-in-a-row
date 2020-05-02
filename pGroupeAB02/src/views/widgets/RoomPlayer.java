@@ -5,8 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 public class RoomPlayer extends AnchorPane {
-    private Label labelName;
-    private Label labelStatus;
+    private final Label labelName;
+    private final Label labelStatus;
 
     public RoomPlayer() {
         labelName = new Label("ERROR");
@@ -28,7 +28,7 @@ public class RoomPlayer extends AnchorPane {
         updateState("", PlayerState.WAITING_FOR_CONNECTION);
     }
 
-    public RoomPlayer updateState(String username, PlayerState state) {
+    public void updateState(String username, PlayerState state) {
         switch (state) {
             case CONNECTED:
                 labelStatus.setText("Connected");
@@ -53,6 +53,5 @@ public class RoomPlayer extends AnchorPane {
             labelName.setText(username);
         }
 
-        return this;
     }
 }

@@ -1,11 +1,11 @@
 package models.multiplayer;
 
-import utils.SettingsManager;
-import views.dialogs.InfoDialog;
 import models.Deck;
 import models.Difficulty;
 import models.Game;
 import models.states.Pending;
+import utils.SettingsManager;
+import views.dialogs.InfoDialog;
 
 public class Multiplayer {
     public static final int DEFAULT_PORT = 1234;

@@ -1,8 +1,8 @@
 package models.message;
 
-import models.messageloop.Message;
 import models.Game;
 import models.Player;
+import models.messageloop.Message;
 import network.PacketBuilder;
 import network.PacketReader;
 

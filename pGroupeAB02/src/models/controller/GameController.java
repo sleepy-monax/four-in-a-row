@@ -3,7 +3,6 @@ package models.controller;
 import javafx.application.Platform;
 import models.Game;
 import models.message.GameShutdown;
-import models.message.OnPlayerScoreChange;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -12,8 +11,8 @@ public class GameController {
     private final Game game;
     private final TimerTask tickService;
 
-    private AudioController audioController;
-    private ViewController viewController;
+    private final AudioController audioController;
+    private final ViewController viewController;
 
     public GameController(Game game) {
         this.game = game;

@@ -2,7 +2,8 @@ package audio;
 
 import org.lwjgl.openal.AL10;
 import org.lwjgl.system.MemoryStack;
-import java.nio.*;
+
+import java.nio.ByteBuffer;
 
 import static org.lwjgl.openal.AL10.*;
 import static org.lwjgl.system.MemoryStack.stackPush;

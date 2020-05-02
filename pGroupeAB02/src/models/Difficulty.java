@@ -5,7 +5,7 @@ public enum Difficulty {
     MEDIUM(2),
     HARD(1);
 
-    private int answerTolerance;
+    private final int answerTolerance;
 
     Difficulty(int answerTolerance) {
         this.answerTolerance = answerTolerance;

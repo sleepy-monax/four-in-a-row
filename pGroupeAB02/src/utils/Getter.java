@@ -1,6 +1,6 @@
 package utils;
 
 @FunctionalInterface
-public interface Getter<V>  {
-        V call();
+public interface Getter<V> {
+    V call();
 }

@@ -26,8 +26,7 @@ public class PacketReader {
         final int dataLength = dataInputStream.readInt();
 
         final byte[] data = new byte[dataLength];
-        if (dataLength == 0)
-        {
+        if (dataLength == 0) {
             return data;
         }
 

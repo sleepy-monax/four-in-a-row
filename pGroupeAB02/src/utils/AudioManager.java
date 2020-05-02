@@ -1,13 +1,13 @@
 package utils;
 
-import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.LinkedList;
-
 import audio.AudioBuffer;
 import audio.AudioSource;
 import audio.OpenAL;
 import main.Main;
+
+import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class AudioManager {
     private static final int MAX_SOUND_EFFECTS = 16;
@@ -17,8 +17,8 @@ public class AudioManager {
     private static double effectVolume = 1.0;
 
     private static AudioSource musicSource = null;
-    private static LinkedList<AudioSource> effectSources = new LinkedList<>();
-    private static HashMap<String, AudioBuffer> bufferCache = new HashMap<>();
+    private static final LinkedList<AudioSource> effectSources = new LinkedList<>();
+    private static final HashMap<String, AudioBuffer> bufferCache = new HashMap<>();
 
     public AudioManager() {
     }
@@ -78,14 +78,6 @@ public class AudioManager {
         return musicVolume;
     }
 
-    public static double getEffectVolume() {
-        return effectVolume;
-    }
-
-    public static boolean isMuted() {
-        return muted;
-    }
-
     public static void setMusicVolume(double musicVolume) {
         AudioManager.musicVolume = musicVolume;
 
@@ -94,11 +86,19 @@ public class AudioManager {
         }
     }
 
+    public static double getEffectVolume() {
+        return effectVolume;
+    }
+
     public static void setEffectVolume(double effectVolume) {
         AudioManager.effectVolume = effectVolume;
         for (AudioSource effectSource : effectSources) {
             effectSource.setVolume(effectVolume);
         }
+    }
+
+    public static boolean isMuted() {
+        return muted;
     }
 
     public static void setMuted(boolean muted) {

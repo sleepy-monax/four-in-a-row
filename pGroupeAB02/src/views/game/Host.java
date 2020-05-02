@@ -46,26 +46,26 @@ public class Host extends View {
         });
 
         Region loginPane = panel(
-            vertical(
-                16,
-                horizontallyCentered(Widget.text("Host Game", TextStyle.TITLE)),
-                spacer(16),
-                text("Game port:", TextStyle.LABEL),
-                gamePortField,
-                text("Game Password:", TextStyle.LABEL),
-                gamePasswordField,
-                text("Dificulty:", TextStyle.LABEL),
-                easyButton,
-                mediumButton,
-                hardButton,
-                spacer(16),
-                createButton
-            )
+                vertical(
+                        16,
+                        horizontallyCentered(Widget.text("Host Game", TextStyle.TITLE)),
+                        spacer(16),
+                        text("Game port:", TextStyle.LABEL),
+                        gamePortField,
+                        text("Game Password:", TextStyle.LABEL),
+                        gamePasswordField,
+                        text("Dificulty:", TextStyle.LABEL),
+                        easyButton,
+                        mediumButton,
+                        hardButton,
+                        spacer(16),
+                        createButton
+                )
         );
 
         this.getChildren().addAll(
-            verticallyCentered(width(512,loginPane)),
-            backButton(actionEvent -> StageManager.goBackTo(new Main())));
+                verticallyCentered(width(512, loginPane)),
+                backButton(actionEvent -> StageManager.goBackTo(new Main())));
     }
 
 }

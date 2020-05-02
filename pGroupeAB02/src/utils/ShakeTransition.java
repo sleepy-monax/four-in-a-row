@@ -17,7 +17,7 @@ public class ShakeTransition extends Transition {
     private boolean wasNodeCached = false;
     private CacheHint howNodeWasChached = CacheHint.DEFAULT;
     private Timeline timeline;
-    private Interpolator interpolation = Interpolator.SPLINE(0.25, 0.1, 0.25, 1);
+    private final Interpolator interpolation = Interpolator.SPLINE(0.25, 0.1, 0.25, 1);
 
     public ShakeTransition(Node node, Duration duration, double offset, int steps) {
         this.node = node;

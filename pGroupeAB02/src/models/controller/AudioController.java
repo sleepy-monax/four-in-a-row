@@ -1,15 +1,14 @@
 package models.controller;
 
+import models.Game;
 import models.message.OnAnswerCorrect;
 import models.message.OnAnswerIncorrect;
 import models.message.OnCountDown;
 import models.message.OnRoundFinish;
-import models.Game;
 import utils.AudioManager;
 
 public class AudioController {
-    public AudioController(Game game)
-    {
+    public AudioController(Game game) {
         game.getMessageLoop().registerNotifier(OnCountDown.class, message -> {
             if (message.time() == 5) {
                 AudioManager.playEffect("assets/effects/round-timer.wav");

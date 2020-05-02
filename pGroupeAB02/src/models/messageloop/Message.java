@@ -30,7 +30,7 @@ public abstract class Message {
             return null;
         }
 
-        Class messageClass = null;
+        Class<?> messageClass;
 
         try {
             messageClass = Class.forName(messageClassName);

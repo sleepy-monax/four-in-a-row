@@ -6,7 +6,7 @@ import javafx.scene.text.TextAlignment;
 
 public class ActualScore extends Label {
 
-    public ActualScore(int value){
+    public ActualScore(int value) {
         this.getStyleClass().add("actualScore");
         this.setAlignment(Pos.CENTER);
         this.setTextAlignment(TextAlignment.CENTER);

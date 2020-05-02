@@ -1,12 +1,12 @@
 package models.message;
 
-import java.io.IOException;
-
 import models.Game;
 import models.Player;
 import models.messageloop.Message;
 import network.PacketBuilder;
 import network.PacketReader;
+
+import java.io.IOException;
 
 public class OnRoundFinish extends Message {
     private Player player;

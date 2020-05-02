@@ -1,10 +1,10 @@
 package views.screen;
 
-import utils.AudioManager;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
+import views.Animations;
+import utils.AudioManager;
 import utils.StageManager;
-import utils.Animations;
 import views.View;
 import views.Widget;
 

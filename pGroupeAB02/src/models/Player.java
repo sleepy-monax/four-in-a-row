@@ -5,8 +5,8 @@ import java.util.Objects;
 public class Player {
     public static final int MAX_LEVEl = 4;
 
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
     private int score;
     private int level;
     private int levelMax;

@@ -1,20 +1,18 @@
 package views.game;
 
-import javafx.scene.Node;
-import utils.AudioManager;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import models.Game;
+import utils.AudioManager;
 import utils.Icon;
 import utils.StageManager;
 import views.TextStyle;
 import views.View;
 
-import static views.Layout.*;
+import static views.Layout.spacer;
+import static views.Layout.width;
 import static views.Widget.*;
 
 public class SelectTheme extends View {
@@ -43,9 +41,9 @@ public class SelectTheme extends View {
 
         this.setAlignment(Pos.CENTER);
         this.getChildren().addAll(
-            text("Select a theme", TextStyle.TITLE), 
-            themesList, 
-            backButton(actionEvent -> game.shutdown())
+                text("Select a theme", TextStyle.TITLE),
+                themesList,
+                backButton(actionEvent -> game.shutdown())
         );
     }
 

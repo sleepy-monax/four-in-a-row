@@ -1,12 +1,11 @@
 package models.multiplayer;
 
+import models.Game;
 import models.controller.GameController;
 import models.message.GameDisconnected;
 import models.message.OnPlayerScoreChange;
-import models.message.OnSelectTheme;
 import models.messageloop.Message;
 import models.states.GameState;
-import models.Game;
 import network.*;
 
 import java.io.IOException;
@@ -14,12 +13,12 @@ import java.util.Objects;
 
 public class Slave extends GameController implements ConnectionListener {
     private final Connection connection;
-    
+
     private final String username;
     private final String password;
     private final String address;
     private final int port;
-    
+
     private int localPlayer;
 
     public Slave(Game game, String username, String address, int port, String password) {
@@ -27,7 +26,7 @@ public class Slave extends GameController implements ConnectionListener {
 
         connection = new Connection();
         connection.setClientListener(this);
-        
+
         this.username = username;
         this.password = password;
         this.address = address;
@@ -50,10 +49,10 @@ public class Slave extends GameController implements ConnectionListener {
     public void onConnect(Connection connection) {
         System.out.println("Logging in...");
         connection.send(
-            new PacketBuilder(PacketType.LOGIN)
-            .withString(username)
-            .withLong(Objects.hash(password))
-            .build()
+                new PacketBuilder(PacketType.LOGIN)
+                        .withString(username)
+                        .withLong(Objects.hash(password))
+                        .build()
         );
     }
 
@@ -111,40 +110,39 @@ public class Slave extends GameController implements ConnectionListener {
         connection.close();
     }
 
-    public GameState getPassiveState()
-    {
+    public GameState getPassiveState() {
         return new GameState() {
             @Override
             public void selectTheme(String theme) {
                 connection.send(
-                    new PacketBuilder(PacketType.PLAYER_SELECT_THEME)
-                    .withString(theme)
-                    .build()
+                        new PacketBuilder(PacketType.PLAYER_SELECT_THEME)
+                                .withString(theme)
+                                .build()
                 );
             }
 
             @Override
             public void selectMisteryTheme() {
                 connection.send(
-                    new PacketBuilder(PacketType.PLAYER_SELECT_MISTERY_THEME)
-                    .build()
+                        new PacketBuilder(PacketType.PLAYER_SELECT_MISTERY_THEME)
+                                .build()
                 );
             }
 
             @Override
             public void answer(String answer) {
                 connection.send(
-                    new PacketBuilder(PacketType.PLAYER_ANSWER)
-                    .withString(answer)
-                    .build()
+                        new PacketBuilder(PacketType.PLAYER_ANSWER)
+                                .withString(answer)
+                                .build()
                 );
             }
 
             @Override
             public void pass() {
                 connection.send(
-                    new PacketBuilder(PacketType.PLAYER_PASS)
-                    .build()
+                        new PacketBuilder(PacketType.PLAYER_PASS)
+                                .build()
                 );
             }
         };

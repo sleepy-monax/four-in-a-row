@@ -46,8 +46,7 @@ public class PacketBuilder {
         checkBuilt();
         try {
             dataOutputStream.writeInt(b.length);
-            if (b.length > 0)
-            {
+            if (b.length > 0) {
                 dataOutputStream.write(b);
             }
         } catch (final IOException e) {

@@ -1,8 +1,5 @@
 package views.widgets;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Transition;
@@ -10,18 +7,21 @@ import javafx.scene.CacheHint;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
-import utils.Animations;
+import views.Animations;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Background extends StackPane {
     private boolean spinnerVisible;
     private double parallax = 0;
 
-    private Pane gradient;
-    private Pane spinner;
+    private final Pane gradient;
+    private final Pane spinner;
 
-    private Pane particlesContainer;
-    private ArrayList<Double> particlesSpeed;
-    private ArrayList<Pane> particles;
+    private final Pane particlesContainer;
+    private final ArrayList<Double> particlesSpeed;
+    private final ArrayList<Pane> particles;
 
     public Background() {
         gradient = new Pane();
@@ -109,7 +109,7 @@ public class Background extends StackPane {
         julien.setId("julien");
         this.getChildren().add(julien);
 
-        Animations.translateY(1080, 0, 0.25, 0, () -> {
+        Animations.translateY(julien, 1080, 0, 0.25, 0, () -> {
             if (spinnerVisible) {
                 Animations.fade(particlesContainer, 0, 1, 1, 0);
             }
@@ -117,7 +117,7 @@ public class Background extends StackPane {
             for (Pane pane : particles) {
                 pane.setId("julien");
             }
-        }, julien);
+        });
         Animations.translateY(julien, 0, 1080, 0.25, 1);
     }
 
@@ -161,7 +161,7 @@ public class Background extends StackPane {
             Animations.scale(spinner, 0, 5, 0.5);
             spinner.setOpacity(0.25);
 
-            Animations.fade(0, 0.1, 0.5, particlesContainer);
+            Animations.fade(particlesContainer, 0, 0.1, 0.5);
         }
     }
 
@@ -170,7 +170,7 @@ public class Background extends StackPane {
             spinnerVisible = false;
 
             Animations.scale(spinner, 5, 0, 0.5);
-            Animations.fade(0.1, 0, 0.5, particlesContainer);
+            Animations.fade(particlesContainer, 0.1, 0, 0.5);
         }
     }
 

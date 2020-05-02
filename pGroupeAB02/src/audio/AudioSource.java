@@ -1,11 +1,11 @@
 package audio;
 
-import static org.lwjgl.openal.AL10.*;
+import javafx.application.Platform;
+import utils.ThreadManager;
 
 import java.util.concurrent.Future;
 
-import javafx.application.Platform;
-import utils.ThreadManager;
+import static org.lwjgl.openal.AL10.*;
 
 public class AudioSource {
     private int handle;

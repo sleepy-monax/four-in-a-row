@@ -4,13 +4,13 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import models.Player;
-import utils.Animations;
+import views.Animations;
 
 public class MaxLevel extends HBox {
 
-    private Pane[] levels;
+    private final Pane[] levels;
 
-    public MaxLevel(int value){
+    public MaxLevel(int value) {
         super(8);
         this.getStyleClass().add("maxLevel");
         this.setAlignment(Pos.CENTER);
@@ -31,8 +31,7 @@ public class MaxLevel extends HBox {
 
     public void update(int value) {
         for (int i = 1; i <= value; i++) {
-            if (!levels[i - 1].getId().equals("level-gold"))
-            {
+            if (!levels[i - 1].getId().equals("level-gold")) {
                 levels[i - 1].setId("level-gold");
                 Animations.scale(levels[i - 1], 1, 1.25, 0.1, 0);
                 Animations.scale(levels[i - 1], 1.25, 1, 0.1, 0.1);

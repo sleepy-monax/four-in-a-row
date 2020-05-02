@@ -6,8 +6,7 @@ import utils.StageManager;
 
 public abstract class View extends StackPane {
     public View(boolean withPadding) {
-        if (withPadding)
-        {
+        if (withPadding) {
             this.setPadding(new Insets(32));
             this.setMaxWidth(StageManager.DEFAULT_SCREEN_WIDTH);
         }

@@ -1,14 +1,14 @@
 package views.game;
 
-import javafx.scene.Node;
-import views.TextStyle;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import models.multiplayer.Multiplayer;
-import utils.StageManager;
 import utils.Icon;
+import utils.StageManager;
+import views.TextStyle;
 import views.View;
 import views.Widget;
 import views.menu.Main;
@@ -32,23 +32,23 @@ public class Join extends View {
         });
 
         Region loginPane = panel(
-            vertical(
-                16,
-                horizontallyCentered(Widget.text("Join Game", TextStyle.TITLE)),
-                spacer(16),
-                text("Host adress:", TextStyle.LABEL),
-                hostAddressField,
-                text("Host port:", TextStyle.LABEL),
-                hostPortField,
-                text("Password:", TextStyle.LABEL),
-                hostPasswordField,
-                spacer(16),
-                joinButton
-            )
+                vertical(
+                        16,
+                        horizontallyCentered(Widget.text("Join Game", TextStyle.TITLE)),
+                        spacer(16),
+                        text("Host adress:", TextStyle.LABEL),
+                        hostAddressField,
+                        text("Host port:", TextStyle.LABEL),
+                        hostPortField,
+                        text("Password:", TextStyle.LABEL),
+                        hostPasswordField,
+                        spacer(16),
+                        joinButton
+                )
         );
 
         this.getChildren().addAll(
-            verticallyCentered(width(512,loginPane)), 
-            backButton(actionEvent -> StageManager.goBackTo(new Main())));
+                verticallyCentered(width(512, loginPane)),
+                backButton(actionEvent -> StageManager.goBackTo(new Main())));
     }
 }

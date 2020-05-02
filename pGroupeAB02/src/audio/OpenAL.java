@@ -1,8 +1,9 @@
 package audio;
 
-import org.lwjgl.openal.*;
-
-import utils.ThreadManager;
+import org.lwjgl.openal.AL;
+import org.lwjgl.openal.ALC;
+import org.lwjgl.openal.ALCCapabilities;
+import org.lwjgl.openal.ALCapabilities;
 
 import static org.lwjgl.openal.ALC10.*;
 
@@ -14,7 +15,7 @@ public class OpenAL {
         String defaultDeviceName = alcGetString(0, ALC_DEFAULT_DEVICE_SPECIFIER);
         device = alcOpenDevice(defaultDeviceName);
 
-        int[] attributes = { 0 };
+        int[] attributes = {0};
 
         context = alcCreateContext(device, attributes);
         alcMakeContextCurrent(context);

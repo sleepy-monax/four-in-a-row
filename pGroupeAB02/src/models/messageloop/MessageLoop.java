@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import java.util.function.Consumer;
 
 public class MessageLoop {
-    private LinkedList<Message> pendings = new LinkedList<>();
-    private HashSet<Notifiable> notifiables = new HashSet<>();
+    private final LinkedList<Message> pendings = new LinkedList<>();
+    private final HashSet<Notifiable> notifiables = new HashSet<>();
 
     public MessageLoop() {
     }

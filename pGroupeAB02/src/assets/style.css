@@ -30,17 +30,17 @@
     -fx-background-size: cover;
 }
 
-#particle{
+#particle {
     -fx-background-image: url("images/particle.png");
     -fx-background-size: cover;
 }
 
-#julien{
+#julien {
     -fx-background-image: url("images/julien.png");
     -fx-background-size: cover;
 }
 
-#wheel{
+#wheel {
     -fx-background-image: url("images/wheel.png");
     -fx-background-size: cover;
 }
@@ -55,19 +55,19 @@
     -fx-max-height: 256;
 }
 
-#sidebar{
-    -fx-background-color: linear-gradient( #205BAE, #001D47);
+#sidebar {
+    -fx-background-color: linear-gradient(#205BAE, #001D47);
 }
 
-#level-gold{
-    -fx-background-color: linear-gradient( #FFB100, #FFF612);
-    -fx-border-color: linear-gradient( #FFF612, #FFB100);
+#level-gold {
+    -fx-background-color: linear-gradient(#FFB100, #FFF612);
+    -fx-border-color: linear-gradient(#FFF612, #FFB100);
     -fx-background-radius: 32;
     -fx-border-radius: 32;
     -fx-border-width: 8;
 }
 
-#level-black{
+#level-black {
     -fx-background-color: linear-gradient(#C6C6C6, #FFFFFF);
     -fx-border-color: linear-gradient(#FFFFFF, #C6C6C6);
     -fx-background-radius: 32;
@@ -78,8 +78,8 @@
 
 .button {
     -fx-border-width: 2;
-    -fx-background-color: linear-gradient( #64A4FF, #0149AF);
-    -fx-border-color: linear-gradient( #FFF612, #FFB100);
+    -fx-background-color: linear-gradient(#64A4FF, #0149AF);
+    -fx-border-color: linear-gradient(#FFF612, #FFB100);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
     -fx-text-fill: white;
 }
@@ -89,9 +89,9 @@
     -fx-border-color: #FFFFFF;
 }
 
-.button:pressed{
+.button:pressed {
     -fx-effect: none;
-    -fx-background-color: linear-gradient(#0149AF,  #64A4FF);
+    -fx-background-color: linear-gradient(#0149AF, #64A4FF);
 }
 
 .FIR_button {
@@ -102,21 +102,21 @@
     -fx-border-radius: 16;
 }
 
-.FIR_big-button{
+.FIR_big-button {
     -fx-pref-height: 48;
     -fx-font-size: 18;
     -fx-background-radius: 24;
     -fx-border-radius: 24;
 }
 
-.FIR_big-button-orb{
+.FIR_big-button-orb {
     -fx-pref-height: 72;
     -fx-pref-width: 72;
 
     -fx-background-radius: 36;
-    -fx-background-color: linear-gradient( #000000, #434343);
+    -fx-background-color: linear-gradient(#000000, #434343);
 
-    -fx-border-color: linear-gradient( #ffffff, #757575);
+    -fx-border-color: linear-gradient(#ffffff, #757575);
     -fx-border-radius: 36;
     -fx-border-width: 8;
 
@@ -134,7 +134,7 @@
     -fx-border-radius: 24;
 }
 
-.FIR_textfield{
+.FIR_textfield {
     -fx-text-fill: black;
     -fx-font-size: 18;
 
@@ -159,7 +159,7 @@
     -fx-background-image: url("images/buzzer-pressed.png");
 }
 
-.FIR_big-buzzer{
+.FIR_big-buzzer {
     -fx-background-image: url("images/big-buzzer.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
@@ -182,16 +182,16 @@
     -fx-border-color: linear-gradient(#FFFFFF, #C6C6C6);
 }
 
-.FIR_player-state .status{
+.FIR_player-state .status {
     -fx-text-fill: rgba(0, 0, 0, 0.5);
     -fx-font-size: 16;
 }
 
-.FIR_player-state .username{
+.FIR_player-state .username {
     -fx-text-fill: black;
 }
 
-.dialog{
+.dialog {
     -fx-background-color: linear-gradient(#fff, #999);
     -fx-background-radius: 16;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 16, 0, 0.0, 4.0);
@@ -219,30 +219,30 @@
     -fx-padding: 16;
 }
 
-.card-body{
+.card-body {
     -fx-text-fill: black;
     -fx-font-size: 20;
 }
 
-.countdown{
+.countdown {
     -fx-text-fill: linear-gradient(#999, #fff);
     -fx-font-size: 64;
     -fx-font-weight: bold;
 }
 
-.actualScore{
+.actualScore {
     -fx-text-fill: linear-gradient(#999, #fff);
     -fx-font-size: 48;
     -fx-font-weight: bold;
 }
 
-.maxLevel{
+.maxLevel {
     -fx-text-fill: linear-gradient(#999, #fff);
     -fx-font-size: 20;
     -fx-font-weight: bold;
 }
 
-.radio-button{
+.radio-button {
     -fx-label-padding: 0 0 0 8;
     -fx-font-size: 11pt;
     -fx-font-family: 'roboto';
@@ -267,9 +267,9 @@
     -fx-border-width: 2;
 }
 
-.radio-button:selected .dot{
+.radio-button:selected .dot {
     -fx-background-radius: 8px;
-    -fx-background-color: linear-gradient( #434343,  #000000);
+    -fx-background-color: linear-gradient(#434343, #000000);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 4, 0, 0.0, 4.0);
 }
 

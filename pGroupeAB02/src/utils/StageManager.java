@@ -1,11 +1,5 @@
 package utils;
 
-import views.widgets.Background;
-import views.dialogs.Dialog;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,7 +11,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import views.Animations;
 import views.View;
+import views.dialogs.Dialog;
+import views.widgets.Background;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public final class StageManager {
     public static final int DEFAULT_SCREEN_WIDTH = 960;
@@ -110,16 +110,16 @@ public final class StageManager {
         nextView.setDisable(true);
         nextView.onAttach();
 
-        Animations.fade(0, 1, 0.25, () -> {
+        Animations.fade(nextView, 0, 1, 0.25, () -> {
             currentView.onDettach();
             viewContainer.getChildren().remove(currentView);
             currentView = nextView;
             nextView.onSwitchIn();
             nextView.setDisable(false);
-        }, nextView);
+        });
 
         Animations.scale(nextView, 4, 1, 0.25);
-        Animations.fade(1, 0, 0.25, currentView);
+        Animations.fade(currentView, 1, 0, 0.25);
     }
 
 
@@ -131,17 +131,17 @@ public final class StageManager {
         nextView.setDisable(true);
         nextView.onAttach();
 
-        Animations.fade(0, 1, 0.25, () -> {
+        Animations.fade(nextView, 0, 1, 0.25, () -> {
             currentView.onDettach();
             viewContainer.getChildren().remove(currentView);
             currentView = nextView;
             nextView.onSwitchIn();
             nextView.setDisable(false);
-        }, nextView);
+        });
 
         Animations.translateX(nextView, -DEFAULT_SCREEN_WIDTH, 0, 0.25);
 
-        Animations.fade(1, 0, 0.25, currentView);
+        Animations.fade(currentView, 1, 0, 0.25);
         Animations.translateX(currentView, 0, DEFAULT_SCREEN_WIDTH, 0.25);
 
         AudioManager.playEffect("assets/effects/woosh.wav");
@@ -155,17 +155,17 @@ public final class StageManager {
         nextView.setDisable(true);
         nextView.onAttach();
 
-        Animations.fade(0, 1, 0.25, () -> {
+        Animations.fade(nextView, 0, 1, 0.25, () -> {
             currentView.onDettach();
             viewContainer.getChildren().remove(currentView);
             currentView = nextView;
             nextView.onSwitchIn();
             nextView.setDisable(false);
-        }, nextView);
+        });
 
         Animations.translateX(nextView, DEFAULT_SCREEN_WIDTH, 0, 0.25);
 
-        Animations.fade(1, 0, 0.25, currentView);
+        Animations.fade(currentView, 1, 0, 0.25);
         Animations.translateX(currentView, 0, -DEFAULT_SCREEN_WIDTH, 0.25);
 
         AudioManager.playEffect("assets/effects/woosh.wav");
@@ -178,8 +178,8 @@ public final class StageManager {
         dialogContainer.getChildren().add(dialog);
         StackPane.setAlignment(dialog, Pos.CENTER);
 
-        Animations.fade(0, 1, 0.1, dialogContainer);
-        Animations.translateY(128, 0, 0.1, dialog);
+        Animations.fade(dialogContainer, 0, 1, 0.1);
+        Animations.translateY(dialog, 128, 0, 0.1);
 
         AudioManager.playEffect("assets/effects/woosh.wav");
         viewContainer.setEffect(new BoxBlur(8, 8, 2));
@@ -187,11 +187,11 @@ public final class StageManager {
         viewContainer.setEffect(null);
         AudioManager.playEffect("assets/effects/woosh.wav");
 
-        Animations.translateY(0, 128, 0.1, dialog);
-        Animations.fade(1, 0, 0.1, () -> {
+        Animations.translateY(dialog, 0, 128, 0.1);
+        Animations.fade(dialogContainer, 1, 0, 0.1, () -> {
             dialogContainer.getChildren().remove(dialog);
             dialogContainer.setDisable(true);
-        }, dialogContainer);
+        });
     }
 
     public static Background background() {

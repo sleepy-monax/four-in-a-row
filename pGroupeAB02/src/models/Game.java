@@ -2,7 +2,9 @@ package models;
 
 import models.message.*;
 import models.messageloop.MessageLoop;
-import models.states.*;
+import models.states.Finish;
+import models.states.GameState;
+import models.states.SelectTheme;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +12,10 @@ import java.util.List;
 public class Game {
     private Deck deck;
     private int localPlayer = -1;
-    private Player[] players;
-    private MessageLoop messageLoop;
+    private final Player[] players;
+    private final MessageLoop messageLoop;
     private GameState state;
-    private Difficulty difficulty;
+    private final Difficulty difficulty;
     private boolean stopped = false;
 
     public Game(Deck deck, Difficulty difficulty) {
@@ -115,16 +117,16 @@ public class Game {
         return playerList;
     }
 
-    public void setLocalPlayer(Player player) {
-        localPlayer = player.getId();
-    }
-
     public Player getLocalPlayer() {
         if (localPlayer != -1) {
             return players[localPlayer];
         }
 
         return null;
+    }
+
+    public void setLocalPlayer(Player player) {
+        localPlayer = player.getId();
     }
 
     public Player getPlayer(int id) {

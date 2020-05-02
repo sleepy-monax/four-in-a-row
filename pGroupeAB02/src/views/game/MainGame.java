@@ -1,23 +1,24 @@
 package views.game;
 
-import views.widgets.*;
-import views.dialogs.YesNo;
-import views.dialogs.YesNoDialog;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
-import models.message.*;
-import models.messageloop.Notifiable;
 import models.Game;
 import models.Player;
-import utils.ShakeTransition;
+import models.message.*;
+import models.messageloop.Notifiable;
 import utils.Icon;
+import utils.ShakeTransition;
 import views.View;
+import views.dialogs.YesNo;
+import views.dialogs.YesNoDialog;
+import views.widgets.*;
 
-import static views.Widget.*;
 import static views.Layout.*;
+import static views.Widget.iconButton;
+import static views.Widget.panel;
 
 public class MainGame extends View {
     private final Game game;
@@ -62,23 +63,23 @@ public class MainGame extends View {
         answer.setOnAnswer(game::answer);
 
         Region statusPanel = panel(
-            new StackPane(
-                fillWith(horizontallyCentered(countdown)),
-            horizontal(
-                32,
-                verticallyCentered(quitButton),
-                verticallyCentered(actualScore),
-                fillWith(spacer(0)),
-                maxLevel,
-                verticallyCentered(passButton)
-            ))
+                new StackPane(
+                        fillWith(horizontallyCentered(countdown)),
+                        horizontal(
+                                32,
+                                verticallyCentered(quitButton),
+                                verticallyCentered(actualScore),
+                                fillWith(spacer(0)),
+                                maxLevel,
+                                verticallyCentered(passButton)
+                        ))
         );
 
         Region cluesAndAnswerPanel = vertical(
-            0,
-            statusPanel,
-            fillWith(clueStack),
-            horizontallyCentered(width(512, answer))
+                0,
+                statusPanel,
+                fillWith(clueStack),
+                horizontallyCentered(width(512, answer))
         );
 
         this.getChildren().add(cluesAndAnswerPanel);
@@ -96,16 +97,14 @@ public class MainGame extends View {
         });
 
         onAnswerCorrect = game.getMessageLoop().registerNotifier(OnAnswerCorrect.class, message -> {
-            if (message.player().equals(player))
-            {
+            if (message.player().equals(player)) {
                 clueStack.clearClues();
                 answer.clear();
             }
         });
 
         onPlayerScoreChange = game.getMessageLoop().registerNotifier(OnPlayerScoreChange.class, message -> {
-            if (message.player().equals(player))
-            {
+            if (message.player().equals(player)) {
                 System.out.println(player + " ?= " + message.player());
                 actualScore.update(message.getScore());
                 maxLevel.update(message.getLevel());
@@ -113,8 +112,7 @@ public class MainGame extends View {
         });
 
         onAnswerIncorrect = game.getMessageLoop().registerNotifier(OnAnswerIncorrect.class, message -> {
-            if (message.player().equals(player))
-            {
+            if (message.player().equals(player)) {
                 ShakeTransition shake = new ShakeTransition(answer, Duration.seconds(0.5), 16, 3);
                 shake.play();
                 maxLevel.update(game.getPlayer(0).getLevel());
@@ -122,8 +120,7 @@ public class MainGame extends View {
         });
 
         onQuestionPassed = game.getMessageLoop().registerNotifier(OnQuestionPassed.class, message -> {
-            if (message.player().equals(player))
-            {
+            if (message.player().equals(player)) {
                 clueStack.clearClues();
                 answer.clear();
             }

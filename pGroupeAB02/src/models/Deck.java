@@ -8,10 +8,31 @@ import java.util.List;
 import java.util.Random;
 
 public class Deck implements Serializable {
-    private List<Question> questions;
+    static Deck cachedDeck = null;
+    private final List<Question> questions;
 
     public Deck() {
         questions = new ArrayList<>();
+    }
+
+    public static Deck get() {
+        if (cachedDeck == null) {
+            cachedDeck = Serialization.readFromJsonFile("questions.json", Deck.class);
+
+            if (cachedDeck == null) {
+                System.out.println("DECK: WARNING: Falling back on the builtin deck.");
+
+                cachedDeck = Serialization.readFromJsonFileInJar("/assets/questions.json", Deck.class);
+            } else {
+                System.out.println("DECK: Using the deck from the data folder");
+            }
+        }
+
+        return cachedDeck;
+    }
+
+    public static void save() {
+        Serialization.writeToJsonFile("questions.json", cachedDeck);
     }
 
     public boolean add(Question question) {
@@ -23,9 +44,7 @@ public class Deck implements Serializable {
     }
 
     public void addQuestions(List<Question> questionsList) {
-        if (questionsList != null) {
-            questionsList.forEach(this::add);
-        }
+        this.questions.addAll(questions);
     }
 
     public boolean replace(Question oldQuestion, Question newQuestion) {
@@ -101,27 +120,5 @@ public class Deck implements Serializable {
     @Override
     public String toString() {
         return "{" + " questions='" + getQuestions() + "'" + "}";
-    }
-
-    static Deck cachedDeck = null;
-
-    public static Deck get() {
-        if (cachedDeck == null) {
-            cachedDeck = Serialization.readFromJsonFile("questions.json", Deck.class);
-
-            if (cachedDeck == null) {
-                System.out.println("DECK: WARNING: Falling back on the builtin deck.");
-
-                cachedDeck = Serialization.readFromJsonFileInJar("/assets/questions.json", Deck.class);
-            } else {
-                System.out.println("DECK: Using the deck from the data folder");
-            }
-        }
-
-        return cachedDeck;
-    }
-
-    public static void save() {
-        Serialization.writeToJsonFile("questions.json", cachedDeck);
     }
 }

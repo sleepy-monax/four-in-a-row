@@ -1,6 +1,5 @@
 package views;
 
-import javafx.animation.Animation;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -227,8 +225,8 @@ public final class Widget {
         slider.setMax(1);
         slider.setValue(getValue.call());
 
-        final int[] lastTick = { (int) (getValue.call() * 10) };
-        final long[] lastTickTime = { System.currentTimeMillis() };
+        final int[] lastTick = {(int) (getValue.call() * 10)};
+        final long[] lastTickTime = {System.currentTimeMillis()};
 
         slider.valueProperty().addListener(event -> {
             int tick = (int) (slider.getValue() * 15);
@@ -262,8 +260,7 @@ public final class Widget {
         return pane;
     }
 
-    public static Region backButton(EventHandler<? super MouseEvent> onClick)
-    {
+    public static Region backButton(EventHandler<? super MouseEvent> onClick) {
         Pane button = new Pane();
         //button.setStyle("-fx-border-color: green");
 

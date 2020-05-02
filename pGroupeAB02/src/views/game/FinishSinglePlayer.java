@@ -34,8 +34,6 @@ public class FinishSinglePlayer extends View {
 
         ListScore.get().ajouterScore(new Score(game.getPlayer(0).getName(), game.getPlayer(0).getScore()));
         ListScore.saveScore();
-
-
     }
 
     @Override

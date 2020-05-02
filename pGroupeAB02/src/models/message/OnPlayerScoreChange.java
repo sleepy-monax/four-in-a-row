@@ -1,12 +1,12 @@
 package models.message;
 
-import java.io.IOException;
-
 import models.Game;
 import models.Player;
 import models.messageloop.Message;
 import network.PacketBuilder;
 import network.PacketReader;
+
+import java.io.IOException;
 
 public class OnPlayerScoreChange extends Message {
     private Player player;
@@ -48,7 +48,7 @@ public class OnPlayerScoreChange extends Message {
     @Override
     public void makePacket(PacketBuilder builder) {
         builder.withInt(player.getId());
-        
+
         builder.withInt(score);
         builder.withInt(level);
         builder.withInt(levelMax);
