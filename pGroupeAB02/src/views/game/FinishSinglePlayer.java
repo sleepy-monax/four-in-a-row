@@ -1,13 +1,13 @@
 package views.game;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import models.Game;
+import models.scores.Score;
+import models.scores.ListScore;
 import utils.AudioManager;
-import utils.Serialization;
 import views.Layout;
 import views.TextStyle;
 import views.View;
@@ -32,7 +32,9 @@ public class FinishSinglePlayer extends View {
         this.getChildren().addAll(Widget.text("Game Finished!", TextStyle.TITLE),
                 Layout.verticallyCentered(Layout.width(512, panel)), goHome);
 
-        Serialization.writeToJsonFile("scores.json",game.getPlayer(0));
+        ListScore.get().ajouterScore(new Score(game.getPlayer(0).getName(), game.getPlayer(0).getScore()));
+        ListScore.saveScore();
+
 
     }
 
