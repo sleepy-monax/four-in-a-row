@@ -17,6 +17,10 @@ public class ListScore implements Serializable {
         scores.add(score);
     }
 
+    public List<Score> getScores() {
+        return scores;
+    }
+
     public static ListScore cacheScore = null;
 
     public static ListScore get(){
