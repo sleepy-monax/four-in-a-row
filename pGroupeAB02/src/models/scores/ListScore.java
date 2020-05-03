@@ -14,7 +14,7 @@ public class ListScore implements Serializable {
     }
 
     public void ajouterScore(Score score){
-        lesScores.add(score);
+        lesScores.add(score.clone());
     }
 
     public static ListScore cacheScore = null;

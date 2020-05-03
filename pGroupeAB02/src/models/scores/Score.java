@@ -28,4 +28,8 @@ public class Score implements Serializable {
         this.score = score;
     }
 
+    public Score clone(){
+        return new Score(name, score);
+    }
+
 }
