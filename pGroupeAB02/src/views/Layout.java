@@ -3,6 +3,7 @@ package views;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -34,15 +35,15 @@ public class Layout {
         return region;
     }
 
-    public static Region vertical(double spacing, Node... nodes) {
+    public static Pane vertical(double spacing, Node... nodes) {
         return new VBox(spacing, nodes);
     }
 
-    public static Region horizontal(double spacing, Node... nodes) {
+    public static Pane horizontal(double spacing, Node... nodes) {
         return new HBox(spacing, nodes);
     }
 
-    public static Region horizontal(double spacing, Pos alignment, Node... nodes) {
+    public static Pane horizontal(double spacing, Pos alignment, Node... nodes) {
         HBox hbox = new HBox(spacing, nodes);
 
         hbox.setAlignment(alignment);

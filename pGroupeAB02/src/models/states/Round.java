@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Round extends GameState {
-    public static final double ROUND_TIME = 60.0;
+    public static final double ROUND_TIME = 10.0;
     public static final double CLUE_TIME = 5.0;
 
     private final Game game;
