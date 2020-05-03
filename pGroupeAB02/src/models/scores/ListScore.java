@@ -7,21 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListScore implements Serializable {
-    private List<Score> lesScores;
+    private List<Score> scores;
 
     private ListScore() {
-        lesScores = new ArrayList<>();
+        scores = new ArrayList<>();
     }
 
-    public void ajouterScore(Score score){
-        lesScores.add(score.clone());
+    public void addScore(Score score){
+        scores.add(score);
     }
 
     public static ListScore cacheScore = null;
 
     public static ListScore get(){
         if (cacheScore == null)
-            Serialization.readFromJsonFile("scores.json", Score.class);
+            cacheScore = Serialization.readFromJsonFile("scores.json", ListScore.class);
 
         if (cacheScore == null) {
             cacheScore = new ListScore();
