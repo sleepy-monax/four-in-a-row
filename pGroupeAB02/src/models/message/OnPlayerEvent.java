@@ -34,6 +34,11 @@ public class OnPlayerEvent extends Message {
     }
 
     @Override
+    public boolean confined() {
+        return false;
+    }
+
+    @Override
     public void makePacket(PacketBuilder builder) {
         builder.withInt(player.getId());
         builder.withInt(event.ordinal());

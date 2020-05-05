@@ -69,6 +69,10 @@ public abstract class Message {
         return true;
     }
 
+    public boolean confined()    {
+        return false;
+    }
+
     public final Packet asPacket() {
         PacketBuilder builder = new PacketBuilder(PacketType.GAME_MESSAGE);
 

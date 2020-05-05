@@ -40,6 +40,7 @@ public class Finish extends View {
             );
 
             playerList.getChildren().add(playerPane);
+            ListScore.get().addScore(new Score(player.getName(), player.getScore()));
         }
 
         Region goHome = backButton(event -> game.shutdown());
@@ -48,7 +49,6 @@ public class Finish extends View {
         this.getChildren().addAll(text("Game Finished!", TextStyle.TITLE),
                 verticallyCentered(width(512, playerList)), goHome);
 
-        ListScore.get().addScore(new Score(game.getPlayer(0).getName(), game.getPlayer(0).getScore()));
         ListScore.saveScore();
     }
 

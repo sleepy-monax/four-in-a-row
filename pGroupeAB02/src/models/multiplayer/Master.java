@@ -36,7 +36,8 @@ public class Master extends GameController implements ConnectionListener {
 
             @Override
             public void handle(Message message) {
-                server.broadcast(message.asPacket());
+                if (!message.confined())
+                    server.broadcast(message.asPacket());
             }
 
             @Override

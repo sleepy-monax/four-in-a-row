@@ -18,7 +18,6 @@ public class AudioSource {
     }
 
     public void reset() {
-        System.out.println("AUDIO: " + this + " reset!");
 
         if (future != null) {
             future.cancel(true);
@@ -40,7 +39,6 @@ public class AudioSource {
     private void unqueueProcessed() {
         int processed_count = alGetSourcei(handle, AL_BUFFERS_PROCESSED);
 
-        System.out.println("AUDIO: " + "Unqueing " + processed_count + " buffer from " + this);
 
         for (int i = 0; i < processed_count; i++) {
             alSourceUnqueueBuffers(handle);
@@ -78,7 +76,6 @@ public class AudioSource {
     }
 
     public void playNow(AudioBuffer buffer, Runnable then) {
-        System.out.println("AUDIO: " + this + ".PlayNow(" + buffer + ")");
 
         reset();
 
@@ -93,7 +90,6 @@ public class AudioSource {
                     Platform.runLater(then);
                 }
             } catch (InterruptedException e) {
-                System.out.println("AUDIO: " + this + " interrupted!");
 
                 stop();
                 return;
@@ -104,15 +100,12 @@ public class AudioSource {
     }
 
     public void playLoop(AudioBuffer buffer) {
-        System.out.println("AUDIO: " + this + ".PlayLoop(" + buffer + ")");
         reset();
 
-        System.out.println("AUDIO: " + this + ".PlayLoop(" + buffer + "): queuing buffer...");
         alSourceQueueBuffers(handle, buffer.handle());
         setLooping(true);
 
         play();
-        System.out.println("AUDIO: " + this + ".PlayLoop(" + buffer + "): Start playing");
     }
 
     public void playLoopWithTransition(AudioBuffer buffer, AudioBuffer transition) {
@@ -120,7 +113,6 @@ public class AudioSource {
     }
 
     public void playLoopWithTransition(AudioBuffer buffer, AudioBuffer transition, Runnable then) {
-        System.out.println("AUDIO: " + this + ".playLoopWithTransition(" + buffer + ", " + transition + ")");
         reset();
 
         alSourceQueueBuffers(handle, transition.handle());
@@ -129,7 +121,6 @@ public class AudioSource {
         future = ThreadManager.launch(() -> {
             try {
                 Thread.sleep((int) (1000 * (transition.lenghtInSecounds() + 0.1)));
-                System.out.println("AUDIO: " + this + " switching to the loop");
 
                 unqueueProcessed();
 
@@ -139,9 +130,7 @@ public class AudioSource {
                     Platform.runLater(then);
                 }
 
-                System.out.println("AUDIO: " + this + " switching to the loop completed");
             } catch (InterruptedException e) {
-                System.out.println("AUDIO: " + this + " interrupted!");
 
                 stop();
                 return;

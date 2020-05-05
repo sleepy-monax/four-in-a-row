@@ -7,6 +7,7 @@ import models.states.GameState;
 import models.states.SelectTheme;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Game {
@@ -16,7 +17,6 @@ public class Game {
     private final MessageLoop messageLoop;
     private GameState state;
     private final Difficulty difficulty;
-    private boolean stopped = false;
 
     public Game(Deck deck, Difficulty difficulty) {
         setDeck(deck);
@@ -50,6 +50,8 @@ public class Game {
     }
 
     public Player joinPlayer(int id, String name) {
+        System.out.println("ADDING PLAYER " + id + "name: " + name + "!------------------------------------------------");
+
         if (players[id] == null) {
             Player newPlayer = new Player(id, name);
             System.out.println(newPlayer + " join the game");
@@ -61,13 +63,14 @@ public class Game {
             return newPlayer;
         }
 
+        System.out.println("PLAYERS: " + Arrays.toString(players));
+
         return null;
     }
 
     public boolean removePlayer(Player player) {
         for (int i = 0; i < players.length; i++) {
             if (players[i] == player) {
-                System.out.println(player + " leave the game lolololololo");
                 state.quit(player);
                 messageLoop.post(new OnPlayerEvent(player, PlayerEvent.LEAVE));
                 System.out.println(player + " leave the game");
@@ -178,7 +181,6 @@ public class Game {
     }
 
     public void shutdown() {
-        stopped = true;
         messageLoop.post(new GameShutdown());
     }
 }

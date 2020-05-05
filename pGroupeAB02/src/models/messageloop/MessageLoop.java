@@ -18,10 +18,13 @@ public class MessageLoop {
             if (notifier.canAccept(message)) {
                 System.out.println("MESSAGELOOP: dispatching: " + message + " to " + notifier);
 
-                notifier.handle(message);
-
-                if (notifier.canConsume()) {
-                    is_dispatched = true;
+                try {
+                    notifier.handle(message);
+                    if (notifier.canConsume()) {
+                        is_dispatched = true;
+                    }
+                } catch (Exception e) {
+                    //TODO: handle exception
                 }
             }
         }

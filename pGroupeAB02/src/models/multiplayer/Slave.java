@@ -82,9 +82,7 @@ public class Slave extends GameController implements ConnectionListener {
             case PLAYER_JOIN:
                 int player_count = reader.readInt();
                 for (int i = 0; i < player_count; i++) {
-                    if (i != localPlayer) {
-                        game().joinPlayer(reader.readInt(), reader.readString());
-                    }
+                    game().joinPlayer(reader.readInt(), reader.readString());
                 }
                 break;
 
