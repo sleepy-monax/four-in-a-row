@@ -12,7 +12,7 @@ import java.util.List;
 public class DeckTest {
     private Deck deck;
     private List<Question> questions;
-    private Question q1, q2, q3;
+    private Question q1, q2;
 
     @org.junit.Before
     public void setUp() throws Exception {
@@ -33,7 +33,6 @@ public class DeckTest {
         deck = null;
         q1=null;
         q2=null;
-        q3=null;
     }
 
     @org.junit.Test
@@ -60,8 +59,5 @@ public class DeckTest {
         deck.add(null);
         Assert.assertEquals(questions.size(), size);
     }
-
-
-
 
 }
