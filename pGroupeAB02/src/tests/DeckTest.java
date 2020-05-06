@@ -26,6 +26,11 @@ public class DeckTest {
 
     @org.junit.After
     public void tearDown() throws Exception {
+        questions = null;
+        deck = null;
+        q1=null;
+        q2=null;
+        q3=null;
     }
 
     @org.junit.Test
