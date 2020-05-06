@@ -1,5 +1,6 @@
 package models;
 
+import exceptions.DoublonException;
 import utils.Serialization;
 
 import java.io.Serializable;
@@ -35,11 +36,11 @@ public class Deck implements Serializable {
         Serialization.writeToJsonFile("questions.json", cachedDeck);
     }
 
-    public boolean add(Question question) {
+    public boolean add(Question question) throws DoublonException {
         if (question.isValid() && !questions.contains(question)) {
             return questions.add(question.clone());
         } else {
-            return false;
+            throw new DoublonException();
         }
     }
 
@@ -50,7 +51,11 @@ public class Deck implements Serializable {
     public boolean replace(Question oldQuestion, Question newQuestion) {
         if (newQuestion.isValid() && questions.contains(oldQuestion) && !questions.contains(newQuestion)) {
             questions.remove(oldQuestion);
-            add(newQuestion);
+            try {
+                add(newQuestion);
+            } catch (DoublonException e) {
+                e.printStackTrace();
+            }
             return true;
         }
 

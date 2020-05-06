@@ -1,5 +1,6 @@
 package views.menu;
 
+import exceptions.DoublonException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -39,7 +40,11 @@ public class Editor extends View {
                     Question newQuestion = new Question();
 
                     if (new EditQuestion(newQuestion).show() == OkCancel.OK) {
-                        deck.add(newQuestion);
+                        try {
+                            deck.add(newQuestion);
+                        } catch (DoublonException e) {
+                            e.printStackTrace();
+                        }
                         data.clear();
                         data.addAll(deck.getQuestions());
                     }
