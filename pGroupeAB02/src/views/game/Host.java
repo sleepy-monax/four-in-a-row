@@ -54,7 +54,7 @@ public class Host extends View {
                         gamePortField,
                         text("Game Password:", TextStyle.LABEL),
                         gamePasswordField,
-                        text("Dificulty:", TextStyle.LABEL),
+                        text("Difficulty:", TextStyle.LABEL),
                         easyButton,
                         mediumButton,
                         hardButton,

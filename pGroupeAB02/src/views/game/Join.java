@@ -36,7 +36,7 @@ public class Join extends View {
                         16,
                         horizontallyCentered(Widget.text("Join Game", TextStyle.TITLE)),
                         spacer(16),
-                        text("Host adress:", TextStyle.LABEL),
+                        text("Host address:", TextStyle.LABEL),
                         hostAddressField,
                         text("Host port:", TextStyle.LABEL),
                         hostPortField,
