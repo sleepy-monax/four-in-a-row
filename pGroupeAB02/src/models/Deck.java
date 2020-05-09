@@ -37,7 +37,7 @@ public class Deck implements Serializable {
     }
 
     public boolean add(Question question) throws DoublonException {
-        if (question.isValid() && !questions.contains(question)) {
+        if (question != null && question.isValid() && !questions.contains(question)) {
             return questions.add(question.clone());
         } else {
             throw new DoublonException();
